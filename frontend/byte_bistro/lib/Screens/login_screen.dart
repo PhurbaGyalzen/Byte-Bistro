@@ -37,7 +37,7 @@ class LoginScreen extends StatelessWidget {
                         decoration: InputDecoration(
                           prefixIcon: Icon(Icons.person),
                           border: InputBorder.none,
-                          hintText: "Your username",
+                          hintText: "Username",
                           hintStyle: TextStyle(
                             color: Color(0xFFB6B7B7),
                           ),
