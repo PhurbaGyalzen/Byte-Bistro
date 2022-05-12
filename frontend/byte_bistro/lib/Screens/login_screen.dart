@@ -1,7 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class LoginScreen extends StatefulWidget {
+  LoginScreen({Key? key}) : super(key: key);
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final _formkey = GlobalKey<FormState>();
+
+  bool _isObscure = true;
 
   @override
   Widget build(BuildContext context) {
@@ -19,29 +29,48 @@ class LoginScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(
                   horizontal: 40,
                 ),
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      height: 10,
-                    ),
-
-                    ///username start
-                    Container(
-                      width: double.infinity,
-                      height: 50,
-                      decoration: const ShapeDecoration(
-                        color: Color(0xFFF2F2F2),
-                        shape: StadiumBorder(),
+                child: Form(
+                  key: _formkey,
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 10,
                       ),
-                      child: const TextField(
+
+                      ///username start
+                      TextFormField(
+                        validator: RequiredValidator(errorText: '*required'),
                         decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.person),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              color: Color(0xFFF2F2F2),
+                              width: 2.0,
+                            ),
+                            borderRadius: BorderRadius.circular(25.0),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              color: Color(0xFFF2F2F2),
+                              width: 2.0,
+                            ),
+                            borderRadius: BorderRadius.circular(25.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              color: Color(0xFFF2F2F2),
+                              width: 2.0,
+                            ),
+                            borderRadius: BorderRadius.circular(25.0),
+                          ),
+                          filled: true,
+                          fillColor: const Color(0xFFF2F2F2),
+                          prefixIcon: const Icon(Icons.person),
                           border: InputBorder.none,
                           hintText: "Username",
-                          hintStyle: TextStyle(
+                          hintStyle: const TextStyle(
                             color: Color(0xFFB6B7B7),
                           ),
-                          contentPadding: EdgeInsets.fromLTRB(
+                          contentPadding: const EdgeInsets.fromLTRB(
                             20.0,
                             15.0,
                             20.0,
@@ -49,106 +78,150 @@ class LoginScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                    ),
 
-                    ///username end
-                    const SizedBox(
-                      height: 15,
-                    ),
-
-                    ///password start
-                    Container(
-                      width: double.infinity,
-                      height: 50,
-                      decoration: const ShapeDecoration(
-                        color: Color(0xFFF2F2F2),
-                        shape: StadiumBorder(),
+                      ///username end
+                      const SizedBox(
+                        height: 15,
                       ),
-                      child: const TextField(
+
+                      ///password start
+                      TextFormField(
+                        validator: RequiredValidator(errorText: '*required'),
+
+                        // obscureText: true,
+                        obscureText: _isObscure,
+
                         decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              color: Color(0xFFF2F2F2),
+                              width: 2.0,
+                            ),
+                            borderRadius: BorderRadius.circular(25.0),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              color: Color(0xFFF2F2F2),
+                              width: 2.0,
+                            ),
+                            borderRadius: BorderRadius.circular(25.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              color: Color(0xFFF2F2F2),
+                              width: 2.0,
+                            ),
+                            borderRadius: BorderRadius.circular(25.0),
+                          ),
+                          filled: true,
+                          fillColor: const Color(0xFFF2F2F2),
                           hintText: "Password",
-                          prefixIcon: Icon(Icons.lock),
+                          prefixIcon: const Icon(Icons.lock),
+                          suffixIcon: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                _isObscure = !_isObscure;
+                              });
+                            },
+                            icon: Icon(
+                              _isObscure
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                            ),
+                          ),
+                          contentPadding: const EdgeInsets.fromLTRB(
+                            20.0,
+                            15.0,
+                            20.0,
+                            15.0,
+                          ),
                           border: InputBorder.none,
-                          hintStyle: TextStyle(
+                          hintStyle: const TextStyle(
                             color: Color(0xFFB6B7B7),
                           ),
-                          contentPadding: EdgeInsets.fromLTRB(
-                            20.0,
-                            15.0,
-                            20.0,
-                            15.0,
+                        ),
+                      ),
+
+                      ///password end
+
+                      const SizedBox(
+                        height: 15,
+                      ),
+
+                      //forgot password
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, '/forgotPassword');
+                        },
+                        child: const Text(
+                          "Forgot your password?",
+                          style: TextStyle(
+                            color: Colors.blue,
                           ),
                         ),
                       ),
-                    ),
+                      //forgot password end
 
-                    ///password end
-                    
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    
-
-                    //forgot password
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, '/forgotPassword');
-                      },
-                      child: const Text(
-                        "Forgot your password?",
+                      const SizedBox(
+                        height: 40,
                       ),
-                    ),
-                    //forgot password end
-
-                    const SizedBox(
-                      height: 40,
-                    ),
-                    //login button
-                    SizedBox(
-                      height: 50,
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/');
-                        },
-                        child: const Text("Login"),
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.orange,
-                          shape: const StadiumBorder(),
+                      //login button
+                      SizedBox(
+                        height: 50,
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            if (_formkey.currentState!.validate()) {
+                              Navigator.pushNamed(context, '/');
+                            }
+                          },
+                          child: const Text(
+                            "Login",
+                            style: TextStyle(fontSize: 20),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            // primary: Colors.orange,
+                            primary: Colors.blue,
+                            shape: const StadiumBorder(),
+                          ),
                         ),
                       ),
-                    ),
-                    //login button end
+                      //login button end
 
-                    const SizedBox(
-                      height: 10,
-                    ),
-
-                    const SizedBox(
-                      height: 10,
-                    ),
-
-                    ///sign up
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.popAndPushNamed(context, '/signup');
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Text("Don't have an account?"),
-                          Text(
-                            "Sign Up",
-                            style: TextStyle(
-                              color: Colors.orange,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          )
-                        ],
+                      const SizedBox(
+                        height: 10,
                       ),
-                    ),
-                    //sign up end
-                  ],
+
+                      const SizedBox(
+                        height: 10,
+                      ),
+
+                      ///sign up
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.popAndPushNamed(context, '/signup');
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Text("Don't have an account?"),
+                            Text(
+                              " Sign Up",
+                              style: TextStyle(
+                                // color: Colors.orange,
+                                color: Colors.blue,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      //sign up end
+                      const SizedBox(
+                        height: 50,
+                      ),
+                    ],
+                  ),
                 ),
               )
             ],
