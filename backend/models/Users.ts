@@ -5,6 +5,11 @@ export interface IUser {
     passwordHash: string
     email: string
     fullname: string
+    phones: string[]
+    address: string
+    avatar: string
+    isAdmin: boolean
+    bio: string
 }
 interface IUserDoc extends IUser, Document {}
 
@@ -33,6 +38,29 @@ const UserSchemaFields: Record<keyof IUser, any> = {
         required: true,
         minlength: 1,
         maxlength: 255,
+    },
+    phones: {
+        type: [String],
+        minlength: 1,
+        maxlength: 20,
+    },
+    address: {
+        type: String,
+        minlength: 1,
+        maxLength: 150,
+    },
+    avatar: {
+        type: String,
+    },
+    bio: {
+        type: String,
+        minlength: 0,
+        maxlength: 255,
+        default: '',
+    },
+    isAdmin: {
+        type: Boolean,
+        default: false,
     },
 }
 
