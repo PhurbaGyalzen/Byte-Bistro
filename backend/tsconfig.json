@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "es2016",
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "baseUrl": "./",
+    "paths": {
+      "@models/*": [
+        "models/*"
+      ],
+      "@tests/*": [
+        "tests/*"
+      ]
+    },
+    "outDir": "/dist", 
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true
+  }
+}
