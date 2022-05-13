@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'Screens/login_screen.dart';
+import 'Screens/food_detail_screen.dart';
 
 void main() {
   runApp(Byte_Bistro());
@@ -17,7 +17,7 @@ class Byte_Bistro extends StatelessWidget {
         
         
   
-        '/login': (context) => const LoginScreen(),
+        '/login': (context) => const IndividualItem(),
         
       },
       
