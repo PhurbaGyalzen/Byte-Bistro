@@ -1,8 +1,12 @@
+import 'package:byte_bistro/Screens/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../Services/auth_service.dart';
 
 class LoginScreen extends StatefulWidget {
-  LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -12,6 +16,10 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formkey = GlobalKey<FormState>();
 
   bool _isObscure = true;
+
+  // editing controller
+  final TextEditingController usernameController = new TextEditingController();
+  final TextEditingController passwordController = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                       ///username start
                       TextFormField(
+                        controller: usernameController,
                         validator: RequiredValidator(errorText: '*required'),
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
@@ -86,6 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                       ///password start
                       TextFormField(
+                        controller: passwordController,
                         validator: RequiredValidator(errorText: '*required'),
 
                         // obscureText: true,
@@ -170,9 +180,28 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 50,
                         width: double.infinity,
                         child: ElevatedButton(
-                          onPressed: () {
+                          onPressed: () async {
                             if (_formkey.currentState!.validate()) {
-                              Navigator.pushNamed(context, '/');
+                               
+                                // print(usernameController.text);
+                                // print(passwordController.text);
+                                final Future<SharedPreferences> _prefs =
+                                    SharedPreferences.getInstance();
+                                final SharedPreferences prefs = await _prefs;
+
+                                var response = await AuthService.login(
+                                  usernameController.text,
+                                  passwordController.text,
+                                );
+
+                                if (response != null) {
+                                  prefs.setString("token", response.token);
+                                  Navigator.pushNamed(context, '/home_screen');
+
+                                } else {
+                                  print("cannot login");
+                                }
+                              ;
                             }
                           },
                           child: const Text(

@@ -3,8 +3,13 @@ import dotenv from 'dotenv';
 import { initDbConnection } from './config/database'
 import passport from 'passport';
 import { default as authRoutes } from './routes/authRoutes'
+import cors from 'cors';
+import morgan from 'morgan';
+
 
 const app = express()
+app.use(morgan('combined'))
+app.use(cors())
 const port = process.env.PORT
 
 
