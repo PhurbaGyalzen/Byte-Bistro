@@ -1,9 +1,11 @@
+import 'package:byte_bistro/Screens/home/Controller/food_controller.dart';
 import 'package:byte_bistro/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class TabItem extends StatelessWidget {
-  const TabItem({Key? key}) : super(key: key);
+  TabItem({Key? key}) : super(key: key);
 
+  var foodData = getFoodData();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -62,7 +64,7 @@ class TabItem extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Egg Salad',
+                            foodData.name,
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               height: 1.5,

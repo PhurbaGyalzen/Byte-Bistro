@@ -16,7 +16,7 @@ class ByteBistro extends StatelessWidget {
     ));
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/',
+      initialRoute: '/home',
       title: 'Byte Bistro',
       routes: {
         '/home': (context) => const HomePage(),
