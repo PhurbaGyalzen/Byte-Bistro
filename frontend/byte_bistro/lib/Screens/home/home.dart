@@ -1,3 +1,4 @@
+import 'package:byte_bistro/Screens/home/widgets/top_of_day.dart';
 import 'package:flutter/material.dart';
 import 'package:byte_bistro/constants/colors.dart';
 import 'package:byte_bistro/Screens/home/widgets/app_bar.dart';
@@ -34,6 +35,7 @@ class _HomePageState extends State<HomePage> {
                 FoodTab(),
                 TabItem(),
                 TodaySpecial(),
+                TopOfDay(),
               ],
             ),
           ),
