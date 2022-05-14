@@ -36,7 +36,7 @@ class BuildAppBar extends StatelessWidget {
             ),
             Expanded(
               child: Image(
-                image: AssetImage('assets/images/notification2.png'),
+                image: AssetImage('assets/images/notification.png'),
                 height: 20,
                 width: 20,
               ),

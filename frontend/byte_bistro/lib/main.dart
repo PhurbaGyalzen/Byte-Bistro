@@ -13,7 +13,7 @@ class ByteBistro extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/home',
+      initialRoute: '/',
       routes: {
         '/login': (context) => const LoginScreen(),
         '/home': (context) => const HomePage(),
