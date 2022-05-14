@@ -1,3 +1,4 @@
+import 'package:byte_bistro/Screens/home/home.dart';
 import 'package:flutter/material.dart';
 
 import 'Screens/login_screen.dart';
@@ -12,9 +13,10 @@ class ByteBistro extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/login',
+      initialRoute: '/home',
       routes: {
         '/login': (context) => const LoginScreen(),
+        '/home': (context) => const HomePage(),
       },
     );
   }
