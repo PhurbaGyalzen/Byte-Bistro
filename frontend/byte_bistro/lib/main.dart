@@ -1,7 +1,6 @@
 import 'package:byte_bistro/Screens/home/home.dart';
 import 'package:flutter/material.dart';
-
-import 'Screens/login_screen.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(const ByteBistro());
@@ -12,10 +11,14 @@ class ByteBistro extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+    ));
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       initialRoute: '/',
+      title: 'Byte Bistro',
       routes: {
-        '/login': (context) => const LoginScreen(),
         '/home': (context) => const HomePage(),
       },
     );
