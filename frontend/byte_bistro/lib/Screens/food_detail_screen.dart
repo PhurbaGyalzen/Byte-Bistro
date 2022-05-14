@@ -11,8 +11,12 @@ class IndividualItem extends StatefulWidget {
 }
 
 class _IndividualItemState extends State<IndividualItem> {
+  int _orderCount = 1;
+
   @override
   Widget build(BuildContext context) {
+    print('rendering IndividualItem');
+    print('state is: $_orderCount');
     return Scaffold(
       body: Stack(
         children: [
@@ -175,7 +179,7 @@ class _IndividualItemState extends State<IndividualItem> {
                                               Row(
                                                 children: [
                                                   const Text(
-                                                    "Number of Portions",
+                                                    "Order Count",
                                                     style: TextStyle(
                                                       fontSize: 16,
                                                     ),
@@ -195,7 +199,14 @@ class _IndividualItemState extends State<IndividualItem> {
                                                                   MaterialStateProperty
                                                                       .all(
                                                                           5.0)),
-                                                          onPressed: () {},
+                                                          onPressed: () {
+                                                            if (_orderCount >
+                                                                1) {
+                                                              setState(() {
+                                                                _orderCount--;
+                                                              });
+                                                            }
+                                                          },
                                                           child:
                                                               const Text("-"),
                                                         ),
@@ -214,20 +225,22 @@ class _IndividualItemState extends State<IndividualItem> {
                                                                       .blue),
                                                             ),
                                                           ),
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            children: const [
-                                                              Text(
-                                                                "2",
-                                                                style:
-                                                                    TextStyle(
-                                                                  color: Colors
-                                                                      .blue,
-                                                                ),
-                                                              ),
-                                                            ],
+                                                          child: TextFormField(
+                                                            key: Key(_orderCount
+                                                                .toString()),
+                                                            onSaved: (value) {
+                                                              setState(() {
+                                                                _orderCount =
+                                                                    int.parse(
+                                                                        value!);
+                                                              });
+                                                            },
+                                                            initialValue:
+                                                                _orderCount
+                                                                    .toString(),
+                                                            keyboardType:
+                                                                TextInputType
+                                                                    .number,
                                                           ),
                                                         ),
                                                         const SizedBox(
@@ -243,7 +256,11 @@ class _IndividualItemState extends State<IndividualItem> {
                                                                   MaterialStateProperty
                                                                       .all(
                                                                           5.0)),
-                                                          onPressed: () {},
+                                                          onPressed: () {
+                                                            setState(() {
+                                                              _orderCount++;
+                                                            });
+                                                          },
                                                           child:
                                                               const Text("+"),
                                                         ),
