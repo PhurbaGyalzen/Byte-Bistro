@@ -1,6 +1,7 @@
 import 'package:byte_bistro/Screens/signup_screen.dart';
 import 'package:flutter/material.dart';
 // import 'package:get/get.dart';
+import 'package:get/get.dart';
 
 import 'Screens/login_screen.dart';
 
@@ -13,12 +14,13 @@ class Byte_Bistro extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       initialRoute: '/signup',
-      routes: {
-        '/login': (context) => LoginScreen(),
-        '/signup': (context) => SignUpScreen(),
-      },
+      getPages: [
+        
+        GetPage(name: '/login', page: () => LoginScreen()),
+        GetPage(name:'/signup',page: ()=> SignUpScreen()),
+      ],
     );
   }
 }
