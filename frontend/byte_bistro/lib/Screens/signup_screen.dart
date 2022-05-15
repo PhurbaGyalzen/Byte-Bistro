@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
-class SignUpScreen extends StatelessWidget {
-  SignUpScreen({Key? key}) : super(key: key);
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({Key? key}) : super(key: key);
+
+  @override
+  State<SignUpScreen> createState() => _SignUpState();
+}
+
+class _SignUpState extends State<SignUpScreen> {
   final _formkey = GlobalKey<FormState>();
+  bool _isObscure = true;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +41,7 @@ class SignUpScreen extends StatelessWidget {
               // const SizedBox(
               //   height: 5,
               // ),
-              Image.asset('assets/images/sign_u2.jpg'),
+              Image.asset('assets/images/sign_u2.png'),
 
               Container(
                 padding: const EdgeInsets.symmetric(
@@ -225,6 +232,18 @@ class SignUpScreen extends StatelessWidget {
                             color: Color(0xFFB6B7B7),
                           ),
                           prefixIcon: const Icon(Icons.lock),
+                          suffixIcon: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                _isObscure = !_isObscure;
+                              });
+                            },
+                            icon: Icon(
+                              _isObscure
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                            ),
+                          ),
                           contentPadding: const EdgeInsets.fromLTRB(
                             20.0,
                             15.0,
@@ -245,7 +264,9 @@ class SignUpScreen extends StatelessWidget {
                         width: double.infinity,
                         child: ElevatedButton(
                           onPressed: () {
-                            if (_formkey.currentState!.validate()) {}
+                            if (_formkey.currentState!.validate()) {
+                              Navigator.popAndPushNamed(context, '/login');
+                            }
                           },
                           child: const Text(
                             "Sign Up",
