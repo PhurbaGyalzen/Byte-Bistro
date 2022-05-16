@@ -1,5 +1,9 @@
+import 'package:byte_bistro/Screens/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../Services/auth_service.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -179,22 +183,22 @@ class _LoginScreenState extends State<LoginScreen> {
                             if (_formkey.currentState!.validate()) {
                               // print(usernameController.text);
                               // print(passwordController.text);
-                              // final Future<SharedPreferences> _prefs =
-                              //     SharedPreferences.getInstance();
-                              // final SharedPreferences prefs = await _prefs;
+                              final Future<SharedPreferences> _prefs =
+                                  SharedPreferences.getInstance();
+                              final SharedPreferences prefs = await _prefs;
 
-                              // var response = await AuthService.login(
-                              //   usernameController.text,
-                              //   passwordController.text,
-                              // );
+                              var response = await AuthService.login(
+                                usernameController.text,
+                                passwordController.text,
+                              );
 
-                              // if (response != null) {
-                              //   prefs.setString("token", response.token);
-                              //   Navigator.pushNamed(context, '/home_screen');
-                              // } else {
-                              //   print("cannot login");
-                              // }
-                              // ;
+                              if (response != null) {
+                                prefs.setString("token", response.token);
+                                Navigator.pushNamed(context, '/home');
+                              } else {
+                                print("cannot login");
+                              }
+                              ;
                             }
                           },
                           child: const Text(
@@ -239,9 +243,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       //sign up end
-                      const SizedBox(
-                        height: 50,
-                      ),
+                      // const SizedBox(
+                      //   height: 50,
+                      // ),
                     ],
                   ),
                 ),

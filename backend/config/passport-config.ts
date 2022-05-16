@@ -40,4 +40,23 @@ export const initialize = (passport: any) => {
             })
         }),
     );
+
+    passport.use('local-login',
+        new LocalStrategy({
+            usernameField: 'username',
+            passwordField: 'password',
+        },
+        async function (username, password, done) {
+            const user = await User.findOne({ username: username })
+            if (!user) {
+                return done(null, false, { message: 'User not found' })
+            }
+            const isPasswordValid = await bcrypt.compare(password, user.passwordHash)
+            if (!isPasswordValid) {
+                return done(null, false, { message: 'Password is invalid' })
+            }
+            return done(null, user)
+
+        }
+    ));
     }
