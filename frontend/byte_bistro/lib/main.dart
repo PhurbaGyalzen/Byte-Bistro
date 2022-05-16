@@ -1,4 +1,5 @@
 import 'package:byte_bistro/Screens/home/home.dart';
+import 'package:byte_bistro/Screens/home/widgets/individual_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -20,6 +21,7 @@ class ByteBistro extends StatelessWidget {
       title: 'Byte Bistro',
       routes: {
         '/home': (context) => const HomePage(),
+        '/individual': (context) => const IndividualItem(),
       },
     );
   }

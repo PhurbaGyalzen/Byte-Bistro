@@ -1,3 +1,4 @@
+import 'package:byte_bistro/Screens/home/widgets/individual_item.dart';
 import 'package:byte_bistro/Screens/home/widgets/top_of_day.dart';
 import 'package:flutter/material.dart';
 import 'package:byte_bistro/constants/colors.dart';
