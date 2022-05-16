@@ -3,11 +3,14 @@ import dotenv from 'dotenv'
 import { initDbConnection } from './config/database'
 import passport from 'passport'
 import { default as authRoutes } from './routes/authRoutes'
+
 import morgan from 'morgan'
 import enableCors from 'middlewares/enable-cors'
 import helmet from 'helmet'
 
 const app = express()
+app.use(morgan('combined'))
+app.use(cors())
 const port = process.env.PORT
 
 app.use(morgan('dev'))
