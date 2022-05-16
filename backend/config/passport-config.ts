@@ -22,6 +22,12 @@ export const initialize = (passport: any) => {
             if (user) {
                 return done(null, false, { message: 'Username already exists' })
             }
+            const checkEmail = await User.findOne({ email: body.email })
+
+            if (checkEmail) {
+                return done(null, false, {message:'(Duplicate) Email already exists'})
+            }
+
             const hash = await bcrypt.hash(password, 12)
             const newUser = new User({ username, passwordHash: hash, email: body.email, fullname: body.fullname})
             await newUser.save()
