@@ -10,7 +10,6 @@ import helmet from 'helmet'
 
 const app = express()
 app.use(morgan('combined'))
-app.use(cors())
 const port = process.env.PORT
 
 app.use(morgan('dev'))
