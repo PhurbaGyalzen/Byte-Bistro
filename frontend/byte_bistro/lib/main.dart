@@ -7,20 +7,15 @@ void main() {
 }
 
 class Byte_Bistro extends StatelessWidget {
-  const Byte_Bistro({ Key? key }) : super(key: key);
+  const Byte_Bistro({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/login',
+      initialRoute: '/details',
       routes: {
-        
-        
-  
-        '/login': (context) => const IndividualItem(),
-        
+        '/details': (context) => const IndividualItem(),
       },
-      
     );
   }
 }
