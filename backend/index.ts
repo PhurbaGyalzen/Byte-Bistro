@@ -3,12 +3,14 @@ import dotenv from 'dotenv'
 import { initDbConnection } from './config/database'
 import passport from 'passport'
 import { default as authRoutes } from './routes/authRoutes'
+
 import morgan from 'morgan'
 import enableCors from 'middlewares/enable-cors'
 import helmet from 'helmet'
 import foodRoutes from 'routes/foodRoutes'
 
 const app = express()
+app.use(morgan('combined'))
 const port = process.env.PORT
 
 app.use(morgan('dev'))
@@ -20,6 +22,7 @@ app.use(passport.initialize())
 app.use('/food', foodRoutes)
 
 app.use('/auth', authRoutes)
+app.use('/food', foodRoutes)
 
 app.listen(port, async () => {
 	await initDbConnection()

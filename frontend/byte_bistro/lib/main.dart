@@ -1,20 +1,32 @@
+import 'package:byte_bistro/Screens/home/home.dart';
+import 'package:byte_bistro/Screens/home/widgets/individual_item.dart';
 import 'package:flutter/material.dart';
 
-import 'Screens/food_detail_screen.dart';
+import 'Screens/home_page.dart';
+import 'Screens/login_screen.dart';
+import 'package:flutter/services.dart';
 
 void main() {
-  runApp(Byte_Bistro());
+  runApp(const ByteBistro());
 }
 
-class Byte_Bistro extends StatelessWidget {
-  const Byte_Bistro({Key? key}) : super(key: key);
+class ByteBistro extends StatelessWidget {
+  const ByteBistro({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+    ));
     return MaterialApp(
-      initialRoute: '/details',
+      theme: ThemeData(fontFamily: 'Roboto'),
+      initialRoute: '/login',
+      debugShowCheckedModeBanner: false,
+      title: 'Byte Bistro',
       routes: {
-        '/details': (context) => const IndividualItem(),
+        '/login': (context) => const LoginScreen(),
+        '/home': (context) => const HomePage(),
+        '/individual': (context) => const IndividualItem(),
       },
     );
   }
