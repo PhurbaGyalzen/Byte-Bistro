@@ -6,6 +6,7 @@ import 'package:byte_bistro/Services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:byte_bistro/models/food.model.dart';
+import 'package:get/get.dart';
 
 class IndividualItem extends StatefulWidget {
   const IndividualItem({Key? key}) : super(key: key);
@@ -474,7 +475,7 @@ class _IndividualItemState extends State<IndividualItem> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          Navigator.pop(context);
+                          Get.back();
                         },
                         child: const Icon(
                           Icons.arrow_back_ios_rounded,

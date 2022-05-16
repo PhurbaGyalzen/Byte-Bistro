@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:get/get.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -284,7 +285,7 @@ class _SignUpState extends State<SignUpScreen> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Navigator.popAndPushNamed(context, '/login');
+                          Get.toNamed('/login');
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,

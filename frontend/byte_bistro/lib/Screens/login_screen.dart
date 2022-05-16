@@ -2,7 +2,7 @@ import 'package:byte_bistro/Screens/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:get/get.dart';
 import '../Services/auth_service.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -225,7 +225,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ///sign up
                       GestureDetector(
                         onTap: () {
-                          Navigator.popAndPushNamed(context, '/signup');
+                          Get.toNamed('/signup');
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,

@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:clip_shadow/clip_shadow.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import '../models/food.model.dart';
 
@@ -491,7 +492,7 @@ class _IndividualItemState extends State<IndividualItem> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          Navigator.pop(context);
+                          Get.back();
                         },
                         child: const Icon(
                           Icons.arrow_back_ios_rounded,
