@@ -196,7 +196,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                                 if (response != null) {
                                   prefs.setString("token", response.token);
-                                  Navigator.pushNamed(context, '/home_screen');
+                                  Navigator.pushNamed(context, '/home');
 
                                 } else {
                                   print("cannot login");

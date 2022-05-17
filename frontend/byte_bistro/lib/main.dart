@@ -27,7 +27,7 @@ class ByteBistro extends StatelessWidget {
       routes: {
         '/login': (context) => const LoginScreen(),
         '/home': (context) => const HomePage(),
-        '/home_screen': (context) => const HomeScreen(),
+        
         '/individual': (context) => const IndividualItem(),
       },
     );
