@@ -2,7 +2,6 @@ import 'package:byte_bistro/Screens/signup_screen.dart';
 import 'package:byte_bistro/Screens/home/home.dart';
 import 'package:byte_bistro/Screens/home/widgets/individual_item.dart';
 import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
 import 'package:get/get.dart';
 
 import 'Screens/home_page.dart';
