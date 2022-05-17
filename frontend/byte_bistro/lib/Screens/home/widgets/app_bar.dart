@@ -11,7 +11,7 @@ class BuildAppBar extends StatelessWidget {
         margin: EdgeInsets.only(bottom: 30),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
-          children: [
+          children: const [
             Expanded(
               child: Image(
                 image: AssetImage('assets/images/menu.png'),

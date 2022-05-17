@@ -1,10 +1,6 @@
-import 'dart:convert';
-import 'dart:ui';
-
 import 'package:byte_bistro/Screens/home/widgets/app_bar.dart';
 import 'package:byte_bistro/Services/auth_service.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:byte_bistro/models/food.model.dart';
 import 'package:get/get.dart';
 
@@ -17,7 +13,7 @@ class IndividualItem extends StatefulWidget {
 
 class _IndividualItemState extends State<IndividualItem> {
   int _orderCount = 1;
-  bool _isFav = false;
+  // bool _isFav = false;
   Food? food;
   @override
   void initState() {
@@ -519,7 +515,7 @@ class CustomTriangle extends CustomClipper<Path> {
     Offset controlpoint4 = Offset(size.width * 0.33, size.height * 0);
     Offset endpoint4 = Offset(size.width * 0.2, size.height * 0.15);
 
-    Path path = new Path()
+    Path path = Path()
       ..moveTo(size.width * 0.2, size.height * 0.15)
       ..quadraticBezierTo(
         controlpoint.dx,

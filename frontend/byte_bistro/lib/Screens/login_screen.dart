@@ -1,4 +1,3 @@
-import 'package:byte_bistro/Screens/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,8 +17,8 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _isObscure = true;
 
   // editing controller
-  final TextEditingController usernameController = new TextEditingController();
-  final TextEditingController passwordController = new TextEditingController();
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
