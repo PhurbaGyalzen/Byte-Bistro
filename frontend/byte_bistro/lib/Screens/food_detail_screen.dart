@@ -1,4 +1,4 @@
-import 'package:clip_shadow/clip_shadow.dart';
+// import 'package:clip_shadow/clip_shadow.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -24,7 +24,7 @@ class _IndividualItemState extends State<IndividualItem> {
 
   Future<void> _fetchFood() async {
     final response = await http.get(
-        Uri.parse('http://100.91.255.71:3000/food/627fd5dd52fdb37643db330f'));
+        Uri.parse('http://100.91.255.71:3000/food/628206498631b1137a449361'));
     final jsonResponse = (response.body);
     setState(() {
       food = foodFromJson(jsonResponse);
@@ -82,7 +82,7 @@ class _IndividualItemState extends State<IndividualItem> {
                               height: MediaQuery.of(context).size.height * 0.35,
                             ),
                             SizedBox(
-                              // height: 780,
+                              height: 780,
                               width: double.infinity,
                               child: Stack(
                                 children: [
@@ -431,39 +431,39 @@ class _IndividualItemState extends State<IndividualItem> {
                                     ),
                                   ),
                                   //add fav
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                      right: 20,
-                                    ),
-                                    child: Align(
-                                      alignment: Alignment.topRight,
-                                      child: ClipShadow(
-                                        clipper: CustomTriangle(),
-                                        boxShadow: const [
-                                          BoxShadow(
-                                            color: Color(0xFFB6B7B7),
-                                            offset: Offset(0, 5),
-                                          )
-                                        ],
-                                        child: GestureDetector(
-                                            onTap: () {
-                                              setState(() {
-                                                _isFav = !_isFav;
-                                              });
-                                            },
-                                            child: Container(
-                                              width: 60,
-                                              height: 60,
-                                              color: Colors.white,
-                                              child: Image.asset(
-                                                  'assets/images/' +
-                                                      (_isFav
-                                                          ? 'fav_filled.png'
-                                                          : 'fav.png')),
-                                            )),
-                                      ),
-                                    ),
-                                  ),
+                                  // Padding(
+                                  //   padding: const EdgeInsets.only(
+                                  //     right: 20,
+                                  //   ),
+                                  //   child: Align(
+                                  //     alignment: Alignment.topRight,
+                                  //     child: ClipShadow(
+                                  //       clipper: CustomTriangle(),
+                                  //       boxShadow: const [
+                                  //         BoxShadow(
+                                  //           color: Color(0xFFB6B7B7),
+                                  //           offset: Offset(0, 5),
+                                  //         )
+                                  //       ],
+                                  //       child: GestureDetector(
+                                  //           onTap: () {
+                                  //             setState(() {
+                                  //               _isFav = !_isFav;
+                                  //             });
+                                  //           },
+                                  //           child: Container(
+                                  //             width: 60,
+                                  //             height: 60,
+                                  //             color: Colors.white,
+                                  //             child: Image.asset(
+                                  //                 'assets/images/' +
+                                  //                     (_isFav
+                                  //                         ? 'fav_filled.png'
+                                  //                         : 'fav.png')),
+                                  //           )),
+                                  //     ),
+                                  //   ),
+                                  // ),
                                 ],
                               ),
                             )
