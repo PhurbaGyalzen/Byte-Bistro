@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:byte_bistro/Services/http_service.dart';
 
+import '../models/food.model.dart';
+
 class AuthService {
   static Future<LoginResponse?> login(String username, String password) async {
     const endpoint = PersistentHtpp.baseUrl + 'auth/signin';
@@ -15,6 +17,14 @@ class AuthService {
     } else {
       return null;
     }
+  }
+
+  static Future<Food> fetchFoodDetails(String foodId) async {
+    String endpoint = PersistentHtpp.baseUrl + 'food/$foodId';
+    final response = await PersistentHtpp.client.get(Uri.parse(endpoint));
+    final jsonResponse = response.body;
+    // also handle errors
+    return foodFromJson(jsonResponse);
   }
 }
 

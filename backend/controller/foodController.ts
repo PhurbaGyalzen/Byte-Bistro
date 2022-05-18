@@ -1,33 +1,54 @@
-const Food = require('../models/Food');
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express'
+import { Food } from '../models/Food'
+
+export const getFood = async (
+	req: Request,
+	res: Response,
+	next: NextFunction
+) => {
+	const food = await Food.findById(req.params.foodId)
+	if (!food) {
+		return res.status(404).json({
+			success: false,
+			message: 'Food not found',
+		})
+	}
+	return res.json({ success: true, data: food })
+}
 
 // controller for viewing all blog
 export const viewFood = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
+	req: Request,
+	res: Response,
+	next: NextFunction
 ) => {
-  try {
-    const foods = await Food.find();
-    res.status(200).json(foods);
-  } catch (err) {
-    res.status(400).json({ message: err });
-  }
-};
+	try {
+		const foods = await Food.find()
+		res.status(200).json(foods)
+	} catch (err) {
+		res.status(400).json({ message: err })
+	}
+}
 
 export const putFood = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
+	req: Request,
+	res: Response,
+	next: NextFunction
 ) => {
-  const { name, price, description, images } = req.body;
-  try {
-    const food = await Food(name, price, description, images);
-    res.status(200).json(food);
-  } catch (err) {
-    res.status(400).json({ message: err });
-  }
-};
+	const { name, price, description, images } = req.body
+	try {
+		const food = new Food({
+			name: name,
+			price: price,
+			description: description,
+			image: images,
+		})
+		await food.save()
+		res.status(200).json(food)
+	} catch (err) {
+		res.status(400).json({ message: err })
+	}
+}
 
 // //
 // export const addFood(String name, int price, String description, String images) async {

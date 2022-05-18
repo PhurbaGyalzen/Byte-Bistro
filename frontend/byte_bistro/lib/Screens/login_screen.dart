@@ -2,7 +2,7 @@ import 'package:byte_bistro/Screens/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:get/get.dart';
 import '../Services/auth_service.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -153,7 +153,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
 
                       ///password end
-
                       const SizedBox(
                         height: 15,
                       ),
@@ -182,25 +181,23 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: ElevatedButton(
                           onPressed: () async {
                             if (_formkey.currentState!.validate()) {
-                               
-                                // print(usernameController.text);
-                                // print(passwordController.text);
-                                final Future<SharedPreferences> _prefs =
-                                    SharedPreferences.getInstance();
-                                final SharedPreferences prefs = await _prefs;
+                              // print(usernameController.text);
+                              // print(passwordController.text);
+                              final Future<SharedPreferences> _prefs =
+                                  SharedPreferences.getInstance();
+                              final SharedPreferences prefs = await _prefs;
 
-                                var response = await AuthService.login(
-                                  usernameController.text,
-                                  passwordController.text,
-                                );
+                              var response = await AuthService.login(
+                                usernameController.text,
+                                passwordController.text,
+                              );
 
-                                if (response != null) {
-                                  prefs.setString("token", response.token);
-                                  Navigator.pushNamed(context, '/home');
-
-                                } else {
-                                  print("cannot login");
-                                }
+                              if (response != null) {
+                                prefs.setString("token", response.token);
+                                Navigator.pushNamed(context, '/home');
+                              } else {
+                                print("cannot login");
+                              }
                               ;
                             }
                           },
@@ -228,7 +225,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ///sign up
                       GestureDetector(
                         onTap: () {
-                          Navigator.popAndPushNamed(context, '/signup');
+                          Get.toNamed('/signup');
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,

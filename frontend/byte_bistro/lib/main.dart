@@ -1,6 +1,9 @@
+import 'package:byte_bistro/Screens/signup_screen.dart';
 import 'package:byte_bistro/Screens/home/home.dart';
 import 'package:byte_bistro/Screens/home/widgets/individual_item.dart';
 import 'package:flutter/material.dart';
+// import 'package:get/get.dart';
+import 'package:get/get.dart';
 
 import 'Screens/home_page.dart';
 import 'Screens/login_screen.dart';
@@ -18,18 +21,17 @@ class ByteBistro extends StatelessWidget {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
     ));
-    return MaterialApp(
+    return GetMaterialApp(
       theme: ThemeData(fontFamily: 'Roboto'),
       initialRoute: '/login',
-      // '/individual_item': (context) => const IndividualItem(),
       debugShowCheckedModeBanner: false,
       title: 'Byte Bistro',
-      routes: {
-        '/login': (context) => const LoginScreen(),
-        '/home': (context) => const HomePage(),
-        
-        '/individual': (context) => const IndividualItem(),
-      },
+      getPages: [
+        GetPage(name: '/login', page: () => LoginScreen()),
+        GetPage(name: '/signup', page: () => SignUpScreen()),
+        GetPage(name: '/home', page: () => HomePage()),
+        GetPage(name: '/individual', page: () => IndividualItem()),
+      ],
     );
   }
 }

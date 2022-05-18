@@ -1,9 +1,10 @@
-import { Router } from 'express';
-import { putFood, viewFood } from '../controller/foodController';
+import { Router } from 'express'
+import { getFood, putFood, viewFood } from '../controller/foodController'
 
-const router = Router();
+const router = Router()
 
-router.get('/', viewFood);
-router.post('/', putFood);
+router.get('/:foodId', getFood)
+router.get('/', viewFood)
+router.post('/', putFood)
 
-export default router;
+export default router
