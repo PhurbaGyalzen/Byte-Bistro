@@ -1,3 +1,4 @@
+import 'package:byte_bistro/Screens/after_order.dart';
 import 'package:byte_bistro/Screens/qr_scanner.dart';
 import 'package:byte_bistro/Screens/signup_screen.dart';
 import 'package:byte_bistro/Screens/home/home.dart';
@@ -31,6 +32,7 @@ class ByteBistro extends StatelessWidget {
         GetPage(name: '/home', page: () => HomePage()),
         GetPage(name: '/individual', page: () => IndividualItem()),
         GetPage(name: '/qrscan', page: () => QrScannerScreen()),
+        GetPage(name: '/after-order', page: () => AfterOrderScreen()),
       ],
     );
   }
