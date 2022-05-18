@@ -6,7 +6,7 @@ import '../models/food.model.dart';
 
 class AuthService {
   static Future<LoginResponse?> login(String username, String password) async {
-    const endpoint = PersistentHtpp.baseUrl + 'auth/signin';
+    String endpoint = PersistentHtpp.baseUrl + 'auth/signin';
     var response = await PersistentHtpp.client.post(Uri.parse(endpoint), body: {
       'username': username,
       'password': password,
