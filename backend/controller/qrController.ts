@@ -54,3 +54,31 @@ export const qrCodeGenerate = async (
         }
     })
 }
+
+export const jsonQrCodeGenerate = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+) => {
+    console.log('qrCodeGenerate json')
+    const data: IMenuItem = req.body
+    const jsonStr: String = JSON.stringify(data)
+
+    await qrcode.toDataURL(jsonStr, (err: any, url: String) => {
+        if (err) {
+            console.log('error is error', err)
+
+            res.status(500).send(err)
+        } else {
+            let img = Buffer.from(
+                url.replace(/^data:image\/\w+;base64,/, ''),
+                'base64',
+            )
+            res.writeHead(200, {
+                'Content-Type': 'image/png',
+                'Content-Length': url.length,
+            })
+            res.end(img)
+        }
+    })
+}
