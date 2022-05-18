@@ -1,11 +1,6 @@
-import 'dart:convert';
-import 'dart:ui';
-
-
 import 'package:byte_bistro/Screens/home/widgets/app_bar.dart';
 import 'package:byte_bistro/Services/auth_service.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:byte_bistro/models/food.model.dart';
 import 'package:get/get.dart';
 
@@ -18,7 +13,7 @@ class IndividualItem extends StatefulWidget {
 
 class _IndividualItemState extends State<IndividualItem> {
   int _orderCount = 1;
-  bool _isFav = false;
+  // bool _isFav = false;
   Food? food;
   @override
   void initState() {
@@ -47,6 +42,12 @@ class _IndividualItemState extends State<IndividualItem> {
             SingleChildScrollView(
               child: Column(
                 children: [
+                  //add parameter in customer Navbar as automatic pass arguments from previous page
+                  // Positioned(
+                  //   bottom: 0,
+                  //   left: 0,
+                  //   child: BuildAppBar(),
+                  // ),
                   Stack(
                     children: [
                       Stack(
@@ -88,7 +89,7 @@ class _IndividualItemState extends State<IndividualItem> {
                               child: Stack(
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsets.only(top: 30),
+                                    padding: const EdgeInsets.only(top: 0),
                                     child: Container(
                                       height: 700,
                                       width: double.infinity,
@@ -440,14 +441,30 @@ class _IndividualItemState extends State<IndividualItem> {
                                   //   ),
                                   //   child: Align(
                                   //     alignment: Alignment.topRight,
-                                  //     child: Container(
-                                  //       width: 50,
-                                  //       height: 50,
-                                  //       color: Colors.white,
-                                  //       child: Image.asset(
-                                  //         'assets/images/like.png',
-                                  //         height: 20,
-                                  //       ),
+                                  //     child: ClipShadow(
+                                  //       clipper: CustomTriangle(),
+                                  //       boxShadow: const [
+                                  //         BoxShadow(
+                                  //           color: Color(0xFFB6B7B7),
+                                  //           offset: Offset(0, 5),
+                                  //         )
+                                  //       ],
+                                  //       child: GestureDetector(
+                                  //           onTap: () {
+                                  //             setState(() {
+                                  //               _isFav = !_isFav;
+                                  //             });
+                                  //           },
+                                  //           child: Container(
+                                  //             width: 60,
+                                  //             height: 60,
+                                  //             color: Colors.white,
+                                  //             child: Image.asset(
+                                  //                 'assets/images/' +
+                                  //                     (_isFav
+                                  //                         ? 'fav_filled.png'
+                                  //                         : 'fav.png')),
+                                  //           )),
                                   //     ),
                                   //   ),
                                   // ),
@@ -495,12 +512,6 @@ class _IndividualItemState extends State<IndividualItem> {
                 ),
               ),
             ),
-            //add parameter in customer Navbar as automatic pass arguments from previous page
-            Positioned(
-              bottom: 0,
-              left: 0,
-              child: BuildAppBar(),
-            )
           ],
         ),
       );
@@ -520,7 +531,7 @@ class CustomTriangle extends CustomClipper<Path> {
     Offset controlpoint4 = Offset(size.width * 0.33, size.height * 0);
     Offset endpoint4 = Offset(size.width * 0.2, size.height * 0.15);
 
-    Path path = new Path()
+    Path path = Path()
       ..moveTo(size.width * 0.2, size.height * 0.15)
       ..quadraticBezierTo(
         controlpoint.dx,

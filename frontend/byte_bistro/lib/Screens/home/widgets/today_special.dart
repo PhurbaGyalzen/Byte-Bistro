@@ -64,7 +64,7 @@ class TodaySpecial extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
+                          children: const [
                             Expanded(
                               flex: 1,
                               child: Text(

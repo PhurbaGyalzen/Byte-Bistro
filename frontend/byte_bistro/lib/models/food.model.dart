@@ -2,7 +2,6 @@
 //
 //     final food = foodFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 Food foodFromJson(String str) => Food.fromJson(json.decode(str));
