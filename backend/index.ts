@@ -8,6 +8,7 @@ import morgan from 'morgan'
 import enableCors from 'middlewares/enable-cors'
 import helmet from 'helmet'
 import foodRoutes from 'routes/foodRoutes'
+import initWebSocket from 'index.ws'
 
 const app = express()
 app.use(morgan('combined'))
@@ -26,6 +27,13 @@ app.use('/food', foodRoutes)
 
 app.listen(port, async () => {
 	await initDbConnection()
+	const httpServer = initWebSocket(app)
+	httpServer.listen(process.env.WSS_PORT, () => {
+		console.log(
+			`🔌[WS]: Server is running at http://localhost:${process.env.WSS_PORT}`
+		)
+	})
+	console.log(`⚡️[TCP]: Server is running at http://localhost:${port}`)
 })
 
 export { app }
