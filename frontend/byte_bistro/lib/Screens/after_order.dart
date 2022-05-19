@@ -55,7 +55,8 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
           ),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 40.0),
+              padding:
+                  const EdgeInsets.symmetric(vertical: 40.0, horizontal: 10.0),
               child: Column(children: [
                 Expanded(
                   child: Row(
@@ -63,10 +64,19 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
                       VerticalLine(first: true),
                       Row(
                         children: [
-                          Icon(
-                            Icons.local_dining,
-                            color: Colors.blue,
-                            size: 50,
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.local_dining,
+                                color: Colors.blue,
+                                size: 50,
+                              ),
+                              Text(
+                                'Done',
+                                style: TextStyle(color: Colors.green),
+                              ),
+                            ],
                           ),
                           Text(
                             'Order Received',
@@ -167,7 +177,7 @@ class VerticalLine extends StatelessWidget {
       ),
     );
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: Column(
         children: children,
       ),
