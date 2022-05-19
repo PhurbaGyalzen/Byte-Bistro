@@ -59,7 +59,7 @@ export const updateFood = async (
   const { name, price, description, images } = req.body;
   try {
     const food = await Food.updateOne(
-      { _id: req.params.id },
+      { _id: req.params.foodId },
       {
         $set: {
           name: req.body.name,
@@ -81,7 +81,7 @@ export const deleteFood = async (
   next: NextFunction
 ) => {
   try {
-    const food = await Food.remove({ _id: req.params.id });
+    const food = await Food.remove({ _id: req.params.foodId });
     res.status(200).json(food);
   } catch (err) {
     res.status(400).json({ message: err });
