@@ -69,7 +69,7 @@ const FoodSchemaFields: Record<keyof IFood, any> = {
 	name: { type: String, required: true, minlength: 1, maxlength: 255 },
 	price: { type: Number, required: true },
 	description: { type: String, minlength: 0, maxlength: 1024 },
-	image: { type: String, required: true },
+	image: { type: String},
 	categories: { type: [String] },
 	isAvailable: { type: Boolean, default: true },
 	avgRating: { type: Number },
