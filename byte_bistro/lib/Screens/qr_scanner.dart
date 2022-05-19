@@ -49,7 +49,8 @@ class _QrScannerState extends State<QrScannerScreen> {
                         'Barcode Type: ${result!.format}   Data: ${result!.code}')
                     : Text('Scan a code'),
               ),
-            )
+            ),
+            Positioned(top: 10, child: buildControlButtons())
           ],
         ),
       ),
@@ -70,4 +71,50 @@ class _QrScannerState extends State<QrScannerScreen> {
     controller?.dispose();
     super.dispose();
   }
+
+  Widget buildControlButtons() => Container(
+        padding: EdgeInsets.symmetric(horizontal: 16),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          color: Colors.white24,
+        ),
+        child: Row(
+          children: [
+            IconButton(
+                onPressed: () async {
+                  await controller?.toggleFlash();
+                  setState(() {});
+                },
+                icon: FutureBuilder<bool?>(
+                  builder: (context, snapshot) {
+                    if (snapshot.data != null) {
+                      return Icon(
+                          snapshot.data! ? Icons.flash_on : Icons.flash_off);
+                    } else {
+                      return Container();
+                    }
+                  },
+                  future: controller?.getFlashStatus(),
+                )),
+            IconButton(
+                onPressed: () async {
+                  await controller?.flipCamera();
+                  setState(() {});
+                },
+                icon: FutureBuilder(
+                  builder: (context, snapshot) {
+                    if (snapshot.data != null) {
+                      return Icon(Icons.switch_camera);
+                    } else {
+                      return Container();
+                    }
+                  },
+                  future: controller?.getCameraInfo(),
+                )),
+          ],
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+        ),
+      );
 }

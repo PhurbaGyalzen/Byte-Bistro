@@ -1,22 +1,21 @@
 import { Request, Response, NextFunction } from 'express';
 import { Food } from '../models/Food';
 
+// controller for viewing single food
 export const getFood = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  const food = await Food.findById(req.params.foodId);
-  if (!food) {
-    return res.status(404).json({
-      success: false,
-      message: 'Food not found',
-    });
+  try {
+    const food = await Food.findById(req.params.foodId);
+    res.status(200).json(food);
+  } catch (err) {
+    res.status(400).json({ message: err });
   }
-  return res.json({ success: true, data: food });
 };
 
-// controller for viewing all blog
+// controller for viewing all food
 export const viewFood = async (
   req: Request,
   res: Response,
@@ -45,6 +44,44 @@ export const putFood = async (
       // image: images,
     });
     await food.save();
+    res.status(200).json(food);
+  } catch (err) {
+    res.status(400).json({ message: err });
+  }
+};
+
+// controller to update single food
+export const updateFood = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { name, price, description, images } = req.body;
+  try {
+    const food = await Food.updateOne(
+      { _id: req.params.id },
+      {
+        $set: {
+          name: req.body.name,
+          price: req.body.price,
+          description: req.body.description,
+        },
+      }
+    );
+    res.status(200).json(food);
+  } catch (err) {
+    res.status(400).json({ message: err });
+  }
+};
+
+// controller to delete single food
+export const deleteFood = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const food = await Food.remove({ _id: req.params.id });
     res.status(200).json(food);
   } catch (err) {
     res.status(400).json({ message: err });
