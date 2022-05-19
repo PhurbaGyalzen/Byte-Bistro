@@ -7,14 +7,22 @@ class AfterOrderScreen extends StatefulWidget {
   _AfterOrderScreenState createState() => _AfterOrderScreenState();
 }
 
+Map<String, int> ORDER_STATUS = {
+  'orderRcvd': 0,
+  'orderPrep': 1,
+  'orderReady': 2
+}
+
 class _AfterOrderScreenState extends State<AfterOrderScreen> {
   @override
   String orderId = '123456';
   String orderedTime = '9:33 PM';
   String itemCount = '2';
   String totalPrice = '500.00';
+  String orderStatus = 'orderPrep';
 
   Widget build(BuildContext context) {
+    int statusIndex = ORDER_STATUS[orderStatus]!;
     return Scaffold(
       body: Center(
         child: Column(children: <Widget>[
