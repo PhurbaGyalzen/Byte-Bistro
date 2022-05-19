@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import '../models/food.model.dart';
+import '../models/food.dart';
 
 class IndividualItem extends StatefulWidget {
   const IndividualItem({Key? key}) : super(key: key);

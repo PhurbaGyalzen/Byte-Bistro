@@ -47,7 +47,7 @@ class Data {
   String description;
   int price;
   String image;
-  String category;
+  String category;git 
   List<String> ingredients;
   bool isAvailable;
 
