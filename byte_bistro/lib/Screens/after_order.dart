@@ -80,13 +80,10 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
                                 color: Colors.blue,
                                 size: 50,
                               ),
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.8,
-                                child: Text(
-                                  _getOrderStatus(0).text,
-                                  style: TextStyle(
-                                      color: _getOrderStatus(0).color),
-                                ),
+                              Text(
+                                _getOrderStatus(0).text,
+                                style:
+                                    TextStyle(color: _getOrderStatus(0).color),
                               ),
                             ],
                           ),
@@ -102,11 +99,15 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
                                       fontWeight: FontWeight.bold,
                                       fontSize: 22),
                                 ),
-                                Text(
-                                  'Order received on ' + orderedTime,
-                                  // '',
-                                  style: TextStyle(
-                                      fontSize: 16, color: Colors.grey),
+                                Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.6,
+                                  child: Text(
+                                    'Order received on ' + orderedTime,
+                                    // '',
+                                    style: TextStyle(
+                                        fontSize: 16, color: Colors.grey),
+                                  ),
                                 ),
                               ],
                             ),
@@ -151,7 +152,7 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
                                 ),
                                 Container(
                                   width:
-                                      MediaQuery.of(context).size.width * 0.8,
+                                      MediaQuery.of(context).size.width * 0.6,
                                   child: Text(
                                     'Your order will be ready approx. in $orderDurationMin minutes',
                                     style: TextStyle(
@@ -201,7 +202,7 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
                                 ),
                                 Container(
                                   width:
-                                      MediaQuery.of(context).size.width * 0.8,
+                                      MediaQuery.of(context).size.width * 0.6,
                                   child: Text(
                                     'Please collect your order from the kitchen. Have a great meal.',
                                     style: TextStyle(
