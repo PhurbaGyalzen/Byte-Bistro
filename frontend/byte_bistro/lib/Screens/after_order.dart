@@ -11,7 +11,7 @@ Map<String, int> ORDER_STATUS = {
   'orderRcvd': 0,
   'orderPrep': 1,
   'orderReady': 2
-}
+};
 
 class _AfterOrderScreenState extends State<AfterOrderScreen> {
   @override
