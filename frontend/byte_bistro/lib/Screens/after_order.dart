@@ -53,7 +53,25 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
               ],
             ),
           ),
-          Text('Body'),
+          Expanded(
+            child: Row(children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 28.0),
+                child: VerticalDivider(
+                  color: Color.fromARGB(255, 153, 150, 150),
+                  thickness: 3,
+                  indent: 20,
+                  endIndent: 20,
+                ),
+              ),
+              Container(
+                child: Text(
+                  'Icons with descriptions',
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
+            ]),
+          ),
         ]),
       ),
     );
