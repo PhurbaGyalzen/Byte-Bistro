@@ -11,15 +11,15 @@ Map<String, int> ORDER_STATUS = {
   'orderRcvd': 0,
   'orderPrep': 1,
   'orderReady': 2
-}
+};
 
 class _AfterOrderScreenState extends State<AfterOrderScreen> {
-  @override
   String orderId = '123456';
   String orderedTime = '9:33 PM';
   String itemCount = '2';
   String totalPrice = '500.00';
   String orderStatus = 'orderPrep';
+  int orderDurationMin = 10;
 
   Widget build(BuildContext context) {
     int statusIndex = ORDER_STATUS[orderStatus]!;
@@ -81,14 +81,32 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
                                 size: 50,
                               ),
                               Text(
-                                'Done',
-                                style: TextStyle(color: Colors.green),
+                                _getOrderStatus(0).text,
+                                style:
+                                    TextStyle(color: _getOrderStatus(0).color),
                               ),
                             ],
                           ),
-                          Text(
-                            'Order Received',
-                            style: TextStyle(fontSize: 20),
+                          Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Order Received',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 22),
+                                ),
+                                Text(
+                                  'Order received on ' + orderedTime,
+                                  // '',
+                                  style: TextStyle(
+                                      fontSize: 16, color: Colors.grey),
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       )
@@ -101,14 +119,44 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
                       VerticalLine(),
                       Row(
                         children: [
-                          Icon(
-                            Icons.local_drink,
-                            color: Colors.blue,
-                            size: 50,
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.local_drink,
+                                color: Colors.blue,
+                                size: 50,
+                              ),
+                              Text(
+                                _getOrderStatus(1).text,
+                                style:
+                                    TextStyle(color: _getOrderStatus(1).color),
+                              ),
+                            ],
                           ),
-                          Text(
-                            'Food is being prepared',
-                            style: TextStyle(fontSize: 20),
+                          Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Food is being prepared',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 22),
+                                ),
+                                Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.8,
+                                  child: Text(
+                                    'Your order will be ready approx. in $orderDurationMin minutes',
+                                    style: TextStyle(
+                                        fontSize: 16, color: Colors.grey),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       )
@@ -121,14 +169,44 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
                       VerticalLine(last: true),
                       Row(
                         children: [
-                          Icon(
-                            Icons.local_bar,
-                            color: Colors.blue,
-                            size: 50,
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.local_dining,
+                                color: Colors.blue,
+                                size: 50,
+                              ),
+                              Text(
+                                _getOrderStatus(2).text,
+                                style:
+                                    TextStyle(color: _getOrderStatus(2).color),
+                              ),
+                            ],
                           ),
-                          Text(
-                            'Food is ready. Please collect.',
-                            style: TextStyle(fontSize: 20),
+                          Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Food ready.',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 22),
+                                ),
+                                Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.8,
+                                  child: Text(
+                                    'Please collect your order from the kitchen. Have a great meal.',
+                                    style: TextStyle(
+                                        fontSize: 16, color: Colors.grey),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       )
@@ -142,6 +220,24 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
       ),
     );
   }
+
+  TextWithColor _getOrderStatus(int currIndex) {
+    int statusIndex = ORDER_STATUS[orderStatus]!;
+    if (currIndex == statusIndex) {
+      return TextWithColor('Now', Colors.orange);
+    } else if (currIndex < statusIndex) {
+      return TextWithColor('Done', Colors.green);
+    } else {
+      return TextWithColor('Later', Color.fromARGB(255, 204, 188, 46));
+    }
+  }
+}
+
+class TextWithColor {
+  final String text;
+  final Color color;
+
+  TextWithColor(this.text, this.color);
 }
 
 class VerticalLine extends StatelessWidget {
