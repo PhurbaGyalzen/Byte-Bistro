@@ -39,6 +39,7 @@ dependencies:
   fvm: ^2.3.1
   http: ^0.13.4
   get: 4.6.1
+  qr_code_scanner: ^0.7.0
 
 dev_dependencies:
   flutter_test:
