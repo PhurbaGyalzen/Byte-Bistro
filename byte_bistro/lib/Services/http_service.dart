@@ -7,6 +7,7 @@ class PersistentHtpp {
   static var client = http.Client();
   // static const baseHost = "192.168.101.2";
   static const baseHost = "192.168.11.67";
+  // static const baseHost = "100.91.255.71"; // dont touch this. make ur own.
 
   static String baseUrl = 'http://' +
       (Platform.environment['BACKEND_HOST'] ?? baseHost) +

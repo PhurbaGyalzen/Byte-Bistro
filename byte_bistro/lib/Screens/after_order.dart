@@ -1,4 +1,7 @@
+import 'package:byte_bistro/Services/ws_service.dart';
 import 'package:flutter/material.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
+import 'dart:io' show Platform;
 
 class AfterOrderScreen extends StatefulWidget {
   AfterOrderScreen({Key? key}) : super(key: key);
@@ -18,8 +21,73 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
   String orderedTime = '9:33 PM';
   String itemCount = '2';
   String totalPrice = '500.00';
-  String orderStatus = 'orderPrep';
-  int orderDurationMin = 10;
+  String orderStatus = 'orderRcvd';
+  int orderDurationMin = 100;
+
+  // var socket = IO.io('http://100.91.255.71:3001', <String, dynamic>{
+  //   'transports': ['websocket'],
+  //   'autoConnect': false,
+  // });
+  var socket = WebSocketService.socket;
+
+  @override
+  void initState() {
+    print('initstate');
+    socket.connect();
+    socket.on('connect', (_) {
+      print('connected');
+      _mocker();
+
+      socket.on('order_status_change', (message) {
+        setState(() {
+          orderStatus = message['orderStatus'];
+          orderDurationMin = message['orderDurationMin'];
+        });
+      });
+    });
+    socket.on('disconnect', (_) {
+      print('disconnected');
+    });
+    super.initState();
+  }
+
+  void _mocker() {
+    Future.delayed(Duration(seconds: 2), () {
+      // should be sent by admin.
+      print('orderRcvd');
+      socket.emit('order_status_change', [
+        {
+          'orderId': '123456',
+          'orderStatus': 'orderRcvd',
+          'orderDurationMin': 20,
+        }
+      ]);
+    });
+
+    Future.delayed(Duration(seconds: 10), () {
+      print('orderPrep');
+      // should be sent by admin.
+      socket.emit('order_status_change', [
+        {
+          'orderId': '123456',
+          'orderStatus': 'orderPrep',
+          'orderDurationMin': 20,
+        }
+      ]);
+    });
+
+    Future.delayed(Duration(seconds: 15), () {
+      print('orderReady');
+      // should be sent by admin.
+      socket.emit('order_status_change', [
+        {
+          'orderId': '123456',
+          'orderStatus': 'orderReady',
+          'orderDurationMin': 20,
+        }
+      ]);
+    });
+  }
 
   Widget build(BuildContext context) {
     int statusIndex = ORDER_STATUS[orderStatus]!;
