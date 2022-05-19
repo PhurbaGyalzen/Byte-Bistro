@@ -1,5 +1,5 @@
 import 'package:byte_bistro/Services/http_service.dart';
-import '../Models/food.dart';
+import '../models/food.dart';
 
 class FoodService {
   // get all food
