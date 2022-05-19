@@ -80,10 +80,13 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
                                 color: Colors.blue,
                                 size: 50,
                               ),
-                              Text(
-                                _getOrderStatus(0).text,
-                                style:
-                                    TextStyle(color: _getOrderStatus(0).color),
+                              Container(
+                                width: MediaQuery.of(context).size.width * 0.8,
+                                child: Text(
+                                  _getOrderStatus(0).text,
+                                  style: TextStyle(
+                                      color: _getOrderStatus(0).color),
+                                ),
                               ),
                             ],
                           ),
