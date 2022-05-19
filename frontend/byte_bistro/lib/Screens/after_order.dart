@@ -54,25 +54,122 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
             ),
           ),
           Expanded(
-            child: Row(children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 28.0),
-                child: VerticalDivider(
-                  color: Color.fromARGB(255, 153, 150, 150),
-                  thickness: 3,
-                  indent: 20,
-                  endIndent: 20,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 40.0),
+              child: Column(children: [
+                Expanded(
+                  child: Row(
+                    children: [
+                      VerticalLine(first: true),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.local_dining,
+                            color: Colors.blue,
+                            size: 50,
+                          ),
+                          Text(
+                            'Order Received',
+                            style: TextStyle(fontSize: 20),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
-              ),
-              Container(
-                child: Text(
-                  'Icons with descriptions',
-                  style: TextStyle(fontSize: 20),
+                Expanded(
+                  child: Row(
+                    children: [
+                      VerticalLine(),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.local_drink,
+                            color: Colors.blue,
+                            size: 50,
+                          ),
+                          Text(
+                            'Food is being prepared',
+                            style: TextStyle(fontSize: 20),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
-              ),
-            ]),
+                Expanded(
+                  child: Row(
+                    children: [
+                      VerticalLine(last: true),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.local_bar,
+                            color: Colors.blue,
+                            size: 50,
+                          ),
+                          Text(
+                            'Food is ready. Please collect.',
+                            style: TextStyle(fontSize: 20),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ]),
+            ),
           ),
         ]),
+      ),
+    );
+  }
+}
+
+class VerticalLine extends StatelessWidget {
+  final bool first;
+  final bool last;
+
+  VerticalLine({
+    Key? key,
+    this.first = false,
+    this.last = false,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    List<Widget> children = [
+      VerticalDivider(
+        color: Color.fromARGB(255, 153, 150, 150),
+        thickness: 3,
+      ),
+      VerticalDivider(
+        color: Color.fromARGB(255, 153, 150, 150),
+        thickness: 3,
+      ),
+    ];
+    if (first) {
+      children[0] = const Text('');
+    } else if (last) {
+      children[1] = const Text('');
+    }
+    for (int i = 0; i < children.length; i++) {
+      children[i] = Expanded(
+        child: children[i],
+      );
+    }
+    children.insert(
+      1,
+      Icon(
+        Icons.circle_outlined,
+        color: Color.fromARGB(255, 153, 150, 150),
+        size: 20,
+      ),
+    );
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      child: Column(
+        children: children,
       ),
     );
   }
