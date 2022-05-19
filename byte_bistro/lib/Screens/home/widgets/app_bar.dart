@@ -2,7 +2,17 @@ import 'package:byte_bistro/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class BuildAppBar extends StatelessWidget {
-  const BuildAppBar({Key? key}) : super(key: key);
+  final String leadingIcon;
+  final String trailingIcon;
+  final String titleFirstName;
+  final String titleSecondName;
+  const BuildAppBar(
+      {Key? key,
+      required this.leadingIcon,
+      required this.trailingIcon,
+      required this.titleFirstName,
+      required this.titleSecondName})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,10 +21,10 @@ class BuildAppBar extends StatelessWidget {
         margin: EdgeInsets.only(bottom: 30),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
-          children: const [
+          children: [
             Expanded(
               child: Image(
-                image: AssetImage('assets/images/menu.png'),
+                image: AssetImage(leadingIcon),
                 height: 20,
                 width: 20,
               ),
@@ -23,11 +33,11 @@ class BuildAppBar extends StatelessWidget {
               width: 100,
             ),
             Text.rich(TextSpan(
-                text: 'Byte',
+                text: titleFirstName,
                 style: TextStyle(fontSize: 20, letterSpacing: 0.5),
                 children: [
                   TextSpan(
-                      text: ' Bistro',
+                      text: titleSecondName,
                       style: TextStyle(
                           color: kPrimary, fontSize: 20, letterSpacing: 0.5)),
                 ])),
@@ -36,7 +46,7 @@ class BuildAppBar extends StatelessWidget {
             ),
             Expanded(
               child: Image(
-                image: AssetImage('assets/images/notification.png'),
+                image: AssetImage(trailingIcon),
                 height: 20,
                 width: 20,
               ),
