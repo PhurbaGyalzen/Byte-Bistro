@@ -5,8 +5,12 @@ const PORT = 3000;
 
 class PersistentHtpp {
   static var client = http.Client();
-  // static const baseHost = "192.168.101.2";
-  static const baseHost = "192.168.11.64";
+  static const baseHost = "192.168.101.3";
+  // static const baseHost = "192.168.11.64";
+
+  //  static const baseHost = "192.168.1.66";
+
+  
 
   static String baseUrl = 'http://' +
       (Platform.environment['BACKEND_HOST'] ?? baseHost) +
