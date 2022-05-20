@@ -42,7 +42,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                   titleFirstName: 'Admin',
                   titleSecondName: 'Dash',
                 ),
-                AddFood(),
+                // AddFood(),
                 ViewFood(),
               ],
             ),

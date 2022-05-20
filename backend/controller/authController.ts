@@ -41,6 +41,6 @@ export const signinUser = async (
             id: user._id,
             username: user.username
         }, process.env.JWT_SECRET!, { expiresIn: '2d' })
-        return res.status(200).json({ message: 'User logged in successfully', token: token })
+        return res.status(200).json({ message: 'User logged in successfully', token: token , isAdmin: user['isAdmin'],})
     })(req, res, next) //as next closure
 }

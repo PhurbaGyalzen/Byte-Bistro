@@ -156,6 +156,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.6.1"
+  hidable:
+    dependency: "direct main"
+    description:
+      name: hidable
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.2"
   http:
     dependency: "direct main"
     description:
@@ -296,6 +303,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.7.0"
+  scroll_bars_common:
+    dependency: transitive
+    description:
+      name: scroll_bars_common
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.0"
+  scroll_bottom_navigation_bar:
+    dependency: "direct main"
+    description:
+      name: scroll_bottom_navigation_bar
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.0.0"
   shared_preferences:
     dependency: "direct main"
     description:

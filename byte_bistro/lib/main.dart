@@ -1,4 +1,5 @@
 import 'package:byte_bistro/Screens/admin/widgets/add_food.dart';
+import 'package:byte_bistro/Screens/admin_screen.dart';
 import 'package:byte_bistro/Screens/admin/widgets/admin_dashboard.dart';
 import 'package:byte_bistro/Screens/after_order.dart';
 import 'package:byte_bistro/Screens/qr_scanner.dart';
@@ -25,7 +26,7 @@ class ByteBistro extends StatelessWidget {
     ));
     return GetMaterialApp(
       theme: ThemeData(fontFamily: 'Roboto'),
-      initialRoute: '/after-order',
+      initialRoute: 'home',
       debugShowCheckedModeBanner: false,
       title: 'Byte Bistro',
       getPages: [
@@ -37,6 +38,7 @@ class ByteBistro extends StatelessWidget {
         GetPage(name: '/after-order', page: () => AfterOrderScreen()),
         GetPage(name: '/admin', page: () => AdminDashboard()),
         GetPage(name: '/add-food', page: () => AddFood()),
+        GetPage(name: '/adminScreen', page: () => Admin()),
       ],
     );
   }
