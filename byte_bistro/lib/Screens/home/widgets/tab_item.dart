@@ -1,11 +1,16 @@
-import 'package:byte_bistro/Screens/home/Controller/food_controller.dart';
 import 'package:byte_bistro/constants/colors.dart';
 import 'package:flutter/material.dart';
 
-class TabItem extends StatelessWidget {
-  TabItem({Key? key}) : super(key: key);
+class TabItem extends StatefulWidget {
+  const TabItem({Key? key}) : super(key: key);
 
-  var foodData = getFoodData();
+  @override
+  State<TabItem> createState() => _TabItemState();
+}
+
+class _TabItemState extends State<TabItem> {
+  // final foodData = getFoodData();
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -67,7 +72,7 @@ class TabItem extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            foodData.name,
+                            'momo',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               height: 1.5,

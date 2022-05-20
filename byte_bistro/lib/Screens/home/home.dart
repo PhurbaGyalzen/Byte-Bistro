@@ -6,7 +6,6 @@ import 'package:byte_bistro/Screens/home/widgets/app_note.dart';
 import 'package:byte_bistro/Screens/home/widgets/food_tab.dart';
 import 'package:byte_bistro/Screens/home/widgets/tab_item.dart';
 import 'package:byte_bistro/Screens/home/widgets/today_special.dart';
-import 'package:scroll_bottom_navigation_bar/scroll_bottom_navigation_bar.dart';
 import 'package:hidable/hidable.dart';
 
 class HomePage extends StatefulWidget {
@@ -49,8 +48,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: kPrimary,
       body: _widgetOptions.elementAt(selectedIndex),
-      
-      bottomNavigationBar:Hidable(
+      bottomNavigationBar: Hidable(
         controller: scrollController,
         child: BottomNavigationBar(
           currentIndex: selectedIndex,
@@ -100,30 +98,30 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: SingleChildScrollView(
-          controller: widget.scrollController,
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-            ),
-            padding: EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                BuildAppBar(
-                  leadingIcon: 'assets/images/menu.png',
-                  trailingIcon: 'assets/images/notification.png',
-                  titleFirstName: 'Byte',
-                  titleSecondName: 'Bistro',
-                ),
-                AppNote(),
-                FoodTab(),
-                TabItem(),
-                TodaySpecial(),
-                TopOfDay(),
-              ],
-            ),
+        controller: widget.scrollController,
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+          ),
+          padding: EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              BuildAppBar(
+                leadingIcon: 'assets/images/menu.png',
+                trailingIcon: 'assets/images/notification.png',
+                titleFirstName: 'Byte',
+                titleSecondName: 'Bistro',
+              ),
+              AppNote(),
+              FoodTab(),
+              TabItem(),
+              TodaySpecial(),
+              TopOfDay(),
+            ],
           ),
         ),
+      ),
     );
   }
 }
