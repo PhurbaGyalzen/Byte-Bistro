@@ -62,6 +62,9 @@ class _QrScannerState extends State<QrScannerScreen> {
     controller.scannedDataStream.listen((scanData) {
       setState(() {
         result = scanData;
+        if (result != null) {
+          Get.toNamed('/dataScreen', arguments: result!.code);
+        }
       });
     });
   }
