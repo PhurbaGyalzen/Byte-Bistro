@@ -109,7 +109,12 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                BuildAppBar(),
+                BuildAppBar(
+                  leadingIcon: 'assets/images/menu.png',
+                  trailingIcon: 'assets/images/notification.png',
+                  titleFirstName: 'Byte',
+                  titleSecondName: 'Bistro',
+                ),
                 AppNote(),
                 FoodTab(),
                 TabItem(),

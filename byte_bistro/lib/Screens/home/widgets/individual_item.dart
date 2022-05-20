@@ -1,7 +1,7 @@
 import 'package:byte_bistro/Screens/home/widgets/app_bar.dart';
 import 'package:byte_bistro/Services/auth_service.dart';
 import 'package:flutter/material.dart';
-import 'package:byte_bistro/models/food.model.dart';
+import 'package:byte_bistro/models/food.dart';
 import 'package:get/get.dart';
 
 class IndividualItem extends StatefulWidget {
