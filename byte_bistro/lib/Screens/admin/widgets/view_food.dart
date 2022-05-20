@@ -87,17 +87,37 @@ class _ViewFoodState extends State<ViewFood> {
                           ],
                         ),
                         SizedBox(
-                          height: 10,
+                          height: 50,
                         ),
-                        Text(
-                          'Rs ${data[index].price.toString()}',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                            height: 1.3,
-                            letterSpacing: 0.5,
-                            color: kTextColor,
-                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Rs ${data[index].price.toString()}',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
+                                height: 1.3,
+                                letterSpacing: 0.5,
+                                color: kTextColor,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 50,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                foodService.deleteFood(data[index].id);
+                              },
+                              child: Image(
+                                image: AssetImage('assets/images/delete.png'),
+                                width: 25,
+                                height: 25,
+                                color: Colors.red,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
