@@ -6,6 +6,10 @@ interface IqrCodeGenerate {
     text: string
 }
 
+interface Itable {
+    tableNumber: number
+}
+
 interface Options {
     errorCorrectionLevel: string
     type: string
@@ -61,7 +65,7 @@ export const jsonQrCodeGenerate = async (
     next: NextFunction,
 ) => {
     console.log('qrCodeGenerate json')
-    const data: IMenuItem = req.body
+    const data: Itable = req.body
     const jsonStr: String = JSON.stringify(data)
 
     await qrcode.toDataURL(jsonStr, (err: any, url: String) => {
