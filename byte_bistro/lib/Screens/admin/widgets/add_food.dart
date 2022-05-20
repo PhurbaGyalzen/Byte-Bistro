@@ -1,3 +1,4 @@
+import 'package:byte_bistro/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class AddFood extends StatefulWidget {
@@ -23,33 +24,74 @@ class _AddFoodState extends State<AddFood> {
   @override
   Widget build(BuildContext context) {
     return Container(
+        padding: EdgeInsets.all(16.0),
         child: Column(
-      children: [
-        nameField(),
-        SizedBox(
-          height: 20,
-        ),
-        priceField(),
-        SizedBox(
-          height: 20,
-        ),
-        descriptionField(),
-        SizedBox(
-          height: 20,
-        ),
-        ElevatedButton(
-          onPressed: () {
-            print(nameController.text);
-            print(priceController.text);
-            print(descriptionController.text);
-          },
-          child: Text(
-            'Add Food',
-            style: TextStyle(fontSize: 18),
-          ),
-        )
-      ],
-    ));
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              padding: EdgeInsets.only(
+                top: 30,
+                bottom: 30,
+              ),
+              child: Text(
+                'Add Food',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 0.5,
+                  wordSpacing: 0.5,
+                ),
+              ),
+            ),
+            nameField(),
+            SizedBox(
+              height: 20,
+            ),
+            priceField(),
+            SizedBox(
+              height: 20,
+            ),
+            descriptionField(),
+            SizedBox(
+              height: 20,
+            ),
+            Row(
+              children: [
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: kPrimary,
+                    onPrimary: kTextColor,
+                  ),
+                  onPressed: () {
+                    print(nameController.text);
+                    print(priceController.text);
+                    print(descriptionController.text);
+                  },
+                  child: Text(
+                    'Add Food',
+                    style: TextStyle(fontSize: 18, letterSpacing: 0.3),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                SizedBox(
+                  width: 50,
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.grey,
+                    onPrimary: Colors.white,
+                  ),
+                  onPressed: () => dismissDialog(),
+                  child: Text(
+                    'Close',
+                    style: TextStyle(fontSize: 18, letterSpacing: 0.3),
+                    textAlign: TextAlign.center,
+                  ),
+                )
+              ],
+            ),
+          ],
+        ));
   }
 
   TextField nameField() {
@@ -60,7 +102,6 @@ class _AddFoodState extends State<AddFood> {
       decoration: InputDecoration(
         border: OutlineInputBorder(),
         label: Text('Name'),
-        hintText: 'momo',
         suffixIcon: nameController.text.isEmpty
             ? Container(
                 width: 0,
@@ -81,7 +122,6 @@ class _AddFoodState extends State<AddFood> {
       decoration: InputDecoration(
         border: OutlineInputBorder(),
         label: Text('Price'),
-        hintText: 'Rs:150',
         suffixIcon: priceController.text.isEmpty
             ? Container(
                 width: 0,
@@ -116,5 +156,9 @@ class _AddFoodState extends State<AddFood> {
               ),
       ),
     );
+  }
+
+  dismissDialog() {
+    Navigator.pop(context);
   }
 }
