@@ -33,6 +33,7 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
   @override
   void initState() {
     print('initstate');
+    print(WebSocketService.origin);
     socket.connect();
     socket.on('connect', (_) {
       print('connected');

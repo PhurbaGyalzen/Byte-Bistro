@@ -1,4 +1,3 @@
-import 'package:byte_bistro/Screens/home/Controller/food_controller.dart';
 import 'package:byte_bistro/constants/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +9,7 @@ class TabItem extends StatefulWidget {
 }
 
 class _TabItemState extends State<TabItem> {
-  var foodData = getFoodData();
+  // final foodData = getFoodData();
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +72,7 @@ class _TabItemState extends State<TabItem> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            foodData.name,
+                            'momo',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               height: 1.5,

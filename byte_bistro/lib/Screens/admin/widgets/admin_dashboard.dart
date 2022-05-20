@@ -19,7 +19,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: kPrimary,
         foregroundColor: kTextColor,
-        onPressed: () => {},
+        onPressed: () => showMaterialDialog(),
         child: Text(
           '+',
           style: TextStyle(fontSize: 40),
@@ -36,13 +36,15 @@ class _AdminDashboardState extends State<AdminDashboard> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: const [
+                SizedBox(
+                  height: 20,
+                ),
                 BuildAppBar(
                   leadingIcon: 'assets/images/menu.png',
                   trailingIcon: 'assets/images/notification.png',
                   titleFirstName: 'Admin',
                   titleSecondName: 'Dash',
                 ),
-                // AddFood(),
                 ViewFood(),
               ],
             ),
@@ -50,5 +52,21 @@ class _AdminDashboardState extends State<AdminDashboard> {
         ),
       ),
     );
+  }
+
+// show dialog box from add_food.dart
+  void showMaterialDialog() {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return SingleChildScrollView(
+            child: Dialog(
+              elevation: 10,
+              backgroundColor: Colors.white,
+              child: AddFood(),
+            ),
+          );
+        });
   }
 }
