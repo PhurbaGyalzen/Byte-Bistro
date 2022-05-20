@@ -37,12 +37,13 @@ class _AddFoodState extends State<AddFood> {
                 bottom: 30,
               ),
               child: Text(
-                'Add Food',
+                'ADD FOOD',
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                   letterSpacing: 0.5,
                   wordSpacing: 0.5,
+                  color: kTextColor,
                 ),
               ),
             ),
@@ -92,7 +93,7 @@ class _AddFoodState extends State<AddFood> {
                     setState(() {});
                   },
                   child: Text(
-                    'Add Food',
+                    'ADD',
                     style: TextStyle(fontSize: 18, letterSpacing: 0.3),
                     textAlign: TextAlign.center,
                   ),
