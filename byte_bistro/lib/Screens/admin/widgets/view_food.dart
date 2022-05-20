@@ -90,7 +90,6 @@ class _ViewFoodState extends State<ViewFood> {
                           height: 50,
                         ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
                               'Rs ${data[index].price.toString()}',
@@ -103,7 +102,7 @@ class _ViewFoodState extends State<ViewFood> {
                               ),
                             ),
                             SizedBox(
-                              width: 50,
+                              width: 220,
                             ),
                             GestureDetector(
                               onTap: () => showDialog(

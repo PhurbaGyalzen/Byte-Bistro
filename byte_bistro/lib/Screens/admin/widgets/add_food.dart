@@ -73,9 +73,20 @@ class _AddFoodState extends State<AddFood> {
                     };
 
                     String response = await foodService.addFood(data);
-                    response == "success"
-                        ? SnackBar(content: Text('Food added sucessfully'))
-                        : SnackBar(content: Text('Food addition failed'));
+                    final snackbarSucess =
+                        SnackBar(content: Text('Food added sucessfully'));
+                    final snackbarFail =
+                        SnackBar(content: Text('Food addition failed'));
+
+                    if (response == "success") {
+                      snackbarSucess;
+                      ScaffoldMessenger.of(context)
+                          .showSnackBar(snackbarSucess);
+                    } else {
+                      snackbarFail;
+                      ScaffoldMessenger.of(context)
+                          .showSnackBar(snackbarSucess);
+                    }
 
                     Navigator.of(context).pop();
                     setState(() {});
