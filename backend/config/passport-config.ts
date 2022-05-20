@@ -29,7 +29,7 @@ export const initialize = (passport: any) => {
             }
 
             const hash = await bcrypt.hash(password, 12)
-            const newUser = new User({ username, passwordHash: hash, email: body.email, fullname: body.fullname})
+            const newUser = new User({ username, passwordHash: hash, email: body.email, fullname: body.fullname, isAdmin: body.isAdmin || false})
             await newUser.save()
             return done(null, {
                 username: newUser.username,
