@@ -1,5 +1,6 @@
 import 'package:byte_bistro/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:byte_bistro/Services/food_services.dart';
 
 class AddFood extends StatefulWidget {
   const AddFood({Key? key}) : super(key: key);
@@ -23,6 +24,8 @@ class _AddFoodState extends State<AddFood> {
 
   @override
   Widget build(BuildContext context) {
+    FoodService foodService = FoodService();
+
     return Container(
         padding: EdgeInsets.all(16.0),
         child: Column(
@@ -62,10 +65,20 @@ class _AddFoodState extends State<AddFood> {
                     primary: kPrimary,
                     onPrimary: kTextColor,
                   ),
-                  onPressed: () {
-                    print(nameController.text);
-                    print(priceController.text);
-                    print(descriptionController.text);
+                  onPressed: () async {
+                    Map<String, dynamic> data = {
+                      "name": nameController.text,
+                      "price": priceController.text,
+                      "description": descriptionController.text
+                    };
+
+                    String response = await foodService.addFood(data);
+                    response == "success"
+                        ? SnackBar(content: Text('Food added sucessfully'))
+                        : SnackBar(content: Text('Food addition failed'));
+
+                    Navigator.of(context).pop();
+                    setState(() {});
                   },
                   child: Text(
                     'Add Food',

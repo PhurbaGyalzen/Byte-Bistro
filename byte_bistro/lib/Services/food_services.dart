@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:byte_bistro/Services/http_service.dart';
 
 import '../Screens/home/models/food_model.dart';
@@ -29,6 +31,27 @@ class FoodService {
       return foodFromJson(jsonResponse);
     } else {
       return null;
+    }
+  }
+
+  // add food
+  Future<String> addFood(Map<String, dynamic> data) async {
+    String endpoint = PersistentHtpp.baseUrl + 'food';
+    try {
+      final response = await PersistentHtpp.client.post(
+        Uri.parse(endpoint),
+        body: jsonEncode(data),
+        headers: {
+          "Content-Type": "application/json; charset=UTF-8",
+        },
+      );
+      if (response.statusCode == 200) {
+        return 'success';
+      } else {
+        return Future.error('err');
+      }
+    } catch (err) {
+      return Future.error(' err');
     }
   }
 }
