@@ -1,4 +1,5 @@
 import 'package:byte_bistro/Screens/admin/widgets/add_food.dart';
+import 'package:byte_bistro/Screens/admin/widgets/view_food.dart';
 import 'package:byte_bistro/Screens/home/widgets/app_bar.dart';
 import 'package:byte_bistro/constants/colors.dart';
 import 'package:flutter/material.dart';
@@ -42,6 +43,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                   titleSecondName: 'Dash',
                 ),
                 AddFood(),
+                ViewFood(),
               ],
             ),
           ),
