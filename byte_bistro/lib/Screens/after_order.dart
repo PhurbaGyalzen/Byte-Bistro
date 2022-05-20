@@ -33,7 +33,6 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
   @override
   void initState() {
     print('initstate');
-    print(WebSocketService.origin);
     socket.connect();
     socket.on('connect', (_) {
       print('connected');
@@ -91,7 +90,25 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
   }
 
   Widget build(BuildContext context) {
-    int statusIndex = ORDER_STATUS[orderStatus]!;
+    List<Item> items = [
+      Item(
+        primaryText: 'Order Received',
+        secondaryText: 'Order received on ' + orderedTime,
+        icon: Icons.fastfood,
+      ),
+      Item(
+        primaryText: 'Food is being prepared',
+        secondaryText:
+            'Your order will be ready approx. in $orderDurationMin minutes',
+        icon: Icons.local_drink,
+      ),
+      Item(
+        primaryText: 'Food is ready',
+        secondaryText:
+            'Please collect your order from the kitchen. Have a great meal.',
+        icon: Icons.local_dining,
+      ),
+    ];
     return Scaffold(
       body: Center(
         child: Column(children: <Widget>[
@@ -132,177 +149,104 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
           ),
           Expanded(
             child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 40.0, horizontal: 10.0),
-              child: Column(children: [
-                Expanded(
-                  child: Row(
-                    children: [
-                      VerticalLine(first: true),
-                      Row(
-                        children: [
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.local_dining,
-                                color: Colors.blue,
-                                size: 50,
-                              ),
-                              Text(
-                                _getOrderStatus(0).text,
-                                style:
-                                    TextStyle(color: _getOrderStatus(0).color),
-                              ),
-                            ],
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Order Received',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 22),
-                                ),
-                                Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.6,
-                                  child: Text(
-                                    'Order received on ' + orderedTime,
-                                    // '',
-                                    style: TextStyle(
-                                        fontSize: 16, color: Colors.grey),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: Row(
-                    children: [
-                      VerticalLine(),
-                      Row(
-                        children: [
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.local_drink,
-                                color: Colors.blue,
-                                size: 50,
-                              ),
-                              Text(
-                                _getOrderStatus(1).text,
-                                style:
-                                    TextStyle(color: _getOrderStatus(1).color),
-                              ),
-                            ],
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Food is being prepared',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 22),
-                                ),
-                                Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.6,
-                                  child: Text(
-                                    'Your order will be ready approx. in $orderDurationMin minutes',
-                                    style: TextStyle(
-                                        fontSize: 16, color: Colors.grey),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: Row(
-                    children: [
-                      VerticalLine(last: true),
-                      Row(
-                        children: [
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.local_dining,
-                                color: Colors.blue,
-                                size: 50,
-                              ),
-                              Text(
-                                _getOrderStatus(2).text,
-                                style:
-                                    TextStyle(color: _getOrderStatus(2).color),
-                              ),
-                            ],
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Food ready.',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 22),
-                                ),
-                                Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.6,
-                                  child: Text(
-                                    'Please collect your order from the kitchen. Have a great meal.',
-                                    style: TextStyle(
-                                        fontSize: 16, color: Colors.grey),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-              ]),
-            ),
+                padding: const EdgeInsets.symmetric(
+                    vertical: 40.0, horizontal: 10.0),
+                child:
+                    OrderStatusItems(orderStatus: orderStatus, items: items)),
           ),
         ]),
       ),
     );
   }
+}
 
-  TextWithColor _getOrderStatus(int currIndex) {
-    int statusIndex = ORDER_STATUS[orderStatus]!;
-    if (currIndex == statusIndex) {
-      return TextWithColor('Now', Colors.orange);
-    } else if (currIndex < statusIndex) {
-      return TextWithColor('Done', Colors.green);
-    } else {
-      return TextWithColor('Later', Color.fromARGB(255, 204, 188, 46));
+TextWithColor _getOrderStatus(String orderStatus, int currIndex) {
+  int statusIndex = ORDER_STATUS[orderStatus]!;
+  if (currIndex == statusIndex) {
+    return TextWithColor('Now', Colors.orange);
+  } else if (currIndex < statusIndex) {
+    return TextWithColor('Done', Colors.green);
+  } else {
+    return TextWithColor('Later', Color.fromARGB(255, 204, 188, 46));
+  }
+}
+
+class Item {
+  String primaryText;
+  String secondaryText;
+  IconData icon;
+  // TextWithColor status;
+
+  Item(
+      {required this.primaryText,
+      required this.secondaryText,
+      required this.icon});
+}
+
+class OrderStatusItems extends StatelessWidget {
+  final List<Item> items;
+  final String orderStatus;
+  const OrderStatusItems(
+      {Key? key, required this.orderStatus, required this.items})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    List<Widget> children = [];
+    for (int i = 0; i < items.length; i++) {
+      children.add(
+        Expanded(
+          child: Row(
+            children: [
+              VerticalLine(first: i == 0, last: i == items.length - 1),
+              Row(
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        items[i].icon,
+                        color: Colors.blue,
+                        size: 50,
+                      ),
+                      Text(
+                        _getOrderStatus(orderStatus, i).text,
+                        style: TextStyle(
+                            color: _getOrderStatus(orderStatus, i).color),
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          items[i].primaryText,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 22),
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.6,
+                          child: Text(
+                            items[i].secondaryText,
+                            style: TextStyle(fontSize: 16, color: Colors.grey),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
+        ),
+      );
     }
+    return Column(
+      children: children,
+    );
   }
 }
 
