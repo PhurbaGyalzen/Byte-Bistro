@@ -106,9 +106,34 @@ class _ViewFoodState extends State<ViewFood> {
                               width: 50,
                             ),
                             GestureDetector(
-                              onTap: () {
-                                foodService.deleteFood(data[index].id);
-                              },
+                              onTap: () => showDialog(
+                                  barrierDismissible: false,
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: Text('Delete'),
+                                      content: Text(
+                                          'Are you sure you want to delete this item?'),
+                                      actions: [
+                                        TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: Text('Cancel')),
+                                        TextButton(
+                                          onPressed: () {
+                                            foodService
+                                                .deleteFood(data[index].id);
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: Text(
+                                            'Delete',
+                                            style: TextStyle(color: Colors.red),
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  }),
                               child: Image(
                                 image: AssetImage('assets/images/delete.png'),
                                 width: 25,
