@@ -87,17 +87,61 @@ class _ViewFoodState extends State<ViewFood> {
                           ],
                         ),
                         SizedBox(
-                          height: 10,
+                          height: 50,
                         ),
-                        Text(
-                          'Rs ${data[index].price.toString()}',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                            height: 1.3,
-                            letterSpacing: 0.5,
-                            color: kTextColor,
-                          ),
+                        Row(
+                          children: [
+                            Text(
+                              'Rs ${data[index].price.toString()}',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
+                                height: 1.3,
+                                letterSpacing: 0.5,
+                                color: kTextColor,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 220,
+                            ),
+                            GestureDetector(
+                              onTap: () => showDialog(
+                                  barrierDismissible: false,
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: Text('Delete'),
+                                      content: Text(
+                                          'Are you sure you want to delete this item?'),
+                                      actions: [
+                                        TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: Text('Cancel')),
+                                        TextButton(
+                                          onPressed: () {
+                                            foodService
+                                                .deleteFood(data[index].id);
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: Text(
+                                            'Delete',
+                                            style: TextStyle(color: Colors.red),
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  }),
+                              child: Image(
+                                image: AssetImage('assets/images/delete.png'),
+                                width: 25,
+                                height: 25,
+                                color: Colors.red,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),

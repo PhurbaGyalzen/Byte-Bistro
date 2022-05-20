@@ -54,4 +54,24 @@ class FoodService {
       return Future.error(' err');
     }
   }
+
+  // delete food
+  deleteFood(String foodId) async {
+    String endpoint = PersistentHtpp.baseUrl + 'food/$foodId';
+    try {
+      final response = await PersistentHtpp.client.delete(
+        Uri.parse(endpoint),
+        headers: {
+          "Content-Type": "application/json; charset=UTF-8",
+        },
+      );
+      if (response.statusCode == 200) {
+        return 'success';
+      } else {
+        return Future.error('err');
+      }
+    } catch (err) {
+      return Future.error(' err');
+    }
+  }
 }

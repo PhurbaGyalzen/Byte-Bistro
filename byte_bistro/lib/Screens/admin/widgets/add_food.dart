@@ -37,12 +37,13 @@ class _AddFoodState extends State<AddFood> {
                 bottom: 30,
               ),
               child: Text(
-                'Add Food',
+                'ADD FOOD',
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                   letterSpacing: 0.5,
                   wordSpacing: 0.5,
+                  color: kTextColor,
                 ),
               ),
             ),
@@ -73,15 +74,26 @@ class _AddFoodState extends State<AddFood> {
                     };
 
                     String response = await foodService.addFood(data);
-                    response == "success"
-                        ? SnackBar(content: Text('Food added sucessfully'))
-                        : SnackBar(content: Text('Food addition failed'));
+                    final snackbarSucess =
+                        SnackBar(content: Text('Food added sucessfully'));
+                    final snackbarFail =
+                        SnackBar(content: Text('Food addition failed'));
+
+                    if (response == "success") {
+                      snackbarSucess;
+                      ScaffoldMessenger.of(context)
+                          .showSnackBar(snackbarSucess);
+                    } else {
+                      snackbarFail;
+                      ScaffoldMessenger.of(context)
+                          .showSnackBar(snackbarSucess);
+                    }
 
                     Navigator.of(context).pop();
                     setState(() {});
                   },
                   child: Text(
-                    'Add Food',
+                    'ADD',
                     style: TextStyle(fontSize: 18, letterSpacing: 0.3),
                     textAlign: TextAlign.center,
                   ),
