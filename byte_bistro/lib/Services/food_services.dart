@@ -1,21 +1,26 @@
 import 'package:byte_bistro/Services/http_service.dart';
-import '../models/food.dart';
+
+import '../Screens/home/models/food_model.dart';
 
 class FoodService {
   // get all food
-  getAllFood() async {
+  static Future<List<Food>> getAllFood() async {
     String endpoint = PersistentHtpp.baseUrl + 'food';
-    final response = await PersistentHtpp.client.get(Uri.parse(endpoint));
-    final jsonResponse = response.body;
-    if (response.statusCode == 200) {
-      return foodFromJson(jsonResponse);
-    } else {
-      return null;
+    try {
+      final response = await PersistentHtpp.client.get(Uri.parse(endpoint));
+      final jsonResponse = response.body;
+      if (response.statusCode == 200) {
+        return foodFromJson(jsonResponse);
+      } else {
+        return Future.error('Internal Server Error');
+      }
+    } catch (err) {
+      return Future.error(' Error fetching data');
     }
   }
 
   // get single food
-  getSingleFood(String foodId) async {
+  Future getSingleFood(String foodId) async {
     String endpoint = PersistentHtpp.baseUrl + 'food/$foodId';
 
     final response = await PersistentHtpp.client.get(Uri.parse(endpoint));

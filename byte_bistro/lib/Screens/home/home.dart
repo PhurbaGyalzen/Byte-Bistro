@@ -48,8 +48,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: kPrimary,
       body: _widgetOptions.elementAt(selectedIndex),
-      
-      bottomNavigationBar:Hidable(
+      bottomNavigationBar: Hidable(
         controller: scrollController,
         child: BottomNavigationBar(
           currentIndex: selectedIndex,
@@ -99,30 +98,30 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: SingleChildScrollView(
-          controller: widget.scrollController,
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-            ),
-            padding: EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                BuildAppBar(
-                  leadingIcon: 'assets/images/menu.png',
-                  trailingIcon: 'assets/images/notification.png',
-                  titleFirstName: 'Byte',
-                  titleSecondName: 'Bistro',
-                ),
-                AppNote(),
-                FoodTab(),
-                TabItem(),
-                TodaySpecial(),
-                TopOfDay(),
-              ],
-            ),
+        controller: widget.scrollController,
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+          ),
+          padding: EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              BuildAppBar(
+                leadingIcon: 'assets/images/menu.png',
+                trailingIcon: 'assets/images/notification.png',
+                titleFirstName: 'Byte',
+                titleSecondName: 'Bistro',
+              ),
+              AppNote(),
+              FoodTab(),
+              TabItem(),
+              TodaySpecial(),
+              TopOfDay(),
+            ],
           ),
         ),
+      ),
     );
   }
 }
