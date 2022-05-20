@@ -1,19 +1,11 @@
 import 'dart:convert';
-import 'dart:ffi';
 
 import 'package:byte_bistro/Services/http_service.dart';
 
 import '../models/food.dart';
 
 class AuthService {
-<<<<<<< HEAD:frontend/byte_bistro/lib/Services/auth_service.dart
-  static Future<LoginResponse?> login(
-    String username,
-    String password,
-  ) async {
-=======
   static Future<LoginResponse?> login(String username, String password) async {
->>>>>>> 9b997189c23901243ff3d53a44a43eb7ad8a07ce:byte_bistro/lib/Services/auth_service.dart
     String endpoint = PersistentHtpp.baseUrl + 'auth/signin';
     var response = await PersistentHtpp.client.post(Uri.parse(endpoint), body: {
       'username': username,

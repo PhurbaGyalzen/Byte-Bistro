@@ -6,7 +6,6 @@ import 'package:byte_bistro/Screens/home/widgets/app_note.dart';
 import 'package:byte_bistro/Screens/home/widgets/food_tab.dart';
 import 'package:byte_bistro/Screens/home/widgets/tab_item.dart';
 import 'package:byte_bistro/Screens/home/widgets/today_special.dart';
-import 'package:scroll_bottom_navigation_bar/scroll_bottom_navigation_bar.dart';
 import 'package:hidable/hidable.dart';
 
 class HomePage extends StatefulWidget {
