@@ -36,6 +36,9 @@ class _AdminDashboardState extends State<AdminDashboard> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: const [
+                SizedBox(
+                  height: 20,
+                ),
                 BuildAppBar(
                   leadingIcon: 'assets/images/menu.png',
                   trailingIcon: 'assets/images/notification.png',

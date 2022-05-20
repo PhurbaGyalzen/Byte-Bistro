@@ -26,7 +26,7 @@ class ByteBistro extends StatelessWidget {
     ));
     return GetMaterialApp(
       theme: ThemeData(fontFamily: 'Roboto'),
-      initialRoute: '/home',
+      initialRoute: '/admin',
       debugShowCheckedModeBanner: false,
       title: 'Byte Bistro',
       getPages: [
