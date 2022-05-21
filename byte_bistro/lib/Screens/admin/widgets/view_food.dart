@@ -3,6 +3,7 @@ import 'package:byte_bistro/Screens/home/models/food_model.dart';
 import 'package:byte_bistro/Services/food_services.dart';
 import 'package:byte_bistro/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ViewFood extends StatefulWidget {
   const ViewFood({Key? key}) : super(key: key);
@@ -116,14 +117,14 @@ class _ViewFoodState extends State<ViewFood> {
                                       actions: [
                                         TextButton(
                                             onPressed: () {
-                                              Navigator.of(context).pop();
+                                              Get.back();
                                             },
                                             child: Text('Cancel')),
                                         TextButton(
                                           onPressed: () {
                                             foodService
                                                 .deleteFood(data[index].id);
-                                            Navigator.of(context).pop();
+                                            Get.back();
                                           },
                                           child: Text(
                                             'Delete',

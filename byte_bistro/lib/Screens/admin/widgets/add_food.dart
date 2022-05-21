@@ -4,6 +4,7 @@ import 'package:byte_bistro/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:byte_bistro/Services/food_services.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AddFood extends StatefulWidget {
@@ -132,7 +133,7 @@ class _AddFoodState extends State<AddFood> {
                           .showSnackBar(snackbarSucess);
                     }
 
-                    Navigator.of(context).pop();
+                    Get.back();
                     setState(() {});
                   },
                   child: Text(
@@ -149,7 +150,7 @@ class _AddFoodState extends State<AddFood> {
                     primary: Colors.grey,
                     onPrimary: Colors.white,
                   ),
-                  onPressed: () => dismissDialog(),
+                  onPressed: () => Get.back(),
                   child: Text(
                     'Close',
                     style: TextStyle(fontSize: 18, letterSpacing: 0.3),
@@ -224,9 +225,5 @@ class _AddFoodState extends State<AddFood> {
               ),
       ),
     );
-  }
-
-  dismissDialog() {
-    Navigator.pop(context);
   }
 }
