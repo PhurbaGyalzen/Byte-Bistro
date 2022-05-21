@@ -30,10 +30,12 @@ class _QrScannerState extends State<QrScannerScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Column(
+        body: Stack(
+          alignment: Alignment.center,
           children: <Widget>[
-            Expanded(
-              flex: 5,
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
               child: QRView(
                 key: qrKey,
                 onQRViewCreated: _onQRViewCreated,
@@ -41,14 +43,25 @@ class _QrScannerState extends State<QrScannerScreen> {
                     borderWidth: 10, borderColor: Colors.blueGrey),
               ),
             ),
-            Expanded(child: buildControlButtons()),
-            Expanded(
-              flex: 1,
-              child: Center(
-                child:
-                    (result != null) ? Text('Scanning') : Text('Scan a code'),
-              ),
-            ),
+            Positioned(child: Align(child: buildControlButtons()), top: 5),
+            // Expanded(flex: 2, child: buildControlButtons()),
+            Positioned(
+                bottom: 20,
+                child: Center(
+                  child: (result != null)
+                      ? Text('Scanning',
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white10))
+                      : Text(
+                          'Scan a code',
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        ),
+                ))
           ],
         ),
       ),
@@ -96,7 +109,9 @@ class _QrScannerState extends State<QrScannerScreen> {
                   builder: (context, snapshot) {
                     if (snapshot.data != null) {
                       return Icon(
-                          snapshot.data! ? Icons.flash_on : Icons.flash_off);
+                        snapshot.data! ? Icons.flash_on : Icons.flash_off,
+                        color: Colors.white,
+                      );
                     } else {
                       return Container();
                     }
@@ -111,7 +126,10 @@ class _QrScannerState extends State<QrScannerScreen> {
                 icon: FutureBuilder(
                   builder: (context, snapshot) {
                     if (snapshot.data != null) {
-                      return Icon(Icons.switch_camera);
+                      return Icon(
+                        Icons.switch_camera,
+                        color: Colors.white,
+                      );
                     } else {
                       return Container();
                     }

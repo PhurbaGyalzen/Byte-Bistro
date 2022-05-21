@@ -52,7 +52,7 @@ export const qrCodeGenerate = async (
             )
             res.writeHead(200, {
                 'Content-Type': 'image/png',
-                'Content-Length': url.length,
+                // 'Content-Length': url.length,
             })
             res.end(img)
         }
@@ -80,7 +80,7 @@ export const jsonQrCodeGenerate = async (
             )
             res.writeHead(200, {
                 'Content-Type': 'image/png',
-                'Content-Length': url.length,
+                // 'Content-Length': url.length,
             })
             res.end(img)
         }
