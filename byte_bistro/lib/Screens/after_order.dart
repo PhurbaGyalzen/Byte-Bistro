@@ -13,7 +13,8 @@ class AfterOrderScreen extends StatefulWidget {
 Map<String, int> ORDER_STATUS = {
   'orderRcvd': 0,
   'orderPrep': 1,
-  'orderReady': 2
+  'orderReady': 2,
+  'orderChecked': 3
 };
 
 class _AfterOrderScreenState extends State<AfterOrderScreen> {
@@ -21,7 +22,7 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
   String orderedTime = '9:33 PM';
   String itemCount = '2';
   String totalPrice = '500.00';
-  String orderStatus = 'orderRcvd';
+  String? orderStatus;
   int orderDurationMin = 100;
 
   // var socket = IO.io('http://100.91.255.71:3001', <String, dynamic>{
@@ -33,6 +34,7 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
   @override
   void initState() {
     print('initstate');
+    print(WebSocketService.origin);
     socket.connect();
     socket.on('connect', (_) {
       print('connected');
@@ -52,7 +54,7 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
   }
 
   void _mocker() {
-    Future.delayed(Duration(seconds: 2), () {
+    Future.delayed(Duration(seconds: 4), () {
       // should be sent by admin.
       print('orderRcvd');
       socket.emit('order_status_change', [
@@ -64,7 +66,7 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
       ]);
     });
 
-    Future.delayed(Duration(seconds: 10), () {
+    Future.delayed(Duration(seconds: 7), () {
       print('orderPrep');
       // should be sent by admin.
       socket.emit('order_status_change', [
@@ -76,13 +78,25 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
       ]);
     });
 
-    Future.delayed(Duration(seconds: 15), () {
+    Future.delayed(Duration(seconds: 13), () {
       print('orderReady');
       // should be sent by admin.
       socket.emit('order_status_change', [
         {
           'orderId': '123456',
           'orderStatus': 'orderReady',
+          'orderDurationMin': 20,
+        }
+      ]);
+    });
+
+    Future.delayed(Duration(seconds: 16), () {
+      print('orderChecked');
+      // should be sent by admin.
+      socket.emit('order_status_change', [
+        {
+          'orderId': '123456',
+          'orderStatus': 'orderChecked',
           'orderDurationMin': 20,
         }
       ]);
@@ -160,14 +174,15 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
   }
 }
 
-TextWithColor _getOrderStatus(String orderStatus, int currIndex) {
-  int statusIndex = ORDER_STATUS[orderStatus]!;
-  if (currIndex == statusIndex) {
-    return TextWithColor('Now', Colors.orange);
+TextWithColor _getOrderStatus(String? orderStatus, int currIndex) {
+  int statusIndex = ORDER_STATUS[orderStatus] ?? -1;
+  if (currIndex > statusIndex) {
+    return TextWithColor('Later', Color.fromARGB(255, 204, 188, 46));
   } else if (currIndex < statusIndex) {
     return TextWithColor('Done', Colors.green);
   } else {
-    return TextWithColor('Later', Color.fromARGB(255, 204, 188, 46));
+    // equals or if index is -1
+    return TextWithColor('Now', Colors.orange);
   }
 }
 
@@ -185,7 +200,7 @@ class Item {
 
 class OrderStatusItems extends StatelessWidget {
   final List<Item> items;
-  final String orderStatus;
+  final String? orderStatus;
   const OrderStatusItems(
       {Key? key, required this.orderStatus, required this.items})
       : super(key: key);
@@ -194,11 +209,15 @@ class OrderStatusItems extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Widget> children = [];
     for (int i = 0; i < items.length; i++) {
+      TextWithColor currStatus = _getOrderStatus(orderStatus, i);
       children.add(
         Expanded(
           child: Row(
             children: [
-              VerticalLine(first: i == 0, last: i == items.length - 1),
+              VerticalLine(
+                  first: i == 0,
+                  last: i == items.length - 1,
+                  status: currStatus.text),
               Row(
                 children: [
                   Column(
@@ -210,9 +229,8 @@ class OrderStatusItems extends StatelessWidget {
                         size: 50,
                       ),
                       Text(
-                        _getOrderStatus(orderStatus, i).text,
-                        style: TextStyle(
-                            color: _getOrderStatus(orderStatus, i).color),
+                        currStatus.text,
+                        style: TextStyle(color: currStatus.color),
                       ),
                     ],
                   ),
@@ -260,11 +278,13 @@ class TextWithColor {
 class VerticalLine extends StatelessWidget {
   final bool first;
   final bool last;
+  final String status;
 
   VerticalLine({
     Key? key,
     this.first = false,
     this.last = false,
+    this.status = 'pending',
   }) : super(key: key);
 
   @override
@@ -289,11 +309,23 @@ class VerticalLine extends StatelessWidget {
         child: children[i],
       );
     }
+    late IconData statusIcon;
+    late Color statusColor;
+    if (status == 'Now') {
+      statusIcon = Icons.access_time;
+      statusColor = Colors.orange;
+    } else if (status == 'Done') {
+      statusIcon = Icons.check_circle;
+      statusColor = Colors.green;
+    } else if (status == 'Later') {
+      statusIcon = Icons.alarm;
+      statusColor = Color.fromARGB(255, 204, 188, 46);
+    }
     children.insert(
       1,
       Icon(
-        Icons.circle_outlined,
-        color: Color.fromARGB(255, 153, 150, 150),
+        statusIcon,
+        color: statusColor,
         size: 20,
       ),
     );
