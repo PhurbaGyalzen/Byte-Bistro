@@ -17,7 +17,7 @@ class FoodService {
         return Future.error('Internal Server Error');
       }
     } catch (err) {
-      return Future.error(' Error fetching data');
+      return Future.error(' Error fetching data $err');
     }
   }
 
