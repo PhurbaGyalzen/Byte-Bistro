@@ -15,6 +15,7 @@ class QrDataScreen extends StatelessWidget {
             ),
             body: Container(
               child: Text(table),
+              
             )));
   }
 }
