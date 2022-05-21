@@ -6,7 +6,7 @@ import '../Screens/home/models/food_model.dart';
 
 class FoodService {
   // get all food
-  static Future<List<Food>> getAllFood() async {
+  Future<List<Food>> getAllFood() async {
     String endpoint = PersistentHtpp.baseUrl + 'food';
     try {
       final response = await PersistentHtpp.client.get(Uri.parse(endpoint));

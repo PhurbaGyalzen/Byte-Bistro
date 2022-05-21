@@ -1,5 +1,6 @@
 import 'package:byte_bistro/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class TabItem extends StatefulWidget {
   const TabItem({Key? key}) : super(key: key);
@@ -20,7 +21,7 @@ class _TabItemState extends State<TabItem> {
         itemCount: 5,
         itemBuilder: ((context, index) => GestureDetector(
               onTap: () {
-                Navigator.pushNamed(context, '/individual');
+                Get.toNamed('/individual');
               },
               child: Container(
                 width: 170,
