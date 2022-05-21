@@ -4,6 +4,7 @@ import 'package:byte_bistro/constants/colors.dart';
 import 'package:byte_bistro/controller/food_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:byte_bistro/Services/food_services.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 // import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 // import 'package:image_picker/image_picker.dart';
@@ -41,136 +42,143 @@ class _AddFoodState extends State<AddFood> {
   //   }
   // }
 
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     FoodController foodController = Get.put(FoodController());
 
-    return Container(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              padding: EdgeInsets.only(
-                top: 30,
-                bottom: 30,
-              ),
-              child: Text(
-                'ADD FOOD',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 0.5,
-                  wordSpacing: 0.5,
-                  color: kTextColor,
+    return Form(
+      key: formKey,
+      child: Container(
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                padding: EdgeInsets.only(
+                  top: 30,
+                  bottom: 30,
+                ),
+                child: Text(
+                  'ADD FOOD',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 0.5,
+                    wordSpacing: 0.5,
+                    color: kTextColor,
+                  ),
                 ),
               ),
-            ),
-            nameField(),
-            SizedBox(
-              height: 20,
-            ),
-            priceField(),
-            SizedBox(
-              height: 20,
-            ),
-            descriptionField(),
-            // ElevatedButton(
-            //   style: ElevatedButton.styleFrom(
-            //     primary: Colors.grey,
-            //     onPrimary: Colors.white,
-            //   ),
-            //   onPressed: () {
-            //     pickImage();
-            //   },
-            //   child: Text(
-            //     'Pick img gallery',
-            //     style: TextStyle(fontSize: 18, letterSpacing: 0.3),
-            //     textAlign: TextAlign.center,
-            //   ),
-            // ),
-            // ElevatedButton(
-            //   style: ElevatedButton.styleFrom(
-            //     primary: Colors.grey,
-            //     onPrimary: Colors.white,
-            //   ),
-            //   onPressed: () => dismissDialog(),
-            //   child: Text(
-            //     'Pick img camera',
-            //     style: TextStyle(fontSize: 18, letterSpacing: 0.3),
-            //     textAlign: TextAlign.center,
-            //   ),
-            // ),
-            SizedBox(
-              height: 20,
-            ),
-            Row(
-              children: [
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: kPrimary,
-                    onPrimary: kTextColor,
-                  ),
-                  onPressed: () async {
-                    Map<String, dynamic> data = {
-                      "name": nameController.text,
-                      "price": priceController.text,
-                      "description": descriptionController.text
-                    };
+              nameField(),
+              SizedBox(
+                height: 40,
+              ),
+              priceField(),
+              SizedBox(
+                height: 40,
+              ),
+              descriptionField(),
+              // ElevatedButton(
+              //   style: ElevatedButton.styleFrom(
+              //     primary: Colors.grey,
+              //     onPrimary: Colors.white,
+              //   ),
+              //   onPressed: () {
+              //     pickImage();
+              //   },
+              //   child: Text(
+              //     'Pick img gallery',
+              //     style: TextStyle(fontSize: 18, letterSpacing: 0.3),
+              //     textAlign: TextAlign.center,
+              //   ),
+              // ),
+              // ElevatedButton(
+              //   style: ElevatedButton.styleFrom(
+              //     primary: Colors.grey,
+              //     onPrimary: Colors.white,
+              //   ),
+              //   onPressed: () => dismissDialog(),
+              //   child: Text(
+              //     'Pick img camera',
+              //     style: TextStyle(fontSize: 18, letterSpacing: 0.3),
+              //     textAlign: TextAlign.center,
+              //   ),
+              // ),
+              SizedBox(
+                height: 40,
+              ),
+              Row(
+                children: [
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: kPrimary,
+                      onPrimary: kTextColor,
+                    ),
+                    onPressed: () async {
+                      if (formKey.currentState?.validate() == true) {
+                        Map<String, dynamic> data = {
+                          "name": nameController.text,
+                          "price": priceController.text,
+                          "description": descriptionController.text
+                        };
 
-                    String response = await foodController.addFood(data);
-                    final snackbarSucess =
-                        SnackBar(content: Text('Food added sucessfully'));
-                    final snackbarFail =
-                        SnackBar(content: Text('Food addition failed'));
+                        String response = await foodController.addFood(data);
+                        final snackbarSucess =
+                            SnackBar(content: Text('Food added sucessfully'));
+                        final snackbarFail =
+                            SnackBar(content: Text('Food addition failed'));
 
-                    if (response == "success") {
-                      Navigator.pushNamed(context, '/admin').then((_) {
-                        // This block runs when you have returned back to the 1st Page from 2nd.
-                        setState(() {
-                          // Call setState to refresh the page.
-                        });
-                      });
+                        if (response == "success") {
+                          Navigator.pushNamed(context, '/admin').then((_) {
+                            // This block runs when you have returned back to the 1st Page from 2nd.
+                            setState(() {
+                              // Call setState to refresh the page.
+                            });
+                          });
 
-                      snackbarSucess;
-                      ScaffoldMessenger.of(context)
-                          .showSnackBar(snackbarSucess);
-                      foodController.getAllFood();
-                    } else {
-                      snackbarFail;
-                      ScaffoldMessenger.of(context)
-                          .showSnackBar(snackbarSucess);
-                    }
-                  },
-                  child: Text(
-                    'ADD',
-                    style: TextStyle(fontSize: 18, letterSpacing: 0.3),
-                    textAlign: TextAlign.center,
+                          snackbarSucess;
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(snackbarSucess);
+                          foodController.getAllFood();
+                        } else {
+                          snackbarFail;
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(snackbarSucess);
+                        }
+                      }
+                    },
+                    child: Text(
+                      'ADD',
+                      style: TextStyle(fontSize: 18, letterSpacing: 0.3),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
-                ),
-                SizedBox(
-                  width: 50,
-                ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.grey,
-                    onPrimary: Colors.white,
+                  SizedBox(
+                    width: 50,
                   ),
-                  onPressed: () => Get.back(),
-                  child: Text(
-                    'Close',
-                    style: TextStyle(fontSize: 18, letterSpacing: 0.3),
-                    textAlign: TextAlign.center,
-                  ),
-                )
-              ],
-            ),
-          ],
-        ));
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.grey,
+                      onPrimary: Colors.white,
+                    ),
+                    onPressed: () => Get.back(),
+                    child: Text(
+                      'Close',
+                      style: TextStyle(fontSize: 18, letterSpacing: 0.3),
+                      textAlign: TextAlign.center,
+                    ),
+                  )
+                ],
+              ),
+            ],
+          )),
+    );
   }
 
-  TextField nameField() {
-    return TextField(
+  TextFormField nameField() {
+    return TextFormField(
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       controller: nameController,
       textInputAction: TextInputAction.done,
       keyboardType: TextInputType.emailAddress,
@@ -186,11 +194,15 @@ class _AddFoodState extends State<AddFood> {
                 onPressed: () => nameController.clear(),
               ),
       ),
+      validator: MultiValidator([
+        RequiredValidator(errorText: 'this field is required'),
+      ]),
     );
   }
 
-  TextField priceField() {
-    return TextField(
+  TextFormField priceField() {
+    return TextFormField(
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       controller: priceController,
       textInputAction: TextInputAction.done,
       keyboardType: TextInputType.number,
@@ -206,11 +218,15 @@ class _AddFoodState extends State<AddFood> {
                 onPressed: () => priceController.clear(),
               ),
       ),
+      validator: MultiValidator([
+        RequiredValidator(errorText: 'this field is required'),
+      ]),
     );
   }
 
-  TextField descriptionField() {
-    return TextField(
+  TextFormField descriptionField() {
+    return TextFormField(
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       controller: descriptionController,
       minLines:
           6, // any number you need (It works as the rows for the textarea)
@@ -220,7 +236,6 @@ class _AddFoodState extends State<AddFood> {
       decoration: InputDecoration(
         border: OutlineInputBorder(),
         label: Text('Description'),
-        hintText: 'Write something here ...',
         suffixIcon: descriptionController.text.isEmpty
             ? Container(
                 width: 0,
@@ -230,6 +245,9 @@ class _AddFoodState extends State<AddFood> {
                 onPressed: () => descriptionController.clear(),
               ),
       ),
+      validator: MultiValidator([
+        RequiredValidator(errorText: 'this field is required'),
+      ]),
     );
   }
 }
