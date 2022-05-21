@@ -10,8 +10,11 @@ class QrDataScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
+            appBar: AppBar(
+              title: Text(table),
+            ),
             body: Container(
-      child: Text(table),
-    )));
+              child: Text(table),
+            )));
   }
 }

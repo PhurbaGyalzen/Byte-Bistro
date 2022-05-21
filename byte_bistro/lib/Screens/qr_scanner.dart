@@ -1,6 +1,6 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -41,16 +41,14 @@ class _QrScannerState extends State<QrScannerScreen> {
                     borderWidth: 10, borderColor: Colors.blueGrey),
               ),
             ),
+            Expanded(child: buildControlButtons()),
             Expanded(
               flex: 1,
               child: Center(
-                child: (result != null)
-                    ? Text(
-                        'Barcode Type: ${result!.format}   Data: ${result!.code}')
-                    : Text('Scan a code'),
+                child:
+                    (result != null) ? Text('Scanning') : Text('Scan a code'),
               ),
             ),
-            Positioned(top: 10, child: buildControlButtons())
           ],
         ),
       ),
@@ -63,7 +61,13 @@ class _QrScannerState extends State<QrScannerScreen> {
       setState(() {
         result = scanData;
         if (result != null) {
-          Get.toNamed('/dataScreen', arguments: result!.code);
+          final data = json.decode(result!.code ?? '{}');
+          // print(data);
+          final table = data['tableNumber'].toString();
+          // print('Table: $table');
+          if (table != null) {
+            Get.toNamed('/dataScreen', arguments: table);
+          }
         }
       });
     });

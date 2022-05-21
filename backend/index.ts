@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import { initDbConnection } from './config/database';
 import passport from 'passport';
 import { default as authRoutes } from './routes/authRoutes';
+import {default as qrRoutes} from './routes/qrRoutes';
 
 import morgan from 'morgan';
 import enableCors from 'middlewares/enable-cors';
@@ -23,6 +24,7 @@ app.use(passport.initialize());
 app.use('/food', foodRoutes);
 
 app.use('/auth', authRoutes);
+app.use('/qr', qrRoutes);
 
 app.listen(port, async () => {
   await initDbConnection();
