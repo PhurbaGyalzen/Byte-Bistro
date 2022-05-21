@@ -47,7 +47,6 @@ class ByteBistro extends StatelessWidget {
         GetPage(name: '/adminScreen', page: () => Admin()),
         GetPage(name: '/dataScreen', page: () => QrDataScreen()),
         GetPage(name: '/swipeHome', page: () => SwipeHome()),
-
       ],
     );
   }

@@ -54,7 +54,7 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
   }
 
   void _mocker() {
-    int diff = 6;
+    int diff = 3;
     Future.delayed(Duration(seconds: diff * 1), () {
       // should be sent by admin.
       print('orderRcvd');
@@ -108,7 +108,7 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
     List<Item> items = [
       Item(
         primaryText: 'Order Received',
-        secondaryText: 'Order received on ' + orderedTime,
+        secondaryText: 'Order received at ' + orderedTime,
         icon: Icons.fastfood,
       ),
       Item(
@@ -211,54 +211,75 @@ class OrderStatusItems extends StatelessWidget {
     List<Widget> children = [];
     for (int i = 0; i < items.length; i++) {
       TextWithColor currStatus = _getOrderStatus(orderStatus, i);
+      bool isCurrent = i == (ORDER_STATUS[orderStatus] ?? -1);
+
+      // add border to all
+      BoxDecoration decoration = BoxDecoration(
+        border: Border(
+          bottom: BorderSide(
+            color: Colors.grey,
+            width: 1,
+          ),
+        ),
+      );
+      if (i == items.length - 1) {
+        decoration = BoxDecoration();
+      }
       children.add(
         Expanded(
-          child: Row(
-            children: [
-              VerticalLine(
-                  first: i == 0,
-                  last: i == items.length - 1,
-                  status: currStatus.text),
-              Row(
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        items[i].icon,
-                        color: Colors.black,
-                        size: 50,
-                      ),
-                      Text(
-                        currStatus.text,
-                        style: TextStyle(color: currStatus.color),
-                      ),
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Column(
+          child: Container(
+            // decoration: decoration,
+            child: Row(
+              children: [
+                VerticalLine(
+                    first: i == 0,
+                    last: i == items.length - 1,
+                    status: currStatus.text),
+                Row(
+                  children: [
+                    Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          items[i].primaryText,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 22),
+                        Icon(
+                          items[i].icon,
+                          color: Colors.black,
+                          size: 50,
                         ),
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.6,
-                          child: Text(
-                            items[i].secondaryText,
-                            style: TextStyle(fontSize: 16, color: Colors.grey),
-                          ),
+                        Text(
+                          currStatus.text,
+                          style: TextStyle(color: currStatus.color),
                         ),
                       ],
                     ),
-                  ),
-                ],
-              )
-            ],
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            items[i].primaryText,
+                            style: TextStyle(
+                                fontWeight: isCurrent
+                                    ? FontWeight.w800
+                                    : FontWeight.w500,
+                                fontSize: 22),
+                          ),
+                          Container(
+                            width: MediaQuery.of(context).size.width * 0.5,
+                            child: Text(
+                              isCurrent ? items[i].secondaryText : '',
+                              style:
+                                  TextStyle(fontSize: 16, color: Colors.grey),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       );
@@ -332,7 +353,7 @@ class VerticalLine extends StatelessWidget {
       children[children.length - 1] = Expanded(child: const Text(''));
     }
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+      padding: const EdgeInsets.only(left: 25.0, right: 15.0),
       child: Column(
         children: children,
       ),
