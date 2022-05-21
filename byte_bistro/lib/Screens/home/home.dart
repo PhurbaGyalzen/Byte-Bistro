@@ -54,25 +54,25 @@ class _HomePageState extends State<HomePage> {
           currentIndex: selectedIndex,
           onTap: onItemTapped,
           type: BottomNavigationBarType.fixed,
-          items: [
+          items: const [
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
-              label: "$selectedIndex",
+              label: "Home",
               backgroundColor: Colors.blue,
             ),
-            const BottomNavigationBarItem(
+            BottomNavigationBarItem(
               icon: Icon(Icons.mail),
               label: "Inbox",
               backgroundColor: Colors.blue,
             ),
-            const BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: "Home",
+            BottomNavigationBarItem(
+              icon: Icon(Icons.shopping_cart),
+              label: "Cart",
               backgroundColor: Colors.blue,
             ),
-            const BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: "Home",
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: "Profile",
               backgroundColor: Colors.blue,
             ),
           ],
