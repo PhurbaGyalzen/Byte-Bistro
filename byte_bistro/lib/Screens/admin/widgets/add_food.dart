@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:byte_bistro/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:byte_bistro/Services/food_services.dart';
+import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AddFood extends StatefulWidget {
   const AddFood({Key? key}) : super(key: key);
@@ -13,6 +17,7 @@ class _AddFoodState extends State<AddFood> {
   final nameController = TextEditingController();
   final priceController = TextEditingController();
   final descriptionController = TextEditingController();
+  File? image;
 
   @override
   void initState() {
@@ -21,6 +26,18 @@ class _AddFoodState extends State<AddFood> {
     priceController.addListener(() => setState(() {}));
     descriptionController.addListener(() => setState(() {}));
   }
+
+  // Future pickImage() async {
+  //   try {
+  //     final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+  //     if (image == null) return;
+
+  //     final imageTemporary = File(image.path);
+  //     setState(() => this.image = imageTemporary);
+  //   } on PlatformException catch (e) {
+  //     print('Failed to pick image: $e');
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -56,6 +73,32 @@ class _AddFoodState extends State<AddFood> {
               height: 20,
             ),
             descriptionField(),
+            // ElevatedButton(
+            //   style: ElevatedButton.styleFrom(
+            //     primary: Colors.grey,
+            //     onPrimary: Colors.white,
+            //   ),
+            //   onPressed: () {
+            //     pickImage();
+            //   },
+            //   child: Text(
+            //     'Pick img gallery',
+            //     style: TextStyle(fontSize: 18, letterSpacing: 0.3),
+            //     textAlign: TextAlign.center,
+            //   ),
+            // ),
+            // ElevatedButton(
+            //   style: ElevatedButton.styleFrom(
+            //     primary: Colors.grey,
+            //     onPrimary: Colors.white,
+            //   ),
+            //   onPressed: () => dismissDialog(),
+            //   child: Text(
+            //     'Pick img camera',
+            //     style: TextStyle(fontSize: 18, letterSpacing: 0.3),
+            //     textAlign: TextAlign.center,
+            //   ),
+            // ),
             SizedBox(
               height: 20,
             ),
