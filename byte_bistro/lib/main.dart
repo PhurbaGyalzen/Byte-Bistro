@@ -31,7 +31,7 @@ class ByteBistro extends StatelessWidget {
     ));
     return GetMaterialApp(
       theme: ThemeData(fontFamily: 'Roboto'),
-      initialRoute: '/swipeHome',
+      initialRoute: '/admin',
       debugShowCheckedModeBanner: false,
       title: 'Byte Bistro',
       getPages: [
@@ -47,7 +47,6 @@ class ByteBistro extends StatelessWidget {
         GetPage(name: '/adminScreen', page: () => Admin()),
         GetPage(name: '/dataScreen', page: () => QrDataScreen()),
         GetPage(name: '/swipeHome', page: () => SwipeHome()),
-
       ],
     );
   }
