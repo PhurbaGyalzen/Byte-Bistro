@@ -5,6 +5,8 @@ import 'package:byte_bistro/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../controller/food_controller.dart';
+
 class ViewFood extends StatefulWidget {
   const ViewFood({Key? key}) : super(key: key);
 
@@ -13,12 +15,13 @@ class ViewFood extends StatefulWidget {
 }
 
 class _ViewFoodState extends State<ViewFood> {
-  FoodService foodService = FoodService();
+  FoodController foodController = Get.put(FoodController());
+
   @override
   Widget build(BuildContext context) {
     return Container(
       child: FutureBuilder(
-        future: FoodService.getAllFood(),
+        future: foodController.getAllFood(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             List<Food> data = snapshot.data as List<Food>;
@@ -122,7 +125,7 @@ class _ViewFoodState extends State<ViewFood> {
                                             child: Text('Cancel')),
                                         TextButton(
                                           onPressed: () {
-                                            foodService
+                                            foodController
                                                 .deleteFood(data[index].id);
                                             Get.back();
                                           },
