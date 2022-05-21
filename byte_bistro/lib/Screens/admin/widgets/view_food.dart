@@ -1,6 +1,5 @@
 // import 'package:byte_bistro/Models/food.dart';
 import 'package:byte_bistro/Screens/home/models/food_model.dart';
-import 'package:byte_bistro/Services/food_services.dart';
 import 'package:byte_bistro/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -73,21 +72,30 @@ class _ViewFoodState extends State<ViewFood> {
                           children: [
                             Expanded(
                               flex: 2,
-                              child: Text(
-                                data[index].description,
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w300,
-                                  height: 1.5,
-                                  color: kTextLightColor,
+                              child: Padding(
+                                padding: const EdgeInsets.only(right: 8.0),
+                                child: Text(
+                                  data[index].description,
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w300,
+                                    height: 1.5,
+                                    color: kTextLightColor,
+                                  ),
                                 ),
                               ),
                             ),
                             Expanded(
+                                child: Container(
+                              margin: EdgeInsets.only(left: 10),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
                                 child: Image(
+                                    height: 120,
                                     fit: BoxFit.cover,
-                                    image: AssetImage(
-                                        'assets/images/foodlogo.png')))
+                                    image: NetworkImage(data[index].image)),
+                              ),
+                            ))
                           ],
                         ),
                         SizedBox(
@@ -127,6 +135,7 @@ class _ViewFoodState extends State<ViewFood> {
                                           onPressed: () {
                                             foodController
                                                 .deleteFood(data[index].id);
+                                            setState(() {});
                                             Get.back();
                                           },
                                           child: Text(
@@ -141,7 +150,7 @@ class _ViewFoodState extends State<ViewFood> {
                                 image: AssetImage('assets/images/delete.png'),
                                 width: 25,
                                 height: 25,
-                                color: Colors.red,
+                                color: Colors.red.withOpacity(0.5),
                                 fit: BoxFit.cover,
                               ),
                             ),

@@ -17,12 +17,15 @@ class _AdminDashboardState extends State<AdminDashboard> {
     return Scaffold(
       backgroundColor: kPrimary,
       floatingActionButton: FloatingActionButton(
-        backgroundColor: kPrimary,
+        backgroundColor: kPrimary.withOpacity(0.9),
+        hoverColor: kTextColor,
         foregroundColor: kTextColor,
+        elevation: 10,
+        tooltip: 'Add Food',
         onPressed: () => showMaterialDialog(),
         child: Text(
           '+',
-          style: TextStyle(fontSize: 40),
+          style: TextStyle(fontSize: 30, fontWeight: FontWeight.w300),
         ),
       ),
       body: SafeArea(
@@ -62,7 +65,10 @@ class _AdminDashboardState extends State<AdminDashboard> {
         builder: (context) {
           return SingleChildScrollView(
             child: Dialog(
+              insetAnimationCurve: Curves.fastOutSlowIn,
+              insetAnimationDuration: Duration(seconds: 2),
               elevation: 10,
+              insetPadding: EdgeInsets.all(10),
               backgroundColor: Colors.white,
               child: AddFood(),
             ),
