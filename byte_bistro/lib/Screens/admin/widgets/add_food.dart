@@ -125,17 +125,22 @@ class _AddFoodState extends State<AddFood> {
                         SnackBar(content: Text('Food addition failed'));
 
                     if (response == "success") {
+                      Navigator.pushNamed(context, '/admin').then((_) {
+                        // This block runs when you have returned back to the 1st Page from 2nd.
+                        setState(() {
+                          // Call setState to refresh the page.
+                        });
+                      });
+
                       snackbarSucess;
                       ScaffoldMessenger.of(context)
                           .showSnackBar(snackbarSucess);
+                      foodController.getAllFood();
                     } else {
                       snackbarFail;
                       ScaffoldMessenger.of(context)
                           .showSnackBar(snackbarSucess);
                     }
-
-                    Get.back();
-                    setState(() {});
                   },
                   child: Text(
                     'ADD',

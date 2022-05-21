@@ -1,6 +1,5 @@
 // import 'package:byte_bistro/Models/food.dart';
 import 'package:byte_bistro/Screens/home/models/food_model.dart';
-import 'package:byte_bistro/Services/food_services.dart';
 import 'package:byte_bistro/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -127,6 +126,7 @@ class _ViewFoodState extends State<ViewFood> {
                                           onPressed: () {
                                             foodController
                                                 .deleteFood(data[index].id);
+                                            setState(() {});
                                             Get.back();
                                           },
                                           child: Text(

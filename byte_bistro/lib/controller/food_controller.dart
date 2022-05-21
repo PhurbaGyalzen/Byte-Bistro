@@ -4,18 +4,26 @@ import 'package:get/get.dart';
 import '../Screens/home/models/food_model.dart';
 
 class FoodController extends GetxController {
-  var foodList = <Food>[].obs;
+  var foodList = [].obs;
   FoodService foodService = Get.put(FoodService());
 
+  @override
+  void onInit() {
+    getAllFood();
+    super.onInit();
+  }
+
   // get all food
-  getAllFood() {
-    var response = foodService.getAllFood();
+  getAllFood() async {
+    var response = await foodService.getAllFood();
+    foodList.value = response;
     return response;
   }
 
   // get single food
-  getSingleFood(String foodId) {
+  getSingleFood(String foodId) async {
     var response = foodService.getSingleFood(foodId);
+    foodList.value = response as List;
     return response;
   }
 
@@ -26,7 +34,7 @@ class FoodController extends GetxController {
   }
 
   // delete single food
-  deleteFood(String foodId) {
+  deleteFood(String foodId) async {
     var response = foodService.deleteFood(foodId);
     return response;
   }
