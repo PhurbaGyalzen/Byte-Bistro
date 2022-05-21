@@ -1,6 +1,6 @@
 import 'package:byte_bistro/Screens/admin/widgets/add_food.dart';
 import 'package:byte_bistro/Screens/admin/widgets/view_food.dart';
-import 'package:byte_bistro/Screens/admin_screen.dart';
+// import 'package:byte_bistro/Screens/admin_screen.dart';
 import 'package:byte_bistro/Screens/admin/widgets/admin_dashboard.dart';
 import 'package:byte_bistro/Screens/after_order.dart';
 import 'package:byte_bistro/Screens/qr_data.dart';
@@ -31,7 +31,7 @@ class ByteBistro extends StatelessWidget {
     ));
     return GetMaterialApp(
       theme: ThemeData(fontFamily: 'Roboto'),
-      initialRoute: '/admin',
+      initialRoute: '/login',
       debugShowCheckedModeBanner: false,
       title: 'Byte Bistro',
       getPages: [
@@ -41,10 +41,10 @@ class ByteBistro extends StatelessWidget {
         GetPage(name: '/individual', page: () => IndividualItem()),
         GetPage(name: '/qrscan', page: () => QrScannerScreen()),
         GetPage(name: '/after-order', page: () => AfterOrderScreen()),
-        GetPage(name: '/admin', page: () => AdminDashboard()),
+        // GetPage(name: '/admin', page: () => AdminDashboard()),
         GetPage(name: '/addFood', page: () => AddFood()),
         GetPage(name: '/viewFood', page: () => ViewFood()),
-        GetPage(name: '/adminScreen', page: () => Admin()),
+        GetPage(name: '/adminScreen', page: () => AdminDashboard()),
         GetPage(name: '/dataScreen', page: () => QrDataScreen()),
         GetPage(name: '/swipeHome', page: () => SwipeHome()),
       ],
