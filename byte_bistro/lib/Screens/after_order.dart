@@ -23,16 +23,14 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
   String itemCount = '2';
   String totalPrice = '500.00';
   String? orderStatus;
-  int orderDurationMin = 100;
+  int? orderDurationMin;
+  late TextEditingController orderDurationTimeController;
 
-  // var socket = IO.io('http://100.91.255.71:3001', <String, dynamic>{
-  //   'transports': ['websocket'],
-  //   'autoConnect': false,
-  // });
   var socket = WebSocketService.socket;
 
   @override
   void initState() {
+    orderDurationTimeController = TextEditingController(text: 'NA');
     print('initstate');
     print(WebSocketService.origin);
     socket.connect();
@@ -43,7 +41,18 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
       socket.on('order_status_change', (message) {
         setState(() {
           orderStatus = message['orderStatus'];
-          orderDurationMin = message['orderDurationMin'];
+          print('recvd $orderStatus');
+          if (message['orderDurationMin'] != null) {
+            orderDurationMin = message['orderDurationMin'];
+            orderDurationTimeController.text = orderDurationMin!.toString();
+
+            // just for emulating time faster
+            for (var i = 1; i < 6; i++) {
+              Future.delayed(Duration(seconds: i), () {
+                orderDurationTimeController.text = (5 - i).toString();
+              });
+            }
+          }
         });
       });
     });
@@ -53,8 +62,15 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
     super.initState();
   }
 
+  @override
+  void dispose() {
+    // socket.disconnect();
+    orderDurationTimeController.dispose();
+    super.dispose();
+  }
+
   void _mocker() {
-    int diff = 3;
+    int diff = 5;
     Future.delayed(Duration(seconds: diff * 1), () {
       // should be sent by admin.
       print('orderRcvd');
@@ -62,7 +78,6 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
         {
           'orderId': '123456',
           'orderStatus': 'orderRcvd',
-          'orderDurationMin': 20,
         }
       ]);
     });
@@ -74,7 +89,7 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
         {
           'orderId': '123456',
           'orderStatus': 'orderPrep',
-          'orderDurationMin': 20,
+          'orderDurationMin': 6,
         }
       ]);
     });
@@ -86,41 +101,73 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
         {
           'orderId': '123456',
           'orderStatus': 'orderReady',
-          'orderDurationMin': 20,
         }
       ]);
     });
 
-    Future.delayed(Duration(seconds: diff * 4), () {
+    Future.delayed(Duration(seconds: diff * 5), () {
       print('orderChecked');
       // should be sent by admin.
       socket.emit('order_status_change', [
         {
           'orderId': '123456',
           'orderStatus': 'orderChecked',
-          'orderDurationMin': 20,
         }
       ]);
     });
   }
 
   Widget build(BuildContext context) {
+    TextStyle secStyle = TextStyle(fontSize: 16, color: Colors.grey);
     List<Item> items = [
       Item(
         primaryText: 'Order Received',
-        secondaryText: 'Order received at ' + orderedTime,
+        secondaryText: Text(
+          'Order received at ' + orderedTime,
+          style: secStyle,
+        ),
         icon: 'assets/images/order_recv.png',
       ),
       Item(
         primaryText: 'Food is being prepared',
-        secondaryText:
-            'Your order will be ready approx. in $orderDurationMin minutes',
+        secondaryText: Wrap(
+          crossAxisAlignment: WrapCrossAlignment.center,
+          children: [
+            Container(
+              // width: 40,
+              child: Text(
+                'Your order will be ready approx. in ',
+                // '',
+                style: secStyle,
+              ),
+            ),
+            Container(
+              width: 20,
+              child: TextFormField(
+                controller: orderDurationTimeController,
+                readOnly: true,
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+            Container(
+              // width: 40,
+              child: Text(
+                ' minutes',
+                style: secStyle,
+              ),
+            ),
+          ],
+        ),
         icon: 'assets/images/order_prep.png',
       ),
       Item(
-        primaryText: 'Food is ready',
-        secondaryText:
-            'Please collect your order from the kitchen. Have a great meal.',
+        primaryText: 'Order Checkout.',
+        secondaryText: Text(
+          'Please collect your order from the kitchen. Have a great meal.',
+          style: secStyle,
+        ),
         icon: 'assets/images/order_checkout.png',
       ),
     ];
@@ -134,8 +181,8 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
               children: <Widget>[
                 Icon(
                   Icons.close,
-                  color: Colors.blue,
-                  size: 50,
+                  color: Colors.black,
+                  size: 40,
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -156,8 +203,8 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
                 ),
                 Icon(
                   Icons.more,
-                  color: Colors.blue,
-                  size: 50,
+                  color: Colors.black,
+                  size: 40,
                 ),
               ],
             ),
@@ -189,7 +236,7 @@ TextWithColor _getOrderStatus(String? orderStatus, int currIndex) {
 
 class Item {
   String primaryText;
-  String secondaryText;
+  Widget secondaryText;
   String icon;
   // TextWithColor status;
 
@@ -265,13 +312,11 @@ class OrderStatusItems extends StatelessWidget {
                                     : FontWeight.w500,
                                 fontSize: 22),
                           ),
-                          Container(
+                          SizedBox(
                             width: MediaQuery.of(context).size.width * 0.5,
-                            child: Text(
-                              isCurrent ? items[i].secondaryText : '',
-                              style:
-                                  TextStyle(fontSize: 16, color: Colors.grey),
-                            ),
+                            child:
+                                isCurrent ? items[i].secondaryText : Text(''),
+                            // items[i].secondaryText,
                           ),
                         ],
                       ),

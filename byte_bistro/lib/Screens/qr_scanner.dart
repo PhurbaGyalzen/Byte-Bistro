@@ -44,6 +44,14 @@ class _QrScannerState extends State<QrScannerScreen> {
               ),
             ),
             Positioned(child: Align(child: buildControlButtons()), top: 5),
+            Positioned(
+              child: IconButton(
+                icon: Icon(Icons.close),
+                onPressed: () => Get.back(),
+              ),
+              left: 10,
+              top: 5,
+            ),
             // Expanded(flex: 2, child: buildControlButtons()),
             Positioned(
                 bottom: 20,
