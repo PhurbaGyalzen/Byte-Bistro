@@ -109,19 +109,19 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
       Item(
         primaryText: 'Order Received',
         secondaryText: 'Order received at ' + orderedTime,
-        icon: Icons.fastfood,
+        icon: 'assets/images/order_recv.png',
       ),
       Item(
         primaryText: 'Food is being prepared',
         secondaryText:
             'Your order will be ready approx. in $orderDurationMin minutes',
-        icon: Icons.local_drink,
+        icon: 'assets/images/order_prep.png',
       ),
       Item(
         primaryText: 'Food is ready',
         secondaryText:
             'Please collect your order from the kitchen. Have a great meal.',
-        icon: Icons.local_dining,
+        icon: 'assets/images/order_checkout.png',
       ),
     ];
     return Scaffold(
@@ -190,7 +190,7 @@ TextWithColor _getOrderStatus(String? orderStatus, int currIndex) {
 class Item {
   String primaryText;
   String secondaryText;
-  IconData icon;
+  String icon;
   // TextWithColor status;
 
   Item(
@@ -240,10 +240,10 @@ class OrderStatusItems extends StatelessWidget {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(
+                        Image.asset(
                           items[i].icon,
-                          color: Colors.black,
-                          size: 50,
+                          // color: Colors.black,
+                          width: 72,
                         ),
                         Text(
                           currStatus.text,
