@@ -1,3 +1,4 @@
+import 'package:byte_bistro/Screens/add_to_cart/widgets/add_to_cart.dart';
 import 'package:byte_bistro/Screens/admin/widgets/add_food.dart';
 import 'package:byte_bistro/Screens/admin/widgets/view_food.dart';
 // import 'package:byte_bistro/Screens/admin_screen.dart';
@@ -47,6 +48,7 @@ class ByteBistro extends StatelessWidget {
         GetPage(name: '/adminScreen', page: () => AdminDashboard()),
         GetPage(name: '/dataScreen', page: () => QrDataScreen()),
         GetPage(name: '/swipeHome', page: () => SwipeHome()),
+        GetPage(name: '/addToCart', page: () => AddToCart()),
       ],
     );
   }
