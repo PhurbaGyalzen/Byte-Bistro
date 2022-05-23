@@ -4,6 +4,7 @@ import { initDbConnection } from './config/database'
 import passport from 'passport'
 import { default as authRoutes } from './routes/authRoutes'
 import { default as qrRoutes } from './routes/qrRoutes'
+import {default as cartRoutes} from './routes/cartRoutes'
 
 import morgan from 'morgan'
 import enableCors from 'middlewares/enable-cors'
@@ -15,16 +16,17 @@ const app = express()
 app.use(morgan('combined'))
 const port = process.env.PORT
 
-app.use(morgan('dev'))
-app.use(helmet())
-app.use(enableCors)
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
-app.use(passport.initialize())
-app.use('/food', foodRoutes)
+app.use(morgan('dev'));
+app.use(helmet());
+app.use(enableCors);
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(passport.initialize());
+app.use('/food', foodRoutes);
+app.use('/cart', cartRoutes);
 
-app.use('/auth', authRoutes)
-app.use('/qr', qrRoutes)
+app.use('/auth', authRoutes);
+app.use('/qr', qrRoutes);
 
 app.listen(port, async () => {
 	await initDbConnection()
