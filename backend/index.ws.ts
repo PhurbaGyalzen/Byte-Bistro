@@ -1,7 +1,7 @@
 import { createServer } from 'http'
 import { Server } from 'socket.io'
 import { Express } from 'express'
-import { Cart, ICart } from '@models/Food'
+import { Cart, ICart } from '@models/Cart'
 
 const initWebSocket = (app: Express) => {
 	const httpServer = createServer(app)
