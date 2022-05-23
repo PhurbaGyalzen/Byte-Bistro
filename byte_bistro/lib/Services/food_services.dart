@@ -55,6 +55,31 @@ class FoodService {
     }
   }
 
+  // update food
+  static Future<String> updateFood(
+    String foodId,
+    Map<String, dynamic> data,
+  ) async {
+    var endpoint = PersistentHtpp.baseUrl + 'food/$foodId';
+
+    try {
+      var response = await PersistentHtpp.client.put(
+        Uri.parse(endpoint),
+        body: jsonEncode(data),
+        headers: {
+          "Content-Type": "application/json; charset=UTF-8",
+        },
+      );
+      if (response.statusCode == 200) {
+        return 'success';
+      } else {
+        return Future.error('err');
+      }
+    } catch (err) {
+      return Future.error(' err');
+    }
+  }
+
   // delete food
   deleteFood(String foodId) async {
     String endpoint = PersistentHtpp.baseUrl + 'food/$foodId';
