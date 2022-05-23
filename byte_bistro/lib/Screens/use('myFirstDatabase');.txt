@@ -1,0 +1,10 @@
+use('myFirstDatabase');
+
+db.users.insertMany([
+  {
+    "username": "testlimbu",
+    "email": "2@gm.kidgufco",
+    "passwordHash": "$2b$10$Xx.Q.Q.Q.Q.Q.Q.Q.Q.Q.Q.Q.Q.Q.Q.Q.Q.Q.Q.Q.Q.Q.Q.Q.",
+    "fullname": "test2"
+  }
+])
