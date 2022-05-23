@@ -9,11 +9,24 @@ class SwipeHome extends StatefulWidget {
 }
 
 class _SwipeHomeState extends State<SwipeHome> {
+  late PageController pageController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    pageController = PageController(
+      initialPage: 0,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    // PageController pgCont = widget.pageController;
     return Scaffold(
         body: PageView(
-      children: [HomePage(), QrScannerScreen()],
+      controller: pageController,
+      children: [HomePage(), QrScannerScreen(pageController: pageController)],
     ));
   }
 }
