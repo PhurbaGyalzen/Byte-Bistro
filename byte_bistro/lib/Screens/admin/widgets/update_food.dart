@@ -9,18 +9,32 @@ import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 // import 'package:image_picker/image_picker.dart';
 
-class AddFood extends StatefulWidget {
-  const AddFood({Key? key}) : super(key: key);
+class UpdateFood extends StatefulWidget {
+  UpdateFood(
+      {Key? key,
+      required this.id,
+      required this.name,
+      required this.price,
+      required this.description,
+      required this.image})
+      : super(key: key);
+  String id;
+  String name;
+  int price;
+  String description;
+  String image;
 
   @override
-  State<AddFood> createState() => _AddFoodState();
+  State<UpdateFood> createState() => _UpdateFoodState();
 }
 
-class _AddFoodState extends State<AddFood> {
-  final nameController = TextEditingController();
-  final priceController = TextEditingController();
-  final imageController = TextEditingController();
-  final descriptionController = TextEditingController();
+class _UpdateFoodState extends State<UpdateFood> {
+  late final nameController = TextEditingController(text: widget.name);
+  late final priceController =
+      TextEditingController(text: widget.price.toString());
+  late final imageController = TextEditingController(text: widget.image);
+  late final descriptionController =
+      TextEditingController(text: widget.description);
   File? image;
 
   @override
@@ -31,18 +45,6 @@ class _AddFoodState extends State<AddFood> {
     imageController.addListener(() => setState(() {}));
     descriptionController.addListener(() => setState(() {}));
   }
-
-  // Future pickImage() async {
-  //   try {
-  //     final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-  //     if (image == null) return;
-
-  //     final imageTemporary = File(image.path);
-  //     setState(() => this.image = imageTemporary);
-  //   } on PlatformException catch (e) {
-  //     print('Failed to pick image: $e');
-  //   }
-  // }
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   @override
@@ -65,7 +67,7 @@ class _AddFoodState extends State<AddFood> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'ADD FOOD',
+                      'UPDATE FOOD',
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.w300,
@@ -118,7 +120,7 @@ class _AddFoodState extends State<AddFood> {
                   ],
                 ),
               ),
-              nameField(),
+              nameField(widget.name),
               SizedBox(
                 height: 20,
               ),
@@ -131,32 +133,6 @@ class _AddFoodState extends State<AddFood> {
                 height: 20,
               ),
               descriptionField(),
-              // ElevatedButton(
-              //   style: ElevatedButton.styleFrom(
-              //     primary: Colors.grey,
-              //     onPrimary: Colors.white,
-              //   ),
-              //   onPressed: () {
-              //     pickImage();
-              //   },
-              //   child: Text(
-              //     'Pick img gallery',
-              //     style: TextStyle(fontSize: 18, letterSpacing: 0.3),
-              //     textAlign: TextAlign.center,
-              //   ),
-              // ),
-              // ElevatedButton(
-              //   style: ElevatedButton.styleFrom(
-              //     primary: Colors.grey,
-              //     onPrimary: Colors.white,
-              //   ),
-              //   onPressed: () => dismissDialog(),
-              //   child: Text(
-              //     'Pick img camera',
-              //     style: TextStyle(fontSize: 18, letterSpacing: 0.3),
-              //     textAlign: TextAlign.center,
-              //   ),
-              // ),
               SizedBox(
                 height: 20,
               ),
@@ -201,11 +177,14 @@ class _AddFoodState extends State<AddFood> {
                           "image": imageController.text,
                         };
 
-                        String response = await foodController.addFood(data);
+                        print(imageController.text);
+
+                        String response =
+                            await foodController.updateFood(widget.id, data);
                         final snackbarSucess =
-                            SnackBar(content: Text('Food added sucessfully'));
+                            SnackBar(content: Text('Food updated sucessfully'));
                         final snackbarFail =
-                            SnackBar(content: Text('Food addition failed'));
+                            SnackBar(content: Text('Food updation failed'));
 
                         if (response == "success") {
                           Navigator.pushNamed(context, '/adminScreen')
@@ -228,7 +207,7 @@ class _AddFoodState extends State<AddFood> {
                       }
                     },
                     child: Text(
-                      'ADD',
+                      'UPDATE',
                       style: TextStyle(fontSize: 14, letterSpacing: 0.3),
                       textAlign: TextAlign.center,
                     ),
@@ -240,7 +219,7 @@ class _AddFoodState extends State<AddFood> {
     );
   }
 
-  TextFormField nameField() {
+  TextFormField nameField(String name) {
     return TextFormField(
       autovalidateMode: AutovalidateMode.onUserInteraction,
       controller: nameController,

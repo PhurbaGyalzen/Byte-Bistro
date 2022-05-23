@@ -33,6 +33,12 @@ class FoodController extends GetxController {
     return response;
   }
 
+  // update single food
+  updateFood(String foodId, Map<String, dynamic> data) async {
+    var response = foodService.updateFood(foodId, data);
+    return response;
+  }
+
   // delete single food
   deleteFood(String foodId) async {
     var response = foodService.deleteFood(foodId);

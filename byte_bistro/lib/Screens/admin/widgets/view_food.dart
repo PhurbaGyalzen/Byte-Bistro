@@ -1,10 +1,12 @@
 // import 'package:byte_bistro/Models/food.dart';
+import 'package:byte_bistro/Screens/admin/widgets/update_food.dart';
 import 'package:byte_bistro/Screens/home/models/food_model.dart';
 import 'package:byte_bistro/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../controller/food_controller.dart';
+import 'add_food.dart';
 
 class ViewFood extends StatefulWidget {
   const ViewFood({Key? key}) : super(key: key);
@@ -154,6 +156,32 @@ class _ViewFoodState extends State<ViewFood> {
                                 fit: BoxFit.cover,
                               ),
                             ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            GestureDetector(
+                              onTap: () => showMaterialDialog(
+                                data[index].id,
+                                data[index].name,
+                                data[index].price,
+                                data[index].description,
+                                data[index].image,
+                              ),
+                              //     foodController.updateFood(data[index].id, {
+                              //   "name": data[index].name,
+                              //   "price": data[index].price,
+                              //   "description": data[index].description,
+                              //   "image": data[index].image
+                              // }
+                              // ),
+                              child: Image(
+                                image: AssetImage('assets/images/edit.png'),
+                                width: 25,
+                                height: 25,
+                                color: Colors.black.withOpacity(0.5),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
                           ],
                         ),
                       ],
@@ -174,5 +202,29 @@ class _ViewFoodState extends State<ViewFood> {
         },
       ),
     );
+  }
+
+  void showMaterialDialog(
+      String id, String name, int price, String description, String image) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return SingleChildScrollView(
+            child: Dialog(
+              insetAnimationCurve: Curves.fastOutSlowIn,
+              insetAnimationDuration: Duration(seconds: 2),
+              elevation: 10,
+              insetPadding: EdgeInsets.all(10),
+              backgroundColor: Colors.white,
+              child: UpdateFood(
+                  id: id,
+                  name: name,
+                  price: price,
+                  description: description,
+                  image: image),
+            ),
+          );
+        });
   }
 }
