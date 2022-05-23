@@ -1,18 +1,20 @@
-import { Router } from 'express';
+import { Router } from 'express'
 import {
-  deleteFood,
-  getFood,
-  putFood,
-  updateFood,
-  viewFood,
-} from '../controller/foodController';
+	addCategory,
+	deleteFood,
+	getFood,
+	putFood,
+	updateFood,
+	viewFood,
+} from '../controller/foodController'
 
-const router = Router();
+const router = Router()
 
-router.get('/:foodId', getFood);
-router.get('/', viewFood);
-router.post('/', putFood);
-router.patch('/:foodId', updateFood);
-router.delete('/:foodId', deleteFood);
+router.get('/:foodId', getFood)
+router.get('/', viewFood)
+router.post('/', putFood)
+router.patch('/:foodId', updateFood)
+router.delete('/:foodId', deleteFood)
+router.post('/category', addCategory)
 
-export default router;
+export default router
