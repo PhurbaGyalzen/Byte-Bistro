@@ -63,7 +63,7 @@ class FoodService {
     var endpoint = PersistentHtpp.baseUrl + 'food/$foodId';
 
     try {
-      var response = await PersistentHtpp.client.put(
+      var response = await PersistentHtpp.client.patch(
         Uri.parse(endpoint),
         body: jsonEncode(data),
         headers: {
