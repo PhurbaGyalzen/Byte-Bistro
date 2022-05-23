@@ -56,7 +56,7 @@ class FoodService {
   }
 
   // update food
-  static Future<String> updateFood(
+  Future<String> updateFood(
     String foodId,
     Map<String, dynamic> data,
   ) async {
