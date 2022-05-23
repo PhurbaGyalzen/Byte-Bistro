@@ -74,7 +74,7 @@ const FoodSchemaFields: Record<keyof IFood, any> = {
 	price: { type: Number, required: true },
 	description: { type: String, minlength: 0, maxlength: 1024 },
 	image: { type: String, required: true },
-	categories: { type: [String] },
+	categories: { ref: 'Category', type: [Schema.Types.ObjectId], default: [] },
 	isAvailable: { type: Boolean, default: true },
 	avgRating: { type: Number },
 	avgPrepTime: { type: Number },
@@ -94,7 +94,13 @@ const FoodSchema = new Schema<IFoodDoc>(FoodSchemaFields, { timestamps: true })
 interface ICategoryDoc extends ICategory, Document {}
 
 const CategorySchemaFields: Record<keyof ICategory, any> = {
-	name: { type: String, required: true, minlength: 1, maxlength: 255 },
+	name: {
+		type: String,
+		required: true,
+		minlength: 1,
+		maxlength: 255,
+		index: true,
+	},
 }
 
 const CategorySchema = new mongoose.Schema<ICategoryDoc>(CategorySchemaFields)
