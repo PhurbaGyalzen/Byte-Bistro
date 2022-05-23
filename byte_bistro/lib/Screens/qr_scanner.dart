@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'package:byte_bistro/Screens/swipe_qr_home.dart';
+import 'package:byte_bistro/main.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -91,6 +92,7 @@ class _QrScannerState extends State<QrScannerScreen> {
           final table = data['tableNumber'].toString();
           // print('Table: $table');
           if (table != null) {
+            tableNo = int.parse(table);
             Get.toNamed('/dataScreen', arguments: table);
           }
         }
