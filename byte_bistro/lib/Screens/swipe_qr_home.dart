@@ -13,7 +13,7 @@ class _SwipeHomeState extends State<SwipeHome> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: PageView(
-      children: [QrScannerScreen(), HomePage()],
+      children: [HomePage(), QrScannerScreen()],
     ));
   }
 }

@@ -54,7 +54,7 @@ class _HomePageState extends State<HomePage> {
           currentIndex: selectedIndex,
           onTap: onItemTapped,
           type: BottomNavigationBarType.fixed,
-          items: const [
+          items:  const [
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
               label: "Home",

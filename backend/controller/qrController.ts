@@ -6,6 +6,10 @@ interface IqrCodeGenerate {
     text: string
 }
 
+interface Itable {
+    tableNumber: number
+}
+
 interface Options {
     errorCorrectionLevel: string
     type: string
@@ -48,7 +52,7 @@ export const qrCodeGenerate = async (
             )
             res.writeHead(200, {
                 'Content-Type': 'image/png',
-                'Content-Length': url.length,
+                // 'Content-Length': url.length,
             })
             res.end(img)
         }
@@ -61,7 +65,7 @@ export const jsonQrCodeGenerate = async (
     next: NextFunction,
 ) => {
     console.log('qrCodeGenerate json')
-    const data: IMenuItem = req.body
+    const data: Itable = req.body
     const jsonStr: String = JSON.stringify(data)
 
     await qrcode.toDataURL(jsonStr, (err: any, url: String) => {
@@ -76,7 +80,7 @@ export const jsonQrCodeGenerate = async (
             )
             res.writeHead(200, {
                 'Content-Type': 'image/png',
-                'Content-Length': url.length,
+                // 'Content-Length': url.length,
             })
             res.end(img)
         }

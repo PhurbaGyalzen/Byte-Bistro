@@ -35,12 +35,13 @@ export const putFood = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { name, price, description, images } = req.body;
+  const { name, price, description, image } = req.body;
   try {
     const food = new Food({
       name: name,
       price: price,
       description: description,
+      image: image,
       // image: images,
     });
     await food.save();
@@ -56,7 +57,7 @@ export const updateFood = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { name, price, description, images } = req.body;
+  const { name, price, description, image } = req.body;
   try {
     const food = await Food.updateOne(
       { _id: req.params.foodId },
@@ -65,6 +66,7 @@ export const updateFood = async (
           name: req.body.name,
           price: req.body.price,
           description: req.body.description,
+          // image:req.body.image
         },
       }
     );

@@ -1,8 +1,10 @@
 // import 'package:byte_bistro/Models/food.dart';
 import 'package:byte_bistro/Screens/home/models/food_model.dart';
-import 'package:byte_bistro/Services/food_services.dart';
 import 'package:byte_bistro/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../../controller/food_controller.dart';
 
 class ViewFood extends StatefulWidget {
   const ViewFood({Key? key}) : super(key: key);
@@ -12,12 +14,13 @@ class ViewFood extends StatefulWidget {
 }
 
 class _ViewFoodState extends State<ViewFood> {
-  FoodService foodService = FoodService();
+  FoodController foodController = Get.put(FoodController());
+
   @override
   Widget build(BuildContext context) {
     return Container(
       child: FutureBuilder(
-        future: FoodService.getAllFood(),
+        future: foodController.getAllFood(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             List<Food> data = snapshot.data as List<Food>;
@@ -69,35 +72,89 @@ class _ViewFoodState extends State<ViewFood> {
                           children: [
                             Expanded(
                               flex: 2,
-                              child: Text(
-                                data[index].description,
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w300,
-                                  height: 1.5,
-                                  color: kTextLightColor,
+                              child: Padding(
+                                padding: const EdgeInsets.only(right: 8.0),
+                                child: Text(
+                                  data[index].description,
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w300,
+                                    height: 1.5,
+                                    color: kTextLightColor,
+                                  ),
                                 ),
                               ),
                             ),
                             Expanded(
+                                child: Container(
+                              margin: EdgeInsets.only(left: 10),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
                                 child: Image(
+                                    height: 120,
                                     fit: BoxFit.cover,
-                                    image: AssetImage(
-                                        'assets/images/foodlogo.png')))
+                                    image: NetworkImage(data[index].image)),
+                              ),
+                            ))
                           ],
                         ),
                         SizedBox(
-                          height: 10,
+                          height: 50,
                         ),
-                        Text(
-                          'Rs ${data[index].price.toString()}',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                            height: 1.3,
-                            letterSpacing: 0.5,
-                            color: kTextColor,
-                          ),
+                        Row(
+                          children: [
+                            Text(
+                              'Rs ${data[index].price.toString()}',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
+                                height: 1.3,
+                                letterSpacing: 0.5,
+                                color: kTextColor,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 220,
+                            ),
+                            GestureDetector(
+                              onTap: () => showDialog(
+                                  barrierDismissible: false,
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: Text('Delete'),
+                                      content: Text(
+                                          'Are you sure you want to delete this item?'),
+                                      actions: [
+                                        TextButton(
+                                            onPressed: () {
+                                              Get.back();
+                                            },
+                                            child: Text('Cancel')),
+                                        TextButton(
+                                          onPressed: () {
+                                            foodController
+                                                .deleteFood(data[index].id);
+                                            setState(() {});
+                                            Get.back();
+                                          },
+                                          child: Text(
+                                            'Delete',
+                                            style: TextStyle(color: Colors.red),
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  }),
+                              child: Image(
+                                image: AssetImage('assets/images/delete.png'),
+                                width: 25,
+                                height: 25,
+                                color: Colors.red.withOpacity(0.5),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),

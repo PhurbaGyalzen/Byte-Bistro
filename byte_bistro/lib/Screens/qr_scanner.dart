@@ -1,6 +1,6 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -30,10 +30,12 @@ class _QrScannerState extends State<QrScannerScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Column(
+        body: Stack(
+          alignment: Alignment.center,
           children: <Widget>[
-            Expanded(
-              flex: 5,
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
               child: QRView(
                 key: qrKey,
                 onQRViewCreated: _onQRViewCreated,
@@ -41,16 +43,33 @@ class _QrScannerState extends State<QrScannerScreen> {
                     borderWidth: 10, borderColor: Colors.blueGrey),
               ),
             ),
-            Expanded(
-              flex: 1,
-              child: Center(
-                child: (result != null)
-                    ? Text(
-                        'Barcode Type: ${result!.format}   Data: ${result!.code}')
-                    : Text('Scan a code'),
+            Positioned(child: Align(child: buildControlButtons()), top: 5),
+            Positioned(
+              child: IconButton(
+                icon: Icon(Icons.close),
+                onPressed: () => Get.back(),
               ),
+              left: 10,
+              top: 5,
             ),
-            Positioned(top: 10, child: buildControlButtons())
+            // Expanded(flex: 2, child: buildControlButtons()),
+            Positioned(
+                bottom: 20,
+                child: Center(
+                  child: (result != null)
+                      ? Text('Scanning',
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white10))
+                      : Text(
+                          'Scan a code',
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        ),
+                ))
           ],
         ),
       ),
@@ -63,7 +82,13 @@ class _QrScannerState extends State<QrScannerScreen> {
       setState(() {
         result = scanData;
         if (result != null) {
-          Get.toNamed('/dataScreen', arguments: result!.code);
+          final data = json.decode(result!.code ?? '{}');
+          // print(data);
+          final table = data['tableNumber'].toString();
+          // print('Table: $table');
+          if (table != null) {
+            Get.toNamed('/dataScreen', arguments: table);
+          }
         }
       });
     });
@@ -92,7 +117,9 @@ class _QrScannerState extends State<QrScannerScreen> {
                   builder: (context, snapshot) {
                     if (snapshot.data != null) {
                       return Icon(
-                          snapshot.data! ? Icons.flash_on : Icons.flash_off);
+                        snapshot.data! ? Icons.flash_on : Icons.flash_off,
+                        color: Colors.white,
+                      );
                     } else {
                       return Container();
                     }
@@ -107,7 +134,10 @@ class _QrScannerState extends State<QrScannerScreen> {
                 icon: FutureBuilder(
                   builder: (context, snapshot) {
                     if (snapshot.data != null) {
-                      return Icon(Icons.switch_camera);
+                      return Icon(
+                        Icons.switch_camera,
+                        color: Colors.white,
+                      );
                     } else {
                       return Container();
                     }
