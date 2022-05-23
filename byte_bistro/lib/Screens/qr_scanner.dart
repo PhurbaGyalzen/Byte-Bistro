@@ -1,12 +1,14 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
+import 'package:byte_bistro/Screens/swipe_qr_home.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class QrScannerScreen extends StatefulWidget {
-  const QrScannerScreen({Key? key}) : super(key: key);
+  final PageController? pageController;
+  const QrScannerScreen({Key? key, this.pageController}) : super(key: key);
 
   @override
   State<QrScannerScreen> createState() => _QrScannerState();
@@ -47,7 +49,9 @@ class _QrScannerState extends State<QrScannerScreen> {
             Positioned(
               child: IconButton(
                 icon: Icon(Icons.close),
-                onPressed: () => Get.back(),
+                onPressed: () => widget.pageController?.previousPage(
+                    duration: Duration(milliseconds: 300),
+                    curve: Curves.easeIn),
               ),
               left: 10,
               top: 5,
