@@ -1,4 +1,4 @@
-import 'package:byte_bistro/Screens/add_to_cart/widgets/add_to_cart.dart';
+import 'package:byte_bistro/Screens/add_to_cart/add_to_cart.dart';
 import 'package:byte_bistro/Screens/admin/widgets/add_food.dart';
 import 'package:byte_bistro/Screens/admin/widgets/view_food.dart';
 // import 'package:byte_bistro/Screens/admin_screen.dart';
@@ -33,7 +33,7 @@ class ByteBistro extends StatelessWidget {
     ));
     return GetMaterialApp(
       theme: ThemeData(fontFamily: 'Roboto'),
-      initialRoute: '/login',
+      initialRoute: '/addToCart',
       debugShowCheckedModeBanner: false,
       title: 'Byte Bistro',
       getPages: [
