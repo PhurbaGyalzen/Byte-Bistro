@@ -24,9 +24,11 @@ const CartSchemaFields: Record<keyof ICart, any> = {
 				foodId: {
 					type: Schema.Types.ObjectId,
 					ref: 'Food',
+					required: true,
 				},
 				qty: {
 					type: Number,
+					required: true,
 				},
 			},
 		],
@@ -34,6 +36,7 @@ const CartSchemaFields: Record<keyof ICart, any> = {
 	},
 	tableId: {
 		type: Number,
+		required: true,
 	},
 }
 
