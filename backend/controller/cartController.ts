@@ -9,7 +9,11 @@ export const getCart = async (
 	next: NextFunction
 ) => {
 	try {
-		const cart = await Cart.findById(req.params.cartId)
+		const cart = await Cart.findById(req.params.cartId).populate({
+			path: 'items.foodId',
+			select: 'name price image isAvailable',
+		})
+		console.log(cart?.userId)
 		res.status(200).json(cart)
 	} catch (err) {
 		res.status(400).json({ message: err })

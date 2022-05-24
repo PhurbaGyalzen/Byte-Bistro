@@ -24,9 +24,6 @@ const CartSchemaFields: Record<keyof ICart, any> = {
 				foodId: {
 					type: Schema.Types.ObjectId,
 					ref: 'Food',
-					populate: {
-						select: 'name price image isAvailable',
-					},
 				},
 				qty: {
 					type: Number,
