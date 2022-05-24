@@ -66,6 +66,40 @@ export const updateCart = async (
 	}
 }
 
+export const addRemoveItem = async (
+	req: Request,
+	res: Response,
+	next: NextFunction
+) => {
+	const { cartId, opType, items } = req.body
+	let err: any
+	try {
+		if (opType === 'add') {
+			const cart = await Cart.findByIdAndUpdate(cartId, {
+				$push: {
+					items: items,
+				},
+			})
+			return res.status(200).json(cart)
+		}
+		if (opType === 'delete') {
+			const foodIds = items.map((item: any) => item.foodId)
+			const cart = await Cart.findByIdAndUpdate(cartId, {
+				$pull: {
+					items: {
+						foodId: {
+							$in: foodIds,
+						},
+					},
+				},
+			})
+			return res.status(200).json(cart)
+		}
+		err = 'Invalid operation type'
+	} catch (err) {}
+	return res.status(400).json({ message: err })
+}
+
 export const deleteCart = async (
 	req: Request,
 	res: Response,

@@ -6,6 +6,7 @@ import {
 	createCart,
 	updateCart,
 	deleteCart,
+	addRemoveItem,
 } from '../controller/cartController'
 
 const router = Router()
@@ -13,6 +14,7 @@ const router = Router()
 router.get('/', viewCart)
 router.get('/:cartId', getCart)
 router.post('/', createCart)
+router.patch('/', addRemoveItem)
 router.put('/', updateCart)
 router.delete('/:cartId', deleteCart)
 
