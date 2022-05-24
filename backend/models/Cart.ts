@@ -7,7 +7,7 @@ export interface ICart {
 		foodId: IMenuItem
 		qty: number
 	}[]
-	tableId: Types.ObjectId
+	tableId: number
 }
 
 interface ICartDoc extends ICart, Document {}
