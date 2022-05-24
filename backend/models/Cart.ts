@@ -36,7 +36,7 @@ const CartSchemaFields: Record<keyof ICart, any> = {
 		default: [],
 	},
 	tableId: {
-		type: Schema.Types.ObjectId,
+		type: Number,
 	},
 }
 
