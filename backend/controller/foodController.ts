@@ -35,14 +35,14 @@ export const putFood = async (
 	res: Response,
 	next: NextFunction
 ) => {
-	const { name, price, description, image, categoriyIds } = req.body
+	const { name, price, description, image, categories } = req.body
 	try {
 		const food = new Food({
 			name: name,
 			price: price,
 			description: description,
 			image: image,
-			categories: categoriyIds || [],
+			categories: categories || [],
 			// image: images,
 		})
 		await food.save()
