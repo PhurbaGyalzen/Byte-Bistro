@@ -90,20 +90,3 @@ export const deleteFood = async (
 		res.status(400).json({ message: err })
 	}
 }
-
-export const addCategory = async (
-	req: Request,
-	res: Response,
-	next: NextFunction
-) => {
-	const { name } = req.body
-	try {
-		const category = new Category({
-			name: name,
-		})
-		await category.save()
-		res.status(200).json(category)
-	} catch (err) {
-		res.status(400).json({ message: err })
-	}
-}

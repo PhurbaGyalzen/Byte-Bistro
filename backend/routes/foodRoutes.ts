@@ -1,6 +1,5 @@
 import { Router } from 'express'
 import {
-	addCategory,
 	deleteFood,
 	getFood,
 	putFood,
@@ -15,6 +14,5 @@ router.get('/', viewFood)
 router.post('/', putFood)
 router.patch('/:foodId', updateFood)
 router.delete('/:foodId', deleteFood)
-router.post('/category', addCategory)
 
 export default router
