@@ -2,6 +2,9 @@ import 'dart:convert';
 
 Cart cartFromJson(String str) => Cart.fromJson(json.decode(str));
 
+List<Cart> cartsFromJson(String str) =>
+    List<Cart>.from(json.decode(str).map((x) => Cart.fromJson(x)));
+
 String cartToJson(Cart data) => json.encode(data.toJson());
 
 class Cart {
@@ -99,36 +102,3 @@ class FoodId {
         "isAvailable": isAvailable,
       };
 }
-/* 
-String indCart = '''
-{
-  "_id": "628cc6fb620fe24d3929b7d2",
-  "userId": "627fd5dd52fdb37643db330c",
-  "items": [
-    {
-      "foodId": {
-        "_id": "628bb15477df225b15e71a6f",
-        "name": "Pizza",
-        "price": 700,
-        "image": "https://www.tasteofhome.com/wp-content/uploads/2018/01/exps14079_SD14079D12_18_2bC_RMS-1-696x696.jpg",
-        "isAvailable": true
-      },
-      "qty": 2,
-      "_id": "628cc6fb620fe24d3929b7d3"
-    }
-  ],
-  "tableId": 7,
-  "createdAt": "2022-05-24T11:52:27.585Z",
-  "updatedAt": "2022-05-24T13:15:37.268Z",
-  "__v": 0
-}
-''';
-
-String lCarts = '[' + indCart + ']';
-
-void main() {
-  // Cart cart = cartFromJson(indCart);
-  List<Cart> carts =
-      List<Cart>.from(json.decode(lCarts).map((x) => Cart.fromJson(x)));
-  print(carts);
-} */
