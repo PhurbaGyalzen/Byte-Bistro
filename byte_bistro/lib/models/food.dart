@@ -75,3 +75,5 @@ class Data {
         "isAvailable": isAvailable,
       };
 }
+
+

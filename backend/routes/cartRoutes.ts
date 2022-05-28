@@ -42,7 +42,7 @@ passport.use('jwt', new JWT({
 
 router.get('/', verifyUser,viewCart)
 router.get('/:cartId', getCart)
-router.post('/', createCart)
+router.post('/', verifyUser, createCart)
 router.patch('/', addRemoveItem)
 router.put('/', updateCart)
 router.delete('/:cartId', deleteCart)

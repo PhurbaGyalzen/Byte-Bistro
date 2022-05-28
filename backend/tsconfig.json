@@ -3,16 +3,23 @@
     "target": "es2016",
     "module": "commonjs",
     "esModuleInterop": true,
-    "baseUrl": "./",
+    "baseUrl": ".",
     "paths": {
       "@models/*": [
         "models/*"
       ],
       "@tests/*": [
         "tests/*"
-      ]
+      ],
+      "@mytypes/*": [
+        "mytypes/*"
+      ],
     },
-    "outDir": "/dist", 
+    "typeRoots": [
+      "node_modules/@types",
+      "typings"
+    ],
+    "outDir": "/dist",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true
