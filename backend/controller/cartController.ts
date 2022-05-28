@@ -21,6 +21,22 @@ export const getCart = async (
 	}
 }
 
+export const userCart = async (
+	req: Request,
+	res: Response,
+	next: NextFunction
+) => {
+	try {
+		const cart = await Cart.findOne({ userId: req.params.userId }).populate({
+			path: 'items.foodId',
+			select: 'name price image isAvailable',
+		});
+		res.status(200).json(cart);
+	} catch (err) {
+		res.status(400).json({ message: err });
+	}
+}
+
 export const viewCart = async (
 	req: Request,
 	res: Response,
