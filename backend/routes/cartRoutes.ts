@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import { verifyUser } from 'middlewares/jwt-auth'
 
 import {
 	getCart,
@@ -13,7 +14,7 @@ const router = Router()
 
 router.get('/', viewCart)
 router.get('/:cartId', getCart)
-router.post('/', createCart)
+router.post('/', verifyUser, createCart)
 router.patch('/', addRemoveItem)
 router.put('/', updateCart)
 router.delete('/:cartId', deleteCart)
