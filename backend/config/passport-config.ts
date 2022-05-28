@@ -5,6 +5,8 @@ import { User } from '../models/Users';
 
 
 export const initialize = (passport: any) => {
+
+
     passport.use('local-signup',
         new LocalStrategy({
             usernameField: 'username',

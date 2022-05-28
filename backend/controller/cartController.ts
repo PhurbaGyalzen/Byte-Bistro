@@ -9,6 +9,7 @@ export const getCart = async (
 	next: NextFunction
 ) => {
 	try {
+		
 		const cart = await Cart.findById(req.params.cartId).populate({
 			path: 'items.foodId',
 			select: 'name price image isAvailable',
