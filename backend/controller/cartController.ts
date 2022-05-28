@@ -2,6 +2,8 @@ import { NextFunction, Request, Response } from 'express'
 
 import { Category, Food } from '../models/Food'
 import { Cart } from '@models/Cart'
+import { IRequest } from '@mytypes/Request'
+import { IAuthenticatedUser } from '@mytypes/Auth'
 
 export const getCart = async (
 	req: Request,
@@ -13,10 +15,25 @@ export const getCart = async (
 			path: 'items.foodId',
 			select: 'name price image isAvailable',
 		})
-		console.log(cart?.userId)
 		res.status(200).json(cart)
 	} catch (err) {
 		res.status(400).json({ message: err })
+	}
+}
+
+export const userCart = async (
+	req: Request,
+	res: Response,
+	next: NextFunction
+) => {
+	try {
+		const cart = await Cart.findOne({ userId: req.params.userId }).populate({
+			path: 'items.foodId',
+			select: 'name price image isAvailable',
+		});
+		res.status(200).json(cart);
+	} catch (err) {
+		res.status(400).json({ message: err });
 	}
 }
 
@@ -40,7 +57,7 @@ export const createCart = async (
 ) => {
 	try {
 		const cart = new Cart({
-			userId: req.body.userId,
+			userId: req.user!.id,
 			items: req.body.items,
 			tableId: req.body.tableId,
 		})

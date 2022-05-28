@@ -8,7 +8,7 @@ export const getFood = async (
 	next: NextFunction
 ) => {
 	try {
-		const food = await Food.findById(req.params.foodId)
+		const food = await Food.findById(req.params.foodId).populate('categories')
 		res.status(200).json(food)
 	} catch (err) {
 		res.status(400).json({ message: err })
@@ -22,7 +22,7 @@ export const viewFood = async (
 	next: NextFunction
 ) => {
 	try {
-		const foods = await Food.find()
+		const foods = await Food.find().populate('categories')
 		res.status(200).json(foods)
 	} catch (err) {
 		res.status(400).json({ message: err })

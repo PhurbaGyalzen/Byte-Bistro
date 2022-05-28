@@ -1,10 +1,9 @@
-// To parse this JSON data, do
-//
-//     final cart = cartFromJson(jsonString);
-
 import 'dart:convert';
 
 Cart cartFromJson(String str) => Cart.fromJson(json.decode(str));
+
+List<Cart> cartsFromJson(String str) =>
+    List<Cart>.from(json.decode(str).map((x) => Cart.fromJson(x)));
 
 String cartToJson(Cart data) => json.encode(data.toJson());
 
@@ -103,56 +102,3 @@ class FoodId {
         "isAvailable": isAvailable,
       };
 }
-
-// var cartData = '''{
-//     "_id": "628d04284aeaa390fb4d0013",
-//     "userId": "627fbfa1d464ffbeb80b985b",
-//     "items": [
-//         {
-//             "foodId": {
-//                 "_id": "628b791788b361630f91205f",
-//                 "name": "momo piro xa",
-//                 "price": 250,
-//                 "image": "https://images.unsplash.com/photo-1626776876758-b49742918522?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=960",
-//                 "isAvailable": true
-//             },
-//             "qty": 3,
-//             "_id": "628d04284aeaa390fb4d0014"
-//         }
-//     ],
-//     "tableId": 7,
-//     "createdAt": "2022-05-24T16:13:28.124Z",
-//     "updatedAt": "2022-05-24T16:13:28.124Z",
-//     "__v": 0
-// }''';
-
-// var adminData = '''
-// [
-//     {
-//         "_id": "628d04284aeaa390fb4d0013",
-//         "userId": "627fbfa1d464ffbeb80b985b",
-//         "items": [
-//             {
-//                 "foodId": "628b791788b361630f91205f",
-//                 "qty": 3,
-//                 "_id": "628d04284aeaa390fb4d0014"
-//             }
-//         ],
-//         "tableId": 7,
-//         "createdAt": "2022-05-24T16:13:28.124Z",
-//         "updatedAt": "2022-05-24T16:13:28.124Z",
-//         "__v": 0
-//     }
-// ]''';
-
-// void main() {
-//   // Cart res = cartFromJson(cartData);
-//   // print(res);
-//   List<dynamic> js = (jsonDecode(adminData));
-//   // print(js.runtimeType);
-//   var carts = json.decode(adminData).map((x) {
-//     print(x.runtimeType);
-//     // return Cart.fromJson(x)
-//   });
-//   print(carts);
-// }
