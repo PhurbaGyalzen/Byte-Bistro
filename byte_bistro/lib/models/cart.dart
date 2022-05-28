@@ -1,9 +1,11 @@
+// To parse this JSON data, do
+//
+//     final cart = cartFromJson(jsonString);
+
+import 'package:meta/meta.dart';
 import 'dart:convert';
 
 Cart cartFromJson(String str) => Cart.fromJson(json.decode(str));
-
-List<Cart> cartsFromJson(String str) =>
-    List<Cart>.from(json.decode(str).map((x) => Cart.fromJson(x)));
 
 String cartToJson(Cart data) => json.encode(data.toJson());
 
@@ -19,7 +21,7 @@ class Cart {
   });
 
   String id;
-  String userId;
+  UserId userId;
   List<Item> items;
   int tableId;
   DateTime createdAt;
@@ -28,7 +30,7 @@ class Cart {
 
   factory Cart.fromJson(Map<String, dynamic> json) => Cart(
         id: json["_id"],
-        userId: json["userId"],
+        userId: UserId.fromJson(json["userId"]),
         items: List<Item>.from(json["items"].map((x) => Item.fromJson(x))),
         tableId: json["tableId"],
         createdAt: DateTime.parse(json["createdAt"]),
@@ -38,7 +40,7 @@ class Cart {
 
   Map<String, dynamic> toJson() => {
         "_id": id,
-        "userId": userId,
+        "userId": userId.toJson(),
         "items": List<dynamic>.from(items.map((x) => x.toJson())),
         "tableId": tableId,
         "createdAt": createdAt.toIso8601String(),
@@ -100,5 +102,25 @@ class FoodId {
         "price": price,
         "image": image,
         "isAvailable": isAvailable,
+      };
+}
+
+class UserId {
+  UserId({
+    required this.id,
+    required this.fullname,
+  });
+
+  String id;
+  String fullname;
+
+  factory UserId.fromJson(Map<String, dynamic> json) => UserId(
+        id: json["_id"],
+        fullname: json["fullname"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "_id": id,
+        "fullname": fullname,
       };
 }

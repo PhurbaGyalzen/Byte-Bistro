@@ -11,11 +11,15 @@ export const getCart = async (
 	next: NextFunction
 ) => {
 	try {
-		
-		const cart = await Cart.findById(req.params.cartId).populate({
-			path: 'items.foodId',
-			select: 'name price image isAvailable',
-		})
+		const cart = await Cart.findById(req.params.cartId)
+			.populate({
+				path: 'items.foodId',
+				select: 'name price image isAvailable',
+			})
+			.populate({
+				path: 'userId',
+				select: 'fullname',
+			})
 		res.status(200).json(cart)
 	} catch (err) {
 		res.status(400).json({ message: err })
@@ -31,10 +35,10 @@ export const userCart = async (
 		const cart = await Cart.findOne({ userId: req.params.userId }).populate({
 			path: 'items.foodId',
 			select: 'name price image isAvailable',
-		});
-		res.status(200).json(cart);
+		})
+		res.status(200).json(cart)
 	} catch (err) {
-		res.status(400).json({ message: err });
+		res.status(400).json({ message: err })
 	}
 }
 
