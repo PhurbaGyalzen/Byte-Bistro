@@ -71,6 +71,7 @@ class _TabItemState extends State<TabItem> {
                               image: NetworkImage(data[index].image),
                               height: 150,
                               width: 150,
+                              fit: BoxFit.fill,
                             ),
                           ),
                           Positioned(
@@ -88,13 +89,18 @@ class _TabItemState extends State<TabItem> {
                                   ),
                                 ),
                                 SizedBox(height: 5),
-                                Text(
-                                  data[index].description,
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w300,
-                                    height: 1.5,
-                                    color: kTextLightColor,
+                                SizedBox(
+                                  width: 150,
+                                  child: Text(
+                                    data[index].description,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w300,
+                                      height: 1.5,
+                                      color: kTextLightColor,
+                                    ),
                                   ),
                                 )
                               ],
@@ -102,21 +108,28 @@ class _TabItemState extends State<TabItem> {
                           ),
                           Positioned(
                             bottom: 0,
-                            child: Row(
-                              children: [
-                                Text(data[index].price.toString(),
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.w200)),
-                                SizedBox(width: 50),
-                                GestureDetector(
-                                  onTap: () => Get.to(AddToCart()),
-                                  child: Image(
-                                      image:
-                                          AssetImage('assets/images/like.png'),
-                                      height: 20,
-                                      width: 20),
-                                )
-                              ],
+                            child: Container(
+                              padding: EdgeInsets.only(right: 10),
+                              width: 150,
+                              child: Row(
+                                children: [
+                                  Text(data[index].price.toString(),
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w200)),
+                                  SizedBox(width: 50),
+                                  Expanded(
+                                    child: SizedBox(),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () => Get.to(AddToCart()),
+                                    child: Image(
+                                        image: AssetImage(
+                                            'assets/images/like.png'),
+                                        height: 20,
+                                        width: 20),
+                                  )
+                                ],
+                              ),
                             ),
                           )
                         ],
