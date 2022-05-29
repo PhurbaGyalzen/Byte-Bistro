@@ -1,4 +1,6 @@
+import 'package:byte_bistro/Screens/home/models/food_model.dart';
 import 'package:byte_bistro/constants/colors.dart';
+import 'package:byte_bistro/controller/food_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -10,7 +12,13 @@ class TabItem extends StatefulWidget {
 }
 
 class _TabItemState extends State<TabItem> {
-  // final foodData = getFoodData();
+  FoodController foodController = Get.find();
+
+  late List<Food> resp;
+
+  void init() async {
+    foodController = Get.put(FoodController().getAllFood());
+  }
 
   @override
   Widget build(BuildContext context) {
