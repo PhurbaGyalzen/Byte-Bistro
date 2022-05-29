@@ -15,6 +15,7 @@ import 'package:get/get.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 // import 'globals.dart' as globals;
 import 'Screens/login_screen.dart';
+import 'package:byte_bistro/Screens/Category_momo.dart';
 import 'package:flutter/services.dart';
 
 int tableNo = 0;
@@ -33,11 +34,12 @@ class ByteBistro extends StatelessWidget {
     ));
     return GetMaterialApp(
       theme: ThemeData(fontFamily: 'Roboto'),
-      initialRoute: '/login',
+      initialRoute: '/home',
       debugShowCheckedModeBanner: false,
       title: 'Byte Bistro',
       getPages: [
         GetPage(name: '/login', page: () => LoginScreen()),
+        GetPage(name: '/CategoryMoMo', page: () => MOMO()),
         GetPage(name: '/signup', page: () => SignUpScreen()),
         GetPage(name: '/home', page: () => HomePage()),
         GetPage(name: '/individual', page: () => IndividualItem()),
