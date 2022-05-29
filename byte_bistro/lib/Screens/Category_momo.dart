@@ -65,16 +65,10 @@ class _MOMOState extends State<MOMO> {
                       return ListView.builder(
                         itemCount: data.length,
                         itemBuilder: (context, index) {
-                          if (index == data.length - 1 && momoList.isEmpty) {
-                            return Center(
-                              child: Text(
-                                "Empty",
-                              ),
-                            );
-                          }
+                          print(data[index].categories[0]['name']);
 
                           // ignore: unrelated_type_equality_checks
-                          else if (data[index].categories."name" == widget.catName) {
+                          if (data[index].categories[0]['name'] == widget.catName) {
                             momoList.add(data[index]);
                             return Container(
                               height: 150,
@@ -173,6 +167,13 @@ class _MOMOState extends State<MOMO> {
                                     ),
                                   ),
                                 ],
+                              ),
+                            );
+                          }
+                          if (index == data.length - 1 && momoList.isEmpty) {
+                            return Center(
+                              child: Text(
+                                "Empty",
                               ),
                             );
                           } else {
