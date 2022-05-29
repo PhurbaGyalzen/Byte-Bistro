@@ -112,17 +112,17 @@ class CartFood extends StatelessWidget {
                                     SizedBox(
                                       height: 20,
                                     ),
-                                    GestureDetector(
-                                      onTap: () => cartList
-                                          .removeAt(cartList[index]['index']),
-                                      child: Image(
-                                        color: Colors.red.withOpacity(0.8),
-                                        image: AssetImage(
-                                            'assets/images/delete.png'),
-                                        height: 20,
-                                        width: 20,
-                                      ),
-                                    )
+                                    // GestureDetector(
+                                    //   onTap: () => cartList
+                                    //       .removeAt(index),
+                                    //   child: Image(
+                                    //     color: Colors.red.withOpacity(0.8),
+                                    //     image: AssetImage(
+                                    //         'assets/images/delete.png'),
+                                    //     height: 20,
+                                    //     width: 20,
+                                    //   ),
+                                    // )
                                   ],
                                 ),
                                 Row(
