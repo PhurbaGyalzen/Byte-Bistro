@@ -13,9 +13,9 @@ import {
 
 const router = Router()
 
-router.get('/', verifyUser, viewCart)
+router.get('/', viewCart)
 router.get('/:cartId', getCart)
-router.post('/', verifyUser, createCart)
+router.post('/', createCart)
 router.patch('/', addRemoveItem)
 router.put('/', updateCart)
 router.delete('/:cartId', deleteCart)
