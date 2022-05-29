@@ -80,6 +80,7 @@ class _TabItemState extends State<TabItem> {
                               GestureDetector(
                                 onTap: () {
                                   var cartData = {
+                                    "index": index,
                                     "name": data[index].name,
                                     "price": data[index].price,
                                     "description": data[index].description,

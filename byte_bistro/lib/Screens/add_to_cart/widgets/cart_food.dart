@@ -2,6 +2,7 @@
 import 'package:byte_bistro/controller/cart_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 import '../../../constants/colors.dart';
 
@@ -59,114 +60,131 @@ class CartFood extends StatelessWidget {
                 height: 400,
                 child: ListView.builder(
                     itemCount: cartList.length,
-                    itemBuilder: (context, index) => Container(
-                          padding: EdgeInsets.all(10),
-                          margin: EdgeInsets.only(
-                              top: 20, right: 0, bottom: 10, left: 0),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                blurRadius: 5,
-                                offset:
-                                    Offset(0, 3), // changes position of shadow
-                                color: Color(0xFFB0CCE1).withOpacity(0.32),
-                              ),
-                            ],
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(40),
-                                child: Image(
-                                  image: NetworkImage(cartList[index]['image']),
-                                  height: 80,
-                                  width: 80,
+                    itemBuilder: (context, index) => Slidable(
+                          child: Container(
+                            padding: EdgeInsets.all(10),
+                            margin: EdgeInsets.only(
+                                top: 20, right: 0, bottom: 10, left: 0),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50),
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                  blurRadius: 5,
+                                  offset: Offset(
+                                      0, 3), // changes position of shadow
+                                  color: Color(0xFFB0CCE1).withOpacity(0.32),
                                 ),
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    cartList[index]['name'],
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: kTextColor,
-                                      height: 1.5,
-                                    ),
+                              ],
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(50),
+                                  child: Image(
+                                    image:
+                                        NetworkImage(cartList[index]['image']),
+                                    height: 80,
+                                    width: 80,
                                   ),
-                                  Text(
-                                    cartList[index]['price'].toString(),
-                                    style: TextStyle(
-                                      color: kTextLightColor,
-                                      height: 1.5,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      cartList[index]['name'],
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color: kTextColor,
+                                        height: 1.5,
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Container(
-                                      padding: EdgeInsets.all(5),
-                                      decoration: BoxDecoration(
-                                          color: kPrimary.withOpacity(0.2),
-                                          borderRadius:
-                                              BorderRadius.circular(5)),
-                                      child: GestureDetector(
-                                        onTap: () =>
-                                            cartController.minusQuantity(),
-                                        child: Image(
-                                          image: AssetImage(
-                                              'assets/images/minusBorder.png'),
-                                          height: 20,
-                                          width: 20,
-                                        ),
-                                      )),
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                      left: 12,
-                                      right: 12,
+                                    Text(
+                                      cartList[index]['price'].toString(),
+                                      style: TextStyle(
+                                        color: kTextLightColor,
+                                        height: 1.5,
+                                      ),
                                     ),
-                                    child: GetBuilder<CartController>(
-                                      // specify type as Controller
-                                      init:
-                                          CartController(), // intialize with the Controller
-                                      builder: (value) => Text(cartController
-                                              .foodQuantity.value
-                                              .toString()
-                                          //       .toString(),, // value is an instance of Controller.
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    GestureDetector(
+                                      onTap: () => cartList
+                                          .removeAt(cartList[index]['index']),
+                                      child: Image(
+                                        color: Colors.red.withOpacity(0.8),
+                                        image: AssetImage(
+                                            'assets/images/delete.png'),
+                                        height: 20,
+                                        width: 20,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Container(
+                                        padding: EdgeInsets.all(5),
+                                        decoration: BoxDecoration(
+                                            color: kPrimary.withOpacity(0.2),
+                                            borderRadius:
+                                                BorderRadius.circular(5)),
+                                        child: GestureDetector(
+                                          onTap: () =>
+                                              cartController.minusQuantity(),
+                                          child: Image(
+                                            image: AssetImage(
+                                                'assets/images/minusBorder.png'),
+                                            height: 20,
+                                            width: 20,
                                           ),
+                                        )),
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                        left: 12,
+                                        right: 12,
+                                      ),
+                                      child: GetBuilder<CartController>(
+                                        // specify type as Controller
+                                        init:
+                                            CartController(), // intialize with the Controller
+                                        builder: (value) => Text(cartController
+                                                .foodQuantity.value
+                                                .toString()
+                                            //       .toString(),, // value is an instance of Controller.
+                                            ),
+                                      ),
                                     ),
-                                  ),
-                                  Container(
-                                      padding: EdgeInsets.all(5),
-                                      decoration: BoxDecoration(
-                                          color: kPrimary,
-                                          borderRadius:
-                                              BorderRadius.circular(5)),
-                                      child: GestureDetector(
-                                        onTap: () =>
-                                            cartController.addQuantity(),
-                                        child: Image(
-                                          image: AssetImage(
-                                              'assets/images/add.png'),
-                                          height: 20,
-                                          width: 20,
-                                        ),
-                                      )),
-                                ],
-                              ),
-                              Text(
-                                'Rs 1000',
-                                style: TextStyle(
-                                  color: kTextColor,
-                                  height: 1.5,
+                                    Container(
+                                        padding: EdgeInsets.all(5),
+                                        decoration: BoxDecoration(
+                                            color: kPrimary,
+                                            borderRadius:
+                                                BorderRadius.circular(5)),
+                                        child: GestureDetector(
+                                          onTap: () =>
+                                              cartController.addQuantity(),
+                                          child: Image(
+                                            image: AssetImage(
+                                                'assets/images/add.png'),
+                                            height: 20,
+                                            width: 20,
+                                          ),
+                                        )),
+                                  ],
                                 ),
-                              )
-                            ],
+                                Text(
+                                  'Rs 1000',
+                                  style: TextStyle(
+                                    color: kTextColor,
+                                    height: 1.5,
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         )),
               ),
