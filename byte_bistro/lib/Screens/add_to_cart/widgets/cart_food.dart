@@ -1,11 +1,15 @@
 // CartFood
+import 'package:byte_bistro/controller/cart_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+import 'package:get/get.dart';
 
 import '../../../constants/colors.dart';
 
 class CartFood extends StatelessWidget {
-  const CartFood({Key? key}) : super(key: key);
+  CartFood({Key? key, required this.cartList}) : super(key: key);
+  final CartController cartController = Get.put(CartController());
+
+  List<dynamic> cartList;
 
   @override
   Widget build(BuildContext context) {
@@ -54,8 +58,9 @@ class CartFood extends StatelessWidget {
               child: SizedBox(
                 height: 400,
                 child: ListView.builder(
-                    itemCount: 3,
+                    itemCount: cartList.length,
                     itemBuilder: (context, index) => Container(
+                          padding: EdgeInsets.all(10),
                           margin: EdgeInsets.only(
                               top: 20, right: 0, bottom: 10, left: 0),
                           decoration: BoxDecoration(
@@ -70,96 +75,97 @@ class CartFood extends StatelessWidget {
                               ),
                             ],
                           ),
-                          child: Stack(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Image(
-                                image: AssetImage('assets/images/foodlogo.png'),
-                                height: 120,
-                                width: 120,
-                              ),
-                              Positioned(
-                                top: 30,
-                                left: 120,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: const [
-                                    Text(
-                                      'Pizza',
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                        color: kTextColor,
-                                        height: 1.5,
-                                      ),
-                                    ),
-                                    Text(
-                                      'Healthy & Delicious',
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          height: 1.5,
-                                          fontWeight: FontWeight.w200),
-                                    ),
-                                    Text(
-                                      'Rs 100',
-                                      style: TextStyle(
-                                        color: kTextLightColor,
-                                        height: 1.5,
-                                      ),
-                                    ),
-                                  ],
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(40),
+                                child: Image(
+                                  image: NetworkImage(cartList[index]['image']),
+                                  height: 80,
+                                  width: 80,
                                 ),
                               ),
-                              Positioned(
-                                top: 50,
-                                right: 20,
-                                child: Row(
-                                  children: [
-                                    Container(
-                                        padding: EdgeInsets.all(5),
-                                        decoration: BoxDecoration(
-                                            color: kPrimary.withOpacity(0.2),
-                                            borderRadius:
-                                                BorderRadius.circular(5)),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    cartList[index]['name'],
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: kTextColor,
+                                      height: 1.5,
+                                    ),
+                                  ),
+                                  Text(
+                                    cartList[index]['price'].toString(),
+                                    style: TextStyle(
+                                      color: kTextLightColor,
+                                      height: 1.5,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Container(
+                                      padding: EdgeInsets.all(5),
+                                      decoration: BoxDecoration(
+                                          color: kPrimary.withOpacity(0.2),
+                                          borderRadius:
+                                              BorderRadius.circular(5)),
+                                      child: GestureDetector(
+                                        onTap: () =>
+                                            cartController.minusQuantity(),
                                         child: Image(
                                           image: AssetImage(
                                               'assets/images/minusBorder.png'),
                                           height: 20,
                                           width: 20,
-                                        )),
-                                    Padding(
-                                        padding: EdgeInsets.only(
-                                          left: 12,
-                                          right: 12,
                                         ),
-                                        child: Text(
-                                          '2',
-                                          style: TextStyle(fontSize: 14),
-                                        )),
-                                    Container(
-                                        padding: EdgeInsets.all(5),
-                                        decoration: BoxDecoration(
-                                            color: kPrimary,
-                                            borderRadius:
-                                                BorderRadius.circular(5)),
+                                      )),
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                      left: 12,
+                                      right: 12,
+                                    ),
+                                    child: GetBuilder<CartController>(
+                                      // specify type as Controller
+                                      init:
+                                          CartController(), // intialize with the Controller
+                                      builder: (value) => Text(cartController
+                                              .foodQuantity.value
+                                              .toString()
+                                          //       .toString(),, // value is an instance of Controller.
+                                          ),
+                                    ),
+                                  ),
+                                  Container(
+                                      padding: EdgeInsets.all(5),
+                                      decoration: BoxDecoration(
+                                          color: kPrimary,
+                                          borderRadius:
+                                              BorderRadius.circular(5)),
+                                      child: GestureDetector(
+                                        onTap: () =>
+                                            cartController.addQuantity(),
                                         child: Image(
                                           image: AssetImage(
                                               'assets/images/add.png'),
                                           height: 20,
                                           width: 20,
-                                        )),
-                                  ],
-                                ),
+                                        ),
+                                      )),
+                                ],
                               ),
-                              Positioned(
-                                  top: 90,
-                                  right: 35,
-                                  child: Text(
-                                    'Rs 1000',
-                                    style: TextStyle(
-                                      color: kTextColor,
-                                      height: 1.5,
-                                    ),
-                                  ))
+                              Text(
+                                'Rs 1000',
+                                style: TextStyle(
+                                  color: kTextColor,
+                                  height: 1.5,
+                                ),
+                              )
                             ],
                           ),
                         )),

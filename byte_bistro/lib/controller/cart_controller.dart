@@ -8,11 +8,26 @@ import 'package:get/get.dart';
 class CartController extends GetxController {
   var cartList = [].obs;
   CartService cartService = Get.put(CartService());
+  var foodQuantity = 0.obs;
 
   @override
   void onInit() {
     // getSingleCart();
     super.onInit();
+  }
+
+  addQuantity() {
+    foodQuantity.value++;
+    update();
+  }
+
+  minusQuantity() {
+    if (foodQuantity.value <= 0) {
+      foodQuantity.value = 0;
+    } else {
+      foodQuantity.value--;
+    }
+    update();
   }
 
   getSingleCart(String cartId) async {
