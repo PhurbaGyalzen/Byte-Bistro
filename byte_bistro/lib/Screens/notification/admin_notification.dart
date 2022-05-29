@@ -112,7 +112,8 @@ class AdminNotification extends StatelessWidget {
                     trailing: Opacity(
                       opacity: 0.5,
                       child: GestureDetector(
-                        onTap: () => Get.bottomSheet(NotificationDetail()),
+                        onTap: () =>
+                            Get.bottomSheet(NotificationDetail(order: cart)),
                         // onTap: () => {},
                         child: Image(
                           height: 20,
