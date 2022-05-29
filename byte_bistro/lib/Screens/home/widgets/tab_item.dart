@@ -113,7 +113,7 @@ class _TabItemState extends State<TabItem> {
                               width: 150,
                               child: Row(
                                 children: [
-                                  Text(data[index].price.toString(),
+                                  Text("Rs. ${data[index].price.toString()}",
                                       style: TextStyle(
                                           fontWeight: FontWeight.w200)),
                                   SizedBox(width: 50),
