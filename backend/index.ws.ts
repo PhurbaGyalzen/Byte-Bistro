@@ -2,6 +2,7 @@ import { createServer } from 'http'
 import { Server } from 'socket.io'
 import { Express } from 'express'
 import { Cart, ICart } from '@models/Cart'
+import { User } from '@models/Users'
 
 const initWebSocket = (app: Express) => {
 	const httpServer = createServer(app)
@@ -11,13 +12,16 @@ const initWebSocket = (app: Express) => {
 		},
 	})
 
-	io.on('connection', (socket) => {
+	io.on('connection', async (socket) => {
+		let currUserId = ''
 		console.log('a user connected')
-		socket.on('message', (data) => {
+		socket.on('set_user_id', (data) => {
 			console.log(data)
-			socket.send({
-				socketId: socket.id,
-			})
+			currUserId = data.userId
+			socket.join(currUserId)
+			// socket.send({
+			// 	socketId: socket.id,
+			// })
 		})
 		socket.on('chat_message', (data) => {
 			console.log(data)
@@ -78,14 +82,19 @@ const initWebSocket = (app: Express) => {
 				})
 			}
 		})
+
 		// emtted by admin
 		socket.on('order_status_change', async (data) => {
 			console.log('admin: requested order status change')
-			socket.emit('order_status_change', {
-				orderId: data.orderId,
-				orderStatus: data.orderStatus,
-				orderDurationMin: data.orderDurationMin,
-			})
+			// console.log((await io.fetchSockets())[0].id)
+			console.log(currUserId)
+			if (currUserId) {
+				io.to(currUserId).emit('order_status_change', {
+					orderId: data.orderId,
+					orderStatus: data.orderStatus,
+					orderDurationMin: data.orderDurationMin,
+				})
+			}
 		})
 	})
 

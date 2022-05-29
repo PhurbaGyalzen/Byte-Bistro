@@ -2,6 +2,7 @@ import 'package:byte_bistro/Screens/add_to_cart/widgets/cart_food.dart';
 import 'package:byte_bistro/Screens/add_to_cart/widgets/payment_summary.dart';
 import 'package:byte_bistro/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class AddToCart extends StatefulWidget {
   const AddToCart({Key? key}) : super(key: key);
@@ -13,6 +14,7 @@ class AddToCart extends StatefulWidget {
 class _AddToCartState extends State<AddToCart> {
   @override
   Widget build(BuildContext context) {
+    final cartList = Get.arguments;
     return Scaffold(
       backgroundColor: kPrimary,
       body: SafeArea(
@@ -25,7 +27,9 @@ class _AddToCartState extends State<AddToCart> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CartFood(),
+                CartFood(
+                  cartList: cartList,
+                ),
                 PaymentSummary(),
               ],
             ),

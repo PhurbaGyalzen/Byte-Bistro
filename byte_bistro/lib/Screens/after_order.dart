@@ -36,6 +36,7 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
     socket.connect();
     socket.on('connect', (_) {
       print('connected');
+      _sendUserId();
       _mocker();
 
       socket.on('order_status_change', (message) {
@@ -67,6 +68,12 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
     // socket.disconnect();
     orderDurationTimeController.dispose();
     super.dispose();
+  }
+
+  void _sendUserId() {
+    socket.emit('set_user_id', [
+      {'userId': 'sanjib'}
+    ]);
   }
 
   void _mocker() {
