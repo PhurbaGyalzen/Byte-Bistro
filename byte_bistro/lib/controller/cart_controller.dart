@@ -8,7 +8,8 @@ import 'package:get/get.dart';
 class CartController extends GetxController {
   var cartList = [].obs;
   CartService cartService = Get.put(CartService());
-  var foodQuantity = 0.obs;
+  var foodQuantity = 1.obs;
+  var foodPrice = 0.obs;
 
   @override
   void onInit() {
@@ -22,11 +23,16 @@ class CartController extends GetxController {
   }
 
   minusQuantity() {
-    if (foodQuantity.value <= 0) {
-      foodQuantity.value = 0;
+    if (foodQuantity.value <= 1) {
+      foodQuantity.value = 1;
     } else {
       foodQuantity.value--;
     }
+    update();
+  }
+
+  updatePrice(int price) {
+    foodPrice.value = price * foodQuantity.value;
     update();
   }
 

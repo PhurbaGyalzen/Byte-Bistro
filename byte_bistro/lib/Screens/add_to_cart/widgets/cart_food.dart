@@ -101,13 +101,14 @@ class CartFood extends StatelessWidget {
                                         height: 1.5,
                                       ),
                                     ),
-                                    Text(
-                                      cartList[index]['price'].toString(),
-                                      style: TextStyle(
-                                        color: kTextLightColor,
-                                        height: 1.5,
-                                      ),
-                                    ),
+                                    // Text(
+                                    //   (cartList[index]['price'].toString())
+                                    //       .toString(),
+                                    //   style: TextStyle(
+                                    //     color: kTextLightColor,
+                                    //     height: 1.5,
+                                    //   ),
+                                    // ),
                                     SizedBox(
                                       height: 20,
                                     ),
@@ -165,8 +166,11 @@ class CartFood extends StatelessWidget {
                                             borderRadius:
                                                 BorderRadius.circular(5)),
                                         child: GestureDetector(
-                                          onTap: () =>
-                                              cartController.addQuantity(),
+                                          onTap: () {
+                                            cartController.addQuantity();
+                                            cartController.updatePrice(
+                                                cartList[index]['price']);
+                                          },
                                           child: Image(
                                             image: AssetImage(
                                                 'assets/images/add.png'),
@@ -176,13 +180,22 @@ class CartFood extends StatelessWidget {
                                         )),
                                   ],
                                 ),
-                                Text(
-                                  'Rs 1000',
-                                  style: TextStyle(
-                                    color: kTextColor,
-                                    height: 1.5,
-                                  ),
-                                )
+                                GetBuilder<CartController>(
+                                    // specify type as Controller
+                                    init:
+                                        CartController(), // intialize with the Controller
+                                    builder: (value) => Text(
+                                          (cartList[index]['price'] *
+                                                  cartController
+                                                      .foodQuantity.value)
+                                              .toString(),
+                                          style: TextStyle(
+                                            color: kTextColor,
+                                            height: 1.5,
+                                          ),
+                                        )
+                                    //       .toString(),, // value is an instance of Controller.
+                                    ),
                               ],
                             ),
                           ),
