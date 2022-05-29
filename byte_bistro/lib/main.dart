@@ -1,9 +1,11 @@
-import 'package:byte_bistro/Screens/add_to_cart/widgets/add_to_cart.dart';
+import 'package:byte_bistro/Screens/add_to_cart/add_to_cart.dart';
 import 'package:byte_bistro/Screens/admin/widgets/add_food.dart';
 import 'package:byte_bistro/Screens/admin/widgets/view_food.dart';
 // import 'package:byte_bistro/Screens/admin_screen.dart';
 import 'package:byte_bistro/Screens/admin/widgets/admin_dashboard.dart';
 import 'package:byte_bistro/Screens/after_order.dart';
+import 'package:byte_bistro/Screens/notification/admin_notification.dart';
+import 'package:byte_bistro/Screens/notification/notification.dart';
 import 'package:byte_bistro/Screens/qr_data.dart';
 import 'package:byte_bistro/Screens/qr_scanner.dart';
 import 'package:byte_bistro/Screens/signup_screen.dart';
@@ -52,6 +54,8 @@ class ByteBistro extends StatelessWidget {
         GetPage(name: '/dataScreen', page: () => QrDataScreen()),
         GetPage(name: '/swipeHome', page: () => SwipeHome()),
         GetPage(name: '/addToCart', page: () => AddToCart()),
+        GetPage(name: '/notification', page: () => NotificationPage()),
+        GetPage(name: '/adminNotification', page: () => AdminNotification()),
       ],
     );
   }

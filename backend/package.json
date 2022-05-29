@@ -6,7 +6,7 @@
   "scripts": {
     "build": "npx tsc",
     "start": "node dist/index.ts",
-    "dev": "nodemon --require dotenv/config --require tsconfig-paths/register index.ts",
+    "dev": "nodemon --require dotenv/config --require tsconfig-paths/register --files index.ts",
     "test": "jest"
   },
   "author": "",

@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import { verifyUser } from 'middlewares/jwt-auth'
 
 import {
 	getCart,
@@ -7,6 +8,7 @@ import {
 	updateCart,
 	deleteCart,
 	addRemoveItem,
+	userCart,
 } from '../controller/cartController'
 
 const router = Router()
@@ -17,5 +19,6 @@ router.post('/', createCart)
 router.patch('/', addRemoveItem)
 router.put('/', updateCart)
 router.delete('/:cartId', deleteCart)
+router.get('/:userId', userCart)
 
 export default router

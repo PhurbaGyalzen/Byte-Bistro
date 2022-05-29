@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../controller/food_controller.dart';
-import 'add_food.dart';
 
 class ViewFood extends StatefulWidget {
   const ViewFood({Key? key}) : super(key: key);
@@ -87,18 +86,16 @@ class _ViewFoodState extends State<ViewFood> {
                             ),
                           ),
                           Expanded(
-                            child: Container(
-                              margin: EdgeInsets.only(left: 10),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: Image(
+                              child: Container(
+                            margin: EdgeInsets.only(left: 10),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Image(
                                   height: 120,
                                   fit: BoxFit.cover,
-                                  image: NetworkImage(data[index].image),
-                                ),
-                              ),
+                                  image: NetworkImage(data[index].image)),
                             ),
-                          ),
+                          ))
                         ],
                       ),
                       SizedBox(

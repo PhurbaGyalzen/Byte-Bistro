@@ -1,4 +1,5 @@
 import 'package:byte_bistro/Screens/home/widgets/top_of_day.dart';
+import 'package:byte_bistro/controller/food_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:byte_bistro/constants/colors.dart';
 import 'package:byte_bistro/Screens/home/widgets/app_bar.dart';
@@ -6,6 +7,7 @@ import 'package:byte_bistro/Screens/home/widgets/app_note.dart';
 import 'package:byte_bistro/Screens/home/widgets/food_tab.dart';
 import 'package:byte_bistro/Screens/home/widgets/tab_item.dart';
 import 'package:byte_bistro/Screens/home/widgets/today_special.dart';
+import 'package:get/get.dart';
 import 'package:hidable/hidable.dart';
 
 class HomePage extends StatefulWidget {
@@ -54,7 +56,7 @@ class _HomePageState extends State<HomePage> {
           currentIndex: selectedIndex,
           onTap: onItemTapped,
           type: BottomNavigationBarType.fixed,
-          items:  const [
+          items: const [
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
               label: "Home",
@@ -94,8 +96,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  FoodController foodController = Get.put(FoodController());
+
   @override
   Widget build(BuildContext context) {
+    final response = foodController.getAllFood();
+    print(response);
     return SafeArea(
       child: SingleChildScrollView(
         controller: widget.scrollController,
