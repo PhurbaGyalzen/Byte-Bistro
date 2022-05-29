@@ -1,16 +1,39 @@
+import 'package:byte_bistro/Services/ws_service.dart';
 import 'package:byte_bistro/models/cart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../constants/colors.dart';
 
-class NotificationDetail extends StatelessWidget {
+class NotificationDetail extends StatefulWidget {
   final Cart order;
-  int totalCartPrice = 0;
-  NotificationDetail({Key? key, required this.order}) : super(key: key);
+  const NotificationDetail({Key? key, required this.order}) : super(key: key);
+
+  @override
+  State<NotificationDetail> createState() =>
+      _NotificationDetailState(order: order);
+}
+
+class _NotificationDetailState extends State<NotificationDetail> {
+  final Cart order;
+
+  _NotificationDetailState({required this.order});
+
+  var socket = WebSocketService.socket;
+
+  @override
+  void initState() {
+    if (socket.disconnected) {
+      socket.connect();
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+    int totalCartPrice = 0;
+    String buttonText = '';
+    // if ()
     return Scaffold(
         body: SafeArea(
             child: Container(
@@ -77,6 +100,12 @@ class NotificationDetail extends StatelessWidget {
                               );
                             },
                           ),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            Get.back();
+                          },
+                          child: Text(''),
                         ),
                       ],
                     ),
