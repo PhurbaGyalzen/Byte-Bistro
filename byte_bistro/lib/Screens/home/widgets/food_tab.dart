@@ -42,16 +42,7 @@ class _FoodTabState extends State<FoodTab> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Categories',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              letterSpacing: 0.5,
-              height: 1.5,
-              color: kTextColor,
-            ),
-          ),
+          Text('Categories', style: Theme.of(context).textTheme.headline1),
           SizedBox(
             height: 70,
             child: ListView.builder(

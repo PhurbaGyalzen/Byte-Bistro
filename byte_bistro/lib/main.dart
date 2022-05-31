@@ -35,7 +35,27 @@ class ByteBistro extends StatelessWidget {
       statusBarColor: Colors.transparent,
     ));
     return GetMaterialApp(
-      theme: ThemeData(fontFamily: 'Roboto'),
+      theme: ThemeData(
+        // Define the default brightness and colors.
+        brightness: Brightness.light,
+        primaryColor: Color(0xFFFFC61F),
+
+        // Define the default font family.
+        fontFamily: ' San Francisco',
+
+        // Define the default `TextTheme`. Use this to specify the default
+        // text styling for headlines, titles, bodies of text, and more.
+        textTheme: const TextTheme(
+          headline1: TextStyle(
+            fontSize: 16.0,
+            fontWeight: FontWeight.bold,
+            letterSpacing: 0.5,
+            height: 1.5,
+          ),
+          headline6: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
+          bodyText2: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
+        ),
+      ),
       initialRoute: '/home',
       debugShowCheckedModeBanner: false,
       title: 'Byte Bistro',

@@ -14,13 +14,7 @@ class TodaySpecial extends StatelessWidget {
         children: [
           Text(
             'Todays Special',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              letterSpacing: 0.5,
-              height: 1.5,
-              color: kTextColor,
-            ),
+            style: Theme.of(context).textTheme.headline1,
           ),
           SizedBox(
             height: 250.0,

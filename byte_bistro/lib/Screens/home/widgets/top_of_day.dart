@@ -13,13 +13,7 @@ class TopOfDay extends StatelessWidget {
         children: [
           Text(
             'Top of the day',
-            style: TextStyle(
-              fontSize: 16,
-              letterSpacing: 0.5,
-              fontWeight: FontWeight.bold,
-              color: kTextColor,
-              height: 1.5,
-            ),
+            style: Theme.of(context).textTheme.headline1,
           ),
           SizedBox(
             height: 290.0,
