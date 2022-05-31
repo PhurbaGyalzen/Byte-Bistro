@@ -39,8 +39,13 @@ class ByteBistro extends StatelessWidget {
     return GetMaterialApp(
       theme: ThemeData(
         // Define the default brightness and colors.
-        brightness: Brightness.light,
         primaryColor: Color(0xFFFFC61F),
+        brightness: Brightness.light,
+        colorScheme: ColorScheme.fromSwatch(
+          primarySwatch: Colors.brown,
+        ).copyWith(
+          secondary: kTextColor,
+        ),
 
         // Define the default font family.
         fontFamily: ' San Francisco',
@@ -75,7 +80,7 @@ class ByteBistro extends StatelessWidget {
           ),
         ),
       ),
-      initialRoute: '/adminScreen',
+      initialRoute: '/home',
       debugShowCheckedModeBanner: false,
       title: 'Byte Bistro',
       getPages: [
