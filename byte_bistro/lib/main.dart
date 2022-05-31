@@ -20,6 +20,8 @@ import 'Screens/login_screen.dart';
 import 'package:byte_bistro/Screens/Category_momo.dart';
 import 'package:flutter/services.dart';
 
+import 'constants/colors.dart';
+
 int tableNo = 0;
 Future<void> main() async {
   await dotenv.load(fileName: ".env");
@@ -51,9 +53,26 @@ class ByteBistro extends StatelessWidget {
             fontWeight: FontWeight.bold,
             letterSpacing: 0.5,
             height: 1.5,
+            color: kTextColor,
           ),
-          headline6: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
-          bodyText2: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
+          headline2: TextStyle(
+            fontSize: 14.0,
+            fontWeight: FontWeight.bold,
+            letterSpacing: 0.5,
+            height: 1.5,
+            color: kTextColor,
+          ),
+          bodyText1: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w300,
+            height: 1.5,
+            color: kTextColor,
+          ),
+          bodyText2: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w300,
+            color: kTextLightColor,
+          ),
         ),
       ),
       initialRoute: '/home',

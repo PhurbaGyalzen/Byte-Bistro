@@ -93,11 +93,10 @@ class _FoodTabState extends State<FoodTab> {
                               width: 30,
                             ),
                           ),
-                          Text(tabText[index],
-                              style: TextStyle(
-                                  height: 1.5,
-                                  fontWeight: FontWeight.w400,
-                                  color: kTextColor)),
+                          Text(
+                            tabText[index],
+                            style: Theme.of(context).textTheme.bodyText1,
+                          ),
                           SizedBox(width: 8),
                         ],
                       ),

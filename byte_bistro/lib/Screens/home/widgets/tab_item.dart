@@ -63,20 +63,16 @@ class _TabItemState extends State<TabItem> {
                           ),
                           Text(
                             data[index].name,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              height: 1.5,
-                              letterSpacing: 0.5,
-                              color: kTextColor,
-                            ),
+                            style: Theme.of(context).textTheme.headline2,
                           ),
                           SizedBox(height: 10),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(data[index].price.toString(),
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.w200)),
+                              Text(
+                                data[index].price.toString(),
+                                style: Theme.of(context).textTheme.bodyText2,
+                              ),
                               GestureDetector(
                                 onTap: () {
                                   var cartData = {

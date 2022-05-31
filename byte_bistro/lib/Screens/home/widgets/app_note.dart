@@ -8,24 +8,17 @@ class AppNote extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: const [
+      children: [
         Text(
           'Hi, Sunil',
-          style: TextStyle(
-            height: 1.5,
-            color: kTextColor,
-          ),
+          style: Theme.of(context).textTheme.bodyText1,
         ),
         SizedBox(
           height: 5,
         ),
         Text(
           'Welcome back!',
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w200,
-            height: 1.5,
-          ),
+          style: Theme.of(context).textTheme.bodyText2,
         ),
       ],
     );
