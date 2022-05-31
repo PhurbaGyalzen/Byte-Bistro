@@ -68,13 +68,7 @@ class _UpdateFoodState extends State<UpdateFood> {
                   children: [
                     Text(
                       'UPDATE FOOD',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w300,
-                        letterSpacing: 0.1,
-                        wordSpacing: 0.2,
-                        color: kTextColor,
-                      ),
+                      style: Theme.of(context).textTheme.headline1,
                     ),
                     GestureDetector(
                       onTap: () => showDialog(
@@ -140,7 +134,7 @@ class _UpdateFoodState extends State<UpdateFood> {
                 children: [
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      primary: kTextLightColor.withOpacity(0.6),
+                      primary: kTextLightColor.withOpacity(0.3),
                       onPrimary: kTextColor,
                       minimumSize: Size(50, 40),
                     ),
@@ -152,10 +146,7 @@ class _UpdateFoodState extends State<UpdateFood> {
                     },
                     child: Text(
                       'CLEAR',
-                      style: TextStyle(
-                          fontSize: 14,
-                          letterSpacing: 0.3,
-                          color: Colors.white),
+                      style: Theme.of(context).textTheme.headline2,
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -208,8 +199,7 @@ class _UpdateFoodState extends State<UpdateFood> {
                     },
                     child: Text(
                       'UPDATE',
-                      style: TextStyle(fontSize: 14, letterSpacing: 0.3),
-                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.headline2,
                     ),
                   ),
                 ],

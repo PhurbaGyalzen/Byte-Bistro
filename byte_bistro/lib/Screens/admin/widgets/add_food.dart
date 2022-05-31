@@ -66,13 +66,7 @@ class _AddFoodState extends State<AddFood> {
                   children: [
                     Text(
                       'ADD FOOD',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w300,
-                        letterSpacing: 0.1,
-                        wordSpacing: 0.2,
-                        color: kTextColor,
-                      ),
+                      style: Theme.of(context).textTheme.headline1,
                     ),
                     GestureDetector(
                       onTap: () => showDialog(
@@ -131,32 +125,6 @@ class _AddFoodState extends State<AddFood> {
                 height: 20,
               ),
               descriptionField(),
-              // ElevatedButton(
-              //   style: ElevatedButton.styleFrom(
-              //     primary: Colors.grey,
-              //     onPrimary: Colors.white,
-              //   ),
-              //   onPressed: () {
-              //     pickImage();
-              //   },
-              //   child: Text(
-              //     'Pick img gallery',
-              //     style: TextStyle(fontSize: 18, letterSpacing: 0.3),
-              //     textAlign: TextAlign.center,
-              //   ),
-              // ),
-              // ElevatedButton(
-              //   style: ElevatedButton.styleFrom(
-              //     primary: Colors.grey,
-              //     onPrimary: Colors.white,
-              //   ),
-              //   onPressed: () => dismissDialog(),
-              //   child: Text(
-              //     'Pick img camera',
-              //     style: TextStyle(fontSize: 18, letterSpacing: 0.3),
-              //     textAlign: TextAlign.center,
-              //   ),
-              // ),
               SizedBox(
                 height: 20,
               ),
@@ -164,7 +132,7 @@ class _AddFoodState extends State<AddFood> {
                 children: [
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      primary: kTextLightColor.withOpacity(0.6),
+                      primary: kTextLightColor.withOpacity(0.3),
                       onPrimary: kTextColor,
                       minimumSize: Size(50, 40),
                     ),
@@ -176,10 +144,7 @@ class _AddFoodState extends State<AddFood> {
                     },
                     child: Text(
                       'CLEAR',
-                      style: TextStyle(
-                          fontSize: 14,
-                          letterSpacing: 0.3,
-                          color: Colors.white),
+                      style: Theme.of(context).textTheme.headline2,
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -229,8 +194,7 @@ class _AddFoodState extends State<AddFood> {
                     },
                     child: Text(
                       'ADD',
-                      style: TextStyle(fontSize: 14, letterSpacing: 0.3),
-                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.headline2,
                     ),
                   ),
                 ],
