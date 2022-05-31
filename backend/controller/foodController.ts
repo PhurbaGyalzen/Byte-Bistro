@@ -90,3 +90,45 @@ export const deleteFood = async (
 		res.status(400).json({ message: err })
 	}
 }
+
+
+export const setAvailable = async (
+	req: Request,
+	res: Response,
+	next: NextFunction
+) => {
+	try {
+		const food = await Food.updateOne(
+			{ _id: req.params.foodId },
+			{
+				$set: {
+					isAvailable: true
+				},
+			}
+		)
+		res.status(200).json(food)
+	} catch (err) {
+		res.status(400).json({ message: err })
+	}
+}
+
+export const setUnavailable = async (
+	req: Request,
+	res: Response,
+	next: NextFunction
+) => {
+	try {
+		const food = await Food.updateOne(
+			{ _id: req.params.foodId },
+			{
+				$set: {
+					isAvailable: false
+				},
+			}
+		)
+		res.status(200).json(food)
+	} catch (err) {
+		res.status(400).json({ message: err })
+	}
+}
+
