@@ -13,16 +13,10 @@ class TopOfDay extends StatelessWidget {
         children: [
           Text(
             'Top of the day',
-            style: TextStyle(
-              fontSize: 16,
-              letterSpacing: 0.5,
-              fontWeight: FontWeight.bold,
-              color: kTextColor,
-              height: 1.5,
-            ),
+            style: Theme.of(context).textTheme.headline1,
           ),
           SizedBox(
-            height: 290.0,
+            height: 310.0,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: 5,
@@ -34,7 +28,12 @@ class TopOfDay extends StatelessWidget {
                       right: 18,
                       bottom: 8,
                     ),
-                    padding: EdgeInsets.all(11),
+                    padding: EdgeInsets.only(
+                      left: 5,
+                      right: 5,
+                      bottom: 0,
+                      top: 15,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       boxShadow: [
@@ -60,15 +59,14 @@ class TopOfDay extends StatelessWidget {
                         ),
                         Text(
                           'Dumpling Momo',
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w400),
+                          style: Theme.of(context).textTheme.headline2,
                         ),
                         SizedBox(
                           height: 5,
                         ),
                         Text(
                           'Hot & Spicy',
-                          style: TextStyle(color: kTextLightColor),
+                          style: Theme.of(context).textTheme.bodyText2,
                         ),
                       ],
                     ),

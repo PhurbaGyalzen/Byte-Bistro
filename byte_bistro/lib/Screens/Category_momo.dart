@@ -1,5 +1,6 @@
 import 'dart:ffi';
 
+import 'package:byte_bistro/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:byte_bistro/Screens/home/models/food_model.dart';
 import '../../../controller/food_controller.dart';
@@ -20,7 +21,7 @@ class _MOMOState extends State<MOMO> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 211, 208, 206),
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Container(
           width: double.infinity,
@@ -29,15 +30,24 @@ class _MOMOState extends State<MOMO> {
             children: [
               Row(
                 children: [
-                  SizedBox(
-                    width: 20,
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: const Icon(
-                        Icons.arrow_back_ios_rounded,
-                        color: Colors.orange,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Icon(
+                      Icons.arrow_back_ios_rounded,
+                      color: kTextColor,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 135), //apply padding to all four sides
+                    child: Text(
+                      widget.catName,
+                      style: TextStyle(
+                        fontSize: 19,
+                        fontWeight: FontWeight.normal,
+                        color: kTextColor,
                       ),
                     ),
                   ),
@@ -59,7 +69,7 @@ class _MOMOState extends State<MOMO> {
                 ],
               ),
               SizedBox(
-                height: 20,
+                height: 30,
               ),
               Expanded(
                 child: FutureBuilder(
@@ -73,38 +83,45 @@ class _MOMOState extends State<MOMO> {
                         itemBuilder: (context, index) {
                           // print(data[index].categories[0]['name']);
 
+                          // ignore: unrelated_type_equality_checks
                           if (data[index].categories[0]['name'] ==
                               widget.catName) {
                             momoList.add(data[index]);
                             return Container(
-                              height: 150,
+                              padding: EdgeInsets.only(left: 10, bottom: 0),
+                              height: 200,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10.0),
                                 color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                    blurRadius: 5,
+                                    offset: Offset(
+                                        0, 3), // changes position of shadow
+                                    color: Color(0xFFB0CCE1).withOpacity(0.32),
+                                  ),
+                                ],
                               ),
                               margin: EdgeInsets.only(
                                 bottom: 20,
                               ),
                               child: Row(
                                 children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 13),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(
-                                        8,
-                                      ), // Image border
-                                      child: Image(
-                                        image: NetworkImage(data[index].image),
-                                        width: 116,
-                                        height: 124,
-                                        fit: BoxFit.fill,
-                                      ),
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(
+                                      50,
+                                    ), // Image border
+                                    child: Image(
+                                      image: NetworkImage(data[index].image),
+                                      width: 120,
+                                      height: 120,
+                                      fit: BoxFit.fill,
                                     ),
                                   ),
                                   Expanded(
                                     child: Container(
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 17),
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 15, vertical: 5),
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -112,18 +129,23 @@ class _MOMOState extends State<MOMO> {
                                             MainAxisAlignment.start,
                                         children: [
                                           Padding(
-                                            padding: EdgeInsets.only(top: 13),
+                                            padding: EdgeInsets.only(
+                                                top: 20, bottom: 2),
                                             child: Text(
                                               data[index].name,
-                                              style: TextStyle(
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.w500),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headline1,
                                             ),
                                           ),
                                           Text(
-                                              'Rs ${data[index].price.toString()}'),
+                                            'Rs ${data[index].price.toString()}',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyText2,
+                                          ),
                                           Padding(
-                                            padding: EdgeInsets.only(top: 6),
+                                            padding: EdgeInsets.only(top: 10),
                                             child: SizedBox(
                                               // width: 200,
                                               // height: 59,
@@ -132,9 +154,14 @@ class _MOMOState extends State<MOMO> {
                                                 maxLines: 3,
                                                 overflow: TextOverflow.ellipsis,
                                                 textAlign: TextAlign.start,
-                                                style: TextStyle(fontSize: 12),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyText1,
                                               ),
                                             ),
+                                          ),
+                                          SizedBox(
+                                            height: 15,
                                           ),
                                           Row(
                                             mainAxisAlignment:
@@ -142,32 +169,29 @@ class _MOMOState extends State<MOMO> {
                                             children: [
                                               Image.asset(
                                                 'assets/images/heart.png',
-                                                height: 22,
-                                                color: Colors.red,
+                                                height: 20,
+                                                width: 20,
+                                                color:
+                                                    Colors.red.withOpacity(0.5),
                                               ),
                                               SizedBox(
-                                                width: 10,
+                                                width: 15,
                                               ),
-                                              ElevatedButton(
-                                                onPressed: () {},
-                                                style: ElevatedButton.styleFrom(
-                                                    minimumSize: Size(30, 25),
-                                                    // primary: Color.fromARGB(
-                                                    //     255, 205, 18, 237),
-                                                    primary: Colors.orange),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: const [
-                                                    // Image.asset(
-                                                    //   'assets/images/add_to_cart.png',
-                                                    // ),
-                                                    Text('Add Cart')
-                                                  ],
+                                              Container(
+                                                padding: EdgeInsets.all(7),
+                                                decoration: BoxDecoration(
+                                                  color: kPrimary,
+                                                  borderRadius:
+                                                      BorderRadius.circular(50),
+                                                ),
+                                                child: Image.asset(
+                                                  'assets/images/addCart.png',
+                                                  height: 20,
+                                                  width: 20,
                                                 ),
                                               ),
                                             ],
-                                          )
+                                          ),
                                         ],
                                       ),
                                     ),

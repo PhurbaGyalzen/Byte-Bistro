@@ -14,13 +14,7 @@ class TodaySpecial extends StatelessWidget {
         children: [
           Text(
             'Todays Special',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              letterSpacing: 0.5,
-              height: 1.5,
-              color: kTextColor,
-            ),
+            style: Theme.of(context).textTheme.headline1,
           ),
           SizedBox(
             height: 250.0,
@@ -53,28 +47,17 @@ class TodaySpecial extends StatelessWidget {
                       children: [
                         Text(
                           'Egg Salad',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                            height: 1.3,
-                            letterSpacing: 0.5,
-                            color: kTextColor,
-                          ),
+                          style: Theme.of(context).textTheme.headline2,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.center,
-                          children: const [
+                          children: [
                             Expanded(
                               flex: 1,
                               child: Text(
                                 'Egg rolls are a variety of deep-fried appetizers served in American Chinese restaurants.',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w300,
-                                  height: 1.5,
-                                  color: kTextLightColor,
-                                ),
+                                style: Theme.of(context).textTheme.bodyText1,
                               ),
                             ),
                             Expanded(

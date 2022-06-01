@@ -43,4 +43,17 @@ class FoodController extends GetxController {
     var response = foodService.deleteFood(foodId);
     return response;
   }
+
+  //set food Available
+  setFoodAvailable(String foodId) async {
+    var response = foodService.setFoodAvailable(foodId);
+    return response;
+  }
+
+  //set food Unavailable
+  setFoodUnavailable(String foodId) async {
+    var response = foodService.setFoodUnavailable(foodId);
+    return response;
+  }
+
 }

@@ -55,13 +55,7 @@ class _ViewFoodState extends State<ViewFood> {
                     children: [
                       Text(
                         data[index].name,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                          height: 1.3,
-                          letterSpacing: 0.5,
-                          color: kTextColor,
-                        ),
+                        style: Theme.of(context).textTheme.headline2,
                       ),
                       SizedBox(
                         height: 10,
@@ -74,15 +68,8 @@ class _ViewFoodState extends State<ViewFood> {
                             flex: 2,
                             child: Padding(
                               padding: const EdgeInsets.only(right: 8.0),
-                              child: Text(
-                                data[index].description,
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w300,
-                                  height: 1.5,
-                                  color: kTextLightColor,
-                                ),
-                              ),
+                              child: Text(data[index].description,
+                                  style: Theme.of(context).textTheme.bodyText1),
                             ),
                           ),
                           Expanded(
@@ -105,13 +92,7 @@ class _ViewFoodState extends State<ViewFood> {
                         children: [
                           Text(
                             'Rs ${data[index].price.toString()}',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                              height: 1.3,
-                              letterSpacing: 0.5,
-                              color: kTextColor,
-                            ),
+                            style: Theme.of(context).textTheme.bodyText1,
                           ),
                           SizedBox(
                             width: 220,
@@ -148,8 +129,8 @@ class _ViewFoodState extends State<ViewFood> {
                                 }),
                             child: Image(
                               image: AssetImage('assets/images/delete.png'),
-                              width: 25,
-                              height: 25,
+                              width: 20,
+                              height: 20,
                               color: Colors.red.withOpacity(0.5),
                               fit: BoxFit.cover,
                             ),
@@ -165,17 +146,10 @@ class _ViewFoodState extends State<ViewFood> {
                               data[index].description,
                               data[index].image,
                             ),
-                            //     foodController.updateFood(data[index].id, {
-                            //   "name": data[index].name,
-                            //   "price": data[index].price,
-                            //   "description": data[index].description,
-                            //   "image": data[index].image
-                            // }
-                            // ),
                             child: Image(
                               image: AssetImage('assets/images/edit.png'),
-                              width: 25,
-                              height: 25,
+                              width: 20,
+                              height: 20,
                               color: Colors.black.withOpacity(0.5),
                               fit: BoxFit.cover,
                             ),

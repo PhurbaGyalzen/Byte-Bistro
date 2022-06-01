@@ -20,6 +20,8 @@ import 'Screens/login_screen.dart';
 import 'package:byte_bistro/Screens/Category_momo.dart';
 import 'package:flutter/services.dart';
 
+import 'constants/colors.dart';
+
 int tableNo = 0;
 Future<void> main() async {
   await dotenv.load(fileName: ".env");
@@ -35,8 +37,50 @@ class ByteBistro extends StatelessWidget {
       statusBarColor: Colors.transparent,
     ));
     return GetMaterialApp(
-      theme: ThemeData(fontFamily: 'Roboto'),
-      initialRoute: '/home',
+      theme: ThemeData(
+        // Define the default brightness and colors.
+        primaryColor: Color(0xFFFFC61F),
+        brightness: Brightness.light,
+        colorScheme: ColorScheme.fromSwatch(
+          primarySwatch: Colors.brown,
+        ).copyWith(
+          secondary: kTextColor,
+        ),
+
+        // Define the default font family.
+        fontFamily: ' San Francisco',
+
+        // Define the default `TextTheme`. Use this to specify the default
+        // text styling for headlines, titles, bodies of text, and more.
+        textTheme: const TextTheme(
+          headline1: TextStyle(
+            fontSize: 16.0,
+            fontWeight: FontWeight.bold,
+            letterSpacing: 0.5,
+            height: 1.5,
+            color: kTextColor,
+          ),
+          headline2: TextStyle(
+            fontSize: 14.0,
+            fontWeight: FontWeight.bold,
+            letterSpacing: 0.5,
+            height: 1.5,
+            color: kTextColor,
+          ),
+          bodyText1: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w300,
+            height: 1.5,
+            color: kTextColor,
+          ),
+          bodyText2: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w300,
+            color: kTextLightColor,
+          ),
+        ),
+      ),
+      initialRoute: '/signup',
       debugShowCheckedModeBanner: false,
       title: 'Byte Bistro',
       getPages: [

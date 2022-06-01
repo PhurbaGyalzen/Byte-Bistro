@@ -36,22 +36,13 @@ class _FoodTabState extends State<FoodTab> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.fromLTRB(0, 24, 0, 8),
+      margin: EdgeInsets.fromLTRB(0, 24, 0, 0),
       padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Categories',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              letterSpacing: 0.5,
-              height: 1.5,
-              color: kTextColor,
-            ),
-          ),
+          Text('Categories', style: Theme.of(context).textTheme.headline1),
           SizedBox(
             height: 70,
             child: ListView.builder(
@@ -105,11 +96,10 @@ class _FoodTabState extends State<FoodTab> {
                               width: 30,
                             ),
                           ),
-                          Text(tabText[index],
-                              style: TextStyle(
-                                  height: 1.5,
-                                  fontWeight: FontWeight.w400,
-                                  color: kTextColor)),
+                          Text(
+                            tabText[index],
+                            style: Theme.of(context).textTheme.bodyText1,
+                          ),
                           SizedBox(width: 8),
                         ],
                       ),

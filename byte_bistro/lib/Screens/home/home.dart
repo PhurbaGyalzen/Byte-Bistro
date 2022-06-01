@@ -48,7 +48,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kPrimary,
+      backgroundColor: Theme.of(context).primaryColor,
       body: _widgetOptions.elementAt(selectedIndex),
       bottomNavigationBar: Hidable(
         controller: scrollController,
