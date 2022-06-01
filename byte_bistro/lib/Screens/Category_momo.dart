@@ -39,18 +39,7 @@ class _MOMOState extends State<MOMO> {
                       color: kTextColor,
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: 135), //apply padding to all four sides
-                    child: Text(
-                      widget.catName,
-                      style: TextStyle(
-                        fontSize: 19,
-                        fontWeight: FontWeight.normal,
-                        color: kTextColor,
-                      ),
-                    ),
-                  ),
+                  
                   Expanded(
                     child: Center(
                       child: Text(
@@ -58,7 +47,7 @@ class _MOMOState extends State<MOMO> {
                         style: TextStyle(
                           fontSize: 19,
                           fontWeight: FontWeight.normal,
-                          color: Colors.orange,
+                          color: Theme.of(context).primaryColor,
                         ),
                       ),
                     ),
