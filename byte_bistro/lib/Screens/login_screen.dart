@@ -1,3 +1,4 @@
+import 'package:byte_bistro/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -31,10 +32,13 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(
                 height: 30,
               ),
-              Image.asset('assets/images/login_image.jpg'),
+              Image.asset(
+                'assets/images/login_image.jpg',
+              ),
               Container(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 40,
+                  vertical: 40,
                 ),
                 child: Form(
                   key: _formkey,
@@ -47,7 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ///username start
                       TextFormField(
                         controller: usernameController,
-                        validator: RequiredValidator(errorText: '*required'),
+                        validator: RequiredValidator(errorText: 'required*'),
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
                             borderSide: const BorderSide(
@@ -57,8 +61,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             borderRadius: BorderRadius.circular(25.0),
                           ),
                           errorBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Color(0xFFF2F2F2),
+                            borderSide: BorderSide(
+                              color: kTextColor.withOpacity(0.2),
                               width: 2.0,
                             ),
                             borderRadius: BorderRadius.circular(25.0),
@@ -71,7 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             borderRadius: BorderRadius.circular(25.0),
                           ),
                           filled: true,
-                          fillColor: const Color(0xFFF2F2F2),
+                          fillColor: const Color(0xFFFFFFFF),
                           prefixIcon: const Icon(Icons.person),
                           border: InputBorder.none,
                           hintText: "Username",
@@ -95,7 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ///password start
                       TextFormField(
                         controller: passwordController,
-                        validator: RequiredValidator(errorText: '*required'),
+                        validator: RequiredValidator(errorText: 'required*'),
 
                         // obscureText: true,
                         obscureText: _isObscure,
@@ -109,8 +113,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             borderRadius: BorderRadius.circular(25.0),
                           ),
                           errorBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Color(0xFFF2F2F2),
+                            borderSide: BorderSide(
+                              color: kTextLightColor.withOpacity(0.2),
                               width: 2.0,
                             ),
                             borderRadius: BorderRadius.circular(25.0),
@@ -123,7 +127,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             borderRadius: BorderRadius.circular(25.0),
                           ),
                           filled: true,
-                          fillColor: const Color(0xFFF2F2F2),
+                          fillColor: const Color(0xFFFFFFFF),
                           hintText: "Password",
                           prefixIcon: const Icon(Icons.lock),
                           suffixIcon: IconButton(
@@ -161,11 +165,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         onTap: () {
                           Navigator.pushNamed(context, '/forgotPassword');
                         },
-                        child: const Text(
+                        child: Text(
                           "Forgot your password?",
-                          style: TextStyle(
-                            color: Colors.blue,
-                          ),
+                          style: Theme.of(context).textTheme.bodyText1,
                         ),
                       ),
                       //forgot password end
@@ -212,13 +214,13 @@ class _LoginScreenState extends State<LoginScreen> {
                               ;
                             }
                           },
-                          child: const Text(
+                          child: Text(
                             "Login",
-                            style: TextStyle(fontSize: 20),
+                            style: Theme.of(context).textTheme.headline2,
                           ),
                           style: ElevatedButton.styleFrom(
                             // primary: Colors.orange,
-                            primary: Colors.blue,
+                            primary: kPrimary,
                             shape: const StadiumBorder(),
                           ),
                         ),
@@ -246,7 +248,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               " Sign Up",
                               style: TextStyle(
                                 // color: Colors.orange,
-                                color: Colors.blue,
+                                color: kTextColor,
                                 fontWeight: FontWeight.w400,
                               ),
                             )

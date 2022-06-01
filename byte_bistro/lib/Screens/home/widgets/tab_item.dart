@@ -20,7 +20,7 @@ class _TabItemState extends State<TabItem> {
   Widget build(BuildContext context) {
     List<dynamic> cartList = [];
     return SizedBox(
-      height: 290.0,
+      height: 230.0,
       child: FutureBuilder(
         future: foodController.getAllFood(),
         builder: (context, snapshot) {
@@ -33,12 +33,17 @@ class _TabItemState extends State<TabItem> {
                 itemBuilder: ((context, index) => Container(
                       width: 170,
                       margin: EdgeInsets.only(
-                        top: 60,
+                        top: 5,
                         left: 0,
                         right: 18,
                         bottom: 8,
                       ),
-                      padding: EdgeInsets.all(10),
+                      padding: EdgeInsets.only(
+                        left: 10,
+                        right: 10,
+                        top: 5,
+                        bottom: 5,
+                      ),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         boxShadow: [

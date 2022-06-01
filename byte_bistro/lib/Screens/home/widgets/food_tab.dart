@@ -36,7 +36,7 @@ class _FoodTabState extends State<FoodTab> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.fromLTRB(0, 24, 0, 8),
+      margin: EdgeInsets.fromLTRB(0, 24, 0, 0),
       padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
