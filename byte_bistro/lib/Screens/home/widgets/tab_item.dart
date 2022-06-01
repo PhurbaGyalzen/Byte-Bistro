@@ -52,30 +52,30 @@ class _TabItemState extends State<TabItem> {
                       child: Stack(
                         clipBehavior: Clip.none,
                         children: [
-                          Positioned(
-                              top: -59,
-                              left: 20,
-                              child: Container(
-                                width: 110,
-                                height: 110,
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(80),
-                                    border: Border.all(
-                                        color: Colors.white30, width: 3)),
-                              )),
+                          // Positioned(
+                          //     top: -59,
+                          //     left: 20,
+                          //     child: Container(
+                          //       width: 110,
+                          //       height: 110,
+                          //       decoration: BoxDecoration(
+                          //           color: Colors.white,
+                          //           borderRadius: BorderRadius.circular(80),
+                          //           border: Border.all(
+                          //               color: Colors.white30, width: 3)),
+                          //     )),
                           Positioned(
                             top: -80,
                             left: 0,
                             child: Image(
                               image: NetworkImage(data[index].image),
-                              height: 150,
+                              height: 135,
                               width: 150,
                               fit: BoxFit.fill,
                             ),
                           ),
                           Positioned(
-                            top: 90,
+                            top: 60,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -93,7 +93,7 @@ class _TabItemState extends State<TabItem> {
                                   width: 150,
                                   child: Text(
                                     data[index].description,
-                                    maxLines: 2,
+                                    maxLines: 3,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
                                       fontSize: 14,

@@ -24,31 +24,37 @@ class _MOMOState extends State<MOMO> {
       body: SafeArea(
         child: Container(
           width: double.infinity,
-          margin: EdgeInsets.only(left: 17, right: 17),
+          margin: EdgeInsets.only(left: 17, right: 17, top: 12),
           child: Column(
             children: [
               Row(
                 children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Icon(
-                      Icons.arrow_back_ios_rounded,
-                      color: Colors.orange,
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: 135), //apply padding to all four sides
-                    child: Text(
-                      widget.catName,
-                      style: TextStyle(
-                        fontSize: 19,
-                        fontWeight: FontWeight.normal,
+                  SizedBox(
+                    width: 20,
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Icon(
+                        Icons.arrow_back_ios_rounded,
                         color: Colors.orange,
                       ),
                     ),
+                  ),
+                  Expanded(
+                    child: Center(
+                      child: Text(
+                        widget.catName,
+                        style: TextStyle(
+                          fontSize: 19,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.orange,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 20,
                   ),
                 ],
               ),
@@ -65,10 +71,10 @@ class _MOMOState extends State<MOMO> {
                       return ListView.builder(
                         itemCount: data.length,
                         itemBuilder: (context, index) {
-                          print(data[index].categories[0]['name']);
+                          // print(data[index].categories[0]['name']);
 
-                          // ignore: unrelated_type_equality_checks
-                          if (data[index].categories[0]['name'] == widget.catName) {
+                          if (data[index].categories[0]['name'] ==
+                              widget.catName) {
                             momoList.add(data[index]);
                             return Container(
                               height: 150,
@@ -145,10 +151,10 @@ class _MOMOState extends State<MOMO> {
                                               ElevatedButton(
                                                 onPressed: () {},
                                                 style: ElevatedButton.styleFrom(
-                                                  minimumSize: Size(30, 25),
-                                                  primary: Color.fromARGB(
-                                                      255, 205, 18, 237),
-                                                ),
+                                                    minimumSize: Size(30, 25),
+                                                    // primary: Color.fromARGB(
+                                                    //     255, 205, 18, 237),
+                                                    primary: Colors.orange),
                                                 child: Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.center,
