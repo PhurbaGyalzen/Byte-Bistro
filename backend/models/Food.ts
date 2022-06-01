@@ -1,5 +1,4 @@
 import mongoose, { Document, Schema, Types } from 'mongoose'
-import { IUser } from './Users'
 
 interface FoodRating extends Document {
 	id: number
