@@ -231,8 +231,10 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
             ),
             Expanded(
               child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 40.0, horizontal: 15.0),
+                  padding: EdgeInsets.only(
+                    top: 40,
+                    bottom: 0,
+                  ),
                   child:
                       OrderStatusItems(orderStatus: orderStatus, items: items)),
             ),
@@ -296,7 +298,16 @@ class OrderStatusItems extends StatelessWidget {
       children.add(
         Expanded(
           child: Container(
-            // decoration: decoration,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  blurRadius: 5,
+                  offset: Offset(0, 3), // changes position of shadow
+                  color: Color(0xFFB0CCE1).withOpacity(0.5),
+                ),
+              ],
+            ),
             child: Row(
               children: [
                 VerticalLine(

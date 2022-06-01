@@ -99,12 +99,7 @@ class NotificationPage extends StatelessWidget {
                       ),
                       Text(
                         notificationData[index]['description'].toString(),
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w200,
-                          color: kTextLightColor,
-                          height: 1.5,
-                        ),
+                        style: Theme.of(context).textTheme.bodyText1,
                       ),
                       Padding(
                         padding: const EdgeInsets.only(
