@@ -26,7 +26,7 @@ class _SignUpState extends State<SignUpScreen> {
                 height: 50,
               ),
               Image.asset(
-                'assets/images/sign_u2.png',
+                'assets/images/signUp.png',
                 height: 200,
                 width: 500,
               ),

@@ -33,7 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 30,
               ),
               Image.asset(
-                'assets/images/login_image.jpg',
+                'assets/images/login.png',
               ),
               Container(
                 padding: const EdgeInsets.symmetric(
