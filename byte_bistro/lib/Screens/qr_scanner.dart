@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'package:byte_bistro/Screens/swipe_qr_home.dart';
+import 'package:byte_bistro/constants/colors.dart';
 import 'package:byte_bistro/main.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -88,13 +89,12 @@ class _QrScannerState extends State<QrScannerScreen> {
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                               color: Colors.white10))
-                      : Text(
-                          'Scan a code',
+                      : Text('Scan a code',
                           style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white),
-                        ),
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).primaryColor,
+                          )),
                 ))
           ],
         ),
@@ -131,6 +131,7 @@ class _QrScannerState extends State<QrScannerScreen> {
         padding: EdgeInsets.symmetric(horizontal: 10),
         margin: EdgeInsets.only(
           left: 230,
+          top: 5,
         ),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
@@ -148,7 +149,7 @@ class _QrScannerState extends State<QrScannerScreen> {
                     if (snapshot.data != null) {
                       return Icon(
                         snapshot.data! ? Icons.flash_on : Icons.flash_off,
-                        color: Colors.white,
+                        color: snapshot.data! ? kPrimary : Colors.white,
                       );
                     } else {
                       return Container();
