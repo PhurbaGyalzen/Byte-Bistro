@@ -1,3 +1,4 @@
+import 'package:byte_bistro/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
@@ -21,32 +22,18 @@ class _SignUpState extends State<SignUpScreen> {
         child: SafeArea(
           child: Column(
             children: [
-              // Container(
-              //   padding: const EdgeInsets.only(left: 40),
-              //   width: MediaQuery.of(context).size.width,
-              //   child: Row(
-              //     mainAxisAlignment: MainAxisAlignment.start,
-              //     children: [
-              //       GestureDetector(
-              //         onTap: () {
-              //           Navigator.pushNamed(context, '/login');
-              //         },
-              //         child: const Icon(
-              //           Icons.arrow_back_ios_rounded,
-              //           color: Colors.blue,
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // ),
-              // const SizedBox(
-              //   height: 5,
-              // ),
-              Image.asset('assets/images/sign_u2.png'),
-
+              SizedBox(
+                height: 50,
+              ),
+              Image.asset(
+                'assets/images/sign_u2.png',
+                height: 200,
+                width: 500,
+              ),
               Container(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 40,
+                  vertical: 50,
                 ),
                 child: Form(
                   key: _formkey,
@@ -81,9 +68,7 @@ class _SignUpState extends State<SignUpScreen> {
                           fillColor: const Color(0xFFF2F2F2),
                           border: InputBorder.none,
                           hintText: "Name",
-                          hintStyle: const TextStyle(
-                            color: Color(0xFFB6B7B7),
-                          ),
+                          hintStyle: Theme.of(context).textTheme.bodyText2,
                           prefixIcon: const Icon(Icons.person),
                           contentPadding: const EdgeInsets.fromLTRB(
                             20.0,
@@ -128,9 +113,7 @@ class _SignUpState extends State<SignUpScreen> {
                           fillColor: const Color(0xFFF2F2F2),
                           border: InputBorder.none,
                           hintText: "Username",
-                          hintStyle: const TextStyle(
-                            color: Color(0xFFB6B7B7),
-                          ),
+                          hintStyle: Theme.of(context).textTheme.bodyText2,
                           prefixIcon: const Icon(Icons.person),
                           contentPadding: const EdgeInsets.fromLTRB(
                             20.0,
@@ -182,9 +165,7 @@ class _SignUpState extends State<SignUpScreen> {
                           fillColor: const Color(0xFFF2F2F2),
                           border: InputBorder.none,
                           hintText: "Email",
-                          hintStyle: const TextStyle(
-                            color: Color(0xFFB6B7B7),
-                          ),
+                          hintStyle: Theme.of(context).textTheme.bodyText2,
                           prefixIcon: const Icon(Icons.email),
                           contentPadding: const EdgeInsets.fromLTRB(
                             20.0,
@@ -229,9 +210,7 @@ class _SignUpState extends State<SignUpScreen> {
                           fillColor: const Color(0xFFF2F2F2),
                           border: InputBorder.none,
                           hintText: "Password",
-                          hintStyle: const TextStyle(
-                            color: Color(0xFFB6B7B7),
-                          ),
+                          hintStyle: Theme.of(context).textTheme.bodyText2,
                           prefixIcon: const Icon(Icons.lock),
                           suffixIcon: IconButton(
                             onPressed: () {
@@ -256,7 +235,7 @@ class _SignUpState extends State<SignUpScreen> {
                       //passwprd end
 
                       const SizedBox(
-                        height: 15,
+                        height: 35,
                       ),
 
                       //sign button
@@ -269,12 +248,12 @@ class _SignUpState extends State<SignUpScreen> {
                               Navigator.popAndPushNamed(context, '/login');
                             }
                           },
-                          child: const Text(
+                          child: Text(
                             "Sign Up",
-                            style: TextStyle(fontSize: 20),
+                            style: Theme.of(context).textTheme.headline1,
                           ),
                           style: ElevatedButton.styleFrom(
-                            primary: Colors.blue,
+                            primary: kPrimary,
                             shape: const StadiumBorder(),
                           ),
                         ),
@@ -289,14 +268,14 @@ class _SignUpState extends State<SignUpScreen> {
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Text("Already have an account?"),
+                          children: [
+                            Text(
+                              "Already have an account?",
+                              style: Theme.of(context).textTheme.bodyText1,
+                            ),
                             Text(
                               " Login",
-                              style: TextStyle(
-                                color: Colors.blue,
-                                fontWeight: FontWeight.w400,
-                              ),
+                              style: Theme.of(context).textTheme.headline2,
                             )
                           ],
                         ),

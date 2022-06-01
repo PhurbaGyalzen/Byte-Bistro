@@ -80,7 +80,7 @@ class ByteBistro extends StatelessWidget {
           ),
         ),
       ),
-      initialRoute: '/login',
+      initialRoute: '/signup',
       debugShowCheckedModeBanner: false,
       title: 'Byte Bistro',
       getPages: [

@@ -75,13 +75,11 @@ class _LoginScreenState extends State<LoginScreen> {
                             borderRadius: BorderRadius.circular(25.0),
                           ),
                           filled: true,
-                          fillColor: const Color(0xFFFFFFFF),
+                          fillColor: const Color(0xFFF2F2F2),
                           prefixIcon: const Icon(Icons.person),
                           border: InputBorder.none,
                           hintText: "Username",
-                          hintStyle: const TextStyle(
-                            color: Color(0xFFB6B7B7),
-                          ),
+                          hintStyle: Theme.of(context).textTheme.bodyText2,
                           contentPadding: const EdgeInsets.fromLTRB(
                             20.0,
                             15.0,
@@ -127,7 +125,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             borderRadius: BorderRadius.circular(25.0),
                           ),
                           filled: true,
-                          fillColor: const Color(0xFFFFFFFF),
+                          fillColor: const Color(0xFFF2F2F2),
                           hintText: "Password",
                           prefixIcon: const Icon(Icons.lock),
                           suffixIcon: IconButton(
@@ -149,9 +147,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             15.0,
                           ),
                           border: InputBorder.none,
-                          hintStyle: const TextStyle(
-                            color: Color(0xFFB6B7B7),
-                          ),
+                          hintStyle: Theme.of(context).textTheme.bodyText2,
                         ),
                       ),
 
