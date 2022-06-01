@@ -49,10 +49,21 @@ class _QrScannerState extends State<QrScannerScreen> {
             Positioned(child: Align(child: buildControlButtons()), top: 5),
             Positioned(
               child: Container(
-                width: 20,
+                width: 35,
+                height: 35,
+                padding: EdgeInsets.only(bottom: 5, right: 5),
+                margin: EdgeInsets.only(left: 10, top: 5),
                 decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(100)),
+                  color: Colors.white.withOpacity(0.8),
+                  borderRadius: BorderRadius.circular(100),
+                  boxShadow: [
+                    BoxShadow(
+                      blurRadius: 5,
+                      offset: Offset(0, 3), // changes position of shadow
+                      color: Color(0xFFB0CCE1).withOpacity(0.32),
+                    ),
+                  ],
+                ),
                 child: IconButton(
                   color: Colors.black,
                   icon: Icon(
@@ -69,7 +80,7 @@ class _QrScannerState extends State<QrScannerScreen> {
             ),
             // Expanded(flex: 2, child: buildControlButtons()),
             Positioned(
-                bottom: 20,
+                bottom: 30,
                 child: Center(
                   child: (result != null)
                       ? Text('Scanning',
@@ -117,7 +128,10 @@ class _QrScannerState extends State<QrScannerScreen> {
   }
 
   Widget buildControlButtons() => Container(
-        padding: EdgeInsets.symmetric(horizontal: 16),
+        padding: EdgeInsets.symmetric(horizontal: 10),
+        margin: EdgeInsets.only(
+          left: 230,
+        ),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
           color: Colors.white24,
