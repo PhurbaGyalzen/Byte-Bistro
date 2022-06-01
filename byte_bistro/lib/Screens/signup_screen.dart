@@ -275,7 +275,11 @@ class _SignUpState extends State<SignUpScreen> {
                             ),
                             Text(
                               " Login",
-                              style: Theme.of(context).textTheme.headline2,
+                              style: TextStyle(
+                                // color: Colors.orange,
+                                color: kTextColor,
+                                fontWeight: FontWeight.w400,
+                              ),
                             )
                           ],
                         ),
