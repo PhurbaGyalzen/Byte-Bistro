@@ -25,7 +25,7 @@ class _MOMOState extends State<MOMO> {
       body: SafeArea(
         child: Container(
           width: double.infinity,
-          margin: EdgeInsets.only(left: 17, right: 17),
+          margin: EdgeInsets.only(left: 17, right: 17, top: 12),
           child: Column(
             children: [
               Row(
@@ -51,6 +51,21 @@ class _MOMOState extends State<MOMO> {
                       ),
                     ),
                   ),
+                  Expanded(
+                    child: Center(
+                      child: Text(
+                        widget.catName,
+                        style: TextStyle(
+                          fontSize: 19,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.orange,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 20,
+                  ),
                 ],
               ),
               SizedBox(
@@ -66,7 +81,7 @@ class _MOMOState extends State<MOMO> {
                       return ListView.builder(
                         itemCount: data.length,
                         itemBuilder: (context, index) {
-                          print(data[index].categories[0]['name']);
+                          // print(data[index].categories[0]['name']);
 
                           // ignore: unrelated_type_equality_checks
                           if (data[index].categories[0]['name'] ==

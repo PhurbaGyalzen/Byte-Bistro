@@ -50,17 +50,20 @@ class _FoodTabState extends State<FoodTab> {
               itemCount: tabIcon.length,
               itemBuilder: ((context, index) => GestureDetector(
                     onTap: () {
-                      setState(() {
-                        catName = tabText[index];
-                      });
+                      setState(
+                        () {
+                          catName = tabText[index];
+                        },
+                      );
 
                       Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => MOMO(
-                              catName: catName,
-                            ),
-                          ));
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MOMO(
+                            catName: catName,
+                          ),
+                        ),
+                      );
                     },
                     child: Container(
                       width: 115,
