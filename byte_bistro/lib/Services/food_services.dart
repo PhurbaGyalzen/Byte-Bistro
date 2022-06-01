@@ -99,4 +99,46 @@ class FoodService {
       return Future.error(' err');
     }
   }
+
+  // set food available
+  setFoodAvailable(String foodId) async {
+    String endpoint = PersistentHtpp.baseUrl + 'food/$foodId/setAvailable';
+    try {
+      final response = await PersistentHtpp.client.patch(
+        Uri.parse(endpoint),
+        headers: {
+          "Content-Type": "application/json; charset=UTF-8",
+        },
+      );
+      if (response.statusCode == 200) {
+        return 'success';
+      } else {
+        return Future.error('err');
+      }
+    } catch (err) {
+      return Future.error(' err');
+    }
+  }
+
+  // set food unavailable
+  setFoodUnavailable(String foodId) async {
+    String endpoint =
+        PersistentHtpp.baseUrl + 'food/$foodId/setUnAvailable';
+    try {
+      final response = await PersistentHtpp.client.patch(
+        Uri.parse(endpoint),
+        headers: {
+          "Content-Type": "application/json; charset=UTF-8",
+        },
+      );
+      if (response.statusCode == 200) {
+        return 'success';
+      } else {
+        return Future.error('err');
+      }
+    } catch (err) {
+      return Future.error(' err');
+    }
+  }
+
 }
