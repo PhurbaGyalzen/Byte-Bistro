@@ -1,7 +1,5 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
-import 'package:byte_bistro/Screens/swipe_qr_home.dart';
 import 'package:byte_bistro/constants/colors.dart';
 import 'package:byte_bistro/main.dart';
 import 'package:flutter/material.dart';
