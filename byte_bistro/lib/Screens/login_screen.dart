@@ -192,18 +192,11 @@ class _LoginScreenState extends State<LoginScreen> {
 
                               if (response != null) {
                                 if (response.isAdmin == true) {
-                                  print("isAdmin:");
-                                  print(response.isAdmin);
-
                                   prefs.setString("token", response.token);
-                                  Navigator.pushNamed(context, '/adminScreen');
-                                  // Get.offAll(NextScreen());
+                                  Get.offNamed('/adminScreen');
                                 } else if (response.isAdmin == false) {
-                                  print("isAdmin:");
-                                  print(response.isAdmin);
                                   prefs.setString("token", response.token);
-                                  Navigator.pushNamed(context, '/home');
-                                  // Get.offAll(NextScreen());
+                                  Get.offNamed('/home');
                                 }
                               } else {
                                 print("cannot login");
