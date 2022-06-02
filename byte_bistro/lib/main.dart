@@ -6,6 +6,7 @@ import 'package:byte_bistro/Screens/admin/widgets/admin_dashboard.dart';
 import 'package:byte_bistro/Screens/after_order.dart';
 import 'package:byte_bistro/Screens/notification/admin_notification.dart';
 import 'package:byte_bistro/Screens/notification/notification.dart';
+import 'package:byte_bistro/Screens/order_sucess.dart';
 import 'package:byte_bistro/Screens/qr_data.dart';
 import 'package:byte_bistro/Screens/qr_scanner.dart';
 import 'package:byte_bistro/Screens/signup_screen.dart';
@@ -80,7 +81,7 @@ class ByteBistro extends StatelessWidget {
           ),
         ),
       ),
-      initialRoute: '/adminNotification',
+      initialRoute: '/orderSucess',
       debugShowCheckedModeBanner: false,
       title: 'Byte Bistro',
       getPages: [
@@ -91,6 +92,7 @@ class ByteBistro extends StatelessWidget {
         GetPage(name: '/individual', page: () => IndividualItem()),
         GetPage(name: '/qrscan', page: () => QrScannerScreen()),
         GetPage(name: '/after-order', page: () => AfterOrderScreen()),
+        GetPage(name: '/orderSucess', page: () => OrderSucess()),
         // GetPage(name: '/admin', page: () => AdminDashboard()),
         GetPage(name: '/addFood', page: () => AddFood()),
         GetPage(name: '/viewFood', page: () => ViewFood()),

@@ -1,8 +1,5 @@
-import 'dart:convert';
 
 import 'package:byte_bistro/Services/cart_service.dart';
-import 'package:byte_bistro/Services/http_service.dart';
-import 'package:byte_bistro/models/cart.dart';
 import 'package:get/get.dart';
 
 class CartController extends GetxController {
