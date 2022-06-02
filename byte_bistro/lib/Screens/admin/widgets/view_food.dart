@@ -80,7 +80,8 @@ class _ViewFoodState extends State<ViewFood> {
                               child: Image(
                                   height: 120,
                                   fit: BoxFit.cover,
-                                  image: NetworkImage(data[index].image)),
+                                  image: AssetImage(
+                                      'assets/images/' + data[index].image)),
                             ),
                           ))
                         ],
