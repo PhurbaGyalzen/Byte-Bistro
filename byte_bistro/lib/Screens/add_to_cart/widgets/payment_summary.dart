@@ -1,6 +1,8 @@
 //PaymentSummary
 import 'package:byte_bistro/Screens/add_to_cart/widgets/promo_search_box.dart';
 import 'package:byte_bistro/controller/cart_controller.dart';
+import 'package:esewa_pnp/esewa.dart';
+import 'package:esewa_pnp/esewa_pnp.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -104,7 +106,9 @@ class PaymentSummary extends StatelessWidget {
                       letterSpacing: 0.5,
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    _initPayment("product");
+                  },
                   // style: ButtonStyle(
                   //     backgroundColor: MaterialStateProperty.all(kPrimary)),
                 )
@@ -114,5 +118,21 @@ class PaymentSummary extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  // _initPayment(Map<String, dynamic> product) {
+  _initPayment(String product) {
+    ESewaConfiguration esewaConfiguration = ESewaConfiguration(
+        clientID: "<Client-ID>",
+        secretKey: "<Secret-Key>",
+        environment: ESewaConfiguration.ENVIRONMENT_TEST);
+
+    ESewaPnp _esewaPnp = ESewaPnp(configuration: esewaConfiguration);
+
+    // ESewaPayment esewaRequest = ESewaPayment(
+    //     amount: product["amount"],
+    //     productName: "Test Product",
+    //     productID: "Test Product ID",
+    //     callBackURL: "http://localhost:8080/esewa/callback");
   }
 }
