@@ -1,7 +1,4 @@
-import 'package:byte_bistro/Screens/add_to_cart/add_to_cart.dart';
 import 'package:byte_bistro/Screens/home/models/food_model.dart';
-import 'package:byte_bistro/constants/colors.dart';
-import 'package:byte_bistro/controller/cart_controller.dart';
 import 'package:byte_bistro/controller/food_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -62,9 +59,13 @@ class _TabItemState extends State<TabItem> {
                             borderRadius: BorderRadius.circular(20),
                             child: Image(
                               image: NetworkImage(data[index].image),
-                              height: 150,
+                              height: 140,
                               width: MediaQuery.of(context).size.width - 10,
+                              fit: BoxFit.fill,
                             ),
+                          ),
+                          SizedBox(
+                            height: 10,
                           ),
                           Text(
                             data[index].name,

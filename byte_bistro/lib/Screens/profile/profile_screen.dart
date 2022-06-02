@@ -1,3 +1,4 @@
+import 'package:byte_bistro/Screens/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,13 +15,13 @@ class ProfileScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: kPrimary,
         elevation: 0,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: kTextColor,
-          ),
-          onPressed: () => Get.back(),
-        ),
+        // leading: IconButton(
+        //   icon: Icon(
+        //     Icons.arrow_back,
+        //     color: kTextColor,
+        //   ),
+        //   onPressed: () => Get.toNamed('/home'),
+        // ),
         title: Text(
           'My Profile',
           style: TextStyle(color: kTextColor, fontSize: 16),
