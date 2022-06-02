@@ -1,4 +1,5 @@
 import 'package:byte_bistro/Screens/home/widgets/top_of_day.dart';
+import 'package:byte_bistro/Screens/profile/profile_screen.dart';
 import 'package:byte_bistro/controller/food_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:byte_bistro/constants/colors.dart';
@@ -21,7 +22,7 @@ class _HomePageState extends State<HomePage> {
   var selectedIndex = 0;
   final ScrollController scrollController = ScrollController();
 
-  late final List<Widget> _widgetOptions = <Widget>[
+  late final List<Widget> widgetOptions = <Widget>[
     HomeScreen(
       scrollController: scrollController,
     ),
@@ -31,30 +32,35 @@ class _HomePageState extends State<HomePage> {
     HomeScreen(
       scrollController: scrollController,
     ),
-    HomeScreen(
+    ProfileScreen(
       scrollController: scrollController,
     ),
-    HomeScreen(
-      scrollController: scrollController,
+  ];
+
+  final screens = [
+    // ProfileScreen(),
+    Center(
+      child: Text('About'),
+    ),
+    Center(
+      child: Text('Profile'),
     )
   ];
-  void onItemTapped(int index) {
-    print("on item tapped");
-    setState(() {
-      selectedIndex = index;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
-      body: _widgetOptions.elementAt(selectedIndex),
+      body: widgetOptions[selectedIndex],
       bottomNavigationBar: Hidable(
         controller: scrollController,
         child: BottomNavigationBar(
           currentIndex: selectedIndex,
-          onTap: onItemTapped,
+          onTap: (index) {
+            setState(() {
+              selectedIndex = index;
+            });
+          },
           type: BottomNavigationBarType.fixed,
           items: const [
             BottomNavigationBarItem(
@@ -75,7 +81,7 @@ class _HomePageState extends State<HomePage> {
             BottomNavigationBarItem(
               icon: Icon(Icons.person),
               label: "Profile",
-              backgroundColor: Colors.blue,
+              backgroundColor: Colors.red,
             ),
           ],
         ),
