@@ -33,11 +33,10 @@ class _TabItemDetailState extends State<TabItemDetail> {
                     itemCount: data.length,
                     itemBuilder: (context, index, realIndex) {
                       return Container(
-                        width: 290,
+                        width: 265,
                         margin: EdgeInsets.only(
                           top: 20,
                           left: 0,
-                          right: 20,
                           bottom: 8,
                         ),
                         padding: EdgeInsets.only(
