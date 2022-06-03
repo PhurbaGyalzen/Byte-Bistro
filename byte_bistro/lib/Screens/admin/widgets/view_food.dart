@@ -1,7 +1,8 @@
 // import 'package:byte_bistro/Models/food.dart';
 import 'package:byte_bistro/Screens/admin/widgets/update_food.dart';
 import 'package:byte_bistro/Screens/home/models/food_model.dart';
-import 'package:byte_bistro/constants/colors.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -37,7 +38,7 @@ class _ViewFoodState extends State<ViewFood> {
                       right: 5,
                       bottom: 8,
                     ),
-                    padding: EdgeInsets.all(20),
+                    padding: EdgeInsets.all(5),
                     decoration: BoxDecoration(
                       boxShadow: [
                         BoxShadow(
@@ -49,28 +50,74 @@ class _ViewFoodState extends State<ViewFood> {
                       borderRadius: BorderRadius.circular(16),
                       color: Colors.white,
                     ),
-                    child: ListTile(
-                      leading: GestureDetector(
-                        behavior: HitTestBehavior.translucent,
-                        onTap: () {},
-                        child: Container(
-                          width: 48,
-                          height: 48,
-                          padding: const EdgeInsets.symmetric(vertical: 4.0),
-                          alignment: Alignment.center,
-                          child: CircleAvatar(
-                            radius: 200.0,
-                            child: Image(
-                                height: 120,
-                                fit: BoxFit.cover,
-                                image: AssetImage(
-                                    'assets/images/' + data[index].image)),
+                    child: Slidable(
+                      // Specify a key if the Slidable is dismissible.
+                      key: UniqueKey(),
+                      startActionPane: ActionPane(
+                        // A motion is a widget used to control how the pane animates.
+                        motion: const ScrollMotion(),
+
+                        // A pane can dismiss the Slidable.
+                        // dismissible: DismissiblePane(onDismissed: () {}),
+                        dismissible: DismissiblePane(onDismissed: () {
+                          foodController.deleteFood(data[index].id);
+                          Get.offNamed('/adminScreen');
+
+                          setState(() {});
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                                content: Text('Food deleted successfully')),
+                          );
+                        }),
+
+                        // All actions are defined in the children parameter.
+                        children: [
+                          // A SlidableAction can have an icon and/or a label.
+                          SlidableAction(
+                            onPressed: (value) {
+                              data.removeAt(index);
+                              setState(() {});
+                            },
+                            backgroundColor: Color(0xFFFE4A49),
+                            foregroundColor: Colors.white,
+                            icon: Icons.delete,
+                            label: 'Delete',
+                          ),
+                          SlidableAction(
+                            onPressed: (value) {
+                              data.removeAt(index);
+                              setState(() {});
+                            },
+                            backgroundColor: Color(0xFF21B7CA),
+                            foregroundColor: Colors.white,
+                            icon: Icons.edit_outlined,
+                            label: 'Update',
+                          ),
+                        ],
+                      ),
+                      child: ListTile(
+                        leading: GestureDetector(
+                          behavior: HitTestBehavior.translucent,
+                          onTap: () {},
+                          child: Container(
+                            width: 48,
+                            height: 48,
+                            padding: const EdgeInsets.symmetric(vertical: 4.0),
+                            alignment: Alignment.center,
+                            child: CircleAvatar(
+                              radius: 200.0,
+                              child: Image(
+                                  height: 120,
+                                  fit: BoxFit.cover,
+                                  image: AssetImage(
+                                      'assets/images/' + data[index].image)),
+                            ),
                           ),
                         ),
+                        title: Text(data[index].name),
+                        subtitle: Text('Rs : ' + data[index].price.toString()),
+                        dense: false,
                       ),
-                      title: Text(data[index].name),
-                      subtitle: Text('Rs : ' + data[index].price.toString()),
-                      dense: false,
                     )
                     // child: Column(
                     //   crossAxisAlignment: CrossAxisAlignment.start,
