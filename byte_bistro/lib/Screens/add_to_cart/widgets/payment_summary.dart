@@ -1,6 +1,8 @@
 //PaymentSummary
 import 'package:byte_bistro/Screens/add_to_cart/widgets/promo_search_box.dart';
 import 'package:byte_bistro/controller/cart_controller.dart';
+import 'package:esewa_pnp/esewa.dart';
+import 'package:esewa_pnp/esewa_pnp.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,7 +14,9 @@ class PaymentSummary extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final CartController cartController = Get.find();
-
+    var product = {"cartId":"98023gjhfsdfn","items":[{"foodId":"yqhediufhw","qty":7},{"foodId":"yqhediufhw","qty":7}],"total":500.0,"promoCode":""} ;
+    
+    
     return Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -104,7 +108,9 @@ class PaymentSummary extends StatelessWidget {
                       letterSpacing: 0.5,
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    _initPayment(product);
+                  },
                   // style: ButtonStyle(
                   //     backgroundColor: MaterialStateProperty.all(kPrimary)),
                 )
@@ -115,4 +121,31 @@ class PaymentSummary extends StatelessWidget {
       ),
     );
   }
+
+  _initPayment(Map<String, dynamic> product) {
+    // _initPayment(String product) {
+      ESewaConfiguration esewaConfiguration = ESewaConfiguration(
+        clientID: "JB0BBQ4aD0UqIThFJwAKBgAXEUkEGQUBBAwdOgABHD4DChwUAB0R",
+        secretKey: "BhwIWQQADhIYSxILExMcAgFXFhcOBwAKBgAXEQ==",
+        environment: ESewaConfiguration.ENVIRONMENT_TEST);
+
+    ESewaPnp _esewaPnp = ESewaPnp(configuration: esewaConfiguration);
+      
+
+    ESewaPayment _payment = ESewaPayment(
+        amount: product['total'],
+        productName: "table Number",
+        productID: product['cartId'],
+        callBackURL: "http://localhost:8080/esewa/callback");
+
+    try {
+        final _res = _esewaPnp.initPayment(payment: _payment);
+        print(_res);
+        // Handle success
+      } on ESewaPaymentException catch(e) {
+        // Handle error
+        print(e.message);
+      }
+  }
+
 }

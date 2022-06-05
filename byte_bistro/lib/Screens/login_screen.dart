@@ -33,7 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 30,
               ),
               Image.asset(
-                'assets/images/login_image.jpg',
+                'assets/images/login.png',
               ),
               Container(
                 padding: const EdgeInsets.symmetric(
@@ -192,18 +192,11 @@ class _LoginScreenState extends State<LoginScreen> {
 
                               if (response != null) {
                                 if (response.isAdmin == true) {
-                                  print("isAdmin:");
-                                  print(response.isAdmin);
-
                                   prefs.setString("token", response.token);
-                                  Navigator.pushNamed(context, '/adminScreen');
-                                  // Get.offAll(NextScreen());
+                                  Get.offNamed('/adminScreen');
                                 } else if (response.isAdmin == false) {
-                                  print("isAdmin:");
-                                  print(response.isAdmin);
                                   prefs.setString("token", response.token);
-                                  Navigator.pushNamed(context, '/home');
-                                  // Get.offAll(NextScreen());
+                                  Get.offNamed('/home');
                                 }
                               } else {
                                 print("cannot login");

@@ -1,14 +1,17 @@
+import 'package:byte_bistro/Screens/home/widgets/tab_item.dart';
 import 'package:byte_bistro/Screens/home/widgets/top_of_day.dart';
+import 'package:byte_bistro/Screens/profile/profile_screen.dart';
+import 'package:byte_bistro/Screens/qr_scanner.dart';
+import 'package:byte_bistro/constants/colors.dart';
 import 'package:byte_bistro/controller/food_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:byte_bistro/constants/colors.dart';
 import 'package:byte_bistro/Screens/home/widgets/app_bar.dart';
 import 'package:byte_bistro/Screens/home/widgets/app_note.dart';
 import 'package:byte_bistro/Screens/home/widgets/food_tab.dart';
-import 'package:byte_bistro/Screens/home/widgets/tab_item.dart';
 import 'package:byte_bistro/Screens/home/widgets/today_special.dart';
 import 'package:get/get.dart';
 import 'package:hidable/hidable.dart';
+import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -21,66 +24,81 @@ class _HomePageState extends State<HomePage> {
   var selectedIndex = 0;
   final ScrollController scrollController = ScrollController();
 
-  late final List<Widget> _widgetOptions = <Widget>[
+  late final List<Widget> widgetOptions = <Widget>[
     HomeScreen(
       scrollController: scrollController,
     ),
     HomeScreen(
       scrollController: scrollController,
     ),
-    HomeScreen(
-      scrollController: scrollController,
+    QrScannerScreen(
     ),
     HomeScreen(
       scrollController: scrollController,
     ),
-    HomeScreen(
+    ProfileScreen(
       scrollController: scrollController,
-    )
+    ),
   ];
-  void onItemTapped(int index) {
-    print("on item tapped");
-    setState(() {
-      selectedIndex = index;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
-      body: _widgetOptions.elementAt(selectedIndex),
-      bottomNavigationBar: Hidable(
-        controller: scrollController,
-        child: BottomNavigationBar(
-          currentIndex: selectedIndex,
-          onTap: onItemTapped,
-          type: BottomNavigationBarType.fixed,
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: "Home",
-              backgroundColor: Colors.blue,
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.mail),
-              label: "Inbox",
-              backgroundColor: Colors.blue,
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart),
-              label: "Cart",
-              backgroundColor: Colors.blue,
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: "Profile",
-              backgroundColor: Colors.blue,
-            ),
-          ],
-        ),
-      ),
-    );
+        // backgroundColor: Theme.of(context).primaryColor,
+        body: widgetOptions[selectedIndex],
+        bottomNavigationBar: Hidable(
+          controller: scrollController,
+          child: ConvexAppBar(
+            top: -35.0,
+            style: TabStyle.fixedCircle,
+            activeColor: kPrimary,
+            backgroundColor: Colors.black.withOpacity(0.01),
+            items: const [
+              TabItem(
+                activeIcon: Icon(
+                  Icons.home,
+                  size: 25,
+                ),
+                icon: Icon(
+                  Icons.home_outlined,
+                  size: 25,
+                ),
+              ),
+              TabItem(
+                  activeIcon: Icon(Icons.mail),
+                  icon: Icon(
+                    Icons.mail_outline,
+                    size: 25,
+                  )),
+              TabItem(
+                icon: Icon(
+                  Icons.qr_code,
+                  size: 30,
+                ),
+              ),
+              TabItem(
+                activeIcon: Icon(Icons.shopping_cart),
+                icon: Icon(
+                  Icons.shopping_cart_outlined,
+                  size: 25,
+                ),
+              ),
+              TabItem(
+                activeIcon: Icon(Icons.person),
+                icon: Icon(
+                  Icons.person_outlined,
+                  size: 25,
+                ),
+              ),
+            ],
+            initialActiveIndex: 2, //optional, default as 0
+            onTap: (index) {
+              setState(() {
+                selectedIndex = index;
+              });
+            },
+          ),
+        ));
   }
 }
 
@@ -121,7 +139,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               AppNote(),
               FoodTab(),
-              TabItem(),
+              TabItemDetail(),
               TodaySpecial(),
               TopOfDay(),
             ],

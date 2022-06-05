@@ -1,5 +1,7 @@
 import 'package:byte_bistro/Services/ws_service.dart';
+import 'package:byte_bistro/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'dart:io' show Platform;
 
@@ -179,51 +181,65 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
       ),
     ];
     return Scaffold(
-      body: Center(
-        child: Column(children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(4.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Icon(
-                  Icons.close,
-                  color: Colors.black,
-                  size: 40,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Order #' + orderId,
-                      style: TextStyle(fontSize: 20),
+      body: SizedBox(
+        child: Center(
+          child: Column(children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(
+                top: 50,
+                left: 20,
+                right: 20,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Container(
+                    decoration: BoxDecoration(
+                        color: kPrimary.withOpacity(0.8),
+                        borderRadius: BorderRadius.circular(50)),
+                    child: IconButton(
+                      icon: Icon(Icons.close),
+                      color: Colors.black,
+                      iconSize: 25,
+                      onPressed: () => Get.back(),
                     ),
-                    Text(
-                      orderedTime +
-                          ' | ' +
-                          itemCount +
-                          ' item' +
-                          ', Rs. ' +
-                          totalPrice,
-                    ),
-                  ],
-                ),
-                Icon(
-                  Icons.more,
-                  color: Colors.black,
-                  size: 40,
-                ),
-              ],
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Order #' + orderId,
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      Text(
+                        orderedTime +
+                            ' | ' +
+                            itemCount +
+                            ' item' +
+                            ', Rs. ' +
+                            totalPrice,
+                      ),
+                    ],
+                  ),
+                  Image(
+                    image: AssetImage('assets/images/moreInfo.png'),
+                    height: 20,
+                    width: 20,
+                  )
+                ],
+              ),
             ),
-          ),
-          Expanded(
-            child: Padding(
-                padding: const EdgeInsets.symmetric(
-                    vertical: 40.0, horizontal: 10.0),
-                child:
-                    OrderStatusItems(orderStatus: orderStatus, items: items)),
-          ),
-        ]),
+            Expanded(
+              child: Padding(
+                  padding: EdgeInsets.only(
+                    top: 40,
+                    bottom: 0,
+                  ),
+                  child:
+                      OrderStatusItems(orderStatus: orderStatus, items: items)),
+            ),
+          ]),
+        ),
       ),
     );
   }
@@ -282,7 +298,16 @@ class OrderStatusItems extends StatelessWidget {
       children.add(
         Expanded(
           child: Container(
-            // decoration: decoration,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  blurRadius: 5,
+                  offset: Offset(0, 3), // changes position of shadow
+                  color: Color(0xFFB0CCE1).withOpacity(0.5),
+                ),
+              ],
+            ),
             child: Row(
               children: [
                 VerticalLine(
@@ -297,11 +322,12 @@ class OrderStatusItems extends StatelessWidget {
                         Image.asset(
                           items[i].icon,
                           // color: Colors.black,
-                          width: 72,
+                          width: 50,
+                          height: 50,
                         ),
                         Text(
                           currStatus.text,
-                          style: TextStyle(color: currStatus.color),
+                          style: Theme.of(context).textTheme.bodyText1,
                         ),
                       ],
                     ),
@@ -314,10 +340,12 @@ class OrderStatusItems extends StatelessWidget {
                           Text(
                             items[i].primaryText,
                             style: TextStyle(
+                                height: 1.5,
+                                letterSpacing: 0.2,
                                 fontWeight: isCurrent
                                     ? FontWeight.w800
                                     : FontWeight.w500,
-                                fontSize: 22),
+                                fontSize: 18),
                           ),
                           SizedBox(
                             width: MediaQuery.of(context).size.width * 0.5,

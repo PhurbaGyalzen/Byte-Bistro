@@ -1,7 +1,6 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
-import 'package:byte_bistro/Screens/swipe_qr_home.dart';
+import 'package:byte_bistro/constants/colors.dart';
 import 'package:byte_bistro/main.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -48,18 +47,39 @@ class _QrScannerState extends State<QrScannerScreen> {
             ),
             Positioned(child: Align(child: buildControlButtons()), top: 5),
             Positioned(
-              child: IconButton(
-                icon: Icon(Icons.close),
-                onPressed: () => widget.pageController?.previousPage(
-                    duration: Duration(milliseconds: 300),
-                    curve: Curves.easeIn),
+              child: Container(
+                width: 35,
+                height: 35,
+                padding: EdgeInsets.only(bottom: 5, right: 5),
+                margin: EdgeInsets.only(left: 10, top: 5),
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.8),
+                  borderRadius: BorderRadius.circular(100),
+                  boxShadow: [
+                    BoxShadow(
+                      blurRadius: 5,
+                      offset: Offset(0, 3), // changes position of shadow
+                      color: Color(0xFFB0CCE1).withOpacity(0.32),
+                    ),
+                  ],
+                ),
+                child: IconButton(
+                  color: Colors.black,
+                  icon: Icon(
+                    Icons.close,
+                    size: 20,
+                  ),
+                  onPressed: () => widget.pageController?.previousPage(
+                      duration: Duration(milliseconds: 300),
+                      curve: Curves.easeIn),
+                ),
               ),
               left: 10,
               top: 5,
             ),
             // Expanded(flex: 2, child: buildControlButtons()),
             Positioned(
-                bottom: 20,
+                bottom: 30,
                 child: Center(
                   child: (result != null)
                       ? Text('Scanning',
@@ -67,13 +87,12 @@ class _QrScannerState extends State<QrScannerScreen> {
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                               color: Colors.white10))
-                      : Text(
-                          'Scan a code',
+                      : Text('Scan a code',
                           style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white),
-                        ),
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).primaryColor,
+                          )),
                 ))
           ],
         ),
@@ -107,7 +126,11 @@ class _QrScannerState extends State<QrScannerScreen> {
   }
 
   Widget buildControlButtons() => Container(
-        padding: EdgeInsets.symmetric(horizontal: 16),
+        padding: EdgeInsets.symmetric(horizontal: 10),
+        margin: EdgeInsets.only(
+          left: 230,
+          top: 5,
+        ),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
           color: Colors.white24,
@@ -124,7 +147,7 @@ class _QrScannerState extends State<QrScannerScreen> {
                     if (snapshot.data != null) {
                       return Icon(
                         snapshot.data! ? Icons.flash_on : Icons.flash_off,
-                        color: Colors.white,
+                        color: snapshot.data! ? kPrimary : Colors.white,
                       );
                     } else {
                       return Container();

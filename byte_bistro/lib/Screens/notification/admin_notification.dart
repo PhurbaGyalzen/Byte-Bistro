@@ -49,7 +49,7 @@ class AdminNotification extends StatelessWidget {
                 ),
                 decoration: BoxDecoration(
                   color: kTextColor,
-                  borderRadius: BorderRadius.circular(50),
+                  borderRadius: BorderRadius.circular(40),
                 ),
                 child: Text(
                   '1',
@@ -81,7 +81,6 @@ class AdminNotification extends StatelessWidget {
                   margin:
                       EdgeInsets.only(top: 20, bottom: 5, left: 5, right: 5),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
                     color: Colors.white,
                     boxShadow: [
                       BoxShadow(
@@ -112,8 +111,10 @@ class AdminNotification extends StatelessWidget {
                     trailing: Opacity(
                       opacity: 0.5,
                       child: GestureDetector(
-                        onTap: () =>
-                            Get.bottomSheet(NotificationDetail(order: cart)),
+                        onTap: () => Get.bottomSheet(
+                            NotificationDetail(order: cart),
+                            isDismissible: false,
+                            elevation: 20),
                         // onTap: () => {},
                         child: Image(
                           height: 20,
