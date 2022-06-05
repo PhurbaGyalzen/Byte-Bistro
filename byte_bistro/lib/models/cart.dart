@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-// To parse this JSON data, do
-//
-//     final cart = cartFromJson(jsonString);
-
-=======
->>>>>>> 2226cbb6b2033a51a02eb16bc41c5a08be18cf60
 import 'dart:convert';
 
 Cart cartFromJson(String str) => Cart.fromJson(json.decode(str));
