@@ -31,6 +31,13 @@ class CartController extends GetxController {
     update();
   }
 
+  getAllCart() async {
+    var response = await cartService.getAllCart();
+    print(response);
+    cartList.value = response;
+    return response;
+  }
+
   updatePrice(int price) {
     foodPrice.value = price * foodQuantity.value;
     update();

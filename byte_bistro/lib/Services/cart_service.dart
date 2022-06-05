@@ -20,6 +20,29 @@ class CartService {
   //   }
   // }
 
+  Future<List<Cart>> getAllCart() async {
+    print("kra2 inside getAllCart");
+    String endpoint = PersistentHtpp.baseUrl + 'cart';
+    try {
+      final response = await PersistentHtpp.client.get(Uri.parse(endpoint));
+      final jsonResponse = response.body;
+      print(response.body);
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        print(response.body);
+        return List<Cart>.from(
+            json.decode(jsonResponse).map((x) => Cart.fromJson(x)));
+      } else {
+        print("kra else");
+        return Future.error('Internal Server Error');
+      }
+    } catch (err) {
+      print("kra catch");
+      print(err);
+      return Future.error(' Error fetching data $err');
+    }
+  }
+
   Future getSingleCart(String cartId) async {
     String endpoint = PersistentHtpp.baseUrl + 'cart/$cartId';
 

@@ -2,7 +2,6 @@
 //
 //     final cart = cartFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 Cart cartFromJson(String str) => Cart.fromJson(json.decode(str));
@@ -123,4 +122,73 @@ class UserId {
         "_id": id,
         "fullname": fullname,
       };
+}
+
+String indCart = '''
+{
+  "_id": "628cc6fb620fe24d3929b7d2",
+  "userId": {"_id":"627fbfa1d464ffbeb80b985b", "fullname": "limbu"},
+  "items": [
+    {
+      "foodId": {
+        "_id": "628bb15477df225b15e71a6f",
+        "name": "Pizza",
+        "price": 700,
+        "image": "https://www.tasteofhome.com/wp-content/uploads/2018/01/exps14079_SD14079D12_18_2bC_RMS-1-696x696.jpg",
+        "isAvailable": true
+      },
+      "qty": 2,
+      "_id": "628cc6fb620fe24d3929b7d3"
+    }
+  ],
+  "tableId": 7,
+  "createdAt": "2022-05-24T11:52:27.585Z",
+  "updatedAt": "2022-05-24T13:15:37.268Z",
+  "__v": 0
+}
+''';
+// String lCarts = '[' + indCart + ']';
+
+String lCarts = '''
+[
+  {
+    "_id":"628d04284aeaa390fb4d0013",
+    "userId": {
+      "_id":"627fbfa1d464ffbeb80b985b",
+      "fullname": "limbu"
+    },
+    "items":[
+      {"foodId":"628b791788b361630f91205f","qty":3,"_id":"628d04284aeaa390fb4d0014"}
+    ],
+    "tableId":7,
+    "createdAt":"2022-05-24T16:13:28.124Z",
+    "updatedAt":"2022-05-24T16:13:28.124Z",
+    "__v":0
+  }
+]
+''';
+
+String ind =
+    '{"_id":"628d04284aeaa390fb4d0013","userId": {"_id":"627fbfa1d464ffbeb80b985b", "fullname": "limbu"},"items":[{"foodId":"628b791788b361630f91205f","qty":3,"_id":"628d04284aeaa390fb4d0014"}],"tableId":7,"createdAt":"2022-05-24T16:13:28.124Z","updatedAt":"2022-05-24T16:13:28.124Z","__v":0}';
+
+void main() {
+  // Cart cart = cartFromJson(indCart);
+  // for (int i=0; i<)
+  // var carts = json.decode(lCarts).map((x) {
+  //   // print(x.runtimeType);
+  //   // print(json.decode(x));
+  //   print('dg');
+  //   return x;
+  // });
+  // print(json.decode(indCart));
+  // print(Cart.fromJson(json.decode(indCart)));
+  // print(json.decode(lCarts).runtimeType);
+  // print(json.decode(lCarts).map((x) {
+  //   print(x);
+  //   print(x.runtimeType);
+  //   // print(json.decode(x));
+  //   print(Cart.fromJson(x));
+  // }));
+  print(List<Cart>.from(json.decode(lCarts).map((x) => Cart.fromJson(x))));
+  // print(carts);
 }
