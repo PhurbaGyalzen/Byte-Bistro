@@ -1,5 +1,6 @@
 import 'package:byte_bistro/Screens/admin/widgets/add_food.dart';
 import 'package:byte_bistro/Screens/admin/widgets/view_food.dart';
+import 'package:byte_bistro/Screens/category_screen.dart';
 import 'package:byte_bistro/Screens/home/widgets/app_bar.dart';
 import 'package:byte_bistro/constants/colors.dart';
 import 'package:flutter/material.dart';
@@ -36,20 +37,30 @@ class _AdminDashboardState extends State<AdminDashboard> {
               color: Colors.white,
             ),
             padding: EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                SizedBox(
-                  height: 20,
-                ),
-                BuildAppBar(
-                  leadingIcon: 'assets/images/menu.png',
-                  trailingIcon: 'assets/images/notification.png',
-                  titleFirstName: 'Admin',
-                  titleSecondName: 'Dash',
-                ),
-                ViewFood(),
-              ],
+            child: SingleChildScrollView(
+              // reverse: true,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: const [
+                  SizedBox(
+                    height: 20,
+                  ),
+                  BuildAppBar(
+                    leadingIcon: 'assets/images/menu.png',
+                    trailingIcon: 'assets/images/notification.png',
+                    titleFirstName: 'Admin',
+                    titleSecondName: 'Dash',
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  CategoryScreen(),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  ViewFood(),
+                ],
+              ),
             ),
           ),
         ),
