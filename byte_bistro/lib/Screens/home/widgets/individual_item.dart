@@ -1,8 +1,9 @@
 import 'package:byte_bistro/Screens/home/widgets/app_bar.dart';
 import 'package:byte_bistro/Services/auth_service.dart';
 import 'package:flutter/material.dart';
-import 'package:byte_bistro/models/food.dart';
 import 'package:get/get.dart';
+
+import '../../../Models/food.dart';
 
 class IndividualItem extends StatefulWidget {
   const IndividualItem({Key? key}) : super(key: key);
