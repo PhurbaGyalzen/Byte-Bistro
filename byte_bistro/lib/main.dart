@@ -4,7 +4,7 @@ import 'package:byte_bistro/Screens/admin/widgets/view_food.dart';
 // import 'package:byte_bistro/Screens/admin_screen.dart';
 import 'package:byte_bistro/Screens/admin/widgets/admin_dashboard.dart';
 import 'package:byte_bistro/Screens/after_order.dart';
-import 'package:byte_bistro/Screens/category_screen.dart';
+import 'package:byte_bistro/Screens/category/category_screen.dart';
 import 'package:byte_bistro/Screens/invoice_detail_page.dart';
 import 'package:byte_bistro/Screens/notification/admin_notification.dart';
 import 'package:byte_bistro/Screens/notification/notification.dart';

@@ -19,4 +19,16 @@ class CategoryService {
       return Future.error('Error fetching data $err');
     }
   }
+
+  // add new category
+  Future addNewCategory(Map<String, String> data) async {
+    String endpoint = PersistentHtpp.baseUrl + 'category';
+    try {
+      final response =
+          await PersistentHtpp.client.post(Uri.parse(endpoint), body: data);
+          print(response.body);
+    } catch (err) {
+      return Future.error('Error fetching data $err');
+    }
+  }
 }

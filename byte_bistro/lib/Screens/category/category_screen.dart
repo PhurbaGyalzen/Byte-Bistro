@@ -1,4 +1,5 @@
 import 'package:byte_bistro/Models/category.dart';
+import 'package:byte_bistro/Screens/category/add_category.dart';
 import 'package:byte_bistro/Services/category_service.dart';
 import 'package:byte_bistro/controller/category_controller.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,12 @@ class CategoryScreen extends StatelessWidget {
               children: [
                 IconButton(
                   onPressed: () {
-                    CategoryService().addNewCategory();
+                    Get.bottomSheet(
+                      AddCategory(),
+                      isDismissible: false,
+                      elevation: 20,
+                      backgroundColor: Colors.white,
+                    );
                   },
                   icon: Icon(Icons.add),
                 ),
