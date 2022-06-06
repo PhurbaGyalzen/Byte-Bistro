@@ -35,7 +35,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
             decoration: BoxDecoration(
               color: Colors.white,
             ),
-            padding: EdgeInsets.all(16),
+            // padding: EdgeInsets.all(16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: const [

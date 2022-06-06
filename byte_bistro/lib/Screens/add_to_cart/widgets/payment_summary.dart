@@ -14,9 +14,16 @@ class PaymentSummary extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final CartController cartController = Get.find();
-    var product = {"cartId":"98023gjhfsdfn","items":[{"foodId":"yqhediufhw","qty":7},{"foodId":"yqhediufhw","qty":7}],"total":500.0,"promoCode":""} ;
-    
-    
+    var product = {
+      "cartId": "98023gjhfsdfn",
+      "items": [
+        {"foodId": "yqhediufhw", "qty": 7},
+        {"foodId": "yqhediufhw", "qty": 7}
+      ],
+      "total": 500.0,
+      "promoCode": ""
+    };
+
     return Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -124,28 +131,26 @@ class PaymentSummary extends StatelessWidget {
 
   _initPayment(Map<String, dynamic> product) {
     // _initPayment(String product) {
-      ESewaConfiguration esewaConfiguration = ESewaConfiguration(
+    ESewaConfiguration esewaConfiguration = ESewaConfiguration(
         clientID: "JB0BBQ4aD0UqIThFJwAKBgAXEUkEGQUBBAwdOgABHD4DChwUAB0R",
         secretKey: "BhwIWQQADhIYSxILExMcAgFXFhcOBwAKBgAXEQ==",
         environment: ESewaConfiguration.ENVIRONMENT_TEST);
 
     ESewaPnp _esewaPnp = ESewaPnp(configuration: esewaConfiguration);
-      
 
     ESewaPayment _payment = ESewaPayment(
         amount: product['total'],
         productName: "table Number",
         productID: product['cartId'],
-        callBackURL: "http://localhost:8080/esewa/callback");
+        callBackURL: "http://100.102.33.101:3000/cart/");
 
     try {
-        final _res = _esewaPnp.initPayment(payment: _payment);
-        print(_res);
-        // Handle success
-      } on ESewaPaymentException catch(e) {
-        // Handle error
-        print(e.message);
-      }
+      final _res = _esewaPnp.initPayment(payment: _payment);
+      print(_res);
+      // Handle success
+    } on ESewaPaymentException catch (e) {
+      // Handle error
+      print(e.message);
+    }
   }
-
 }

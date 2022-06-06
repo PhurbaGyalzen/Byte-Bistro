@@ -83,8 +83,8 @@ class CartFood extends StatelessWidget {
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(50),
                                   child: Image(
-                                    image:
-                                        NetworkImage(cartList[index]['image']),
+                                    image: AssetImage(
+                                        "assets/images/${cartList[index]['image']}"),
                                     height: 80,
                                     width: 80,
                                   ),
