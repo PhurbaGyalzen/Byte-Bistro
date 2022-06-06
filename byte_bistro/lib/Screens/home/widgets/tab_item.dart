@@ -82,7 +82,7 @@ class _TabItemDetailState extends State<TabItemDetail> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  data[index].price.toString(),
+                                  'Rs ' + data[index].price.toString(),
                                   style: Theme.of(context).textTheme.bodyText2,
                                 ),
                                 GestureDetector(
