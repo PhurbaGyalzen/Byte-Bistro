@@ -48,7 +48,13 @@ export const viewCart = async (
 	next: NextFunction
 ) => {
 	try {
-		const carts = await Cart.find()
+		const carts = await Cart.find().populate({
+			path: 'userId',
+			select: 'fullname',
+		}).populate({
+			path: 'items.foodId',
+			select: 'name price image isAvailable',
+		})
 		res.status(200).json(carts)
 	} catch (err) {
 		res.status(400).json({ message: err })
