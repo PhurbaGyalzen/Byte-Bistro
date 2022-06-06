@@ -4,10 +4,12 @@ import 'package:byte_bistro/Screens/admin/widgets/view_food.dart';
 // import 'package:byte_bistro/Screens/admin_screen.dart';
 import 'package:byte_bistro/Screens/admin/widgets/admin_dashboard.dart';
 import 'package:byte_bistro/Screens/after_order.dart';
+import 'package:byte_bistro/Screens/category/category_screen.dart';
+import 'package:byte_bistro/Screens/invoice_detail_page.dart';
 import 'package:byte_bistro/Screens/notification/admin_notification.dart';
 import 'package:byte_bistro/Screens/notification/notification.dart';
+import 'package:byte_bistro/Screens/order_history_list_admin.dart';
 import 'package:byte_bistro/Screens/order_sucess.dart';
-import 'package:byte_bistro/Screens/profile/profile_screen.dart';
 import 'package:byte_bistro/Screens/profile/profile_update.dart';
 import 'package:byte_bistro/Screens/qr_data.dart';
 import 'package:byte_bistro/Screens/qr_scanner.dart';
@@ -15,6 +17,7 @@ import 'package:byte_bistro/Screens/signup_screen.dart';
 import 'package:byte_bistro/Screens/home/home.dart';
 import 'package:byte_bistro/Screens/home/widgets/individual_item.dart';
 import 'package:byte_bistro/Screens/swipe_qr_home.dart';
+import 'package:byte_bistro/Screens/user_order_history_list.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -23,6 +26,7 @@ import 'Screens/login_screen.dart';
 import 'package:byte_bistro/Screens/Category_momo.dart';
 import 'package:flutter/services.dart';
 
+import 'Screens/user_history_detail.dart';
 import 'constants/colors.dart';
 
 int tableNo = 0;
@@ -43,7 +47,7 @@ class ByteBistro extends StatelessWidget {
       theme: ThemeData(
         // Define the default brightness and colors.
         primaryColor: Color(0xFFFFC61F),
-        brightness: Brightness.light,
+        // brightness: Brightness.light,
         colorScheme: ColorScheme.fromSwatch(
           primarySwatch: Colors.brown,
         ).copyWith(
@@ -83,11 +87,16 @@ class ByteBistro extends StatelessWidget {
           ),
         ),
       ),
-      initialRoute: '/home',
+      initialRoute: '/adminScreen',
       debugShowCheckedModeBanner: false,
       title: 'Byte Bistro',
       getPages: [
         GetPage(name: '/login', page: () => LoginScreen()),
+        GetPage(
+            name: '/orderHistory_user_list', page: () => OrderHistoryUser()),
+        GetPage(name: '/order_history_admin', page: () => OrderHistoryAdmin()),
+        GetPage(name: '/invoice_detail', page: () => InvoiceDetail()),
+        GetPage(name: '/order_detail', page: () => OrderDetail()),
         GetPage(name: '/CategoryMoMo', page: () => MOMO()),
         GetPage(name: '/signup', page: () => SignUpScreen()),
         GetPage(name: '/home', page: () => HomePage()),
@@ -105,6 +114,7 @@ class ByteBistro extends StatelessWidget {
         GetPage(name: '/adminNotification', page: () => AdminNotification()),
         // GetPage(name: '/profileScreen', page: () => ProfileScreen()),
         GetPage(name: '/profileUpdate', page: () => ProfileUpdate()),
+        GetPage(name: '/categoryScreen', page: () => CategoryScreen()),
       ],
     );
   }
