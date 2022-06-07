@@ -1,7 +1,9 @@
 import 'package:byte_bistro/Services/category_service.dart';
 import 'package:byte_bistro/constants/colors.dart';
+import 'package:byte_bistro/controller/category_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:get/get.dart';
 
 class AddCategory extends StatelessWidget {
   AddCategory({Key? key}) : super(key: key);
@@ -11,6 +13,8 @@ class AddCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextEditingController nameController = TextEditingController();
+    CategoryController categoryController = Get.find();
+
     return Form(
       key: formKey,
       child: Container(
@@ -54,7 +58,7 @@ class AddCategory extends StatelessWidget {
                 if (formKey.currentState?.validate() == true) {
                   Map<String, String> data = {"name": nameController.text};
 
-                  CategoryService().addNewCategory(data);
+                  categoryController.addNewCategory(data);
                 }
               },
               child: Text('ADD', style: Theme.of(context).textTheme.headline2),

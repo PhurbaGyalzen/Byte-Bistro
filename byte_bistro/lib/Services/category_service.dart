@@ -26,7 +26,11 @@ class CategoryService {
     try {
       final response =
           await PersistentHtpp.client.post(Uri.parse(endpoint), body: data);
-          print(response.body);
+      if (response.statusCode == 200) {
+        return 'success';
+      } else {
+        return Future.error('Internal server error');
+      }
     } catch (err) {
       return Future.error('Error fetching data $err');
     }
