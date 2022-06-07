@@ -60,13 +60,13 @@ class _ViewFoodState extends State<ViewFood> {
                         // A pane can dismiss the Slidable.
                         // dismissible: DismissiblePane(onDismissed: () {}),
                         dismissible: DismissiblePane(onDismissed: () {
-                          foodController.deleteFood(data[index].id);
+                          // foodController.deleteFood(data[index].id);
+                          foodController.setFoodUnavailable(data[index].id);
                           Get.offNamed('/adminScreen');
 
                           setState(() {});
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                                content: Text('Food deleted successfully')),
+                            SnackBar(content: Text('Food Set Unavailable')),
                           );
                         }),
 
@@ -80,19 +80,19 @@ class _ViewFoodState extends State<ViewFood> {
                             },
                             backgroundColor: Color(0xFFFE4A49),
                             foregroundColor: Colors.white,
-                            icon: Icons.delete,
-                            label: 'Delete',
-                          ),
-                          SlidableAction(
-                            onPressed: (value) {
-                              data.removeAt(index);
-                              setState(() {});
-                            },
-                            backgroundColor: Color(0xFF21B7CA),
-                            foregroundColor: Colors.white,
                             icon: Icons.edit_outlined,
-                            label: 'Update',
+                            label: 'Set Unavailable',
                           ),
+                          // SlidableAction(
+                          //   onPressed: (value) {
+                          //     data.removeAt(index);
+                          //     setState(() {});
+                          //   },
+                          //   backgroundColor: Color(0xFF21B7CA),
+                          //   foregroundColor: Colors.white,
+                          //   icon: Icons.edit_outlined,
+                          //   label: 'Update',
+                          // ),
                         ],
                       ),
                       child: ListTile(
