@@ -5,7 +5,7 @@ import passport from 'passport'
 import { default as authRoutes } from './routes/authRoutes'
 import { default as qrRoutes } from './routes/qrRoutes'
 import { default as cartRoutes } from './routes/cartRoutes'
-
+import {default as notificationRoutes} from './routes/notificationRoutes'
 import morgan from 'morgan'
 import enableCors from 'middlewares/enable-cors'
 import helmet from 'helmet'
@@ -29,6 +29,7 @@ app.use('/cart', cartRoutes)
 
 app.use('/auth', authRoutes)
 app.use('/qr', qrRoutes)
+app.use('/notification', notificationRoutes)
 
 app.listen(port, async () => {
 	await initDbConnection()
