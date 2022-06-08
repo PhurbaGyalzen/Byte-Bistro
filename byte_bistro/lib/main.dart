@@ -87,7 +87,7 @@ class ByteBistro extends StatelessWidget {
           ),
         ),
       ),
-      initialRoute: '/adminScreen',
+      initialRoute: '/notification',
       debugShowCheckedModeBanner: false,
       title: 'Byte Bistro',
       getPages: [
