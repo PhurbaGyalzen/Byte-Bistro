@@ -3,6 +3,7 @@ import { Router } from 'express'
 
 import {
     getNotification,
+    getAllNotification,
     getNotificationByUser,
     putNotification,
     updateNotification,
@@ -12,9 +13,10 @@ import {
 
 const router = Router()
 
-router.get('/', getNotification)
-router.get('/:userId', getNotificationByUser)
-router.put('/', updateNotification)
+router.get('/', getAllNotification)
+router.get('/:notificationId', getNotification)
+router.get('/user/:userId', getNotificationByUser)
+router.patch('/:notificationId', updateNotification)
 router.post('/', putNotification)
 router.delete('/:notificationId', deleteNotification)
 
