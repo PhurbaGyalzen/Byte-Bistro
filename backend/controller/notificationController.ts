@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 import { Notification } from '@models/Notification'
 
-export const getNotification = async (
+export const getAllNotification = async (
     req: Request,
     res: Response,
     next: NextFunction
@@ -11,6 +11,19 @@ export const getNotification = async (
             path: 'userId',
             select: 'fullname',
         })
+        res.status(200).json(notification)
+    } catch (err) {
+        res.status(400).json({ message: err })
+    }
+}
+
+export const getNotification = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    try {
+        const notification = await Notification.findById(req.params.notificationId)
         res.status(200).json(notification)
     } catch (err) {
         res.status(400).json({ message: err })
