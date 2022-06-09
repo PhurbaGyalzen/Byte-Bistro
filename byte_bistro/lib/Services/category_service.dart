@@ -1,6 +1,6 @@
 import 'package:byte_bistro/Services/http_service.dart';
 
-import '../Models/category.dart';
+import '../models/category.dart';
 
 class CategoryService {
   // get all category

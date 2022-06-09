@@ -1,7 +1,7 @@
 import 'package:byte_bistro/Services/category_service.dart';
 import 'package:get/get.dart';
 
-import '../Models/category.dart';
+import '../models/category.dart';
 
 class CategoryController extends GetxController {
   @override

@@ -5,6 +5,7 @@ export interface INotification {
     message: string
     read: boolean
     type: string
+    image : string
     createdAt: Date
     updatedAt: Date
 }
@@ -27,6 +28,10 @@ const NotificationSchemaFields: Record<keyof INotification, any> = {
     type: {
         type: String,
         required: true,
+    },
+    image:{
+        type: String,
+        required: false,
     },
     createdAt: {
         type: Date,
