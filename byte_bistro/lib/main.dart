@@ -8,6 +8,7 @@ import 'package:byte_bistro/Screens/category/category_screen.dart';
 import 'package:byte_bistro/Screens/invoice_detail_page.dart';
 import 'package:byte_bistro/Screens/notification/admin_notification.dart';
 import 'package:byte_bistro/Screens/notification/notification.dart';
+import 'package:byte_bistro/Screens/on_boarding_screen/on_boarding_screen.dart';
 import 'package:byte_bistro/Screens/order_history_list_admin.dart';
 import 'package:byte_bistro/Screens/order_sucess.dart';
 import 'package:byte_bistro/Screens/profile/profile_update.dart';
@@ -87,7 +88,7 @@ class ByteBistro extends StatelessWidget {
           ),
         ),
       ),
-      initialRoute: '/home',
+      initialRoute: '/onBoardingScreen',
       debugShowCheckedModeBanner: false,
       title: 'Byte Bistro',
       getPages: [
@@ -115,6 +116,7 @@ class ByteBistro extends StatelessWidget {
         // GetPage(name: '/profileScreen', page: () => ProfileScreen()),
         GetPage(name: '/profileUpdate', page: () => ProfileUpdate()),
         GetPage(name: '/categoryScreen', page: () => CategoryScreen()),
+        GetPage(name: '/onBoardingScreen', page: () => OnBoardingScreen()),
       ],
     );
   }
