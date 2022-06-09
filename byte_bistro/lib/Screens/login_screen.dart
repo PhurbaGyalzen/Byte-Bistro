@@ -196,7 +196,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   Get.offNamed('/adminScreen');
                                 } else if (response.isAdmin == false) {
                                   prefs.setString("token", response.token);
-                                  Get.offNamed('/home');
+                                  Get.offNamed('/onBoardingScreen');
                                 }
                               } else {
                                 print("cannot login");
