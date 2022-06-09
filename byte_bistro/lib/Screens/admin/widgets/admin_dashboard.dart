@@ -41,7 +41,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
               // reverse: true,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children: [
                   SizedBox(
                     height: 20,
                   ),
@@ -54,6 +54,8 @@ class _AdminDashboardState extends State<AdminDashboard> {
                   SizedBox(
                     height: 10,
                   ),
+                  Text('Categories',
+                      style: Theme.of(context).textTheme.bodyText2),
                   CategoryScreen(),
                   SizedBox(
                     height: 10,

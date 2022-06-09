@@ -21,12 +21,13 @@ class CategoryController extends GetxController {
     }
   }
 
-  void addNewCategory(Map<String, String> data) async {
+  addNewCategory(Map<String, String> data) async {
     var response = await service.addNewCategory(data);
     if (response == 'success') {
       var getData = await service.getAllCategory();
       categoryList = getData;
       update();
+      return response;
     }
   }
 }
