@@ -54,11 +54,12 @@ export const putNotification = async (
     res: Response,
     next: NextFunction
 ) => {
-    const { userId, message, type } = req.body
+    const { userId, message,image ,type } = req.body
     try {
         const notification = new Notification({
             userId: userId,
             message: message,
+            image: image,
             read: false,
             type: type,
         })
@@ -74,7 +75,7 @@ export const updateNotification = async (
     res: Response,
     next: NextFunction
 ) => {
-    const { message, read, type } = req.body
+    const { message, read, image,type } = req.body
     try {
         const notification = await Notification.updateOne(
             { _id: req.params.notificationId },
@@ -82,6 +83,7 @@ export const updateNotification = async (
                 $set: {
                     message: message,
                     read: read,
+                    image: Image,
                     type: type,
                 },
             }
