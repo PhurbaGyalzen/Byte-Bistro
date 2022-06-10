@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/utils.dart';
 
-import '../Models/on_boarding.dart';
+import '../models/on_boarding.dart';
 
 class OnBoardingController extends GetxController {
   var selectedIndex = 0.obs;
