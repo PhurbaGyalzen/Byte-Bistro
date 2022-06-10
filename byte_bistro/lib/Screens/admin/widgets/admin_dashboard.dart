@@ -4,6 +4,7 @@ import 'package:byte_bistro/Screens/category/category_screen.dart';
 import 'package:byte_bistro/Screens/home/widgets/app_bar.dart';
 import 'package:byte_bistro/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class AdminDashboard extends StatefulWidget {
   const AdminDashboard({Key? key}) : super(key: key);
@@ -56,9 +57,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                   ),
                   Row(children: [
                     ElevatedButton(
-                        onPressed: () {
-                          // Get.to(AdminOrders());
-                        },
+                        onPressed: () => Get.toNamed('/adminOrders'),
                         child: Text(
                           'Orders',
                           style: TextStyle(color: Colors.white),
