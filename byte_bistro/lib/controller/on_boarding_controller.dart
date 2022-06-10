@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/utils.dart';
 
 import '../Models/on_boarding.dart';
 
@@ -16,7 +15,8 @@ class OnBoardingController extends GetxController {
     OnBoarding(
       image: 'assets/images/onBoardingQr.jpg',
       title: 'Qr Code Order',
-      description: 'Customers read a QR Code from their table and order food & drink from their phones.',
+      description:
+          'Customers read a QR Code from their table and order food & drink from their phones.',
     ),
     OnBoarding(
       image: 'assets/images/onBoardingFood.png',

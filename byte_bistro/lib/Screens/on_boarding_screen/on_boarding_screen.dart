@@ -6,7 +6,8 @@ import 'package:get/get.dart';
 
 class OnBoardingScreen extends StatelessWidget {
   OnBoardingScreen({Key? key}) : super(key: key);
-  OnBoardingController onBoardingController = Get.put(OnBoardingController());
+  final OnBoardingController onBoardingController =
+      Get.put(OnBoardingController());
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +67,7 @@ class OnBoardingScreen extends StatelessWidget {
                       onBoardingController.onBoardingPages.length - 1) {
                     Get.offNamed('home');
                   } else {
-                    onBoardingController.forwardAction;
+                    onBoardingController.forwardAction();
                   }
                 }),
           )
