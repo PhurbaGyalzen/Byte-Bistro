@@ -54,6 +54,22 @@ class _AdminDashboardState extends State<AdminDashboard> {
                   SizedBox(
                     height: 10,
                   ),
+                  Row(children: [
+                    ElevatedButton(
+                        onPressed: () {
+                          // Get.to(AdminOrders());
+                        },
+                        child: Text(
+                          'Orders',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          primary: kTextColor,
+                        ))
+                  ]),
+                  SizedBox(
+                    height: 20,
+                  ),
                   Text('Categories',
                       style: Theme.of(context).textTheme.bodyText2),
                   CategoryScreen(),

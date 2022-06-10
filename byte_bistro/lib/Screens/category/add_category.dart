@@ -58,10 +58,8 @@ class AddCategory extends StatelessWidget {
                 if (formKey.currentState?.validate() == true) {
                   Map<String, String> data = {"name": nameController.text};
 
-                  var response = categoryController.addNewCategory(data);
-                  if (response == 'success') {
-                    Get.offNamed('adminScreen');
-                  }
+                  categoryController.addNewCategory(data);
+                  Get.back();
                 }
               },
               child: Text('ADD', style: Theme.of(context).textTheme.headline2),

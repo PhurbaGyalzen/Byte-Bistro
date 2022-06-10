@@ -1,5 +1,6 @@
 import 'package:byte_bistro/Screens/add_to_cart/add_to_cart.dart';
 import 'package:byte_bistro/Screens/admin/widgets/add_food.dart';
+import 'package:byte_bistro/Screens/admin/widgets/admin_orders.dart';
 import 'package:byte_bistro/Screens/admin/widgets/view_food.dart';
 // import 'package:byte_bistro/Screens/admin_screen.dart';
 import 'package:byte_bistro/Screens/admin/widgets/admin_dashboard.dart';
@@ -88,7 +89,7 @@ class ByteBistro extends StatelessWidget {
           ),
         ),
       ),
-      initialRoute: '/adminScreen',
+      initialRoute: '/login',
       debugShowCheckedModeBanner: false,
       title: 'Byte Bistro',
       getPages: [
@@ -117,6 +118,7 @@ class ByteBistro extends StatelessWidget {
         GetPage(name: '/profileUpdate', page: () => ProfileUpdate()),
         GetPage(name: '/categoryScreen', page: () => CategoryScreen()),
         GetPage(name: '/onBoardingScreen', page: () => OnBoardingScreen()),
+        GetPage(name: '/adminOrders', page: () => AdminOrders()),
       ],
     );
   }
