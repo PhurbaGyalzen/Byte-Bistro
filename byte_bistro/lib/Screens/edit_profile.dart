@@ -339,8 +339,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                                                       '*required'),
                                                           controller:
                                                               fullnameController,
-                                                          initialValue:
-                                                              data.fullname,
+                                                          // initialValue:
+                                                          //     data.fullname,
                                                           decoration:
                                                               InputDecoration(
                                                             contentPadding:
@@ -349,6 +349,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                                             floatingLabelBehavior:
                                                                 FloatingLabelBehavior
                                                                     .always,
+                                                                    hintText: data.fullname,
                                                             labelText:
                                                                 'Fullname',
                                                             hintStyle:
