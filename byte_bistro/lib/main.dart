@@ -93,7 +93,6 @@ class ByteBistro extends StatelessWidget {
         ),
       ),
       initialRoute: '/login',
-      
       debugShowCheckedModeBanner: false,
       title: 'Byte Bistro',
       getPages: [
@@ -125,6 +124,7 @@ class ByteBistro extends StatelessWidget {
         GetPage(name: '/onBoardingScreen', page: () => OnBoardingScreen()),
         GetPage(name: '/adminOrders', page: () => AdminOrders()),
         GetPage(name: '/adminOrderDetail', page: () => AdminOrderDetail()),
+        GetPage(name: '/editProfilePage', page: () => EditProfilePage()),
       ],
     );
   }

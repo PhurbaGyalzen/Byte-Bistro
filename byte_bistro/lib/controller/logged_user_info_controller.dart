@@ -15,18 +15,15 @@ class LoggedUserInfoController extends GetxController {
 
   // get user
   getLoggedUserInfo() async {
-   
     LoggedUserInfo response = await LoggedUserInfoService.getUserInfoSevice();
-    
+
     userInfo.value = [response];
-  
+
     return response;
   }
 
-
-
-   static updateProfileInfo(Map<String, dynamic> data) async {
-     var  response = LoggedUserInfoService.updateUserInfoService(data);
-    return response;
+  static  updateProfileInfo(Map<String, dynamic> data) async {
+    var response = LoggedUserInfoService.updateUserInfoService(data);
+    return 'success';
   }
 }

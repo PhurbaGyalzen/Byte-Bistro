@@ -1,3 +1,4 @@
+import 'package:byte_bistro/Screens/edit_profile.dart';
 import 'package:byte_bistro/Screens/home/widgets/tab_item.dart';
 import 'package:byte_bistro/Screens/home/widgets/top_of_day.dart';
 import 'package:byte_bistro/Screens/profile/profile_screen.dart';
@@ -31,14 +32,15 @@ class _HomePageState extends State<HomePage> {
     HomeScreen(
       scrollController: scrollController,
     ),
-    QrScannerScreen(
-    ),
+    QrScannerScreen(),
     HomeScreen(
       scrollController: scrollController,
     ),
-    ProfileScreen(
-      scrollController: scrollController,
-    ),
+    // ProfileScreen(
+    //   scrollController: scrollController,
+    // ),
+
+    EditProfilePage(),
   ];
 
   @override
