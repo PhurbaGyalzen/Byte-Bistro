@@ -102,7 +102,7 @@ class ProfileNote extends StatelessWidget {
           Opacity(
             opacity: 0.5,
             child: GestureDetector(
-              onTap: () => Get.toNamed('/profileUpdate'),
+              onTap: () => Get.toNamed('/edit_profile'),
               child: Image(
                 height: 20,
                 width: 20,
