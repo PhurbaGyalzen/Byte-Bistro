@@ -17,7 +17,7 @@ class Notification {
     required this.userId,
     required this.message,
     required this.read,
-    required this.type,
+    required this.isOffer,
     required this.image,
     required this.createdAt,
     required this.updatedAt,
@@ -28,7 +28,7 @@ class Notification {
   UserId userId;
   String message;
   bool read;
-  String type;
+  bool isOffer;
   String image;
   DateTime createdAt;
   DateTime updatedAt;
@@ -39,7 +39,7 @@ class Notification {
         userId: UserId.fromJson(json["userId"]),
         message: json["message"],
         read: json["read"],
-        type: json["type"],
+        isOffer: json["isOffer"],
         image: json["image"],
         createdAt: DateTime.parse(json["createdAt"]),
         updatedAt: DateTime.parse(json["updatedAt"]),
@@ -51,7 +51,7 @@ class Notification {
         "userId": userId.toJson(),
         "message": message,
         "read": read,
-        "type": type,
+        "isOffer": isOffer,
         "image": image,
         "createdAt": createdAt.toIso8601String(),
         "updatedAt": updatedAt.toIso8601String(),
