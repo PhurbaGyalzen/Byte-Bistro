@@ -54,14 +54,14 @@ export const putNotification = async (
     res: Response,
     next: NextFunction
 ) => {
-    const { userId, message,image ,type } = req.body
+    const { userId, message,image ,isOffer } = req.body
     try {
         const notification = new Notification({
             userId: userId,
             message: message,
             image: image,
             read: false,
-            type: type,
+            isOffer: isOffer,
         })
         await notification.save()
         res.status(200).json(notification)
@@ -75,7 +75,7 @@ export const updateNotification = async (
     res: Response,
     next: NextFunction
 ) => {
-    const { message, read, image,type } = req.body
+    const { message, read, image,isOffer } = req.body
     try {
         const notification = await Notification.updateOne(
             { _id: req.params.notificationId },
@@ -83,8 +83,8 @@ export const updateNotification = async (
                 $set: {
                     message: message,
                     read: read,
-                    image: Image,
-                    type: type,
+                    image: image,
+                    isOffer: isOffer,
                 },
             }
         )
@@ -110,3 +110,15 @@ export const deleteNotification = async (
 }
 
 
+export const deleteAllNotification = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    try {
+        const notification = await Notification.remove({})
+        res.status(200).json(notification)
+    } catch (err) {
+        res.status(400).json({ message: err })
+    }
+}
