@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:byte_bistro/Services/http_service.dart';
 
-import '../Models/food.dart';
+import '../models/food.dart';
 
 class AuthService {
   static Future<LoginResponse?> login(String username, String password) async {

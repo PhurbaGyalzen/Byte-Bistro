@@ -4,7 +4,8 @@ export interface INotification {
     userId: Types.ObjectId
     message: string
     read: boolean
-    type: string
+    isOffer: boolean
+    image : string
     createdAt: Date
     updatedAt: Date
 }
@@ -24,9 +25,14 @@ const NotificationSchemaFields: Record<keyof INotification, any> = {
         required: true,
         default: false,
     },
-    type: {
-        type: String,
+    isOffer: {
+        type: Boolean,
         required: true,
+        default: false,
+    },
+    image:{
+        type: String,
+        required: false,
     },
     createdAt: {
         type: Date,

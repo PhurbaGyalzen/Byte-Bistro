@@ -196,6 +196,7 @@ class ProfileListTile extends StatelessWidget {
   final String imageLeading;
   final String imageTrailing;
   final String text;
+
   const ProfileListTile({
     Key? key,
     required this.imageLeading,

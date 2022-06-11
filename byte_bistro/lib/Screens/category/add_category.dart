@@ -59,6 +59,7 @@ class AddCategory extends StatelessWidget {
                   Map<String, String> data = {"name": nameController.text};
 
                   categoryController.addNewCategory(data);
+                  Get.back();
                 }
               },
               child: Text('ADD', style: Theme.of(context).textTheme.headline2),

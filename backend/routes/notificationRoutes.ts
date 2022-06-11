@@ -7,7 +7,8 @@ import {
     getNotificationByUser,
     putNotification,
     updateNotification,
-    deleteNotification
+    deleteNotification,
+    deleteAllNotification
 } from '../controller/notificationController';
 
 
@@ -19,6 +20,7 @@ router.get('/user/:userId', getNotificationByUser)
 router.patch('/:notificationId', updateNotification)
 router.post('/', putNotification)
 router.delete('/:notificationId', deleteNotification)
+router.delete('/', deleteAllNotification)
 
 export default router;
 

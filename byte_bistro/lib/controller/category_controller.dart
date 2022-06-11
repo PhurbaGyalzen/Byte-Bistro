@@ -1,7 +1,7 @@
 import 'package:byte_bistro/Services/category_service.dart';
 import 'package:get/get.dart';
 
-import '../Models/category.dart';
+import '../models/category.dart';
 
 class CategoryController extends GetxController {
   @override
@@ -21,12 +21,13 @@ class CategoryController extends GetxController {
     }
   }
 
-  void addNewCategory(Map<String, String> data) async {
+  addNewCategory(Map<String, String> data) async {
     var response = await service.addNewCategory(data);
     if (response == 'success') {
       var getData = await service.getAllCategory();
       categoryList = getData;
       update();
+      return response;
     }
   }
 }

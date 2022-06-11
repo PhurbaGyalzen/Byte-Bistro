@@ -3,7 +3,7 @@ import 'package:byte_bistro/Services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../Models/food.dart';
+import '../../../models/food.dart';
 
 class IndividualItem extends StatefulWidget {
   const IndividualItem({Key? key}) : super(key: key);
