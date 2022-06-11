@@ -13,7 +13,7 @@ const initWebSocket = (app: Express) => {
 	})
 
 	io.on('connection', async (socket) => {
-		let currUserId = ''
+		let currUserId = 'sanjib'
 		console.log('a user connected')
 		socket.on('set_user_id', (data) => {
 			console.log(data)

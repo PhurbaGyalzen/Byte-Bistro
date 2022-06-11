@@ -51,7 +51,7 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
 
             // just for emulating time faster
             for (var i = 1; i < 6; i++) {
-              Future.delayed(Duration(seconds: i), () {
+              Future.delayed(Duration(seconds: i * 2), () {
                 orderDurationTimeController.text = (5 - i).toString();
               });
             }
@@ -79,51 +79,51 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
   }
 
   void _mocker() {
-    int diff = 5;
-    Future.delayed(Duration(seconds: diff * 1), () {
-      // should be sent by admin.
-      print('orderRcvd');
-      socket.emit('order_status_change', [
-        {
-          'orderId': '123456',
-          'orderStatus': 'orderRcvd',
-        }
-      ]);
-    });
+    // int diff = 5;
+    // Future.delayed(Duration(seconds: diff * 1), () {
+    //   // should be sent by admin.
+    //   print('orderRcvd');
+    //   socket.emit('order_status_change', [
+    //     {
+    //       'orderId': '123456',
+    //       'orderStatus': 'orderRcvd',
+    //     }
+    //   ]);
+    // });
 
-    Future.delayed(Duration(seconds: diff * 2), () {
-      print('orderPrep');
-      // should be sent by admin.
-      socket.emit('order_status_change', [
-        {
-          'orderId': '123456',
-          'orderStatus': 'orderPrep',
-          'orderDurationMin': 6,
-        }
-      ]);
-    });
+    // Future.delayed(Duration(seconds: diff * 2), () {
+    //   print('orderPrep');
+    //   // should be sent by admin.
+    //   socket.emit('order_status_change', [
+    //     {
+    //       'orderId': '123456',
+    //       'orderStatus': 'orderPrep',
+    //       'orderDurationMin': 6,
+    //     }
+    //   ]);
+    // });
 
-    Future.delayed(Duration(seconds: diff * 3), () {
-      print('orderReady');
-      // should be sent by admin.
-      socket.emit('order_status_change', [
-        {
-          'orderId': '123456',
-          'orderStatus': 'orderReady',
-        }
-      ]);
-    });
+    // Future.delayed(Duration(seconds: diff * 3), () {
+    //   print('orderReady');
+    //   // should be sent by admin.
+    //   socket.emit('order_status_change', [
+    //     {
+    //       'orderId': '123456',
+    //       'orderStatus': 'orderReady',
+    //     }
+    //   ]);
+    // });
 
-    Future.delayed(Duration(seconds: diff * 5), () {
-      print('orderChecked');
-      // should be sent by admin.
-      socket.emit('order_status_change', [
-        {
-          'orderId': '123456',
-          'orderStatus': 'orderChecked',
-        }
-      ]);
-    });
+    // Future.delayed(Duration(seconds: diff * 5), () {
+    //   print('orderChecked');
+    //   // should be sent by admin.
+    //   socket.emit('order_status_change', [
+    //     {
+    //       'orderId': '123456',
+    //       'orderStatus': 'orderChecked',
+    //     }
+    //   ]);
+    // });
   }
 
   Widget build(BuildContext context) {
