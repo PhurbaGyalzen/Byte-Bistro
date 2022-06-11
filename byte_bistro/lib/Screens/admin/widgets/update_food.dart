@@ -72,31 +72,32 @@ class _UpdateFoodState extends State<UpdateFood> {
                     ),
                     GestureDetector(
                       onTap: () => showDialog(
-                          barrierDismissible: false,
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: Text('Confirm Navigation'),
-                              content: Text(
-                                  'Are you sure you want to leave this window?'),
-                              actions: [
-                                TextButton(
-                                    onPressed: () {
-                                      Get.back();
-                                    },
-                                    child: Text('Cancel')),
-                                TextButton(
+                        barrierDismissible: false,
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: Text('Confirm Navigation'),
+                            content: Text(
+                                'Are you sure you want to leave this window?'),
+                            actions: [
+                              TextButton(
                                   onPressed: () {
-                                    Get.off(() => AdminDashboard());
+                                    Get.back();
                                   },
-                                  child: Text(
-                                    'Leave',
-                                    style: TextStyle(color: Colors.red),
-                                  ),
+                                  child: Text('Cancel')),
+                              TextButton(
+                                onPressed: () {
+                                  Get.off(() => AdminDashboard());
+                                },
+                                child: Text(
+                                  'Leave',
+                                  style: TextStyle(color: Colors.red),
                                 ),
-                              ],
-                            );
-                          }),
+                              ),
+                            ],
+                          );
+                        },
+                      ),
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),

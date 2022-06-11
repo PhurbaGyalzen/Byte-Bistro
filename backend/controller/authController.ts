@@ -48,6 +48,7 @@ export const signinUser = async (
 			.json({
 				message: 'User logged in successfully',
 				token: token,
+				// user,
 				isAdmin: user['isAdmin'],
 			})
 	})(req, res, next) //as next closure
