@@ -1,11 +1,30 @@
+import 'package:byte_bistro/Services/ws_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../constants/colors.dart';
 import 'admin_order_detail.dart';
 
-class AdminOrders extends StatelessWidget {
+class AdminOrders extends StatefulWidget {
   const AdminOrders({Key? key}) : super(key: key);
+  @override
+  _AdminOrdersState createState() => _AdminOrdersState();
+}
+
+class _AdminOrdersState extends State<AdminOrders> {
+  var socket = WebSocketService.socket;
+  var btnColor = Color.fromARGB(255, 238, 215, 169);
+  int orderStatusId = 0;
+  var disableColor = Color.fromARGB(255, 203, 203, 203);
+
+  @override
+  void initState() {
+    super.initState();
+    print('initstate');
+    print(WebSocketService.origin);
+    // should connect again?
+    socket.connect();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +82,7 @@ class AdminOrders extends StatelessWidget {
         child: Container(
           padding: EdgeInsets.all(8.0),
           child: ListView.builder(
-            itemCount: 5,
+            itemCount: 1,
             itemBuilder: ((context, index) {
               return Container(
                 padding: EdgeInsets.only(
@@ -141,7 +160,26 @@ class AdminOrders extends StatelessWidget {
                       children: [
                         Expanded(
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: orderStatusId > 0
+                                ? null
+                                : () {
+                                    // socket.emit('order_status_change', [
+                                    //   {
+                                    //     'orderId': '123456',
+                                    //     'orderStatus': 'orderRcvd',
+                                    //   }
+                                    // ]);
+                                    socket.emit('order_status_change', [
+                                      {
+                                        'orderId': '123456',
+                                        'orderStatus': 'orderPrep',
+                                        'orderDurationMin': 6,
+                                      }
+                                    ]);
+                                    setState(() {
+                                      orderStatusId = 1;
+                                    });
+                                  },
                             child: Text(
                               'Accept',
                               style: TextStyle(
@@ -151,8 +189,7 @@ class AdminOrders extends StatelessWidget {
                               ),
                             ),
                             style: ElevatedButton.styleFrom(
-                                maximumSize: Size(80, 80),
-                                primary: Colors.grey),
+                                maximumSize: Size(80, 80), primary: btnColor),
                           ),
                         ),
                         SizedBox(
@@ -160,17 +197,29 @@ class AdminOrders extends StatelessWidget {
                         ),
                         Expanded(
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: orderStatusId > 1
+                                ? null
+                                : () {
+                                    socket.emit('order_status_change', [
+                                      {
+                                        'orderId': '123456',
+                                        'orderStatus': 'orderReady',
+                                      }
+                                    ]);
+                                    setState(() {
+                                      orderStatusId = 2;
+                                    });
+                                  },
                             child: Text(
                               'Prep',
                               style: TextStyle(
-                                color: Colors.white,
+                                color: Colors.black,
                                 fontSize: 14,
                                 height: 1.3,
                               ),
                             ),
                             style: ElevatedButton.styleFrom(
-                                maximumSize: Size(100, 100)),
+                                maximumSize: Size(100, 100), primary: btnColor),
                           ),
                         ),
                         SizedBox(
@@ -178,17 +227,33 @@ class AdminOrders extends StatelessWidget {
                         ),
                         Expanded(
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: orderStatusId > 2
+                                ? null
+                                : () {
+                                    Future.delayed(Duration(seconds: 2), () {
+                                      print('orderChecked');
+                                      // should be sent by admin.
+                                      socket.emit('order_status_change', [
+                                        {
+                                          'orderId': '123456',
+                                          'orderStatus': 'orderChecked',
+                                        }
+                                      ]);
+                                    });
+                                    setState(() {
+                                      orderStatusId = 3;
+                                    });
+                                  },
                             child: Text(
                               'Ready',
                               style: TextStyle(
-                                color: Colors.white,
+                                color: Colors.black,
                                 fontSize: 14,
                                 height: 1.3,
                               ),
                             ),
                             style: ElevatedButton.styleFrom(
-                                maximumSize: Size(70, 100)),
+                                maximumSize: Size(70, 100), primary: btnColor),
                           ),
                         ),
                       ],

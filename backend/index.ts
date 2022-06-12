@@ -12,6 +12,7 @@ import helmet from 'helmet'
 import foodRoutes from 'routes/foodRoutes'
 import initWebSocket from 'index.ws'
 import categoryRoutes from 'routes/categoryRoutes'
+import { verifyUser } from 'middlewares/jwt-auth'
 
 const app = express()
 app.use(morgan('combined'))
@@ -27,7 +28,7 @@ app.use('/food', foodRoutes)
 app.use('/category', categoryRoutes)
 app.use('/cart', cartRoutes)
 
-app.use('/auth', authRoutes)
+app.use('/auth' , authRoutes)
 app.use('/qr', qrRoutes)
 app.use('/notification', notificationRoutes)
 
