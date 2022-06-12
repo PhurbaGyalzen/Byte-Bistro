@@ -31,8 +31,7 @@ class _HomePageState extends State<HomePage> {
     HomeScreen(
       scrollController: scrollController,
     ),
-    QrScannerScreen(
-    ),
+    QrScannerScreen(),
     HomeScreen(
       scrollController: scrollController,
     ),

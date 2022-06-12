@@ -1,5 +1,6 @@
 import 'package:byte_bistro/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class BuildAppBar extends StatelessWidget {
   final String leadingIcon;
@@ -45,10 +46,15 @@ class BuildAppBar extends StatelessWidget {
               width: 120,
             ),
             Expanded(
-              child: Image(
-                image: AssetImage(trailingIcon),
-                height: 20,
-                width: 20,
+              child: GestureDetector(
+                onTap: () {
+                  Get.toNamed('/notification');
+                },
+                child: Image(
+                  image: AssetImage(trailingIcon),
+                  height: 20,
+                  width: 20,
+                ),
               ),
             )
           ],

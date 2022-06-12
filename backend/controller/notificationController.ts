@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 import { Notification } from '@models/Notification'
+import { title } from 'process'
 
 export const getAllNotification = async (
     req: Request,
@@ -54,9 +55,10 @@ export const putNotification = async (
     res: Response,
     next: NextFunction
 ) => {
-    const { userId, message,image ,isOffer } = req.body
+    const { title,userId, message,image ,isOffer } = req.body
     try {
         const notification = new Notification({
+            title: title,
             userId: userId,
             message: message,
             image: image,
@@ -75,12 +77,13 @@ export const updateNotification = async (
     res: Response,
     next: NextFunction
 ) => {
-    const { message, read, image,isOffer } = req.body
+    const { title,message, read, image,isOffer } = req.body
     try {
         const notification = await Notification.updateOne(
             { _id: req.params.notificationId },
             {
                 $set: {
+                    title: title,
                     message: message,
                     read: read,
                     image: image,

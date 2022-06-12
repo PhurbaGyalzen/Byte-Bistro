@@ -1,6 +1,7 @@
 import mongoose, { Document, Schema, Types } from 'mongoose'
 
 export interface INotification {
+    title: string
     userId: Types.ObjectId
     message: string
     read: boolean
@@ -11,6 +12,13 @@ export interface INotification {
 }
 
 const NotificationSchemaFields: Record<keyof INotification, any> = {
+    title: {
+        type: String,
+        required: true,
+        trim: true,
+        maxlength: 100,
+        minlength: 3,
+    },
     userId: {
         type: Schema.Types.ObjectId,
         required: true,

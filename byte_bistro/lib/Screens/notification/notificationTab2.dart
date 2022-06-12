@@ -10,8 +10,7 @@ class NotificationOffer extends StatefulWidget {
 }
 
 class _NotificationOfferState extends State<NotificationOffer> {
-  NotificationController notificationController =
-      Get.put(NotificationController());
+  NotificationController notificationController = Get.find();
 
   @override
   Widget build(BuildContext context) {
