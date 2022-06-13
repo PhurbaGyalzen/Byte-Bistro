@@ -140,13 +140,10 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
         secondaryText: Wrap(
           crossAxisAlignment: WrapCrossAlignment.center,
           children: [
-            Container(
-              // width: 40,
-              child: Text(
-                'Your order will be ready approx. in ',
-                // '',
-                style: secStyle,
-              ),
+            Text(
+              'Your order will be ready approx. in ',
+              // '',
+              style: secStyle,
             ),
             Container(
               width: 20,
@@ -158,12 +155,9 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
                 ),
               ),
             ),
-            Container(
-              // width: 40,
-              child: Text(
-                ' minutes',
-                style: secStyle,
-              ),
+            Text(
+              ' minutes',
+              style: secStyle,
             ),
           ],
         ),

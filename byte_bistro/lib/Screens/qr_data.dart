@@ -47,28 +47,25 @@ class QrDataScreen extends StatelessWidget {
         SizedBox(
           height: 20,
         ),
-        Container(
-            child: Padding(
+        Padding(
           padding: EdgeInsets.fromLTRB(5, 2, 5, 2),
           child: Text(
-            "What would you like to Order ?",
-            style: TextStyle(
-                fontSize: 38,
-                fontWeight: FontWeight.bold,
-                color: Colors.black45),
+        "What would you like to Order ?",
+        style: TextStyle(
+            fontSize: 38,
+            fontWeight: FontWeight.bold,
+            color: Colors.black45),
           ),
-        )),
+        ),
         SizedBox(
           height: 5,
         ),
-        Container(
-          child: Text(
-            "Order Menu",
-            style: TextStyle(
-                fontSize: 25,
-                fontWeight: FontWeight.bold,
-                color: Colors.black38),
-          ),
+        Text(
+          "Order Menu",
+          style: TextStyle(
+              fontSize: 25,
+              fontWeight: FontWeight.bold,
+              color: Colors.black38),
         ),
         OrderMenu(),
       ],
