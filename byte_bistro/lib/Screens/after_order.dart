@@ -2,8 +2,6 @@ import 'package:byte_bistro/Services/ws_service.dart';
 import 'package:byte_bistro/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:socket_io_client/socket_io_client.dart' as IO;
-import 'dart:io' show Platform;
 
 class AfterOrderScreen extends StatefulWidget {
   AfterOrderScreen({Key? key}) : super(key: key);

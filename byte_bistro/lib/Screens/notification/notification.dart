@@ -1,6 +1,5 @@
 import 'package:byte_bistro/Screens/notification/notificationTab1.dart';
 import 'package:byte_bistro/Screens/notification/notificationTab2.dart';
-import 'package:byte_bistro/Screens/notification/notification_data.dart';
 import 'package:byte_bistro/constants/colors.dart';
 import 'package:byte_bistro/controller/notification_controller.dart';
 import 'package:flutter/material.dart';

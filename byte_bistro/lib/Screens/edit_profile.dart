@@ -44,12 +44,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
             SizedBox(
               height: 15,
             ),
-            Center(
-              child: Text(
-                "Profile",
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
-              ),
-            ),
+            // Center(
+            //   child: Text(
+            //     "Profile",
+            //     style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
+            //   ),
+            // ),
             SizedBox(
               height: 40,
             ),
@@ -84,7 +84,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               ),
             ),
             SizedBox(
-              height: 50,
+              height: 70,
             ),
             Expanded(
               child: FutureBuilder(
@@ -118,7 +118,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                   data.fullname == ""
                                       ? "Add fullname"
                                       : data.fullname,
-                                  style: Theme.of(context).textTheme.headline6,
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500,
+                                    height: 1.5,
+                                    letterSpacing: 1.2,
+                                  ),
                                 )
                               ],
                             ),
@@ -146,7 +151,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 ),
                                 Text(
                                   data.email == "" ? "Add email" : data.email,
-                                  style: Theme.of(context).textTheme.headline6,
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500,
+                                    height: 1.5,
+                                    letterSpacing: 1.2,
+                                  ),
                                 )
                               ],
                             ),
@@ -207,7 +217,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                   data.address == ""
                                       ? "Add address"
                                       : data.address,
-                                  style: Theme.of(context).textTheme.headline6,
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500,
+                                    height: 1.5,
+                                    letterSpacing: 1.2,
+                                  ),
                                 )
                               ],
                             ),
@@ -236,7 +251,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 Text(
                                   data.bio == "" ? "Add bio" : data.bio,
                                   // maxLines: 6,
-                                  style: Theme.of(context).textTheme.headline6,
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500,
+                                    height: 1.5,
+                                    letterSpacing: 1.2,
+                                  ),
                                 )
                               ],
                             ),
@@ -249,18 +269,19 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 SizedBox(
                                   width: 120,
                                   child: OutlinedButton(
-                                    onPressed: () => Get.back(),
+                                    onPressed: () => Get.offNamed('/home'),
                                     style: OutlinedButton.styleFrom(
                                       // primary: Colors.orange,
                                       primary: Colors.red,
                                       shape: const StadiumBorder(),
                                     ),
                                     child: Text(
-                                      "back",
+                                      "Back",
                                       style: TextStyle(
-                                          fontSize: 14,
-                                          letterSpacing: 2.2,
-                                          color: Colors.black),
+                                        fontSize: 14,
+                                        letterSpacing: 2.2,
+                                        color: Colors.black,
+                                      ),
                                     ),
                                   ),
                                 ),
