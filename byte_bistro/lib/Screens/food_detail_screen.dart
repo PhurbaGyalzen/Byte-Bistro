@@ -14,7 +14,7 @@ class IndividualItem extends StatefulWidget {
 
 class _IndividualItemState extends State<IndividualItem> {
   int _orderCount = 1;
-  bool _isFav = false;
+  final bool _isFav = false;
   Food? food;
 
   @override

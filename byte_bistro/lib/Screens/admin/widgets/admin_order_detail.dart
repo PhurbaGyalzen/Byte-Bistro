@@ -38,7 +38,7 @@ class AdminOrderDetail extends StatelessWidget {
                               letterSpacing: 0.2,
                               height: 1.5,
                             ),
-                            children: [
+                            children: const [
                               TextSpan(
                                 text: 'Order Id',
                                 style: TextStyle(
@@ -59,7 +59,7 @@ class AdminOrderDetail extends StatelessWidget {
                                 letterSpacing: 0.2,
                                 height: 1.5,
                               ),
-                              children: [
+                              children: const [
                                 TextSpan(
                                   text: 'Order Id',
                                   style: TextStyle(
@@ -81,7 +81,7 @@ class AdminOrderDetail extends StatelessWidget {
                                 letterSpacing: 0.2,
                                 height: 1.5,
                               ),
-                              children: [
+                              children: const [
                                 TextSpan(
                                   text: 'Created At',
                                   style: TextStyle(
@@ -103,7 +103,7 @@ class AdminOrderDetail extends StatelessWidget {
                                 letterSpacing: 0.2,
                                 height: 1.5,
                               ),
-                              children: [
+                              children: const [
                                 TextSpan(
                                   text: 'Total Cart Price',
                                   style: TextStyle(

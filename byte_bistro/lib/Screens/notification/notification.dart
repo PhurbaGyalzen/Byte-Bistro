@@ -37,7 +37,7 @@ class _NotificationPageState extends State<NotificationPage> {
             'My Notifications',
             style: TextStyle(color: kTextColor, fontSize: 16),
           ),
-          bottom: TabBar(tabs: [
+          bottom: TabBar(tabs: const [
             Tab(
               child: Text(
                 'Offers',

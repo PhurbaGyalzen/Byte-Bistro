@@ -35,7 +35,7 @@ class PaymentSummary extends StatelessWidget {
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+                children: const [
                   Text(
                     'Sub Total',
                     style: TextStyle(
@@ -52,7 +52,7 @@ class PaymentSummary extends StatelessWidget {
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+                children: const [
                   Text(
                     'Discount',
                     style: TextStyle(
@@ -69,7 +69,7 @@ class PaymentSummary extends StatelessWidget {
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+                children: const [
                   Text(
                     'Tax',
                     style: TextStyle(
@@ -86,7 +86,7 @@ class PaymentSummary extends StatelessWidget {
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+                children: const [
                   Text(
                     'Total',
                     style: TextStyle(

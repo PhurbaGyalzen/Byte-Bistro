@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AfterOrderScreen extends StatefulWidget {
-  AfterOrderScreen({Key? key}) : super(key: key);
+  const AfterOrderScreen({Key? key}) : super(key: key);
 
   @override
   _AfterOrderScreenState createState() => _AfterOrderScreenState();
@@ -380,7 +380,7 @@ class VerticalLine extends StatelessWidget {
   final bool last;
   final String status;
 
-  VerticalLine({
+  const VerticalLine({
     Key? key,
     this.first = false,
     this.last = false,
