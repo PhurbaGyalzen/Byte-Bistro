@@ -95,7 +95,6 @@ class _TabItemDetailState extends State<TabItemDetail> {
                                       "image": data[index].image,
                                     };
                                     cartList.add(cartData);
-                                    print(cartData);
                                     Get.toNamed('/addToCart',
                                         arguments: cartList);
                                   },

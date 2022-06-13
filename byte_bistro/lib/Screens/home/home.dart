@@ -120,7 +120,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final response = foodController.getAllFood();
-    print(response);
+    // print(response);
     return SafeArea(
       child: SingleChildScrollView(
         controller: widget.scrollController,

@@ -35,12 +35,19 @@ class BuildAppBar extends StatelessWidget {
             ),
             Text.rich(TextSpan(
                 text: titleFirstName,
-                style: TextStyle(fontSize: 20, letterSpacing: 0.5),
+                style: TextStyle(
+                    fontSize: 20,
+                    letterSpacing: 0.6,
+                    fontWeight: FontWeight.bold,
+                    wordSpacing: 0.5),
                 children: [
                   TextSpan(
                       text: titleSecondName,
                       style: TextStyle(
-                          color: kPrimary, fontSize: 20, letterSpacing: 0.5)),
+                          color: kPrimary,
+                          fontSize: 20,
+                          letterSpacing: 0.5,
+                          fontWeight: FontWeight.bold)),
                 ])),
             SizedBox(
               width: 120,

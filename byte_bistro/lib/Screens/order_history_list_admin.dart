@@ -37,8 +37,8 @@ class _OrderHistoryAdminState extends State<OrderHistoryAdmin> {
             return ListView.builder(
               itemCount: data.length,
               itemBuilder: (context, index) {
-                print("data[index]");
-                print(data[index].userId.id);
+                // print("data[index]");
+                // print(data[index].userId.id);
                 return GestureDetector(
                   onTap: ()=>{
                     Navigator.pushNamed(context, 'invoice_detail')

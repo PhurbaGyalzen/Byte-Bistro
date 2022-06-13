@@ -19,7 +19,7 @@ class _NotificationPageState extends State<NotificationPage> {
   @override
   Widget build(BuildContext context) {
     final response = notificationController.getAllNotification();
-    print(response);
+    // print(response);
     return DefaultTabController(
       length: 2,
       child: Scaffold(

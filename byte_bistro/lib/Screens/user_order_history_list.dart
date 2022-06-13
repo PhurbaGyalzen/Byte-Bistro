@@ -27,17 +27,17 @@ class _OrderHistoryUserState extends State<OrderHistoryUser> {
       body: FutureBuilder(
         future: cartAdminController.getAllCart(),
         builder: (context, snapshot) {
-          print("frontend snapshot.data");
+          // print("frontend snapshot.data");
 
-          print(snapshot.data);
+          // print(snapshot.data);
           if (snapshot.hasData) {
             List<CartAdmin> data = snapshot.data as List<CartAdmin>;
 
             return ListView.builder(
               itemCount: data.length,
               itemBuilder: (context, index) {
-                print("data[index]");
-                print(data[index].userId.id);
+                // print("data[index]");
+                // print(data[index].userId.id);
                 return GestureDetector(
                   onTap: ()=>{
                     Navigator.pushNamed(context, 'order_detail')

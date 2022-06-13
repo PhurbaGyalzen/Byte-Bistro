@@ -42,12 +42,6 @@ class _IndividualItemState extends State<IndividualItem> {
             SingleChildScrollView(
               child: Column(
                 children: [
-                  //add parameter in customer Navbar as automatic pass arguments from previous page
-                  // Positioned(
-                  //   bottom: 0,
-                  //   left: 0,
-                  //   child: BuildAppBar(),
-                  // ),
                   Stack(
                     children: [
                       Stack(
@@ -131,25 +125,21 @@ class _IndividualItemState extends State<IndividualItem> {
                                                     Column(
                                                       children: [
                                                         Row(
-                                                          children: [
-                                                            // Image(
-                                                            //   image: AssetImage(
-                                                            //       'assets/images/cart.png'),
-                                                            // ),
-                                                            const SizedBox(
+                                                          children: const [
+                                                            SizedBox(
                                                               width: 5,
                                                             ),
-                                                            const Text(
+                                                            Text(
                                                               '4.6',
                                                               style: TextStyle(
                                                                 color: Colors
                                                                     .orange,
                                                               ),
                                                             ),
-                                                            const SizedBox(
+                                                            SizedBox(
                                                               width: 10,
                                                             ),
-                                                            const Text(
+                                                            Text(
                                                                 '(234) Rating'),
                                                           ],
                                                         )
@@ -412,7 +402,7 @@ class _IndividualItemState extends State<IndividualItem> {
                                                                 mainAxisAlignment:
                                                                     MainAxisAlignment
                                                                         .center,
-                                                                children: [
+                                                                children: const [
                                                                   Image(
                                                                     image: AssetImage(
                                                                         'assets/images/notification.png'),
@@ -434,40 +424,6 @@ class _IndividualItemState extends State<IndividualItem> {
                                       ),
                                     ),
                                   ),
-                                  //add fav
-                                  // Padding(
-                                  //   padding: const EdgeInsets.only(
-                                  //     right: 20,
-                                  //   ),
-                                  //   child: Align(
-                                  //     alignment: Alignment.topRight,
-                                  //     child: ClipShadow(
-                                  //       clipper: CustomTriangle(),
-                                  //       boxShadow: const [
-                                  //         BoxShadow(
-                                  //           color: Color(0xFFB6B7B7),
-                                  //           offset: Offset(0, 5),
-                                  //         )
-                                  //       ],
-                                  //       child: GestureDetector(
-                                  //           onTap: () {
-                                  //             setState(() {
-                                  //               _isFav = !_isFav;
-                                  //             });
-                                  //           },
-                                  //           child: Container(
-                                  //             width: 60,
-                                  //             height: 60,
-                                  //             color: Colors.white,
-                                  //             child: Image.asset(
-                                  //                 'assets/images/' +
-                                  //                     (_isFav
-                                  //                         ? 'fav_filled.png'
-                                  //                         : 'fav.png')),
-                                  //           )),
-                                  //     ),
-                                  //   ),
-                                  // ),
                                 ],
                               ),
                             )

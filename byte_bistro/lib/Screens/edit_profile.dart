@@ -90,13 +90,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
               child: FutureBuilder(
                 future: userController.getLoggedUserInfo(),
                 builder: (context, snapshot) {
-                  print("snapshot");
-                  print(snapshot);
-                  print("snapshot.hasData ${snapshot.hasData}");
-                  print("snapshot.data ${snapshot.data}");
+                  // print("snapshot");
+                  // print(snapshot);
+                  // print("snapshot.hasData ${snapshot.hasData}");
+                  // print("snapshot.data ${snapshot.data}");
                   if (snapshot.hasData) {
                     LoggedUserInfo data = snapshot.data as LoggedUserInfo;
-                    print(" fav ${data.favoriteFoods}");
+                    // print(" fav ${data.favoriteFoods}");
 
                     return ListView.builder(
                       itemCount: 1,

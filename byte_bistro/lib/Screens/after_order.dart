@@ -31,18 +31,18 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
   @override
   void initState() {
     orderDurationTimeController = TextEditingController(text: 'NA');
-    print('initstate');
-    print(WebSocketService.origin);
+    // print('initstate');
+    // print(WebSocketService.origin);
     socket.connect();
     socket.on('connect', (_) {
-      print('connected');
+      // print('connected');
       _sendUserId();
       _mocker();
 
       socket.on('order_status_change', (message) {
         setState(() {
           orderStatus = message['orderStatus'];
-          print('recvd $orderStatus');
+          // print('recvd $orderStatus');
           if (message['orderDurationMin'] != null) {
             orderDurationMin = message['orderDurationMin'];
             orderDurationTimeController.text = orderDurationMin!.toString();
@@ -58,7 +58,7 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
       });
     });
     socket.on('disconnect', (_) {
-      print('disconnected');
+      // print('disconnected');
     });
     super.initState();
   }

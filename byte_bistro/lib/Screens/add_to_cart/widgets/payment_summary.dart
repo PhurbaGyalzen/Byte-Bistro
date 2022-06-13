@@ -144,11 +144,11 @@ class PaymentSummary extends StatelessWidget {
 
     try {
       final _res = _esewaPnp.initPayment(payment: _payment);
-      print(_res);
+      // print(_res);
       // Handle success
     } on ESewaPaymentException catch (e) {
       // Handle error
-      print(e.message);
+      // print(e.message);
     }
   }
 }
