@@ -8,6 +8,7 @@ class CategoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    CategoryController controller = Get.put(CategoryController());
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -24,6 +25,7 @@ class CategoryScreen extends StatelessWidget {
           icon: Icon(Icons.add),
         ),
         Expanded(
+          flex: 12,
           child: SizedBox(
             height: 55,
             width: MediaQuery.of(context).size.width,
