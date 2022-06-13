@@ -5,15 +5,15 @@ class NotificationController extends GetxController {
   var notificationList = [].obs;
   NotificationService notificationService = Get.put(NotificationService());
 
-  // @override
-  // void onInit() {
-  //   getAllNotification();
-  //   super.onInit();
-  // }
+  @override
+  void onInit() {
+    // getAllNotification();
+    super.onInit();
+  }
 
   // get all notification
   getAllNotification() async {
-    var response = await notificationService.getAllNotification();
+    var response = await notificationService.getAllnotification();
     notificationList.value = response;
     return response;
   }
@@ -24,8 +24,27 @@ class NotificationController extends GetxController {
     notificationList.value = response as List;
     return response;
   }
-  
 
+  // delete notification
+  deleteNotification(String notificationId) async {
+    var response = await notificationService.deleteNotification(notificationId);
+    return response;
+  }
 
+  addNotification(Map<String, dynamic> data) async {
+    var response = await notificationService.addNotification(data);
+    return response;
+  }
 
+  getUserNotification(String userId) async {
+    var response = await notificationService.getUserNotification(userId);
+    notificationList.value = response as List;
+    return response;
+  }
+
+  updateNotification(String notificationId, Map<String, dynamic> data) async {
+    var response =
+        await notificationService.updateNotification(notificationId, data);
+    return response;
+  }
 }

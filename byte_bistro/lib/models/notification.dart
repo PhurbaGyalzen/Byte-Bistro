@@ -1,17 +1,18 @@
 // To parse this JSON data, do
 //
-//     final notification = notificationFromJson(jsonString);
+//     final notificationl = notificationlFromJson(jsonString);
 
 import 'dart:convert';
 
-List<Notification> notificationFromJson(String str) => List<Notification>.from(
-    json.decode(str).map((x) => Notification.fromJson(x)));
+List<Notificationl> notificationlFromJson(String str) =>
+    List<Notificationl>.from(
+        json.decode(str).map((x) => Notificationl.fromJson(x)));
 
-String notificationToJson(List<Notification> data) =>
+String notificationlToJson(List<Notificationl> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class Notification {
-  Notification({
+class Notificationl {
+  Notificationl({
     required this.id,
     required this.userId,
     required this.message,
@@ -33,7 +34,7 @@ class Notification {
   DateTime updatedAt;
   int v;
 
-  factory Notification.fromJson(Map<String, dynamic> json) => Notification(
+  factory Notificationl.fromJson(Map<String, dynamic> json) => Notificationl(
         id: json["_id"],
         userId: UserId.fromJson(json["userId"]),
         message: json["message"],

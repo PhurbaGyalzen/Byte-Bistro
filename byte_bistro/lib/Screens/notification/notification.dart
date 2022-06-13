@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 // import 'package:byte_bistro/constants/colors.dart';
 
 class NotificationPage extends StatefulWidget {
+  const NotificationPage({Key? key}) : super(key: key);
   @override
   _NotificationPageState createState() => _NotificationPageState();
 }
@@ -17,6 +18,8 @@ class _NotificationPageState extends State<NotificationPage> {
 
   @override
   Widget build(BuildContext context) {
+    final response = notificationController.getAllNotification();
+    print(response);
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -37,13 +40,13 @@ class _NotificationPageState extends State<NotificationPage> {
           bottom: TabBar(tabs: [
             Tab(
               child: Text(
-                'All',
+                'Offers',
                 style: TextStyle(color: kTextColor),
               ),
             ),
             Tab(
               child: Text(
-                'Offers',
+                'All',
                 style: TextStyle(color: kTextColor),
               ),
             ),
@@ -84,6 +87,12 @@ class _NotificationPageState extends State<NotificationPage> {
           ],
         ),
         body: TabBarView(children: [
+          // Container(
+          //   child: Text('All'),
+          // ),
+          // Container(
+          //   child: Text('All'),
+          // )
           NotificationNormal(),
           NotificationOffer(),
         ]),
@@ -91,5 +100,3 @@ class _NotificationPageState extends State<NotificationPage> {
     );
   }
 }
-
-
