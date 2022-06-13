@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 
 class BuildAppBar extends StatelessWidget {
   final String leadingIcon;
-  final String trailingIcon;
+  // ignore: prefer_typing_uninitialized_variables
+  final IconButton trailingIcon;
   final String titleFirstName;
   final String titleSecondName;
   const BuildAppBar(
@@ -45,11 +46,16 @@ class BuildAppBar extends StatelessWidget {
               width: 120,
             ),
             Expanded(
-              child: Image(
-                image: AssetImage(trailingIcon),
+              child: SizedBox(
                 height: 20,
                 width: 20,
+                child: trailingIcon,
               ),
+              // child: Image(
+              //   image: AssetImage(trailingIcon),
+              //   height: 20,
+              //   width: 20,
+              // ),
             )
           ],
         ));

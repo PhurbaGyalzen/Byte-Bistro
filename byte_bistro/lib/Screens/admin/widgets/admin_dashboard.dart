@@ -48,7 +48,13 @@ class _AdminDashboardState extends State<AdminDashboard> {
                   ),
                   BuildAppBar(
                     leadingIcon: 'assets/images/menu.png',
-                    trailingIcon: 'assets/images/notification.png',
+                    trailingIcon: IconButton(
+                      // padding: EdgeInsets.only(left: kDefaultPadding),
+                      icon: Icon(Icons.person),
+                      onPressed: () {
+                         Navigator.pushNamed(context, '/adminProfile');
+                      },
+                    ),
                     titleFirstName: 'Admin',
                     titleSecondName: 'Dash',
                   ),

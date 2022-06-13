@@ -5,6 +5,8 @@ import 'package:byte_bistro/Screens/admin/widgets/admin_orders.dart';
 import 'package:byte_bistro/Screens/admin/widgets/view_food.dart';
 
 import 'package:byte_bistro/Screens/admin/widgets/admin_dashboard.dart';
+import 'package:byte_bistro/Screens/admin_profile.dart';
+import 'package:byte_bistro/Screens/admin_profile_update.dart';
 import 'package:byte_bistro/Screens/after_order.dart';
 import 'package:byte_bistro/Screens/category/category_screen.dart';
 import 'package:byte_bistro/Screens/edit_profile.dart';
@@ -14,6 +16,7 @@ import 'package:byte_bistro/Screens/notification/notification.dart';
 import 'package:byte_bistro/Screens/on_boarding_screen/on_boarding_screen.dart';
 import 'package:byte_bistro/Screens/order_history_list_admin.dart';
 import 'package:byte_bistro/Screens/order_sucess.dart';
+import 'package:byte_bistro/Screens/profile/profile_screen.dart';
 
 import 'package:byte_bistro/Screens/qr_data.dart';
 import 'package:byte_bistro/Screens/qr_scanner.dart';
@@ -102,9 +105,13 @@ class ByteBistro extends StatelessWidget {
         GetPage(name: '/order_history_admin', page: () => OrderHistoryAdmin()),
         GetPage(name: '/invoice_detail', page: () => InvoiceDetail()),
         GetPage(name: '/order_detail', page: () => OrderDetail()),
-        GetPage(name: '/edit_profile', page: () => EditProfilePage()),
+        // GetPage(name: '/edit_profile', page: () => EditProfilePage()),
         GetPage(name: '/CategoryMoMo', page: () => MOMO()),
         GetPage(name: '/signup', page: () => SignUpScreen()),
+        // GetPage(name: '/signup', page: () =>ProfileScreen()),
+        GetPage(name: '/adminProfileUpdateForm', page: () => AdminProfileUpdateForm()),
+        GetPage(name: '/adminProfile', page: () => AdminProfilePage()),
+
         GetPage(name: '/home', page: () => HomePage()),
         GetPage(name: '/individual', page: () => IndividualItem()),
         GetPage(name: '/qrscan', page: () => QrScannerScreen()),

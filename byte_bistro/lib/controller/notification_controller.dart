@@ -5,11 +5,11 @@ class NotificationController extends GetxController {
   var notificationList = [].obs;
   NotificationService notificationService = Get.put(NotificationService());
 
-  // @override
-  // void onInit() {
-  //   getAllNotification();
-  //   super.onInit();
-  // }
+  @override
+  void onInit() {
+    getAllNotification();
+    super.onInit();
+  }
 
   // get all notification
   getAllNotification() async {
