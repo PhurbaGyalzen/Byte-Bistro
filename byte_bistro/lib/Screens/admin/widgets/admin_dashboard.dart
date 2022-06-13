@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 class AdminDashboard extends StatefulWidget {
   const AdminDashboard({Key? key}) : super(key: key);
 
+
   @override
   State<AdminDashboard> createState() => _AdminDashboardState();
 }
@@ -56,6 +57,12 @@ class _AdminDashboardState extends State<AdminDashboard> {
                   SizedBox(
                     height: 10,
                   ),
+                  Text('Categories',
+                      style: Theme.of(context).textTheme.bodyText2),
+                  CategoryScreen(),
+                  SizedBox(
+                    height: 30,
+                  ),
                   Row(children: [
                     ElevatedButton(
                         onPressed: () => Get.toNamed('/adminOrders'),
@@ -64,15 +71,9 @@ class _AdminDashboardState extends State<AdminDashboard> {
                           style: TextStyle(color: Colors.white),
                         ),
                         style: ElevatedButton.styleFrom(
-                          primary: Colors.black87,
+                          primary: Colors.black,
                         ))
                   ]),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Text('Categories',
-                      style: Theme.of(context).textTheme.bodyText2),
-                  CategoryScreen(),
                   SizedBox(
                     height: 30,
                   ),
