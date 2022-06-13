@@ -1,16 +1,17 @@
 import 'dart:convert';
 
 import 'package:byte_bistro/Services/http_service.dart';
-import 'package:byte_bistro/models/notification.dart';
+
+import '../Models/notification.dart';
 
 class NotificationService {
-  Future<List<Notification>> getAllNotification() async {
-    String endpoint = PersistentHtpp.baseUrl + 'notification';
+  Future<List<Notificationl>> getAllnotification() async {
+    String endpoint = PersistentHtpp.baseUrl + '/notification';
     try {
       final response = await PersistentHtpp.client.get(Uri.parse(endpoint));
       final jsonResponse = response.body;
       if (response.statusCode == 200) {
-        return notificationFromJson(jsonResponse);
+        return notificationlFromJson(jsonResponse);
       } else {
         return Future.error('Internal Server Error');
       }
@@ -25,7 +26,7 @@ class NotificationService {
     final response = await PersistentHtpp.client.get(Uri.parse(endpoint));
     final jsonResponse = response.body;
     if (response.statusCode == 200) {
-      return notificationFromJson(jsonResponse);
+      return notificationlFromJson(jsonResponse);
     } else {
       return null;
     }
@@ -51,13 +52,13 @@ class NotificationService {
     }
   }
 
-  Future<List<Notification>> getUserNotification(String userId) async {
+  Future<List<Notificationl>> getUserNotification(String userId) async {
     String endpoint = PersistentHtpp.baseUrl + 'notification/user/$userId';
     try {
       final response = await PersistentHtpp.client.get(Uri.parse(endpoint));
       final jsonResponse = response.body;
       if (response.statusCode == 200) {
-        return notificationFromJson(jsonResponse);
+        return notificationlFromJson(jsonResponse);
       } else {
         return Future.error('Internal Server Error');
       }

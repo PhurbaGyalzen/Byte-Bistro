@@ -199,9 +199,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                   Get.offNamed('/onBoardingScreen');
                                 }
                               } else {
-                                print("cannot login");
+                                // print("cannot login");
                               }
-                              ;
                             }
                           },
                           child: Text(

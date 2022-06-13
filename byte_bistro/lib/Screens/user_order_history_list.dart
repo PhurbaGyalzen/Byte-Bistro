@@ -1,7 +1,6 @@
 import 'package:byte_bistro/controller/cart_admin_contoller.dart';
 import 'package:byte_bistro/models/cart_admin.dart';
 import 'package:flutter/material.dart';
-import 'package:byte_bistro/models/cart.dart';
 
 import 'package:get/get.dart';
 
@@ -28,17 +27,17 @@ class _OrderHistoryUserState extends State<OrderHistoryUser> {
       body: FutureBuilder(
         future: cartAdminController.getAllCart(),
         builder: (context, snapshot) {
-          print("frontend snapshot.data");
+          // print("frontend snapshot.data");
 
-          print(snapshot.data);
+          // print(snapshot.data);
           if (snapshot.hasData) {
             List<CartAdmin> data = snapshot.data as List<CartAdmin>;
 
             return ListView.builder(
               itemCount: data.length,
               itemBuilder: (context, index) {
-                print("data[index]");
-                print(data[index].userId.id);
+                // print("data[index]");
+                // print(data[index].userId.id);
                 return GestureDetector(
                   onTap: ()=>{
                     Navigator.pushNamed(context, 'order_detail')
@@ -103,7 +102,7 @@ class _OrderHistoryUserState extends State<OrderHistoryUser> {
                                   padding: EdgeInsets.only(
                                     left: 10.0,
                                   ),
-                                  child: Container(
+                                  child: SizedBox(
                                       width: 120,
                                       child: Text(
                                         data[index].id.toString(),
@@ -114,7 +113,7 @@ class _OrderHistoryUserState extends State<OrderHistoryUser> {
                                   padding: EdgeInsets.only(
                                     left: 10.0,
                                   ),
-                                  child: Container(
+                                  child: SizedBox(
                                     width: 120,
                                     child: Text(
                                       data[index].createdAt.toString(),
@@ -146,13 +145,13 @@ class _OrderHistoryUserState extends State<OrderHistoryUser> {
                             ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
+                              children: const[
                                 Padding(
                                   padding: EdgeInsets.only(
                                     left: 10.0,
                                     right: 20,
                                   ),
-                                  child: Container(
+                                  child: SizedBox(
                                     width: 100,
                                     child: Text(
                                       "Rs. 827",

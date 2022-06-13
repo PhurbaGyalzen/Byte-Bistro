@@ -44,12 +44,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
             SizedBox(
               height: 15,
             ),
-            Center(
-              child: Text(
-                "Profile",
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
-              ),
-            ),
+            // Center(
+            //   child: Text(
+            //     "Profile",
+            //     style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
+            //   ),
+            // ),
             SizedBox(
               height: 40,
             ),
@@ -90,13 +90,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
               child: FutureBuilder(
                 future: userController.getLoggedUserInfo(),
                 builder: (context, snapshot) {
-                  print("snapshot");
-                  print(snapshot);
-                  print("snapshot.hasData ${snapshot.hasData}");
-                  print("snapshot.data ${snapshot.data}");
+                  // print("snapshot");
+                  // print(snapshot);
+                  // print("snapshot.hasData ${snapshot.hasData}");
+                  // print("snapshot.data ${snapshot.data}");
                   if (snapshot.hasData) {
                     LoggedUserInfo data = snapshot.data as LoggedUserInfo;
-                    print(" fav ${data.favoriteFoods}");
+                    // print(" fav ${data.favoriteFoods}");
 
                     return ListView.builder(
                       itemCount: 1,
@@ -291,9 +291,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                     child: Text(
                                       "Back",
                                       style: TextStyle(
-                                          fontSize: 14,
-                                          letterSpacing: 2.2,
-                                          color: Colors.black),
+                                        fontSize: 14,
+                                        letterSpacing: 2.2,
+                                        color: Colors.black,
+                                      ),
                                     ),
                                   ),
                                 ),

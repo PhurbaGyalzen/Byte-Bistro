@@ -2,11 +2,9 @@ import 'package:byte_bistro/Services/ws_service.dart';
 import 'package:byte_bistro/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:socket_io_client/socket_io_client.dart' as IO;
-import 'dart:io' show Platform;
 
 class AfterOrderScreen extends StatefulWidget {
-  AfterOrderScreen({Key? key}) : super(key: key);
+  const AfterOrderScreen({Key? key}) : super(key: key);
 
   @override
   _AfterOrderScreenState createState() => _AfterOrderScreenState();
@@ -33,18 +31,18 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
   @override
   void initState() {
     orderDurationTimeController = TextEditingController(text: 'NA');
-    print('initstate');
-    print(WebSocketService.origin);
+    // print('initstate');
+    // print(WebSocketService.origin);
     socket.connect();
     socket.on('connect', (_) {
-      print('connected');
+      // print('connected');
       _sendUserId();
       _mocker();
 
       socket.on('order_status_change', (message) {
         setState(() {
           orderStatus = message['orderStatus'];
-          print('recvd $orderStatus');
+          // print('recvd $orderStatus');
           if (message['orderDurationMin'] != null) {
             orderDurationMin = message['orderDurationMin'];
             orderDurationTimeController.text = orderDurationMin!.toString();
@@ -60,7 +58,7 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
       });
     });
     socket.on('disconnect', (_) {
-      print('disconnected');
+      // print('disconnected');
     });
     super.initState();
   }
@@ -142,15 +140,12 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
         secondaryText: Wrap(
           crossAxisAlignment: WrapCrossAlignment.center,
           children: [
-            Container(
-              // width: 40,
-              child: Text(
-                'Your order will be ready approx. in ',
-                // '',
-                style: secStyle,
-              ),
+            Text(
+              'Your order will be ready approx. in ',
+              // '',
+              style: secStyle,
             ),
-            Container(
+            SizedBox(
               width: 20,
               child: TextFormField(
                 controller: orderDurationTimeController,
@@ -160,12 +155,9 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
                 ),
               ),
             ),
-            Container(
-              // width: 40,
-              child: Text(
-                ' minutes',
-                style: secStyle,
-              ),
+            Text(
+              ' minutes',
+              style: secStyle,
             ),
           ],
         ),
@@ -284,16 +276,7 @@ class OrderStatusItems extends StatelessWidget {
       bool isCurrent = i == (ORDER_STATUS[orderStatus] ?? -1);
 
       // add border to all
-      BoxDecoration decoration = BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-            color: Colors.grey,
-            width: 1,
-          ),
-        ),
-      );
       if (i == items.length - 1) {
-        decoration = BoxDecoration();
       }
       children.add(
         Expanded(
@@ -382,7 +365,7 @@ class VerticalLine extends StatelessWidget {
   final bool last;
   final String status;
 
-  VerticalLine({
+  const VerticalLine({
     Key? key,
     this.first = false,
     this.last = false,

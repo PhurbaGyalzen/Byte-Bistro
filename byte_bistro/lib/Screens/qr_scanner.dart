@@ -35,7 +35,7 @@ class _QrScannerState extends State<QrScannerScreen> {
         body: Stack(
           alignment: Alignment.center,
           children: <Widget>[
-            Container(
+            SizedBox(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
               child: QRView(
