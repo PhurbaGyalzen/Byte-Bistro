@@ -1,10 +1,8 @@
 //PaymentSummary
 import 'package:byte_bistro/Screens/add_to_cart/widgets/promo_search_box.dart';
-import 'package:byte_bistro/controller/cart_controller.dart';
 import 'package:esewa_pnp/esewa.dart';
 import 'package:esewa_pnp/esewa_pnp.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 import '../../../constants/colors.dart';
 
@@ -13,7 +11,6 @@ class PaymentSummary extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final CartController cartController = Get.find();
     var product = {
       "cartId": "98023gjhfsdfn",
       "items": [

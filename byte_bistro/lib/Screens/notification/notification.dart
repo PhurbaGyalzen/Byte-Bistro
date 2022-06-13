@@ -86,7 +86,7 @@ class _NotificationPageState extends State<NotificationPage> {
             ]),
           ],
         ),
-        body: TabBarView(children: [
+        body: TabBarView(children: const [
           // Container(
           //   child: Text('All'),
           // ),

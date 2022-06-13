@@ -1,10 +1,12 @@
-import 'package:byte_bistro/Screens/notification/notification_data.dart';
+import 'package:byte_bistro/Screens/notification/admin_notification_data.dart';
 import 'package:byte_bistro/constants/colors.dart';
 import 'package:byte_bistro/controller/notification_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class NotificationOffer extends StatefulWidget {
+  const NotificationOffer({Key? key}) : super(key: key);
+
   @override
   _NotificationOfferState createState() => _NotificationOfferState();
 }

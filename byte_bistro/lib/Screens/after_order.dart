@@ -276,16 +276,7 @@ class OrderStatusItems extends StatelessWidget {
       bool isCurrent = i == (ORDER_STATUS[orderStatus] ?? -1);
 
       // add border to all
-      BoxDecoration decoration = BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-            color: Colors.grey,
-            width: 1,
-          ),
-        ),
-      );
       if (i == items.length - 1) {
-        decoration = BoxDecoration();
       }
       children.add(
         Expanded(
