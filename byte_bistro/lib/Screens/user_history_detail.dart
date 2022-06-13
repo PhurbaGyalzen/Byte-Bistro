@@ -234,7 +234,7 @@ class _OrderDetailState extends State<OrderDetail> {
               "Item",
               style: Theme.of(context).textTheme.caption,
             ),
-            Container(
+            SizedBox(
               width: 100,
               child: Text(
                 "Price",
@@ -252,7 +252,7 @@ class _OrderDetailState extends State<OrderDetail> {
                     color: Colors.black54,
                   ),
             ),
-            Container(
+            SizedBox(
               width: 100,
               child: Text(
                 "Rs. 500",
@@ -273,7 +273,7 @@ class _OrderDetailState extends State<OrderDetail> {
                     color: Colors.black54,
                   ),
             ),
-            Container(
+            SizedBox(
               width: 100,
               child: Text(
                 "Rs. 500",
@@ -301,7 +301,7 @@ class _OrderDetailState extends State<OrderDetail> {
                     color: Colors.black54,
                   ),
             ),
-            Container(
+            SizedBox(
               width: 100,
               child: Text(
                 "Rs. 1000",
@@ -322,7 +322,7 @@ class _OrderDetailState extends State<OrderDetail> {
                     color: Colors.black54,
                   ),
             ),
-            Container(
+            SizedBox(
               width: 100,
               child: Text(
                 "Rs. 50",
@@ -343,7 +343,7 @@ class _OrderDetailState extends State<OrderDetail> {
                     color: Colors.black54,
                   ),
             ),
-            Container(
+            SizedBox(
               width: 100,
               child: Text(
                 "Rs. 950",

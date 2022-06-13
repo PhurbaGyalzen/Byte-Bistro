@@ -145,7 +145,7 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
               // '',
               style: secStyle,
             ),
-            Container(
+            SizedBox(
               width: 20,
               child: TextFormField(
                 controller: orderDurationTimeController,

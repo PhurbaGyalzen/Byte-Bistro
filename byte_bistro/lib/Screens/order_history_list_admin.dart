@@ -103,7 +103,7 @@ class _OrderHistoryAdminState extends State<OrderHistoryAdmin> {
                                   padding: EdgeInsets.only(
                                     left: 10.0,
                                   ),
-                                  child: Container(
+                                  child: SizedBox(
                                       width: 120,
                                       child: Text(
                                         data[index].id.toString(),
@@ -114,7 +114,7 @@ class _OrderHistoryAdminState extends State<OrderHistoryAdmin> {
                                   padding: EdgeInsets.only(
                                     left: 10.0,
                                   ),
-                                  child: Container(
+                                  child: SizedBox(
                                     width: 120,
                                     child: Text(
                                       data[index].createdAt.toString(),
@@ -146,13 +146,13 @@ class _OrderHistoryAdminState extends State<OrderHistoryAdmin> {
                             ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
+                              children: const[
                                 Padding(
                                   padding: EdgeInsets.only(
                                     left: 10.0,
                                     right: 20,
                                   ),
-                                  child: Container(
+                                  child: SizedBox(
                                     width: 100,
                                     child: Text(
                                       "Rs. 827",

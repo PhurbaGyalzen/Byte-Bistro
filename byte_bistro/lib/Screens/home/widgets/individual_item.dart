@@ -408,7 +408,7 @@ class _IndividualItemState extends State<IndividualItem> {
                                                                         'assets/images/notification.png'),
                                                                     height: 25,
                                                                   ),
-                                                                  const Text(
+                                                                   Text(
                                                                       'Add to Cart')
                                                                 ],
                                                               )),
@@ -438,7 +438,7 @@ class _IndividualItemState extends State<IndividualItem> {
             Positioned(
               top: 35,
               left: 0,
-              child: Container(
+              child: SizedBox(
                 width: MediaQuery.of(context).size.width,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(

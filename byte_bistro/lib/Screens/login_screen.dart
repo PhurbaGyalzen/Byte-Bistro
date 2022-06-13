@@ -201,7 +201,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               } else {
                                 // print("cannot login");
                               }
-                              ;
                             }
                           },
                           child: Text(

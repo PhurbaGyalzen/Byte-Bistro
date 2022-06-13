@@ -234,7 +234,7 @@ class _InvoiceDetailState extends State<InvoiceDetail> {
               "Item",
               style: Theme.of(context).textTheme.caption,
             ),
-            Container(
+            SizedBox(
               width: 100,
               child: Text(
                 "Price",
@@ -252,7 +252,7 @@ class _InvoiceDetailState extends State<InvoiceDetail> {
                     color: Colors.black54,
                   ),
             ),
-            Container(
+            SizedBox(
               width: 100,
               child: Text(
                 "Rs. 430",
@@ -301,7 +301,7 @@ class _InvoiceDetailState extends State<InvoiceDetail> {
                     color: Colors.black54,
                   ),
             ),
-            Container(
+            SizedBox(
               width: 100,
               child: Text(
                 "Rs. 710",
@@ -322,7 +322,7 @@ class _InvoiceDetailState extends State<InvoiceDetail> {
                     color: Colors.black54,
                   ),
             ),
-            Container(
+            SizedBox(
               width: 100,
               child: Text(
                 "Rs. 50",
@@ -343,7 +343,7 @@ class _InvoiceDetailState extends State<InvoiceDetail> {
                     color: Colors.black54,
                   ),
             ),
-            Container(
+            SizedBox(
               width: 100,
               child: Text(
                 "Rs. 660",
