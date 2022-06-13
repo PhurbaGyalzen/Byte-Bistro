@@ -3,7 +3,8 @@ import 'package:byte_bistro/constants/colors.dart';
 import 'package:byte_bistro/controller/notification_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:byte_bistro/models/notification.dart';
+
+import '../../Models/notification.dart';
 
 class NotificationNormal extends StatefulWidget {
   const NotificationNormal({Key? key}) : super(key: key);

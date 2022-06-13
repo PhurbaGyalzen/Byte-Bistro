@@ -2,7 +2,6 @@
 //
 //     final notificationl = notificationlFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 List<Notificationl> notificationlFromJson(String str) =>

@@ -169,7 +169,7 @@ class _UpdateFoodState extends State<UpdateFood> {
                           "image": imageController.text,
                         };
 
-                        print(imageController.text);
+                        // print(imageController.text);
 
                         String response =
                             await foodController.updateFood(widget.id, data);

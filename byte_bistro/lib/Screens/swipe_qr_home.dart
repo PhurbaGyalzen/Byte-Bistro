@@ -1,6 +1,5 @@
 import 'package:byte_bistro/Screens/home/home.dart';
 import 'package:byte_bistro/Screens/qr_scanner.dart';
-import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
 class SwipeHome extends StatefulWidget {

@@ -32,7 +32,6 @@ class _NotificationDetailState extends State<NotificationDetail> {
   @override
   Widget build(BuildContext context) {
     int totalCartPrice = 0;
-    String buttonText = '';
     // if ()
     return Scaffold(
         body: SafeArea(

@@ -1,7 +1,8 @@
 import 'dart:convert';
 
 import 'package:byte_bistro/Services/http_service.dart';
-import 'package:byte_bistro/models/notification.dart';
+
+import '../Models/notification.dart';
 
 class NotificationService {
   Future<List<Notificationl>> getAllnotification() async {

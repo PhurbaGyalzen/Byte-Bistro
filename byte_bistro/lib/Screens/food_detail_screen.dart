@@ -14,7 +14,6 @@ class IndividualItem extends StatefulWidget {
 
 class _IndividualItemState extends State<IndividualItem> {
   int _orderCount = 1;
-  bool _isFav = false;
   Food? food;
 
   @override
@@ -479,7 +478,7 @@ class _IndividualItemState extends State<IndividualItem> {
             Positioned(
               top: 35,
               left: 0,
-              child: Container(
+              child: SizedBox(
                 width: MediaQuery.of(context).size.width,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(

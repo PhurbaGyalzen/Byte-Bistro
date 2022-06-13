@@ -20,8 +20,8 @@ class _AdminOrdersState extends State<AdminOrders> {
   @override
   void initState() {
     super.initState();
-    print('initstate');
-    print(WebSocketService.origin);
+    // print('initstate');
+    // print(WebSocketService.origin);
     // should connect again?
     socket.connect();
   }
@@ -231,7 +231,7 @@ class _AdminOrdersState extends State<AdminOrders> {
                                 ? null
                                 : () {
                                     Future.delayed(Duration(seconds: 2), () {
-                                      print('orderChecked');
+                                      // print('orderChecked');
                                       // should be sent by admin.
                                       socket.emit('order_status_change', [
                                         {

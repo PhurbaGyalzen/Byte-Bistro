@@ -30,7 +30,6 @@ class CartController extends GetxController {
 
   getAllCart() async {
     var response = await cartService.getAllCart();
-    print(response);
     cartList.value = response;
     return response;
   }
