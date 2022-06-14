@@ -1,6 +1,9 @@
+import 'package:byte_bistro/Screens/notification/notification_detail.dart';
 import 'package:byte_bistro/Services/ws_service.dart';
+import 'package:byte_bistro/models/cart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:byte_bistro/Screens/notification/admin_notification_data.dart';
 
 import '../../../constants/colors.dart';
 import 'admin_order_detail.dart';
@@ -84,6 +87,7 @@ class _AdminOrdersState extends State<AdminOrders> {
           child: ListView.builder(
             itemCount: 1,
             itemBuilder: ((context, index) {
+              Cart cart = Cart.fromJson(notificationData[index]);
               return Container(
                 padding: EdgeInsets.only(
                   left: 20,
@@ -141,7 +145,8 @@ class _AdminOrdersState extends State<AdminOrders> {
                         ),
                         GestureDetector(
                           onTap: () => Get.bottomSheet(
-                            AdminOrderDetail(),
+                            // AdminOrderDetail(),
+                            NotificationDetail(order: cart),
                             isDismissible: false,
                             elevation: 20,
                           ),
