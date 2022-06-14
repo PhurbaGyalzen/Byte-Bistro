@@ -84,7 +84,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               ),
             ),
             SizedBox(
-              height: 70,
+              height: 10,
             ),
             Expanded(
               child: FutureBuilder(
@@ -114,15 +114,19 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 ),
 
                                 // Text(data.bio==""? "Your bio is empty." : data.bio)
-                                Text(
-                                  data.fullname == ""
-                                      ? "Add fullname"
-                                      : data.fullname,
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500,
-                                    height: 1.5,
-                                    letterSpacing: 1.2,
+                                Expanded(
+                                  child: Text(
+                                    data.fullname == ""
+                                        ? "Add fullname"
+                                        : data.fullname,
+                                        overflow: TextOverflow.clip,
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      // fontWeight: FontWeight.w500,
+                                      letterSpacing: 2.2,
+                                      color: Colors.black
+                                    ),
+                                  
                                   ),
                                 )
                               ],
@@ -149,13 +153,16 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 SizedBox(
                                   width: 30,
                                 ),
-                                Text(
-                                  data.email == "" ? "Add email" : data.email,
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500,
-                                    height: 1.5,
-                                    letterSpacing: 1.2,
+                                Expanded(
+                                  child: Text(
+                                    data.email == "" ? "Add email" : data.email,
+                                    overflow: TextOverflow.clip,
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      // fontWeight: FontWeight.w500,
+                                      letterSpacing: 2.2,
+                                      color: Colors.black
+                                    ),
                                   ),
                                 )
                               ],
@@ -213,15 +220,18 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 SizedBox(
                                   width: 30,
                                 ),
-                                Text(
-                                  data.address == ""
-                                      ? "Add address"
-                                      : data.address,
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500,
-                                    height: 1.5,
-                                    letterSpacing: 1.2,
+                                Expanded(
+                                  child: Text(
+                                    data.address == ""
+                                        ? "Add address"
+                                        : data.address,
+                                        overflow: TextOverflow.clip,
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      // fontWeight: FontWeight.w500,
+                                      letterSpacing: 2.2,
+                                      color: Colors.black
+                                    ),
                                   ),
                                 )
                               ],
@@ -248,14 +258,17 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 SizedBox(
                                   width: 30,
                                 ),
-                                Text(
-                                  data.bio == "" ? "Add bio" : data.bio,
-                                  // maxLines: 6,
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500,
-                                    height: 1.5,
-                                    letterSpacing: 1.2,
+                                Expanded(
+                                  child: Text(
+                                    data.bio == "" ? "Add bio" : data.bio,
+                                    // maxLines: 3,
+                                    overflow: TextOverflow.clip,
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      // fontWeight: FontWeight.w500,
+                                      letterSpacing: 2.2,
+                                      color: Colors.black
+                                    ),
                                   ),
                                 )
                               ],
@@ -269,7 +282,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 SizedBox(
                                   width: 120,
                                   child: OutlinedButton(
-                                    onPressed: () => Get.offNamed('/home'),
+                                    onPressed: () => Get.toNamed("/home"),
                                     style: OutlinedButton.styleFrom(
                                       // primary: Colors.orange,
                                       primary: Colors.red,
@@ -521,7 +534,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                                             onPressed: () {
                                                               Navigator.pushNamed(
                                                                   context,
-                                                                  '/edit_profile');
+                                                                  '/editProfilePage');
                                                             },
                                                             style:
                                                                 OutlinedButton

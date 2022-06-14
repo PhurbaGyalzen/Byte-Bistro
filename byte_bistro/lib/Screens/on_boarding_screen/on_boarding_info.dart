@@ -50,6 +50,8 @@ class OnboardingInfo extends StatelessWidget {
               ),
               child: Text(
                 description,
+                textAlign: TextAlign.center,
+
                 style: TextStyle(
                   fontSize: 16.0,
                   fontWeight: FontWeight.w300,

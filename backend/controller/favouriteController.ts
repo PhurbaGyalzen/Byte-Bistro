@@ -15,6 +15,33 @@ export const getFavourite = async (
     }
 }
 
+export const getAllFavourites = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    try {
+        const favourites = await Favourite.find({}).populate('userId food')
+        res.status(200).json(favourites)
+    } catch (err) {
+        res.status(400).json({ message: err })
+    }
+}
+
+export const addFavourite = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    try {
+        const { userId, foodId } = req.body
+        const favourite = new Favourite({ userId: userId, foodId: foodId })
+        res.status(200).json(favourite)
+    } catch (err) {
+        res.status(400).json({ message: err })
+    }   
+}
+
 export const getUserFavourites = async (
     req: Request,
     res: Response,

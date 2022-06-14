@@ -2,7 +2,7 @@ import mongoose, { Document, Schema, Types } from 'mongoose'
 
 export interface IFavourite{
     userId: Types.ObjectId
-    food: Types.ObjectId
+    foodId: Types.ObjectId
     createdAt: Date
     updatedAt: Date
 }
@@ -13,7 +13,7 @@ const FavouriteSchemaFields: Record<keyof IFavourite, any> = {
         required: true,
         ref: 'User',
     },
-    food: {
+    foodId: {
         type: Schema.Types.ObjectId,
         required: true,
         ref: 'Food',

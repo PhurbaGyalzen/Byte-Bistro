@@ -131,10 +131,17 @@ class _HomeScreenState extends State<HomeScreen> {
           padding: EdgeInsets.all(16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
+            children: [
               BuildAppBar(
                 leadingIcon: 'assets/images/menu.png',
-                trailingIcon: 'assets/images/notification.png',
+                // trailingIcon: 'assets/images/notification.png',
+                trailingIcon: IconButton(
+                      // padding: EdgeInsets.only(left: kDefaultPadding),
+                     icon: Image(image: AssetImage("assets/images/notification.png")),
+                      onPressed: () {
+                         
+                      },
+                    ),
                 titleFirstName: 'Byte',
                 titleSecondName: 'Bistro',
               ),

@@ -19,6 +19,7 @@ class OnBoardingUi extends StatelessWidget {
           ),
           Text(
             "Title",
+            textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.w700,
