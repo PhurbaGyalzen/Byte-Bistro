@@ -1,6 +1,5 @@
 import 'package:byte_bistro/Screens/notification/notificationTab1.dart';
 import 'package:byte_bistro/Screens/notification/notificationTab2.dart';
-import 'package:byte_bistro/Screens/notification/notification_data.dart';
 import 'package:byte_bistro/constants/colors.dart';
 import 'package:byte_bistro/controller/notification_controller.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +7,7 @@ import 'package:get/get.dart';
 // import 'package:byte_bistro/constants/colors.dart';
 
 class NotificationPage extends StatefulWidget {
+  const NotificationPage({Key? key}) : super(key: key);
   @override
   _NotificationPageState createState() => _NotificationPageState();
 }
@@ -18,6 +18,8 @@ class _NotificationPageState extends State<NotificationPage> {
 
   @override
   Widget build(BuildContext context) {
+    final response = notificationController.getAllNotification();
+    // print(response);
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -35,16 +37,16 @@ class _NotificationPageState extends State<NotificationPage> {
             'My Notifications',
             style: TextStyle(color: kTextColor, fontSize: 16),
           ),
-          bottom: TabBar(tabs: [
+          bottom: TabBar(tabs: const [
             Tab(
               child: Text(
-                'All',
+                'Offers',
                 style: TextStyle(color: kTextColor),
               ),
             ),
             Tab(
               child: Text(
-                'Offers',
+                'All',
                 style: TextStyle(color: kTextColor),
               ),
             ),
@@ -84,7 +86,13 @@ class _NotificationPageState extends State<NotificationPage> {
             ]),
           ],
         ),
-        body: TabBarView(children: [
+        body: TabBarView(children: const [
+          // Container(
+          //   child: Text('All'),
+          // ),
+          // Container(
+          //   child: Text('All'),
+          // )
           NotificationNormal(),
           NotificationOffer(),
         ]),
@@ -92,5 +100,3 @@ class _NotificationPageState extends State<NotificationPage> {
     );
   }
 }
-
-

@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 class AdminDashboard extends StatefulWidget {
   const AdminDashboard({Key? key}) : super(key: key);
 
+
   @override
   State<AdminDashboard> createState() => _AdminDashboardState();
 }
@@ -34,6 +35,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
         child: SingleChildScrollView(
           child: Container(
             height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
               color: Colors.white,
             ),
@@ -48,12 +50,24 @@ class _AdminDashboardState extends State<AdminDashboard> {
                   ),
                   BuildAppBar(
                     leadingIcon: 'assets/images/menu.png',
-                    trailingIcon: 'assets/images/notification.png',
+                    trailingIcon: IconButton(
+                      // padding: EdgeInsets.only(left: kDefaultPadding),
+                      icon: Icon(Icons.person),
+                      onPressed: () {
+                         Navigator.pushNamed(context, '/adminProfile');
+                      },
+                    ),
                     titleFirstName: 'Admin',
                     titleSecondName: 'Dash',
                   ),
                   SizedBox(
                     height: 10,
+                  ),
+                  Text('Categories',
+                      style: Theme.of(context).textTheme.bodyText2),
+                  CategoryScreen(),
+                  SizedBox(
+                    height: 30,
                   ),
                   Row(children: [
                     ElevatedButton(
@@ -63,17 +77,11 @@ class _AdminDashboardState extends State<AdminDashboard> {
                           style: TextStyle(color: Colors.white),
                         ),
                         style: ElevatedButton.styleFrom(
-                          primary: kTextColor,
+                          primary: Colors.black,
                         ))
                   ]),
                   SizedBox(
-                    height: 20,
-                  ),
-                  Text('Categories',
-                      style: Theme.of(context).textTheme.bodyText2),
-                  CategoryScreen(),
-                  SizedBox(
-                    height: 10,
+                    height: 30,
                   ),
                   ViewFood(),
                 ],

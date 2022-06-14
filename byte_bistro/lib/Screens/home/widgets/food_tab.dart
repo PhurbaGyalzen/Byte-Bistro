@@ -1,5 +1,4 @@
 import 'package:byte_bistro/Screens/Category_momo.dart';
-import 'package:byte_bistro/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class FoodTab extends StatefulWidget {

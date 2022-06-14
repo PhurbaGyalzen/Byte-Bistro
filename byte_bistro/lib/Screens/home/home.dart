@@ -1,6 +1,6 @@
+import 'package:byte_bistro/Screens/edit_profile.dart';
 import 'package:byte_bistro/Screens/home/widgets/tab_item.dart';
 import 'package:byte_bistro/Screens/home/widgets/top_of_day.dart';
-import 'package:byte_bistro/Screens/profile/profile_screen.dart';
 import 'package:byte_bistro/Screens/qr_scanner.dart';
 import 'package:byte_bistro/constants/colors.dart';
 import 'package:byte_bistro/controller/food_controller.dart';
@@ -12,6 +12,8 @@ import 'package:byte_bistro/Screens/home/widgets/today_special.dart';
 import 'package:get/get.dart';
 import 'package:hidable/hidable.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
+
+import '../profile/profile_screen.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -31,14 +33,15 @@ class _HomePageState extends State<HomePage> {
     HomeScreen(
       scrollController: scrollController,
     ),
-    QrScannerScreen(
-    ),
+    QrScannerScreen(),
     HomeScreen(
       scrollController: scrollController,
     ),
     ProfileScreen(
       scrollController: scrollController,
     ),
+
+    // EditProfilePage(),
   ];
 
   @override
@@ -119,7 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final response = foodController.getAllFood();
-    print(response);
+    // print(response);
     return SafeArea(
       child: SingleChildScrollView(
         controller: widget.scrollController,
@@ -130,10 +133,17 @@ class _HomeScreenState extends State<HomeScreen> {
           padding: EdgeInsets.all(16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
+            children: [
               BuildAppBar(
                 leadingIcon: 'assets/images/menu.png',
-                trailingIcon: 'assets/images/notification.png',
+                // trailingIcon: 'assets/images/notification.png',
+                trailingIcon: IconButton(
+                      // padding: EdgeInsets.only(left: kDefaultPadding),
+                     icon: Image(image: AssetImage("assets/images/notification.png")),
+                      onPressed: () {
+                         
+                      },
+                    ),
                 titleFirstName: 'Byte',
                 titleSecondName: 'Bistro',
               ),
