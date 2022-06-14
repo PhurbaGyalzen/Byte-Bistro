@@ -8,7 +8,7 @@ export const getFavourite = async (
     next: NextFunction
 ) => {
     try {
-        const favourite = await Favourite.findById(req.params.favouriteId).populate('userId food')
+        const favourite = await Favourite.findById(req.params.favouriteId).populate('userId').populate("foodId");
         res.status(200).json(favourite)
     } catch (err) {
         res.status(400).json({ message: err })
@@ -21,7 +21,7 @@ export const getAllFavourites = async (
     next: NextFunction
 ) => {
     try {
-        const favourites = await Favourite.find({}).populate('userId food')
+        const favourites = await Favourite.find().populate('userId').populate("foodId");
         res.status(200).json(favourites)
     } catch (err) {
         res.status(400).json({ message: err })
@@ -36,7 +36,9 @@ export const addFavourite = async (
     try {
         const { userId, foodId } = req.body
         const favourite = new Favourite({ userId: userId, foodId: foodId })
+        await favourite.save()
         res.status(200).json(favourite)
+        console.log("created fav");
     } catch (err) {
         res.status(400).json({ message: err })
     }   
@@ -48,7 +50,7 @@ export const getUserFavourites = async (
     next: NextFunction
 ) => {
     try {
-        const favourites = await Favourite.find({ userId: req.params.userId }).populate('userId food')
+        const favourites = await Favourite.find({ userId: req.params.userId }).populate('userId').populate("foodId");
         res.status(200).json(favourites)
     } catch (err) {
         res.status(400).json({ message: err })
