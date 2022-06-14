@@ -17,6 +17,7 @@ class ViewFood extends StatefulWidget {
 
 class _ViewFoodState extends State<ViewFood> {
   FoodController foodController = Get.put(FoodController());
+  final TextEditingController searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +34,10 @@ class _ViewFoodState extends State<ViewFood> {
                   color: Colors.black12,
                 ),
                 child: TextField(
+                  controller: searchController,
+                  onChanged: (value) {
+                    print(value);
+                  },
                   decoration: const InputDecoration(
                       suffixIcon: Icon(Icons.search),
                       hintText: 'search',

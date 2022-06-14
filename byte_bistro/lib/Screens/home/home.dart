@@ -13,6 +13,8 @@ import 'package:get/get.dart';
 import 'package:hidable/hidable.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 
+import '../profile/profile_screen.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -35,11 +37,11 @@ class _HomePageState extends State<HomePage> {
     HomeScreen(
       scrollController: scrollController,
     ),
-    // ProfileScreen(
-    //   scrollController: scrollController,
-    // ),
+    ProfileScreen(
+      scrollController: scrollController,
+    ),
 
-    EditProfilePage(),
+    // EditProfilePage(),
   ];
 
   @override
