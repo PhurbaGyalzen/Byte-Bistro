@@ -102,10 +102,10 @@ class _AdminDashboardState extends State<AdminDashboard> {
                         onPressed: () => Get.toNamed('/adminOrders'),
                         child: Text(
                           'Orders',
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(color: Colors.black),
                         ),
                         style: ElevatedButton.styleFrom(
-                          primary: Colors.black,
+                          primary: kPrimary.withOpacity(0.8),
                         ))
                   ]),
                   SizedBox(

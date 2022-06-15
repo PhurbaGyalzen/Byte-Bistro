@@ -23,7 +23,7 @@ class ViewFood extends StatelessWidget {
           style: Theme.of(context).textTheme.bodyText1,
         ),
         SizedBox(
-          height: 30,
+          height: 20,
         ),
         // search bar
         Container(

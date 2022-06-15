@@ -64,6 +64,9 @@ class BuildAppBar extends StatelessWidget {
               //   height: 20,
               //   width: 20,
               // ),
+            ),
+            SizedBox(
+              width: 10,
             )
           ],
         ));
