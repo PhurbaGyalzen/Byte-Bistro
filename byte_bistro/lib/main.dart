@@ -16,7 +16,6 @@ import 'package:byte_bistro/Screens/notification/notification.dart';
 import 'package:byte_bistro/Screens/on_boarding_screen/on_boarding_screen.dart';
 import 'package:byte_bistro/Screens/order_history_list_admin.dart';
 import 'package:byte_bistro/Screens/order_sucess.dart';
-import 'package:byte_bistro/Screens/profile/profile_screen.dart';
 
 import 'package:byte_bistro/Screens/qr_data.dart';
 import 'package:byte_bistro/Screens/qr_scanner.dart';
@@ -94,7 +93,7 @@ class ByteBistro extends StatelessWidget {
           ),
         ),
       ),
-      initialRoute: '/adminScreen',
+      initialRoute: '/home',
       debugShowCheckedModeBanner: false,
       title: 'Byte Bistro',
       getPages: [
