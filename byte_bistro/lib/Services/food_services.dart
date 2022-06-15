@@ -10,9 +10,9 @@ class FoodService {
     String endpoint = PersistentHtpp.baseUrl + 'food';
     try {
       final response = await PersistentHtpp.client.get(Uri.parse(endpoint));
-      final jsonResponse = response.body;
+      final stringData = response.body;
       if (response.statusCode == 200) {
-        return foodFromJson(jsonResponse);
+        return foodFromJson(stringData);
       } else {
         return Future.error('Internal Server Error');
       }

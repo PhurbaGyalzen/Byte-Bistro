@@ -1,6 +1,5 @@
 import 'package:byte_bistro/constants/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class BuildAppBar extends StatelessWidget {
   final String leadingIcon;
@@ -64,6 +63,9 @@ class BuildAppBar extends StatelessWidget {
               //   height: 20,
               //   width: 20,
               // ),
+            ),
+            SizedBox(
+              width: 10,
             )
           ],
         ));
