@@ -12,4 +12,10 @@ class Storage {
   static Future<String?> get(String key) async {
     return await storage.read(key: key, aOptions: androidOpts);
   }
+
+  static Future<void> remove(String key) async {
+    return await storage.delete(key: key, aOptions: androidOpts);
+  }
+
+  
 }

@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 import { Favourite } from '../models/Favourite';
+import { User} from '../models/Users';
 
 
 export const getFavourite = async (
@@ -35,10 +36,16 @@ export const addFavourite = async (
 ) => {
     try {
         const { userId, foodId } = req.body
-        const favourite = new Favourite({ userId: userId, foodId: foodId })
-        await favourite.save()
-        res.status(200).json(favourite)
-        console.log("created fav");
+        const findFavorite = await Favourite.findOne({ userId, foodId })
+        if (findFavorite) {
+            res.status(400).json({ message: "Already in favourite" })
+        } else {
+            const favourite = new Favourite({ userId: userId, foodId: foodId })
+            await favourite.save()
+            const user = await User.findOneAndUpdate({ _id: userId }, { $push: { favouriteFoods: favourite._id } }, { new: true })
+            res.status(200).json(favourite)
+            console.log("created fav");
+        }
     } catch (err) {
         res.status(400).json({ message: err })
     }   

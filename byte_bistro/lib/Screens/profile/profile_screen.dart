@@ -1,3 +1,5 @@
+import 'package:byte_bistro/Services/http_service.dart';
+import 'package:byte_bistro/Services/storage_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -159,7 +161,7 @@ class ProfileSystem extends StatelessWidget {
         padding: EdgeInsets.only(left: 10, right: 10, top: 20, bottom: 20),
         margin: EdgeInsets.only(top: 20),
         child: Column(
-          children: const [
+          children: [
             ProfileListTile(
               imageLeading: 'assets/images/notification.png',
               imageTrailing: 'assets/images/next.png',
@@ -181,10 +183,17 @@ class ProfileSystem extends StatelessWidget {
               text: 'Help',
             ),
             ProfileListTile(
-              imageLeading: 'assets/images/logout.png',
-              imageTrailing: 'assets/images/next.png',
-              text: 'Log out',
-            ),
+                imageLeading: 'assets/images/logout.png',
+                imageTrailing: 'assets/images/next.png',
+                text: 'Log out',
+                onClick: () async {
+                  var response = await PersistentHtpp.get('food');
+                  print(response.body);
+                  print(await Storage.get('token'));
+                  await Storage.remove('token');
+                  print(await Storage.get('token'));
+                  await PersistentHtpp.setTokenHeader();
+                }),
           ],
         ));
   }
@@ -195,13 +204,15 @@ class ProfileListTile extends StatelessWidget {
   final String imageLeading;
   final String imageTrailing;
   final String text;
+  final void Function()? onClick;
 
-  const ProfileListTile({
-    Key? key,
-    required this.imageLeading,
-    required this.imageTrailing,
-    required this.text,
-  }) : super(key: key);
+  const ProfileListTile(
+      {Key? key,
+      required this.imageLeading,
+      required this.imageTrailing,
+      required this.text,
+      this.onClick})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -222,6 +233,7 @@ class ProfileListTile extends StatelessWidget {
           ),
         ),
       ),
+      onTap: onClick,
     );
   }
 }
