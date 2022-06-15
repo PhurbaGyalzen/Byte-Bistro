@@ -175,7 +175,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                                 ),
                                 Expanded(
                                   child: Text(
-                                    data.address ?? 'Add Address',
+                                    data.address,
                                     overflow: TextOverflow.clip,
                                     style: TextStyle(
                                         fontSize: 18,

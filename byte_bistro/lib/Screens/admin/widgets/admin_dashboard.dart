@@ -4,11 +4,11 @@ import 'package:byte_bistro/Screens/category/category_screen.dart';
 import 'package:byte_bistro/Screens/home/widgets/app_bar.dart';
 import 'package:byte_bistro/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:get/get.dart';
 
 class AdminDashboard extends StatefulWidget {
   const AdminDashboard({Key? key}) : super(key: key);
-
 
   @override
   State<AdminDashboard> createState() => _AdminDashboardState();
@@ -19,17 +19,45 @@ class _AdminDashboardState extends State<AdminDashboard> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kPrimary,
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: SpeedDial(
+        activeBackgroundColor: Colors.red.shade400,
         backgroundColor: kPrimary.withOpacity(0.9),
-        hoverColor: kTextColor,
         foregroundColor: kTextColor,
-        elevation: 10,
-        tooltip: 'Add Food',
-        onPressed: () => showMaterialDialog(),
-        child: Text(
-          '+',
-          style: TextStyle(fontSize: 30, fontWeight: FontWeight.w300),
-        ),
+        activeForegroundColor: Colors.white,
+        animatedIcon: AnimatedIcons.menu_close,
+        animatedIconTheme: IconThemeData(size: 30),
+        overlayColor: kTextColor.withOpacity(0.5),
+        tooltip: 'Toggle menu',
+        overlayOpacity: 0.05,
+        visible: true,
+        curve: Curves.bounceIn,
+        children: [
+          SpeedDialChild(
+            child: Image(
+              image: AssetImage('assets/images/addFood.png'),
+              width: 30,
+              height: 30,
+            ),
+            backgroundColor: kPrimary,
+            onTap: () => showMaterialDialog(),
+          ),
+          SpeedDialChild(
+            child: Image(
+              image: AssetImage('assets/images/addUser.png'),
+              width: 30,
+              height: 30,
+            ),
+            backgroundColor: kPrimary,
+          ),
+          SpeedDialChild(
+            child: Image(
+              image: AssetImage('assets/images/addNotification.png'),
+              width: 30,
+              height: 30,
+            ),
+            backgroundColor: kPrimary,
+          ),
+        ],
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -54,7 +82,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                       // padding: EdgeInsets.only(left: kDefaultPadding),
                       icon: Icon(Icons.person),
                       onPressed: () {
-                         Navigator.pushNamed(context, '/adminProfile');
+                        Navigator.pushNamed(context, '/adminProfile');
                       },
                     ),
                     titleFirstName: 'Admin',
