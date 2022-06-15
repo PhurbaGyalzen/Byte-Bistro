@@ -35,18 +35,16 @@ class ViewFood extends StatelessWidget {
           child: TextFormField(
             controller: searchController,
             decoration: InputDecoration(
+              contentPadding:
+                  EdgeInsets.symmetric(horizontal: 20, vertical: 15),
               hintText: 'Search',
-              prefixIcon: Icon(
-                Icons.search,
-                color: Colors.black26,
-              ),
               suffixIcon: IconButton(
                 icon: Icon(
-                  Icons.clear,
+                  Icons.search,
                   color: Colors.black26,
                 ),
                 onPressed: () {
-                  searchController.clear();
+                  controller.searchFood(searchController.text);
                 },
               ),
               errorBorder: InputBorder.none,

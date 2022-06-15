@@ -132,3 +132,16 @@ export const setUnavailable = async (
 	}
 }
 
+// controller to search and filter food
+export const searchFood = async (
+	req: Request,
+	res: Response,
+	next: NextFunction
+) => {
+	try {
+		const foods = await Food.find({ name: { $regex: req.params.foodName } })
+		res.status(200).json(foods)
+	} catch (err) {
+		res.status(400).json({ message: err })
+	}
+}

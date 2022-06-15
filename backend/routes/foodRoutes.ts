@@ -3,6 +3,7 @@ import {
 	deleteFood,
 	getFood,
 	putFood,
+	searchFood,
 	setAvailable,
 	setUnavailable,
 	updateFood,
@@ -18,5 +19,7 @@ router.patch('/:foodId', updateFood)
 router.patch('/:foodId/setAvailable', setAvailable)
 router.patch('/:foodId/setUnAvailable', setUnavailable)
 router.delete('/:foodId', deleteFood)
+// router to search and filter food
+router.get('/search/:foodName', searchFood)
 
 export default router

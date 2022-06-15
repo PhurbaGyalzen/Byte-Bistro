@@ -65,4 +65,11 @@ class FoodController extends GetxController {
       update();
     }
   }
+
+  //search and filter food
+  searchFood(String search) async {
+    var response = foodService.searchFood(search);
+    foodList = response as List;
+    update();
+  }
 }

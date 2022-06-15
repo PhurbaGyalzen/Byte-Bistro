@@ -1,5 +1,4 @@
 //PaymentSummary
-import 'package:byte_bistro/Screens/add_to_cart/widgets/promo_search_box.dart';
 import 'package:esewa_pnp/esewa.dart';
 import 'package:esewa_pnp/esewa_pnp.dart';
 import 'package:flutter/material.dart';

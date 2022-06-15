@@ -141,4 +141,20 @@ class FoodService {
     }
   }
 
+  //search and filter food
+  Future<List<Food>> searchFood(String search) async {
+    String endpoint = PersistentHtpp.baseUrl + 'food/search/$search';
+    try {
+      final response = await PersistentHtpp.client.get(Uri.parse(endpoint));
+      final stringData = response.body;
+      if (response.statusCode == 200) {
+        return foodFromJson(stringData);
+      } else {
+        return Future.error('Internal Server Error');
+      }
+    } catch (err) {
+      return Future.error(' Error fetching data $err');
+    }
+  }
+
 }
