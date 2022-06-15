@@ -4,11 +4,11 @@ import { getFavourite, getUserFavourites, addFavourite,removeFavourite, getAllFa
 
 const router = Router()
 
-router.get('/',getAllFavourites);
-router.get('/:favouriteId', getFavourite);
 router.post('/', addFavourite);
+router.get('/:favouriteId', getFavourite);
 router.get('/user/:userId', getUserFavourites);
 router.delete('/:favouriteId', removeFavourite);
+router.get('/',getAllFavourites);
 
 export default router;
 

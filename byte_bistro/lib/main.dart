@@ -94,7 +94,7 @@ class ByteBistro extends StatelessWidget {
           ),
         ),
       ),
-      initialRoute: '/adminScreen',
+      initialRoute: '/home',
       debugShowCheckedModeBanner: false,
       title: 'Byte Bistro',
       getPages: [
@@ -108,7 +108,9 @@ class ByteBistro extends StatelessWidget {
         GetPage(name: '/CategoryMoMo', page: () => MOMO()),
         GetPage(name: '/signup', page: () => SignUpScreen()),
         // GetPage(name: '/signup', page: () =>ProfileScreen()),
-        GetPage(name: '/adminProfileUpdateForm', page: () => AdminProfileUpdateForm()),
+        GetPage(
+            name: '/adminProfileUpdateForm',
+            page: () => AdminProfileUpdateForm()),
         GetPage(name: '/adminProfile', page: () => AdminProfilePage()),
 
         GetPage(name: '/home', page: () => HomePage()),

@@ -2,6 +2,7 @@ import 'package:byte_bistro/Services/ws_service.dart';
 import 'package:byte_bistro/models/cart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:jiffy/jiffy.dart';   
 
 import '../../constants/colors.dart';
 
@@ -86,7 +87,7 @@ class _NotificationDetailState extends State<NotificationDetail> {
                               ),
                               children: [
                                 TextSpan(
-                                  text: order.id,
+                                  text: "Pending..",
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w500,
@@ -108,7 +109,7 @@ class _NotificationDetailState extends State<NotificationDetail> {
                               ),
                               children: [
                                 TextSpan(
-                                  text: order.createdAt.toString(),
+                                  text: Jiffy(order.createdAt).yMMMMEEEEdjm,
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w500,
