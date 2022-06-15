@@ -24,7 +24,7 @@ class PaymentSummary extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        PromoSearchBox(),
+        // PromoSearchBox(),
         Container(
           padding: EdgeInsets.only(top: 10, bottom: 10, left: 8, right: 8),
           margin: EdgeInsets.only(top: 30),
