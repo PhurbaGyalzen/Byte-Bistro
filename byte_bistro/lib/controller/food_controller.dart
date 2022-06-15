@@ -16,10 +16,13 @@ class FoodController extends GetxController {
   FoodService foodService = Get.put(FoodService());
 
   // get all food
-  void getAllFood() async {
+  getAllFood() async {
     var data = await foodService.getAllFood();
-    foodList = data;
-    update();
+    if (data != null) {
+      foodList = data;
+      update();
+      return data;
+    }
   }
 
   // get single food
