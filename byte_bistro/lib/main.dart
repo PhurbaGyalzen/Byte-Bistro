@@ -24,6 +24,7 @@ import 'package:byte_bistro/Screens/home/home.dart';
 import 'package:byte_bistro/Screens/home/widgets/individual_item.dart';
 import 'package:byte_bistro/Screens/swipe_qr_home.dart';
 import 'package:byte_bistro/Screens/user_order_history_list.dart';
+import 'package:byte_bistro/Services/http_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -38,6 +39,7 @@ import 'constants/colors.dart';
 int tableNo = 0;
 Future<void> main() async {
   await dotenv.load(fileName: ".env");
+  await PersistentHtpp.setTokenHeader();
   runApp(const ByteBistro());
 }
 
