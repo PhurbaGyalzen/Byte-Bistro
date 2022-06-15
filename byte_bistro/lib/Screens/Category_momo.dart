@@ -1,7 +1,6 @@
 
 import 'package:byte_bistro/constants/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:byte_bistro/Screens/home/models/food_model.dart';
 import '../../../controller/food_controller.dart';
 import 'package:get/get.dart';
 

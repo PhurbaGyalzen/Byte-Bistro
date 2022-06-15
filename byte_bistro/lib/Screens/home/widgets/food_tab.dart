@@ -1,35 +1,40 @@
 import 'package:byte_bistro/Screens/Category_momo.dart';
 import 'package:flutter/material.dart';
 
-class FoodTab extends StatefulWidget {
-  const FoodTab({Key? key}) : super(key: key);
+class FoodTab extends StatelessWidget {
+  FoodTab({Key? key}) : super(key: key);
 
-  @override
-  State<FoodTab> createState() => _FoodTabState();
-}
-
-class _FoodTabState extends State<FoodTab> {
-  // ignore: prefer_typing_uninitialized_variables
   var catName;
 
-  final tabIcon = [
-    'momo.png',
-    'noodles.png',
-    'hamburger.png',
-    'flatpizza.png',
-    'coffee.png',
-    'beer.png',
-    'view.png',
-  ];
-
-  final tabText = [
-    'Momo',
-    'Noodles',
-    'Burger',
-    'Pizza',
-    'Cock',
-    'Beer',
-    'All',
+  final tabItems = [
+    {
+      "tabName": "Momo",
+      "tabIcon": "assets/images/momo.png",
+    },
+    {
+      "tabName": "Noodles",
+      "tabIcon": "assets/images/noodles.png",
+    },
+    {
+      "tabName": "Burger",
+      "tabIcon": "assets/images/hamburger.png",
+    },
+    {
+      "tabName": "Pizza",
+      "tabIcon": "assets/images/flatpizza.png",
+    },
+    {
+      "tabName": "Coffee",
+      "tabIcon": "assets/images/coffee.png",
+    },
+    {
+      "tabName": "Beer",
+      "tabIcon": "assets/images/beer.png",
+    },
+    {
+      "tabName": "All",
+      "tabIcon": "assets/images/view.png",
+    },
   ];
 
   @override
@@ -46,24 +51,25 @@ class _FoodTabState extends State<FoodTab> {
             height: 70,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: tabIcon.length,
+              itemCount: tabItems.length,
               itemBuilder: ((context, index) => GestureDetector(
-                    onTap: () {
-                      setState(
-                        () {
-                          catName = tabText[index];
-                        },
-                      );
+                    // onTap: () {
+                    //   setState(
+                    //     () {
+                    //       catName = tabText[index];
+                    //     },
+                    //   );
 
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => MOMO(
-                            catName: catName,
-                          ),
-                        ),
-                      );
-                    },
+                    //   Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //       builder: (context) => MOMO(
+                    //         catName: catName,
+                    //       ),
+                    //     ),
+                    //   );
+                    // },
+                    onTap: () {},
                     child: Container(
                       width: 115,
                       padding: EdgeInsets.fromLTRB(0, 10, 10, 10),
@@ -89,14 +95,14 @@ class _FoodTabState extends State<FoodTab> {
                         children: [
                           Expanded(
                             child: Image(
-                              image:
-                                  AssetImage('assets/images/${tabIcon[index]}'),
+                              image: AssetImage(
+                                  tabItems[index]["tabIcon"].toString()),
                               height: 30,
                               width: 30,
                             ),
                           ),
                           Text(
-                            tabText[index],
+                            tabItems[index]["tabName"].toString(),
                             style: Theme.of(context).textTheme.bodyText1,
                           ),
                           SizedBox(width: 8),

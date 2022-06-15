@@ -1,9 +1,7 @@
 // import 'package:byte_bistro/Models/food.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../../constants/colors.dart';
 import '../../../controller/food_controller.dart';
 
@@ -146,9 +144,7 @@ class ViewFood extends StatelessWidget {
                             controller.foodList[index].price.toString()),
                         dense: false,
                       ),
-                    )
-                    
-                    );
+                    ));
               },
             ),
           ),
@@ -157,4 +153,3 @@ class ViewFood extends StatelessWidget {
     );
   }
 }
-
