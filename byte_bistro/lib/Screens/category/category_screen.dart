@@ -25,7 +25,7 @@ class CategoryScreen extends StatelessWidget {
           icon: Icon(Icons.add),
         ),
         Expanded(
-          flex: 12,
+          flex: 50,
           child: SizedBox(
             height: 55,
             width: MediaQuery.of(context).size.width,

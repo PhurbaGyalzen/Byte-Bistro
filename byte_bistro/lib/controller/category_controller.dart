@@ -15,10 +15,8 @@ class CategoryController extends GetxController {
   // controller to get all category
   void getAllCategory() async {
     var data = await service.getAllCategory();
-    if (data != null) {
-      categoryList = data;
-      update();
-    }
+    categoryList = data;
+    update();
   }
 
   addNewCategory(Map<String, String> data) async {
