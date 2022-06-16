@@ -1,7 +1,7 @@
 import 'package:byte_bistro/Services/food_services.dart';
 import 'package:get/get.dart';
 
-import '../Models/food.dart';
+import '../models/food.dart';
 
 class FoodController extends GetxController {
   // var foodList = [].obs;

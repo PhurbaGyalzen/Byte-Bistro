@@ -21,7 +21,7 @@ import 'package:byte_bistro/Screens/qr_data.dart';
 import 'package:byte_bistro/Screens/qr_scanner.dart';
 import 'package:byte_bistro/Screens/signup_screen.dart';
 import 'package:byte_bistro/Screens/home/home.dart';
-import 'package:byte_bistro/Screens/home/widgets/individual_item.dart';
+import 'package:byte_bistro/Screens/food_detail_screen.dart';
 import 'package:byte_bistro/Screens/swipe_qr_home.dart';
 import 'package:byte_bistro/Screens/user_order_history_list.dart';
 import 'package:byte_bistro/Services/http_service.dart';
@@ -95,7 +95,7 @@ class ByteBistro extends StatelessWidget {
           ),
         ),
       ),
-      initialRoute: '/login',
+      initialRoute: '/individual',
       debugShowCheckedModeBanner: false,
       title: 'Byte Bistro',
       getPages: [
