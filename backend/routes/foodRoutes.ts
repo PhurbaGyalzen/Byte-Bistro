@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import { uploadImage } from 'middlewares/file'
 import {
 	deleteFood,
 	getFood,
@@ -14,7 +15,7 @@ const router = Router()
 
 router.get('/:foodId', getFood)
 router.get('/', viewFood)
-router.post('/', putFood)
+router.post('/', uploadImage.single("image"), putFood)
 router.patch('/:foodId', updateFood)
 router.patch('/:foodId/setAvailable', setAvailable)
 router.patch('/:foodId/setUnAvailable', setUnavailable)

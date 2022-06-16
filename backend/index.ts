@@ -44,5 +44,5 @@ app.listen(port, async () => {
 	})
 	console.log(`⚡️[TCP]: Server is running at http://localhost:${port}`)
 })
-
+app.use(express.static("public"));
 export { app }
