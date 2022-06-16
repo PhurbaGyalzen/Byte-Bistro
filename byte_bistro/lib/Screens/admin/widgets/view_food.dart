@@ -16,9 +16,22 @@ class ViewFood extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Food',
-          style: Theme.of(context).textTheme.bodyText1,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              'Food',
+              style: Theme.of(context).textTheme.bodyText1,
+            ),
+            GestureDetector(
+              onTap: () => controller.getAllFood(),
+              child: Image(
+                image: AssetImage('assets/images/getAllFood.png'),
+                width: 20,
+                height: 20,
+              ),
+            ),
+          ],
         ),
         SizedBox(
           height: 20,
@@ -58,8 +71,8 @@ class ViewFood extends StatelessWidget {
         // food list
         SizedBox(
           height: 400,
-          child: GetBuilder<FoodController>(
-            builder: (controller) => ListView.builder(
+          child: Obx(
+            () => ListView.builder(
               itemCount: controller.foodList.length,
               itemBuilder: (BuildContext context, int index) {
                 return Container(

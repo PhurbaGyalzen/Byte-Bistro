@@ -122,8 +122,7 @@ class FoodService {
 
   // set food unavailable
   setFoodUnavailable(String foodId) async {
-    String endpoint =
-        PersistentHtpp.baseUrl + 'food/$foodId/setUnAvailable';
+    String endpoint = PersistentHtpp.baseUrl + 'food/$foodId/setUnAvailable';
     try {
       final response = await PersistentHtpp.client.patch(
         Uri.parse(endpoint),
@@ -142,19 +141,22 @@ class FoodService {
   }
 
   //search and filter food
-  Future<List<Food>> searchFood(String search) async {
-    String endpoint = PersistentHtpp.baseUrl + 'food/search/$search';
-    try {
-      final response = await PersistentHtpp.client.get(Uri.parse(endpoint));
-      final stringData = response.body;
-      if (response.statusCode == 200) {
-        return foodFromJson(stringData);
-      } else {
-        return Future.error('Internal Server Error');
+  static Future<List<Food>> searchFood(String search) async {
+    if (search == '') {
+      return FoodService().getAllFood();
+    } else {
+      String endpoint = PersistentHtpp.baseUrl + 'food/search/$search';
+      try {
+        final response = await PersistentHtpp.client.get(Uri.parse(endpoint));
+        final stringData = response.body;
+        if (response.statusCode == 200) {
+          return foodFromJson(stringData);
+        } else {
+          return foodFromJson('[]');
+        }
+      } catch (err) {
+        return Future.error(' Error fetching data $err');
       }
-    } catch (err) {
-      return Future.error(' Error fetching data $err');
     }
   }
-
 }

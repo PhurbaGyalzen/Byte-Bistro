@@ -109,7 +109,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                         ))
                   ]),
                   SizedBox(
-                    height: 30,
+                    height: 10,
                   ),
                   ViewFood(),
                 ],
