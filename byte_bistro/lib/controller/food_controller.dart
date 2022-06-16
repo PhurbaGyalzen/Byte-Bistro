@@ -1,10 +1,11 @@
 import 'package:byte_bistro/Services/food_services.dart';
 import 'package:get/get.dart';
 
-import '../Models/food.dart';
+import '../Screens/home/models/food_model.dart';
 
 class FoodController extends GetxController {
-  // var foodList = [].obs;
+  var foodList = [].obs;
+  var foundFood = [].obs;
 
   @override
   void onInit() {
@@ -12,15 +13,13 @@ class FoodController extends GetxController {
     super.onInit();
   }
 
-  var foodList = [];
   FoodService foodService = Get.put(FoodService());
 
   // get all food
   getAllFood() async {
     var data = await foodService.getAllFood();
     if (data != null) {
-      foodList = data;
-      update();
+      foodList.value = data;
       return data;
     }
   }
@@ -28,7 +27,7 @@ class FoodController extends GetxController {
   // get single food
   getSingleFood(String foodId) async {
     var response = foodService.getSingleFood(foodId);
-    foodList = response as List;
+    foodList.value = response as List;
     return response;
   }
 
@@ -61,15 +60,14 @@ class FoodController extends GetxController {
     var response = foodService.setFoodUnavailable(foodId);
     if (response == 'success') {
       var data = foodService.getAllFood();
-      foodList = data as List;
-      update();
+      foodList.value = data as List;
     }
   }
 
   //search and filter food
   searchFood(String search) async {
-    var response = foodService.searchFood(search);
-    foodList = response as List;
-    update();
+    var response = await FoodService.searchFood(search);
+    foodList.value = response;
+    return response;
   }
 }
