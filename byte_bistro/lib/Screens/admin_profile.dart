@@ -74,7 +74,6 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
               height: 20,
             ),
             Expanded(
-            
               child: FutureBuilder(
                 future: userController.getLoggedUserInfo(),
                 builder: (context, snapshot) {
@@ -176,7 +175,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                                 ),
                                 Expanded(
                                   child: Text(
-                                    data.address ?? 'Add Address',
+                                    data.address,
                                     overflow: TextOverflow.clip,
                                     style: TextStyle(
                                         fontSize: 18,
@@ -223,11 +222,9 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                                 )
                               ],
                             ),
-                            
                             SizedBox(
                               height: 120,
                             ),
-
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [

@@ -1,5 +1,4 @@
 //PaymentSummary
-import 'package:byte_bistro/Screens/add_to_cart/widgets/promo_search_box.dart';
 import 'package:esewa_pnp/esewa.dart';
 import 'package:esewa_pnp/esewa_pnp.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +23,7 @@ class PaymentSummary extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        PromoSearchBox(),
+        // PromoSearchBox(),
         Container(
           padding: EdgeInsets.only(top: 10, bottom: 10, left: 8, right: 8),
           margin: EdgeInsets.only(top: 30),

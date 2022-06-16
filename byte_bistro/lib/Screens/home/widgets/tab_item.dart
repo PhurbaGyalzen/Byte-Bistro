@@ -4,19 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
-class TabItemDetail extends StatefulWidget {
+class TabItemDetail extends StatelessWidget {
   const TabItemDetail({Key? key}) : super(key: key);
 
   @override
-  State<TabItemDetail> createState() => _TabItemDetailState();
-}
-
-class _TabItemDetailState extends State<TabItemDetail> {
-  FoodController foodController = Get.find();
-
-  @override
   Widget build(BuildContext context) {
+    FoodController foodController = Get.find();
     List<dynamic> cartList = [];
+
     return SizedBox(
       height: 280.0,
       child: FutureBuilder(

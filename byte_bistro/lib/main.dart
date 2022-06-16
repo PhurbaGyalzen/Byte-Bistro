@@ -16,7 +16,6 @@ import 'package:byte_bistro/Screens/notification/notification.dart';
 import 'package:byte_bistro/Screens/on_boarding_screen/on_boarding_screen.dart';
 import 'package:byte_bistro/Screens/order_history_list_admin.dart';
 import 'package:byte_bistro/Screens/order_sucess.dart';
-import 'package:byte_bistro/Screens/profile/profile_screen.dart';
 
 import 'package:byte_bistro/Screens/qr_data.dart';
 import 'package:byte_bistro/Screens/qr_scanner.dart';
@@ -25,6 +24,7 @@ import 'package:byte_bistro/Screens/home/home.dart';
 import 'package:byte_bistro/Screens/home/widgets/individual_item.dart';
 import 'package:byte_bistro/Screens/swipe_qr_home.dart';
 import 'package:byte_bistro/Screens/user_order_history_list.dart';
+import 'package:byte_bistro/Services/http_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -39,6 +39,7 @@ import 'constants/colors.dart';
 int tableNo = 0;
 Future<void> main() async {
   await dotenv.load(fileName: ".env");
+  await PersistentHtpp.setTokenHeader();
   runApp(const ByteBistro());
 }
 
@@ -108,7 +109,9 @@ class ByteBistro extends StatelessWidget {
         GetPage(name: '/CategoryMoMo', page: () => MOMO()),
         GetPage(name: '/signup', page: () => SignUpScreen()),
         // GetPage(name: '/signup', page: () =>ProfileScreen()),
-        GetPage(name: '/adminProfileUpdateForm', page: () => AdminProfileUpdateForm()),
+        GetPage(
+            name: '/adminProfileUpdateForm',
+            page: () => AdminProfileUpdateForm()),
         GetPage(name: '/adminProfile', page: () => AdminProfilePage()),
 
         GetPage(name: '/home', page: () => HomePage()),
