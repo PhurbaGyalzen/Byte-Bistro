@@ -18,7 +18,12 @@ class PersistentHtpp {
     headers = {...headers, ...hdrs};
   }
 
-  static Future<bool> setTokenHeader() async {
+  static Future<bool> storeAndSetHeader({String? token}) async {
+    /* store token in the storage and set the global headers too. */
+    if (token == null) {
+      token = await Storage.get('token') ?? '';
+    }
+    await Storage.set('token', token);
     headers = {
       ...headers,
       "Authorization": "Bearer " + (await Storage.get('token') ?? "")
