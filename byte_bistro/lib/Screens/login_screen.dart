@@ -1,3 +1,5 @@
+import 'package:byte_bistro/Services/http_service.dart';
+import 'package:byte_bistro/Services/storage_service.dart';
 import 'package:byte_bistro/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
@@ -191,6 +193,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               );
 
                               if (response != null) {
+                                await PersistentHtpp.storeAndSetHeader(
+                                    token: response.token);
                                 if (response.isAdmin == true) {
                                   prefs.setString("token", response.token);
                                   Get.offNamed('/adminScreen');

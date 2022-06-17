@@ -39,7 +39,7 @@ import 'constants/colors.dart';
 int tableNo = 0;
 Future<void> main() async {
   await dotenv.load(fileName: ".env");
-  await PersistentHtpp.setTokenHeader();
+  await PersistentHtpp.storeAndSetHeader();
   runApp(const ByteBistro());
 }
 
@@ -95,7 +95,7 @@ class ByteBistro extends StatelessWidget {
           ),
         ),
       ),
-      initialRoute: '/individual',
+      initialRoute: '/login',
       debugShowCheckedModeBanner: false,
       title: 'Byte Bistro',
       getPages: [

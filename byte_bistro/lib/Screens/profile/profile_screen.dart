@@ -187,12 +187,13 @@ class ProfileSystem extends StatelessWidget {
                 imageTrailing: 'assets/images/next.png',
                 text: 'Log out',
                 onClick: () async {
-                  var response = await PersistentHtpp.get('food');
+                  var response = await PersistentHtpp.get('auth/one_user');
                   print(response.body);
-                  print(await Storage.get('token'));
                   await Storage.remove('token');
-                  print(await Storage.get('token'));
-                  await PersistentHtpp.setTokenHeader();
+                  await PersistentHtpp.storeAndSetHeader(token: '');
+                  var response1 = await PersistentHtpp.get('auth/one_user');
+                  print(response1.body);
+                  Get.toNamed('/login');
                 }),
           ],
         ));

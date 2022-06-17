@@ -5,7 +5,7 @@ const AndroidOptions androidOpts =
 const FlutterSecureStorage storage = FlutterSecureStorage();
 
 class Storage {
-  static Future<void> set({required String key, required String value}) async {
+  static Future<void> set(String key, String value) async {
     return await storage.write(key: key, value: value, aOptions: androidOpts);
   }
 
@@ -16,6 +16,5 @@ class Storage {
   static Future<void> remove(String key) async {
     return await storage.delete(key: key, aOptions: androidOpts);
   }
-
   
 }
