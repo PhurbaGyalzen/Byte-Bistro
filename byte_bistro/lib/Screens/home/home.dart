@@ -13,6 +13,7 @@ import 'package:get/get.dart';
 import 'package:hidable/hidable.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 
+import '../favourite/favourite.dart';
 import '../profile/profile_screen.dart';
 
 class HomePage extends StatefulWidget {
@@ -30,9 +31,7 @@ class _HomePageState extends State<HomePage> {
     HomeScreen(
       scrollController: scrollController,
     ),
-    HomeScreen(
-      scrollController: scrollController,
-    ),
+    FavouritePage(),
     QrScannerScreen(),
     HomeScreen(
       scrollController: scrollController,
