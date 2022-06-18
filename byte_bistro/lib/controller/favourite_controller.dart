@@ -8,6 +8,7 @@ class FavouriteController extends GetxController {
 
   @override
   void onInit() {
+    getUserFavourites('627fbfa1d464ffbeb80b985b');
     super.onInit();
   }
 
@@ -36,6 +37,8 @@ class FavouriteController extends GetxController {
 
   removeFavorite(String favouriteId) async {
     var response = await favouriteService.removeFavourite(favouriteId);
+    var data = getUserFavourites('627fbfa1d464ffbeb80b985b');
+    favouriteList.value = data as List;
     return response;
   }
 }
