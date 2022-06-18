@@ -1,4 +1,3 @@
-
 import 'package:byte_bistro/Screens/favourite/favourite.dart';
 import 'package:byte_bistro/Screens/home/widgets/tab_item.dart';
 import 'package:byte_bistro/Screens/home/widgets/top_of_day.dart';
@@ -32,7 +31,8 @@ class _HomePageState extends State<HomePage> {
     HomeScreen(
       scrollController: scrollController,
     ),
-    FavouritePage(),
+    FavouritePage(
+    ),
     QrScannerScreen(),
     HomeScreen(
       scrollController: scrollController,
