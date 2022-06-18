@@ -15,7 +15,7 @@ class TopOfDay extends StatelessWidget {
             style: Theme.of(context).textTheme.headline1,
           ),
           SizedBox(
-            height: 310.0,
+            height: 300.0,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: 5,
@@ -50,7 +50,10 @@ class TopOfDay extends StatelessWidget {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(6),
                           child: Image(
-                            image: AssetImage('assets/images/momo.jpg'),
+                            image: AssetImage('assets/images/buffMomo.jpg'),
+                            fit: BoxFit.cover,
+                            height: 200,
+                            width: 170,
                           ),
                         ),
                         SizedBox(
