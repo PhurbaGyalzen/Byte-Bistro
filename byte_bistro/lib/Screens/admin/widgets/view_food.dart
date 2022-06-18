@@ -1,4 +1,5 @@
 // import 'package:byte_bistro/Models/food.dart';
+import 'package:byte_bistro/Services/http_service.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -145,7 +146,7 @@ class ViewFood extends StatelessWidget {
                               child: Image(
                                   height: 120,
                                   fit: BoxFit.cover,
-                                  image: AssetImage('assets/images/' +
+                                  image: NetworkImage(PersistentHtpp.baseUrl +
                                       controller.foodList[index].image)),
                             ),
                           ),
