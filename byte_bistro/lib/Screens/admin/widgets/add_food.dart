@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:byte_bistro/Screens/admin/widgets/admin_dashboard.dart';
 import 'package:byte_bistro/constants/colors.dart';
+import 'package:byte_bistro/controller/category_controller.dart';
 import 'package:byte_bistro/controller/food_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
@@ -18,11 +19,14 @@ class AddFood extends StatefulWidget {
 
 class _AddFoodState extends State<AddFood> {
   final nameController = TextEditingController();
+  final categoryController = TextEditingController();
   final priceController = TextEditingController();
   final imageController = TextEditingController();
   final descriptionController = TextEditingController();
   var imageName = "";
   late File? pickedImage;
+  var categoryList = CategoryController().getAllCategory();
+  late var valueChoose;
 
   @override
   void initState() {
@@ -120,15 +124,33 @@ class _AddFoodState extends State<AddFood> {
               SizedBox(
                 height: 20,
               ),
+              DropdownButton(
+                hint: Text('Select Category'),
+                value: valueChoose as String,
+                onChanged: (newValue) {
+                  setState(() {
+                    valueChoose = newValue;
+                  });
+                },
+                items: categoryList.map((category) {
+                  return DropdownMenuItem(
+                    value: category,
+                    child: Text(category.name),
+                  );
+                }).toList(),
+              ),
+              SizedBox(
+                height: 20,
+              ),
               priceField(),
               SizedBox(
                 height: 20,
               ),
               Text(
-                    imageName,
-                    style: Theme.of(context).textTheme.headline2,
-                    textAlign: TextAlign.center,
-                  ),
+                imageName,
+                style: Theme.of(context).textTheme.headline2,
+                textAlign: TextAlign.center,
+              ),
               ElevatedButton(
                   onPressed: () {
                     Get.bottomSheet(
@@ -220,6 +242,7 @@ class _AddFoodState extends State<AddFood> {
                     ),
                     onPressed: () => {
                       nameController.clear(),
+                      categoryController.clear(),
                       priceController.clear(),
                       imageController.clear(),
                       descriptionController.clear(),
@@ -243,6 +266,7 @@ class _AddFoodState extends State<AddFood> {
                       if (formKey.currentState?.validate() == true) {
                         Map<String, dynamic> data = {
                           "name": nameController.text,
+                          "category": [categoryController.text],
                           "price": priceController.text,
                           "description": descriptionController.text,
                           "image": imageController.text,
@@ -295,6 +319,30 @@ class _AddFoodState extends State<AddFood> {
       decoration: InputDecoration(
         border: OutlineInputBorder(),
         label: Text('Name'),
+        suffixIcon: nameController.text.isEmpty
+            ? Container(
+                width: 0,
+              )
+            : IconButton(
+                icon: Icon(Icons.close),
+                onPressed: () => nameController.clear(),
+              ),
+      ),
+      validator: MultiValidator([
+        RequiredValidator(errorText: 'Required *'),
+      ]),
+    );
+  }
+
+  TextFormField categoryField() {
+    return TextFormField(
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      controller: categoryController,
+      textInputAction: TextInputAction.done,
+      keyboardType: TextInputType.emailAddress,
+      decoration: InputDecoration(
+        border: OutlineInputBorder(),
+        label: Text('Category'),
         suffixIcon: nameController.text.isEmpty
             ? Container(
                 width: 0,
