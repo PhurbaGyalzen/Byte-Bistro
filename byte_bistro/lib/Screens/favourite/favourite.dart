@@ -1,3 +1,4 @@
+import 'package:byte_bistro/Services/http_service.dart';
 import 'package:byte_bistro/constants/colors.dart';
 import 'package:byte_bistro/controller/favourite_controller.dart';
 import 'package:flutter/material.dart';
@@ -74,9 +75,7 @@ class FavouritePage extends StatelessWidget {
                           child: Image(
                               height: 120,
                               fit: BoxFit.cover,
-                              image: AssetImage('assets/images/' +
-                                  favouriteController
-                                      .favouriteList[index].foodId.image)),
+                              image: NetworkImage(PersistentHtpp.baseUrl + favouriteController.favouriteList[index].foodId.image)),
                         ),
                       ),
                     ),
