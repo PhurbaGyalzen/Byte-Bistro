@@ -3,6 +3,7 @@ import 'package:byte_bistro/Screens/home/models/food_model.dart';
 import 'package:byte_bistro/controller/favourite_controller.dart';
 import 'package:byte_bistro/controller/food_controller.dart';
 import 'package:byte_bistro/controller/logged_user_info_controller.dart';
+import 'package:byte_bistro/models/favourite.dart';
 import 'package:byte_bistro/models/loged_user_info.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -18,15 +19,34 @@ class TabItemDetail extends StatefulWidget {
 class _TabItemDetailState extends State<TabItemDetail> {
   FoodController foodController = Get.find();
   LoggedUserInfoController loggedUserInfoController = Get.put(LoggedUserInfoController());
+  FavouriteController favouriteController = Get.put(FavouriteController());
   // print(loggedUserInfoController);
+  List favouriteList = [];
   
   bool _hasBeenPressed = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getFavourite();
+  }
+
+  Future getFavourite() async {
+    List<Favourite> response = await favouriteController.getUserFavourites("627fbfa1d464ffbeb80b985b");
+    print(response);
+    setState(() {
+      favouriteList = response[0].userId.favoriteFoods;
+    });
+  }
   
   
 
   @override
   Widget build(BuildContext context) {
     List<dynamic> cartList = [];
+    print("favouritelist");
+    print(favouriteList);
     return SizedBox(
       height: 280.0,
       child: FutureBuilder(
@@ -38,6 +58,7 @@ class _TabItemDetailState extends State<TabItemDetail> {
           
           if (snapshot.hasData) {
             List<Food> data = snapshot.data as List<Food>;
+            
             return SizedBox(
                 child: CarouselSlider.builder(
                     options: CarouselOptions(
@@ -46,7 +67,7 @@ class _TabItemDetailState extends State<TabItemDetail> {
                     ),
                     itemCount: data.length,
                     itemBuilder: (context, index, realIndex) {
-                      
+                      bool exists = favouriteList.contains(data[index].id);
                       return Container(
                         width: 265,
                         margin: EdgeInsets.only(
@@ -78,10 +99,6 @@ class _TabItemDetailState extends State<TabItemDetail> {
                             Stack(
                               clipBehavior: Clip.none,
                               children: [
-
-
-
-
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(15),
                                   child: Image(
@@ -106,37 +123,48 @@ class _TabItemDetailState extends State<TabItemDetail> {
                                     child: IconButton(
                                       
                                       icon: Icon(
-                                        _hasBeenPressed
+                                        exists
                                             ? Icons.favorite
                                             : Icons.favorite_border,
-                                        color: _hasBeenPressed
+                                        color: exists
                                             ? Colors.red
                                             : Colors.white,
                                         
                                       ),
-                                     
-                                            
-                                      onPressed: () {
+                                      onPressed: exists ? null : () {
+                                        Map<String, dynamic> dataD = {
+                                          "foodId": data[index].id,
+                                          "userId": "627fbfa1d464ffbeb80b985b"
+                                        };
+                                        var response =  favouriteController.addFavourite(dataD);
+                                        print(response);
+                                        final snackbarSucess =
+                                          SnackBar(content: Text('Added to favourites'));
+                                        final snackbarFail =
+                                          SnackBar(content: Text('The item is already added to favourites'));
+
+                                      if (response == "success") {
+              
+                                        snackbarSucess;
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(snackbarSucess);
+                                      } else {
+                                        snackbarFail;
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(snackbarSucess);
+                                      }
                                         setState(
                                           () {
-                                            Map<String, dynamic> dataD = {
-                                              "foodId": data[index].id,
-                                              "userId": "627fbfa1d464ffbeb80b985b"
-                                            };
-                                            _hasBeenPressed = !_hasBeenPressed;
-                                            if (_hasBeenPressed) {
-                                              print("hha");
-                                            } else {
-                                              print("no");
-                                            }
+                                            exists = true;
                                           },
                                         );
-                                      },
+                                      }, 
                                     ),
                                   ),
                                 ),
                               ],
                             ),
+
                             SizedBox(
                               height: 15,
                             ),
