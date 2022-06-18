@@ -125,9 +125,9 @@ class _TabItemDetailState extends State<TabItemDetail> {
                                             };
                                             _hasBeenPressed = !_hasBeenPressed;
                                             if (_hasBeenPressed) {
-                                              
+                                              print("hha");
                                             } else {
-                                              
+                                              print("no");
                                             }
                                           },
                                         );

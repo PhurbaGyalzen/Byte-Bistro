@@ -96,7 +96,7 @@ class ByteBistro extends StatelessWidget {
           ),
         ),
       ),
-      initialRoute: '/home',
+      initialRoute: '/favourite',
       debugShowCheckedModeBanner: false,
       title: 'Byte Bistro',
       getPages: [
