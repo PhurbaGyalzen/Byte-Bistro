@@ -1,30 +1,22 @@
-import 'dart:convert';
-
-import 'package:byte_bistro/Screens/notification/notificationTab1.dart';
-import 'package:byte_bistro/Screens/notification/notificationTab2.dart';
 import 'package:byte_bistro/constants/colors.dart';
 import 'package:byte_bistro/controller/favourite_controller.dart';
-import 'package:byte_bistro/controller/notification_controller.dart';
-import 'package:byte_bistro/models/favourite.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class FavouritePage extends StatelessWidget {
   FavouritePage({Key? key}) : super(key: key);
 
-  FavouriteController favouriteController = Get.put(FavouriteController());
+  final FavouriteController favouriteController =
+      Get.put(FavouriteController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
             leading: IconButton(
-              icon: Icon(Icons.arrow_back),
-              color: Colors.black,
-              onPressed: () {
-                Get.back();
-              },
-            ),
+                icon: Icon(Icons.arrow_back),
+                color: Colors.black,
+                onPressed: () => Get.toNamed('/home')),
             title: Text(
               'Favourite',
               style: Theme.of(context).textTheme.headline1,
