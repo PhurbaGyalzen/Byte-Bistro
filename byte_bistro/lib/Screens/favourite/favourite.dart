@@ -20,6 +20,7 @@ class FavouritePage extends StatelessWidget {
         appBar: AppBar(
             leading: IconButton(
               icon: Icon(Icons.arrow_back),
+              color: Colors.black,
               onPressed: () {
                 Get.back();
               },
@@ -30,7 +31,7 @@ class FavouritePage extends StatelessWidget {
             ),
             backgroundColor: kPrimary),
         body: SizedBox(
-          height: 400,
+          height: MediaQuery.of(context).size.height,
           child: Obx(
             () => ListView.builder(
               itemCount: favouriteController.favouriteList.length,
