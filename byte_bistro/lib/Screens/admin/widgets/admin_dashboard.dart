@@ -2,6 +2,7 @@ import 'package:byte_bistro/Screens/admin/widgets/add_food.dart';
 import 'package:byte_bistro/Screens/admin/widgets/view_food.dart';
 import 'package:byte_bistro/Screens/category/category_screen.dart';
 import 'package:byte_bistro/Screens/home/widgets/app_bar.dart';
+import 'package:byte_bistro/Screens/profile/profile_screen.dart';
 import 'package:byte_bistro/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
@@ -82,7 +83,12 @@ class _AdminDashboardState extends State<AdminDashboard> {
                       // padding: EdgeInsets.only(left: kDefaultPadding),
                       icon: Icon(Icons.person),
                       onPressed: () {
-                        Navigator.pushNamed(context, '/adminProfile');
+                        // Navigator.pushNamed(context, '/adminProfile');
+                        final ScrollController scrollController =
+                            ScrollController();
+                        Get.to(() => ProfileScreen(
+                              scrollController: scrollController,
+                            ));
                       },
                     ),
                     titleFirstName: 'Admin',

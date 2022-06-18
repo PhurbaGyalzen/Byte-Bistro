@@ -75,6 +75,7 @@ class ProfileNote extends StatelessWidget {
         borderRadius: BorderRadius.circular(50),
       ),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           CircleAvatar(
             radius: 30,
@@ -87,7 +88,7 @@ class ProfileNote extends StatelessWidget {
           ),
           Column(
             children: const [
-              Text('Sunil Tamang',
+              Text('User 1',
                   style: TextStyle(
                     fontSize: 18,
                     height: 1.5,
@@ -97,9 +98,9 @@ class ProfileNote extends StatelessWidget {
                   style: TextStyle(fontWeight: FontWeight.w300)),
             ],
           ),
-          SizedBox(
-            width: 125,
-          ),
+          // SizedBox(
+          //   width: 125,
+          // ),
           Opacity(
             opacity: 0.5,
             child: GestureDetector(

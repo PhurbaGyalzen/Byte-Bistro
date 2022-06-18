@@ -21,17 +21,12 @@ class BuildAppBar extends StatelessWidget {
         color: Colors.white,
         margin: EdgeInsets.only(bottom: 30),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Expanded(
-              child: Image(
-                image: AssetImage(leadingIcon),
-                height: 20,
-                width: 20,
-              ),
-            ),
-            SizedBox(
-              width: 100,
+            Image(
+              image: AssetImage(leadingIcon),
+              height: 20,
+              width: 20,
             ),
             Text.rich(TextSpan(
                 text: titleFirstName,
@@ -49,24 +44,12 @@ class BuildAppBar extends StatelessWidget {
                           letterSpacing: 0.5,
                           fontWeight: FontWeight.bold)),
                 ])),
+            // trailingIcon,
             SizedBox(
-              width: 120,
+              height: 35,
+              width: 35,
+              child: trailingIcon,
             ),
-            Expanded(
-              child: SizedBox(
-                height: 20,
-                width: 20,
-                child: trailingIcon,
-              ),
-              // child: Image(
-              //   image: AssetImage(trailingIcon),
-              //   height: 20,
-              //   width: 20,
-              // ),
-            ),
-            SizedBox(
-              width: 10,
-            )
           ],
         ));
   }
