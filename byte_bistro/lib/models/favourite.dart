@@ -104,19 +104,19 @@ class FoodId {
 class UserId {
     UserId({
         required this.id,
-        required this.fullname,
+        required this.favoriteFoods,
     });
 
     String id;
-    String fullname;
+    List<String> favoriteFoods;
 
     factory UserId.fromJson(Map<String, dynamic> json) => UserId(
         id: json["_id"],
-        fullname: json["fullname"],
+        favoriteFoods: List<String>.from(json["favoriteFoods"].map((x) => x)),
     );
 
     Map<String, dynamic> toJson() => {
         "_id": id,
-        "fullname": fullname,
+        "favoriteFoods": List<dynamic>.from(favoriteFoods.map((x) => x)),
     };
 }
