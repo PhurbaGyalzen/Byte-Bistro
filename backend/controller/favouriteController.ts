@@ -44,7 +44,7 @@ export const addFavourite = async (
         } else {
             const favourite = new Favourite({ userId: userId, foodId: foodId })
             await favourite.save()
-            const user = await User.findByIdAndUpdate(userId , { $push: { favoriteFoods: favourite.id } }, { new: true })
+            const user = await User.findByIdAndUpdate(userId , { $push: { favoriteFoods: foodId } }, { new: true })
             res.status(200).json(favourite)
             console.log("created fav");
         }
