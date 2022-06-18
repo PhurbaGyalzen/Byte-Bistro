@@ -10,6 +10,7 @@ import 'package:byte_bistro/Screens/admin_profile_update.dart';
 import 'package:byte_bistro/Screens/after_order.dart';
 import 'package:byte_bistro/Screens/category/category_screen.dart';
 import 'package:byte_bistro/Screens/edit_profile.dart';
+import 'package:byte_bistro/Screens/favourite/favourite.dart';
 import 'package:byte_bistro/Screens/invoice_detail_page.dart';
 import 'package:byte_bistro/Screens/notification/admin_notification.dart';
 import 'package:byte_bistro/Screens/notification/notification.dart';
@@ -95,7 +96,7 @@ class ByteBistro extends StatelessWidget {
           ),
         ),
       ),
-      initialRoute: '/login',
+      initialRoute: '/home',
       debugShowCheckedModeBanner: false,
       title: 'Byte Bistro',
       getPages: [
@@ -128,6 +129,7 @@ class ByteBistro extends StatelessWidget {
         GetPage(name: '/notification', page: () => NotificationPage()),
         GetPage(name: '/adminNotification', page: () => AdminNotification()),
         // GetPage(name: '/profileScreen', page: () => ProfileScreen()),
+        GetPage(name: '/favourite', page: () => FavouritePage()),
 
         GetPage(name: '/categoryScreen', page: () => CategoryScreen()),
         GetPage(name: '/onBoardingScreen', page: () => OnBoardingScreen()),

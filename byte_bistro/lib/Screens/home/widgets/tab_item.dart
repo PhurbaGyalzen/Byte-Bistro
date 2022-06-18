@@ -1,7 +1,9 @@
 
 import 'package:byte_bistro/Screens/home/models/food_model.dart';
+import 'package:byte_bistro/controller/favourite_controller.dart';
 import 'package:byte_bistro/controller/food_controller.dart';
 import 'package:byte_bistro/controller/logged_user_info_controller.dart';
+import 'package:byte_bistro/models/loged_user_info.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -15,7 +17,8 @@ class TabItemDetail extends StatefulWidget {
 
 class _TabItemDetailState extends State<TabItemDetail> {
   FoodController foodController = Get.find();
-  LoggedUserInfoController loggedUserInfoController = LoggedUserInfoController();
+  LoggedUserInfoController loggedUserInfoController = Get.put(LoggedUserInfoController());
+  // print(loggedUserInfoController);
   
   bool _hasBeenPressed = false;
   
@@ -102,21 +105,30 @@ class _TabItemDetailState extends State<TabItemDetail> {
                                     ),
                                     child: IconButton(
                                       
-                                      icon: Image.asset(
+                                      icon: Icon(
                                         _hasBeenPressed
-                                            ? 'assets/images/love_fill.png'
-                                            : 'assets/images/love_fill.png',
-                                            color: _hasBeenPressed
-                                            ? Color.fromARGB(255, 247, 51, 37)
+                                            ? Icons.favorite
+                                            : Icons.favorite_border,
+                                        color: _hasBeenPressed
+                                            ? Colors.red
                                             : Colors.white,
+                                        
                                       ),
                                      
                                             
                                       onPressed: () {
                                         setState(
                                           () {
+                                            Map<String, dynamic> dataD = {
+                                              "foodId": data[index].id,
+                                              "userId": ""
+                                            };
                                             _hasBeenPressed = !_hasBeenPressed;
-                                            print("pressed");
+                                            if (_hasBeenPressed) {
+                                              
+                                            } else {
+                                              
+                                            }
                                           },
                                         );
                                       },
