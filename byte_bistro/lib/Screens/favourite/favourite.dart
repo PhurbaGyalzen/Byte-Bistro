@@ -1,3 +1,4 @@
+import 'package:byte_bistro/Services/http_service.dart';
 import 'package:byte_bistro/constants/colors.dart';
 import 'package:byte_bistro/controller/favourite_controller.dart';
 import 'package:flutter/material.dart';
@@ -66,24 +67,26 @@ class FavouritePage extends StatelessWidget {
                           },
                         ),
                         leading: GestureDetector(
-                          behavior: HitTestBehavior.translucent,
-                          onTap: () {},
-                          child: Container(
-                            width: 48,
-                            height: 48,
-                            padding: const EdgeInsets.symmetric(vertical: 4.0),
-                            alignment: Alignment.center,
-                            child: CircleAvatar(
-                              radius: 200.0,
-                              child: Image(
-                                  height: 120,
-                                  fit: BoxFit.cover,
-                                  image: AssetImage('assets/images/' +
-                                      favouriteController
-                                          .favouriteList[index].foodId.image)),
-                            ),
-                          ),
-                        ),
+                            behavior: HitTestBehavior.translucent,
+                            onTap: () {},
+                            child: Container(
+                                width: 48,
+                                height: 48,
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 4.0),
+                                alignment: Alignment.center,
+                                child: CircleAvatar(
+                                  radius: 200.0,
+                                  child: Image(
+                                      height: 120,
+                                      fit: BoxFit.cover,
+                                      image: NetworkImage(
+                                          PersistentHtpp.baseUrl +
+                                              favouriteController
+                                                  .favouriteList[index]
+                                                  .foodId
+                                                  .image)),
+                                ))),
                         title: Text(favouriteController
                             .favouriteList[index].foodId.name),
                         subtitle: Text('Rs : ' +

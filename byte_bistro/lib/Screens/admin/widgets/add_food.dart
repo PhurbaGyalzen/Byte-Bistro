@@ -24,8 +24,6 @@ class _AddFoodState extends State<AddFood> {
   final descriptionController = TextEditingController();
   var imageName = "";
   late File? pickedImage;
-  var categoryList = CategoryController().getAllCategory();
-  late var valueChoose;
 
   @override
   void initState() {
@@ -122,21 +120,6 @@ class _AddFoodState extends State<AddFood> {
               SizedBox(
                 height: 20,
               ),
-              DropdownButton(
-                hint: Text('Select Category'),
-                value: valueChoose as String,
-                onChanged: (newValue) {
-                  setState(() {
-                    valueChoose = newValue;
-                  });
-                },
-                items: categoryList.map((category) {
-                  return DropdownMenuItem(
-                    value: category,
-                    child: Text(category.name),
-                  );
-                }).toList(),
-              ),
               SizedBox(
                 height: 20,
               ),
@@ -150,6 +133,7 @@ class _AddFoodState extends State<AddFood> {
                 textAlign: TextAlign.center,
               ),
               ElevatedButton(
+                  style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(kPrimary) ),
                   onPressed: () {
                     Get.bottomSheet(
                       SingleChildScrollView(
