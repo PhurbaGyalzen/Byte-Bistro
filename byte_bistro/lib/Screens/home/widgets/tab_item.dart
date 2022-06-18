@@ -68,8 +68,6 @@ class _TabItemDetailState extends State<TabItemDetail> {
                     itemCount: data.length,
                     itemBuilder: (context, index, realIndex) {
                       bool exists = favouriteList.contains(data[index].id);
-                      print("Exists $exists");
-                      print(data[index]);
                       return Container(
                         width: 265,
                         margin: EdgeInsets.only(
@@ -133,12 +131,12 @@ class _TabItemDetailState extends State<TabItemDetail> {
                                             : Colors.white,
                                         
                                       ),
-                                      onPressed: () {
+                                      onPressed: exists ? null : () {
                                         Map<String, dynamic> dataD = {
                                           "foodId": data[index].id,
                                           "userId": "627fbfa1d464ffbeb80b985b"
                                         };
-                                        String response =  favouriteController.addFavourite(dataD);
+                                        var response =  favouriteController.addFavourite(dataD);
                                         print(response);
                                         final snackbarSucess =
                                           SnackBar(content: Text('Added to favourites'));
@@ -157,10 +155,10 @@ class _TabItemDetailState extends State<TabItemDetail> {
                                       }
                                         setState(
                                           () {
-                                            _hasBeenPressed = !_hasBeenPressed;
+                                            exists = true;
                                           },
                                         );
-                                      },
+                                      }, 
                                     ),
                                   ),
                                 ),

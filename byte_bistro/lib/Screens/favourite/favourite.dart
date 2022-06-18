@@ -18,6 +18,12 @@ class FavouritePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back),
+              onPressed: () {
+                Get.back();
+              },
+            ),
             title: Text(
               'Favourite',
               style: Theme.of(context).textTheme.headline1,

@@ -75,8 +75,17 @@ export const removeFavourite = async (
     next: NextFunction
 ) => {
     try {
-        const favourite = await Favourite.findByIdAndDelete(req.params.favouriteId)
-        res.status(200).json(favourite)
+
+        const favourite = await Favourite.findById(req.params.favouriteId);
+        if (!favourite) {
+            res.status(400).json({ message: "Favourite not found" })
+        } else {
+            const user = await User.findByIdAndUpdate(favourite.userId, { $pull: { favoriteFoods: favourite.foodId } }, { new: true })
+
+            await favourite.remove();
+            console.log(user);
+            res.status(200).json({ message: "Favourite removed" })
+        }   
     } catch (err) {
         res.status(400).json({ message: err })
     }
