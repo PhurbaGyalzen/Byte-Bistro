@@ -1,8 +1,9 @@
 import 'dart:convert';
-
+import 'dart:io';
 import 'package:byte_bistro/Services/http_service.dart';
 
 import '../Screens/home/models/food_model.dart';
+import 'package:dio/dio.dart' as dio;
 
 class FoodService {
   // get all food
@@ -37,13 +38,19 @@ class FoodService {
   // add food
   Future<String> addFood(Map<String, dynamic> data) async {
     String endpoint = PersistentHtpp.baseUrl + 'food';
+    var http = dio.Dio();
+    var imageFileName = data['image'].path;
+    var formData = dio.FormData.fromMap({
+      'name': data['name'],
+      'price': data['price'],
+      'image':
+          await dio.MultipartFile.fromFile(data['image'].path, filename: imageFileName),
+      'description': data['description'],
+    });
     try {
-      final response = await PersistentHtpp.client.post(
-        Uri.parse(endpoint),
-        body: jsonEncode(data),
-        headers: {
-          "Content-Type": "application/json; charset=UTF-8",
-        },
+      final response = await http.post(
+        endpoint,
+        data: formData,
       );
       if (response.statusCode == 200) {
         return 'success';

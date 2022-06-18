@@ -1,4 +1,5 @@
 // import 'package:clip_shadow/clip_shadow.dart';
+import 'package:byte_bistro/controller/food_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -15,6 +16,7 @@ class IndividualItem extends StatefulWidget {
 class _IndividualItemState extends State<IndividualItem> {
   int _orderCount = 1;
   Food? food;
+  FoodController foodController = Get.put(FoodController());
 
   @override
   void initState() {
@@ -23,11 +25,11 @@ class _IndividualItemState extends State<IndividualItem> {
   }
 
   Future<void> _fetchFood() async {
-    final response = await http.get(
-        Uri.parse('http://100.91.255.71:3000/food/628206498631b1137a449361'));
-    final jsonResponse = (response.body);
+    // final response = await http.get(
+    //     Uri.parse('http://100.91.255.71:3000/food/628206498631b1137a449361'));
+    // final jsonResponse = (response.body);
     setState(() {
-      food = foodFromJson(jsonResponse);
+      food = foodController.getSingleFood("628206498631b1137a449361");
     });
   }
 

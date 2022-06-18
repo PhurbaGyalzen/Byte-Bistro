@@ -21,7 +21,6 @@ class _AddFoodState extends State<AddFood> {
   final nameController = TextEditingController();
   final categoryController = TextEditingController();
   final priceController = TextEditingController();
-  final imageController = TextEditingController();
   final descriptionController = TextEditingController();
   var imageName = "";
   late File? pickedImage;
@@ -33,7 +32,6 @@ class _AddFoodState extends State<AddFood> {
     super.initState();
     nameController.addListener(() => setState(() {}));
     priceController.addListener(() => setState(() {}));
-    imageController.addListener(() => setState(() {}));
     descriptionController.addListener(() => setState(() {}));
   }
 
@@ -244,7 +242,6 @@ class _AddFoodState extends State<AddFood> {
                       nameController.clear(),
                       categoryController.clear(),
                       priceController.clear(),
-                      imageController.clear(),
                       descriptionController.clear(),
                     },
                     child: Text(
@@ -268,8 +265,8 @@ class _AddFoodState extends State<AddFood> {
                           "name": nameController.text,
                           "category": [categoryController.text],
                           "price": priceController.text,
+                          "image": pickedImage,
                           "description": descriptionController.text,
-                          "image": imageController.text,
                         };
 
                         String response = await foodController.addFood(data);
@@ -374,30 +371,6 @@ class _AddFoodState extends State<AddFood> {
             : IconButton(
                 icon: Icon(Icons.close),
                 onPressed: () => priceController.clear(),
-              ),
-      ),
-      validator: MultiValidator([
-        RequiredValidator(errorText: 'Required *'),
-      ]),
-    );
-  }
-
-  TextFormField imageField() {
-    return TextFormField(
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      controller: imageController,
-      textInputAction: TextInputAction.done,
-      keyboardType: TextInputType.emailAddress,
-      decoration: InputDecoration(
-        border: OutlineInputBorder(),
-        label: Text('Image'),
-        suffixIcon: imageController.text.isEmpty
-            ? Container(
-                width: 0,
-              )
-            : IconButton(
-                icon: Icon(Icons.close),
-                onPressed: () => imageController.clear(),
               ),
       ),
       validator: MultiValidator([

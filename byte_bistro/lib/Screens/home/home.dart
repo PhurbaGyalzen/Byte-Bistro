@@ -68,9 +68,9 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               TabItem(
-                  activeIcon: Icon(Icons.mail),
+                  activeIcon: Icon(Icons.favorite),
                   icon: Icon(
-                    Icons.mail_outline,
+                    Icons.favorite_border_outlined,
                     size: 25,
                   )),
               TabItem(
@@ -138,12 +138,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 leadingIcon: 'assets/images/menu.png',
                 // trailingIcon: 'assets/images/notification.png',
                 trailingIcon: IconButton(
-                      // padding: EdgeInsets.only(left: kDefaultPadding),
-                     icon: Image(image: AssetImage("assets/images/notification.png")),
-                      onPressed: () {
-                         
-                      },
-                    ),
+                  // padding: EdgeInsets.only(left: kDefaultPadding),
+                  icon: Image(
+                      image: AssetImage("assets/images/notification.png")),
+                  onPressed: () {},
+                ),
                 titleFirstName: 'Byte',
                 titleSecondName: 'Bistro',
               ),

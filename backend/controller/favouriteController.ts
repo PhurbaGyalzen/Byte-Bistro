@@ -24,7 +24,7 @@ export const getAllFavourites = async (
 ) => {
     try {
         const favourites = await Favourite.find().populate({path: 'userId',
-        select: 'fullname'}).populate("foodId");
+        select: 'favoriteFoods'}).populate("foodId");
         res.status(200).json(favourites)
     } catch (err) {
         res.status(400).json({ message: err })
@@ -61,7 +61,7 @@ export const getUserFavourites = async (
     try {
         const favourites = await Favourite.find({ userId: req.params.userId }).populate({
             path: 'userId',
-            select: 'fullname'
+            select: 'favoriteFoods'
         }).populate("foodId");
         res.status(200).json(favourites)
     } catch (err) {

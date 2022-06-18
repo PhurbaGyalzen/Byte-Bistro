@@ -10,6 +10,7 @@ import 'package:byte_bistro/Screens/admin_profile_update.dart';
 import 'package:byte_bistro/Screens/after_order.dart';
 import 'package:byte_bistro/Screens/category/category_screen.dart';
 import 'package:byte_bistro/Screens/edit_profile.dart';
+import 'package:byte_bistro/Screens/favourite/favourite.dart';
 import 'package:byte_bistro/Screens/invoice_detail_page.dart';
 import 'package:byte_bistro/Screens/notification/admin_notification.dart';
 import 'package:byte_bistro/Screens/notification/notification.dart';
@@ -21,7 +22,7 @@ import 'package:byte_bistro/Screens/qr_data.dart';
 import 'package:byte_bistro/Screens/qr_scanner.dart';
 import 'package:byte_bistro/Screens/signup_screen.dart';
 import 'package:byte_bistro/Screens/home/home.dart';
-import 'package:byte_bistro/Screens/home/widgets/individual_item.dart';
+import 'package:byte_bistro/Screens/food_detail_screen.dart';
 import 'package:byte_bistro/Screens/swipe_qr_home.dart';
 import 'package:byte_bistro/Screens/user_order_history_list.dart';
 import 'package:byte_bistro/Services/http_service.dart';
@@ -39,7 +40,7 @@ import 'constants/colors.dart';
 int tableNo = 0;
 Future<void> main() async {
   await dotenv.load(fileName: ".env");
-  await PersistentHtpp.setTokenHeader();
+  await PersistentHtpp.storeAndSetHeader();
   runApp(const ByteBistro());
 }
 
@@ -95,7 +96,7 @@ class ByteBistro extends StatelessWidget {
           ),
         ),
       ),
-      initialRoute: '/adminScreen',
+      initialRoute: '/home',
       debugShowCheckedModeBanner: false,
       title: 'Byte Bistro',
       getPages: [
@@ -128,6 +129,7 @@ class ByteBistro extends StatelessWidget {
         GetPage(name: '/notification', page: () => NotificationPage()),
         GetPage(name: '/adminNotification', page: () => AdminNotification()),
         // GetPage(name: '/profileScreen', page: () => ProfileScreen()),
+        GetPage(name: '/favourite', page: () => FavouritePage()),
 
         GetPage(name: '/categoryScreen', page: () => CategoryScreen()),
         GetPage(name: '/onBoardingScreen', page: () => OnBoardingScreen()),
