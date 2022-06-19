@@ -81,14 +81,12 @@ class _AdminDashboardState extends State<AdminDashboard> {
                     leadingIcon: 'assets/images/menu.png',
                     trailingIcon: IconButton(
                       // padding: EdgeInsets.only(left: kDefaultPadding),
-                      icon: Icon(Icons.person),
+                      icon: Image(
+                      image: AssetImage("assets/images/admin_user.png")),
                       onPressed: () {
                         // Navigator.pushNamed(context, '/adminProfile');
-                        final ScrollController scrollController =
-                            ScrollController();
-                        Get.to(() => ProfileScreen(
-                              scrollController: scrollController,
-                            ));
+                        
+                        Get.offNamed('/adminProfile');
                       },
                     ),
                     titleFirstName: 'Admin',
@@ -97,12 +95,12 @@ class _AdminDashboardState extends State<AdminDashboard> {
                   SizedBox(
                     height: 10,
                   ),
-                  Text('Categories',
-                      style: Theme.of(context).textTheme.bodyText2),
-                  CategoryScreen(),
-                  SizedBox(
-                    height: 30,
-                  ),
+                  // Text('Categories',
+                  //     style: Theme.of(context).textTheme.bodyText2),
+                  // CategoryScreen(),
+                  // SizedBox(
+                  //   height: 30,
+                  // ),
                   Row(children: [
                     ElevatedButton(
                         onPressed: () => Get.toNamed('/adminOrders'),

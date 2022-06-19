@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class FavouritePage extends StatelessWidget {
-  FavouritePage({Key? key}) : super(key: key);
+  FavouritePage({
+    Key? key,
+  }) : super(key: key);
 
   final FavouriteController favouriteController =
       Get.put(FavouriteController());
@@ -23,71 +25,80 @@ class FavouritePage extends StatelessWidget {
               style: Theme.of(context).textTheme.headline1,
             ),
             backgroundColor: kPrimary),
-        body: SizedBox(
-          height: MediaQuery.of(context).size.height,
-          child: Obx(
-            () => ListView.builder(
-              itemCount: favouriteController.favouriteList.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Container(
-                  width: 355,
-                  margin: EdgeInsets.only(
-                    top: 20,
-                    left: 5,
-                    right: 5,
-                    bottom: 8,
-                  ),
-                  padding: EdgeInsets.all(5),
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        blurRadius: 5,
-                        offset: Offset(0, 3), // changes position of shadow
-                        color: Color(0xFFB0CCE1).withOpacity(0.32),
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: SizedBox(
+              height: 700,
+              child: Obx(
+                () => ListView.builder(
+                  itemCount: favouriteController.favouriteList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                      width: 355,
+                      margin: EdgeInsets.only(
+                        top: 20,
+                        left: 5,
+                        right: 5,
+                        bottom: 8,
                       ),
-                    ],
-                    borderRadius: BorderRadius.circular(16),
-                    color: Colors.white,
-                  ),
-                  child: ListTile(
-                    trailing: IconButton(
-                      icon: Icon(Icons.delete),
-                      onPressed: () {
-                        favouriteController.removeFavorite(
-                          favouriteController.favouriteList[index].id,
-                        );
+                      padding: EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            blurRadius: 5,
+                            offset: Offset(0, 3), // changes position of shadow
+                            color: Color(0xFFB0CCE1).withOpacity(0.32),
+                          ),
+                        ],
+                        borderRadius: BorderRadius.circular(16),
+                        color: Colors.white,
+                      ),
+                      child: ListTile(
+                        trailing: IconButton(
+                          icon: Icon(Icons.delete),
+                          onPressed: () {
+                            favouriteController.removeFavorite(
+                              favouriteController.favouriteList[index].id,
+                            );
 
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Removed from Favourite')),
-                        );
-                      },
-                    ),
-                    leading: GestureDetector(
-                      behavior: HitTestBehavior.translucent,
-                      onTap: () {},
-                      child: Container(
-                        width: 48,
-                        height: 48,
-                        padding: const EdgeInsets.symmetric(vertical: 4.0),
-                        alignment: Alignment.center,
-                        child: CircleAvatar(
-                          radius: 200.0,
-                          child: Image(
-                              height: 120,
-                              fit: BoxFit.cover,
-                              image: NetworkImage(PersistentHtpp.baseUrl + favouriteController.favouriteList[index].foodId.image)),
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text('Removed from Favourite')),
+                            );
+                          },
                         ),
+                        leading: GestureDetector(
+                            behavior: HitTestBehavior.translucent,
+                            onTap: () {},
+                            child: Container(
+                                width: 48,
+                                height: 48,
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 4.0),
+                                alignment: Alignment.center,
+                                child: CircleAvatar(
+                                  radius: 200.0,
+                                  child: Image(
+                                      height: 120,
+                                      fit: BoxFit.cover,
+                                      image: NetworkImage(
+                                          PersistentHtpp.baseUrl +
+                                              favouriteController
+                                                  .favouriteList[index]
+                                                  .foodId
+                                                  .image)),
+                                ))),
+                        title: Text(favouriteController
+                            .favouriteList[index].foodId.name),
+                        subtitle: Text('Rs : ' +
+                            favouriteController
+                                .favouriteList[index].foodId.price
+                                .toString()),
+                        dense: false,
                       ),
-                    ),
-                    title: Text(
-                        favouriteController.favouriteList[index].foodId.name),
-                    subtitle: Text('Rs : ' +
-                        favouriteController.favouriteList[index].foodId.price
-                            .toString()),
-                    dense: false,
-                  ),
-                );
-              },
+                    );
+                  },
+                ),
+              ),
             ),
           ),
         ));

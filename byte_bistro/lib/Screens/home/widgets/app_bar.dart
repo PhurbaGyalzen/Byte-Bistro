@@ -19,15 +19,17 @@ class BuildAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         color: Colors.white,
-        margin: EdgeInsets.only(bottom: 30),
+        padding: EdgeInsets.only(bottom: 30,),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          // mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Image(
               image: AssetImage(leadingIcon),
               height: 20,
               width: 20,
             ),
+            Expanded(child: SizedBox()),
+            
             Text.rich(TextSpan(
                 text: titleFirstName,
                 style: TextStyle(
@@ -44,12 +46,12 @@ class BuildAppBar extends StatelessWidget {
                           letterSpacing: 0.5,
                           fontWeight: FontWeight.bold)),
                 ])),
-            // trailingIcon,
+            Expanded(child: SizedBox()),
             SizedBox(
-              height: 35,
-              width: 35,
+              height: 20,
+              width: 20,
               child: trailingIcon,
-            ),
+            )
           ],
         ));
   }
