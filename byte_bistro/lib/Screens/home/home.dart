@@ -135,20 +135,68 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              BuildAppBar(
-                leadingIcon: 'assets/images/menu.png',
-                // trailingIcon: 'assets/images/notification.png',
-                trailingIcon: IconButton(
-                  // padding: EdgeInsets.only(left: kDefaultPadding),
-                  icon: Image(
-                      image: AssetImage("assets/images/notification.png")),
-                  onPressed: () {
-                    Get.toNamed('/notification');
-                  },
-                ),
-                titleFirstName: 'Byte',
-                titleSecondName: 'Bistro',
-              ),
+              Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          // Get.offNamed('/adminProfile');
+                        },
+                        child:Image.asset(
+                        "assets/images/menu.png",
+                        height: 20,
+                        width: 20,
+                      ),
+                      ),
+                      Expanded(child: SizedBox()),
+                      Text.rich(
+                        TextSpan(
+                          text: "Admin",
+                          style: TextStyle(
+                              fontSize: 20,
+                              letterSpacing: 0.6,
+                              fontWeight: FontWeight.bold,
+                              wordSpacing: 0.5),
+                          children: const [
+                            TextSpan(
+                                text: "DashBoard",
+                                style: TextStyle(
+                                    color: kPrimary,
+                                    fontSize: 20,
+                                    letterSpacing: 0.5,
+                                    fontWeight: FontWeight.bold)),
+                          ],
+                        ),
+                      ),
+                      Expanded(child: SizedBox()),
+                      GestureDetector(
+                        onTap: () {
+                          Get.offNamed('/notification');
+                        },
+                        child:Image.asset(
+                        "assets/images/notification.png",
+                        height: 20,
+                        width: 20,
+                      ),
+                      ),
+                      
+                      
+                      
+                    ],
+                  ),
+              // BuildAppBar(
+              //   leadingIcon: 'assets/images/menu.png',
+              //   // trailingIcon: 'assets/images/notification.png',
+              //   trailingIcon: IconButton(
+              //     // padding: EdgeInsets.only(left: kDefaultPadding),
+              //     icon: Image(
+              //         image: AssetImage("assets/images/notification.png")),
+              //     onPressed: () {
+              //       Get.toNamed('/notification');
+              //     },
+              //   ),
+              //   titleFirstName: 'Byte',
+              //   titleSecondName: 'Bistro',
+              // ),
               AppNote(),
               FoodTab(),
               TabItemDetail(),

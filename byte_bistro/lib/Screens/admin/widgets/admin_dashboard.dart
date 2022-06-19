@@ -3,6 +3,8 @@ import 'package:byte_bistro/Screens/admin/widgets/view_food.dart';
 import 'package:byte_bistro/Screens/category/category_screen.dart';
 import 'package:byte_bistro/Screens/home/widgets/app_bar.dart';
 import 'package:byte_bistro/Screens/profile/profile_screen.dart';
+import 'package:byte_bistro/Services/http_service.dart';
+import 'package:byte_bistro/Services/storage_service.dart';
 import 'package:byte_bistro/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
@@ -74,9 +76,9 @@ class _AdminDashboardState extends State<AdminDashboard> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
-                    height: 20,
-                  ),
+                  // SizedBox(
+                  //   height: 20,
+                  // ),
                   // BuildAppBar(
                   //   leadingIcon: 'assets/images/menu.png',
                   //   trailingIcon: IconButton(
@@ -101,7 +103,16 @@ class _AdminDashboardState extends State<AdminDashboard> {
                   // ),
                   Row(
                     children: [
-                      Image.asset("assets/images/menu.png"),
+                      GestureDetector(
+                        onTap: () {
+                          Get.offNamed('/adminProfile');
+                        },
+                        child:Image.asset(
+                        "assets/images/admin_user.png",
+                        height: 20,
+                        width: 20,
+                      ),
+                      ),
                       Expanded(child: SizedBox()),
                       Text.rich(
                         TextSpan(
@@ -123,17 +134,25 @@ class _AdminDashboardState extends State<AdminDashboard> {
                         ),
                       ),
                       Expanded(child: SizedBox()),
-                      
                       GestureDetector(
-                        onTap: () {
-                          Get.offNamed('/adminProfile');
-                        },
+                        onTap: ()async {
+                  // final response = await PersistentHtpp.get('food');
+                  // print(response.body);
+                  // await Storage.setObject('token-val', {'value1': 1});
+                  // print('token-val');
+                  // print(await Storage.getObject('token-val'));
+                  await Storage.remove('token');
+                  await PersistentHtpp.storeAndSetHeader(token: '');
+                  Get.offAllNamed('/login');
+                },
                         child:Image.asset(
-                        "assets/images/admin_user.png",
+                        "assets/images/logout.png",
                         height: 20,
                         width: 20,
                       ),
                       ),
+                      
+                      
                     ],
                   ),
 
