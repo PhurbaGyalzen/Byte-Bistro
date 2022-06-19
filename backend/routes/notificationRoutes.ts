@@ -8,7 +8,9 @@ import {
     putNotification,
     updateNotification,
     deleteNotification,
-    deleteAllNotification
+    deleteAllNotification,
+    markReadNotification,
+    getOfferNotification
 } from '../controller/notificationController';
 
 
@@ -17,7 +19,9 @@ const router = Router()
 router.get('/', getAllNotification)
 router.get('/:notificationId', getNotification)
 router.get('/user/:userId', getNotificationByUser)
+router.get('/offer', getOfferNotification);
 router.patch('/:notificationId', updateNotification)
+router.patch('/:notificationId/read', markReadNotification);
 router.post('/', putNotification)
 router.delete('/:notificationId', deleteNotification)
 router.delete('/', deleteAllNotification)

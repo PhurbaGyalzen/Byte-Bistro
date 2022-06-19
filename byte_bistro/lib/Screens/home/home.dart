@@ -1,7 +1,7 @@
-
 import 'package:byte_bistro/Screens/favourite/favourite.dart';
 import 'package:byte_bistro/Screens/home/widgets/tab_item.dart';
 import 'package:byte_bistro/Screens/home/widgets/top_of_day.dart';
+import 'package:byte_bistro/Screens/profile/profile_screen.dart';
 import 'package:byte_bistro/Screens/qr_scanner.dart';
 import 'package:byte_bistro/constants/colors.dart';
 import 'package:byte_bistro/controller/food_controller.dart';
@@ -32,7 +32,8 @@ class _HomePageState extends State<HomePage> {
     HomeScreen(
       scrollController: scrollController,
     ),
-    FavouritePage(),
+    FavouritePage(
+    ),
     QrScannerScreen(),
     HomeScreen(
       scrollController: scrollController,
@@ -141,7 +142,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   // padding: EdgeInsets.only(left: kDefaultPadding),
                   icon: Image(
                       image: AssetImage("assets/images/notification.png")),
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.toNamed('/notification');
+                  },
                 ),
                 titleFirstName: 'Byte',
                 titleSecondName: 'Bistro',

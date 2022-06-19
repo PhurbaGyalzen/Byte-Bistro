@@ -9,6 +9,7 @@ import 'package:byte_bistro/models/loged_user_info.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:clip_shadow/clip_shadow.dart';
 
 class TabItemDetail extends StatefulWidget {
   const TabItemDetail({Key? key}) : super(key: key);
@@ -41,21 +42,15 @@ class _TabItemDetailState extends State<TabItemDetail> {
     });
   }
   
-  
-
   @override
   Widget build(BuildContext context) {
     List<dynamic> cartList = [];
-    print("favouritelist");
-    print(favouriteList);
     return SizedBox(
       height: 280.0,
       child: FutureBuilder(
         future: foodController.getAllFood(),
         
         builder: (context, snapshot) {
-          
-          
           
           if (snapshot.hasData) {
             List<Food> data = snapshot.data as List<Food>;
@@ -136,6 +131,8 @@ class _TabItemDetailState extends State<TabItemDetail> {
                                           "foodId": data[index].id,
                                           "userId": "627fbfa1d464ffbeb80b985b"
                                         };
+                                        print("Error");
+                                        print(data[index].id);
                                         var response =  favouriteController.addFavourite(dataD);
                                         print(response);
                                         final snackbarSucess =
@@ -143,21 +140,21 @@ class _TabItemDetailState extends State<TabItemDetail> {
                                         final snackbarFail =
                                           SnackBar(content: Text('The item is already added to favourites'));
 
-                                      if (response == "success") {
-              
-                                        snackbarSucess;
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(snackbarSucess);
-                                      } else {
-                                        snackbarFail;
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(snackbarSucess);
-                                      }
-                                        setState(
-                                          () {
-                                            exists = true;
-                                          },
-                                        );
+                                        if (response == "success") {
+                
+                                          snackbarSucess;
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(snackbarSucess);
+                                          // setState(
+                                          //   () {
+                                          //     exists = true;
+                                          //   },
+                                          // );
+                                        } else {
+                                          snackbarFail;
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(snackbarSucess);
+                                        }
                                       }, 
                                     ),
                                   ),
