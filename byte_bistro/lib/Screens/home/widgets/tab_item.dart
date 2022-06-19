@@ -130,6 +130,8 @@ class _TabItemDetailState extends State<TabItemDetail> {
                                           "foodId": data[index].id,
                                           "userId": "627fbfa1d464ffbeb80b985b"
                                         };
+                                        print("Error");
+                                        print(data[index].id);
                                         var response =  favouriteController.addFavourite(dataD);
                                         print(response);
                                         final snackbarSucess =
