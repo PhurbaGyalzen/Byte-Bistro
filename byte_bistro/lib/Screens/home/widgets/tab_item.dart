@@ -9,7 +9,6 @@ import 'package:byte_bistro/models/loged_user_info.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:clip_shadow/clip_shadow.dart';
 
 class TabItemDetail extends StatefulWidget {
   const TabItemDetail({Key? key}) : super(key: key);
