@@ -31,7 +31,7 @@ class _NotificationPageState extends State<NotificationPage> {
               Icons.arrow_back,
               color: kTextColor,
             ),
-            onPressed: () => Get.back(),
+            onPressed: () => Navigator.pushNamed(context, '/home'),
           ),
           title: Text(
             'My Notifications',
