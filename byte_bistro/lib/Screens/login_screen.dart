@@ -188,7 +188,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               final SharedPreferences prefs = await _prefs;
 
                               var response = await AuthService.login(
-                                usernameController.text,
+                                usernameController.text.trim(),
                                 passwordController.text,
                               );
 
@@ -203,6 +203,16 @@ class _LoginScreenState extends State<LoginScreen> {
                                   Get.offNamed('/onBoardingScreen');
                                 }
                               } else {
+                                final snackBar = SnackBar(
+                                  content: const Text("Credentials don't match"),
+                                  duration: const Duration(seconds: 2),
+                                  action: SnackBarAction(
+                                    label: 'Undo',
+                                    onPressed: () {},
+                                  ),
+                                );
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
                                 // print("cannot login");
                               }
                             }
