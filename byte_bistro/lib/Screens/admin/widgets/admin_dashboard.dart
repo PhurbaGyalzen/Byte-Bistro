@@ -2,6 +2,7 @@ import 'package:byte_bistro/Screens/admin/widgets/add_food.dart';
 import 'package:byte_bistro/Screens/admin/widgets/view_food.dart';
 import 'package:byte_bistro/Screens/category/category_screen.dart';
 import 'package:byte_bistro/Screens/home/widgets/app_bar.dart';
+import 'package:byte_bistro/Screens/login_screen.dart';
 import 'package:byte_bistro/Screens/profile/profile_screen.dart';
 import 'package:byte_bistro/Services/http_service.dart';
 import 'package:byte_bistro/Services/storage_service.dart';
@@ -107,11 +108,11 @@ class _AdminDashboardState extends State<AdminDashboard> {
                         onTap: () {
                           Get.offNamed('/adminProfile');
                         },
-                        child:Image.asset(
-                        "assets/images/admin_user.png",
-                        height: 20,
-                        width: 20,
-                      ),
+                        child: Image.asset(
+                          "assets/images/admin_user.png",
+                          height: 20,
+                          width: 20,
+                        ),
                       ),
                       Expanded(child: SizedBox()),
                       Text.rich(
@@ -133,26 +134,74 @@ class _AdminDashboardState extends State<AdminDashboard> {
                           ],
                         ),
                       ),
-                      Expanded(child: SizedBox()),
+                      Expanded(
+                        child: SizedBox(),
+                      ),
                       GestureDetector(
-                        onTap: ()async {
-                  // final response = await PersistentHtpp.get('food');
-                  // print(response.body);
-                  // await Storage.setObject('token-val', {'value1': 1});
-                  // print('token-val');
-                  // print(await Storage.getObject('token-val'));
-                  await Storage.remove('token');
-                  await PersistentHtpp.storeAndSetHeader(token: '');
-                  Get.offAllNamed('/login');
-                },
-                        child:Image.asset(
-                        "assets/images/logout.png",
-                        height: 20,
-                        width: 20,
+                        onTap: () => showDialog(
+                        barrierDismissible: false,
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: Text('Confirm Navigation'),
+                            content: Text(
+                                'Are you sure you want to logout?'),
+                            actions: [
+                              TextButton(
+                                  onPressed: () {
+                                    Get.back();
+                                  },
+                                  child: Text('Cancel')),
+                              TextButton(
+                                onPressed: () async{
+                                  await Storage.remove('token');
+                                  await PersistentHtpp.storeAndSetHeader(
+                                      token: '');
+                                  Get.offAllNamed('/login');
+                                  
+                                },
+                                child: Text(
+                                  'Leave',
+                                  style: TextStyle(color: Colors.red),
+                                ),
+                              ),
+                            ],
+                          );
+                        },
                       ),
+                        // onTap: () {
+                        //   // final response = await PersistentHtpp.get('food');
+                        //   // print(response.body);
+                        //   // await Storage.setObject('token-val', {'value1': 1});
+                        //   // print('token-val');
+                        //   // print(await Storage.getObject('token-val'));
+                        //    AlertDialog alert = AlertDialog(
+                        //     title: const Text('AlertDialog Title'),
+                        //     content: const Text('AlertDialog description'),
+                        //     actions: <Widget>[
+                        //       TextButton(
+                        //         onPressed: () =>
+                        //             Navigator.pop(context, 'Cancel'),
+                        //         child: const Text('Cancel'),
+                        //       ),
+                        //       TextButton(
+                        //         onPressed: () async {
+                        //           await Storage.remove('token');
+                        //           await PersistentHtpp.storeAndSetHeader(
+                        //               token: '');
+                        //           Get.offAllNamed('/login');
+                        //         },
+                        //         child: const Text('OK'),
+                        //       ),
+                        //     ],
+                        //   );
+                        // },
+                        child: Image.asset(
+                          "assets/images/logout.png",
+                          height: 20,
+                          width: 20,
+                        ),
                       ),
-                      
-                      
                     ],
                   ),
 
