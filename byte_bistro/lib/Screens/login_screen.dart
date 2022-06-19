@@ -203,16 +203,18 @@ class _LoginScreenState extends State<LoginScreen> {
                                   Get.offNamed('/onBoardingScreen');
                                 }
                               } else {
-                                final snackBar = SnackBar(
-                                  content: const Text("Credentials don't match"),
-                                  duration: const Duration(seconds: 2),
-                                  action: SnackBarAction(
-                                    label: 'Undo',
-                                    onPressed: () {},
-                                  ),
+                                Get.snackbar(
+                                  "Invalid Creditentials",
+                                  "Please try again",
+                                  icon:
+                                      Icon(Icons.person_rounded, color: Colors.white),
+                                  duration: Duration(seconds: 3),
+                                  backgroundColor: Colors.red,
+                                  colorText: Colors.white,
+                                  animationDuration: Duration(seconds: 1),
+                                  dismissDirection: DismissDirection.horizontal,
+                                  snackPosition: SnackPosition.BOTTOM,
                                 );
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(snackBar);
                                 // print("cannot login");
                               }
                             }
