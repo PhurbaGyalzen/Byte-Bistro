@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:byte_bistro/controller/logged_user_info_controller.dart';
+import 'package:flutter/widgets.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:byte_bistro/models/loged_user_info.dart';
 import 'package:flutter/material.dart';
@@ -282,7 +283,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 SizedBox(
                                   width: 120,
                                   child: OutlinedButton(
-                                    onPressed: () => Get.toNamed("/home"),
+                                    onPressed: () => 
+                                    Get.offNamed('/home')
+                                    ,
+                                    // Navigator.pop(context),
                                     style: OutlinedButton.styleFrom(
                                       // primary: Colors.orange,
                                       primary: Colors.red,

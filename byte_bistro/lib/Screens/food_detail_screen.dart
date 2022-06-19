@@ -5,14 +5,14 @@ import 'package:http/http.dart' as http;
 
 import '../models/food.dart';
 
-class IndividualItem extends StatefulWidget {
-  const IndividualItem({Key? key}) : super(key: key);
+class IndividualItemScreen extends StatefulWidget {
+  const IndividualItemScreen({Key? key}) : super(key: key);
 
   @override
-  _IndividualItemState createState() => _IndividualItemState();
+  _IndividualItemScreenState createState() => _IndividualItemScreenState();
 }
 
-class _IndividualItemState extends State<IndividualItem> {
+class _IndividualItemScreenState extends State<IndividualItemScreen> {
   int _orderCount = 1;
   Food? food;
 
@@ -24,7 +24,7 @@ class _IndividualItemState extends State<IndividualItem> {
 
   Future<void> _fetchFood() async {
     final response = await http.get(
-        Uri.parse('http://100.91.255.71:3000/food/628206498631b1137a449361'));
+        Uri.parse('http://192.168.101.4:3000/food/629b8521786637f2e4794d15'));
     final jsonResponse = (response.body);
     setState(() {
       food = foodFromJson(jsonResponse);

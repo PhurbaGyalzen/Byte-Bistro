@@ -1,6 +1,7 @@
 import 'package:byte_bistro/Screens/edit_profile.dart';
 import 'package:byte_bistro/Screens/home/widgets/tab_item.dart';
 import 'package:byte_bistro/Screens/home/widgets/top_of_day.dart';
+import 'package:byte_bistro/Screens/profile/profile_screen.dart';
 import 'package:byte_bistro/Screens/qr_scanner.dart';
 import 'package:byte_bistro/constants/colors.dart';
 import 'package:byte_bistro/controller/food_controller.dart';
@@ -35,11 +36,11 @@ class _HomePageState extends State<HomePage> {
     HomeScreen(
       scrollController: scrollController,
     ),
-    // ProfileScreen(
-    //   scrollController: scrollController,
-    // ),
+    ProfileScreen(
+      scrollController: scrollController,
+    ),
 
-    EditProfilePage(),
+    // EditProfilePage(),
   ];
 
   @override
@@ -136,12 +137,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 leadingIcon: 'assets/images/menu.png',
                 // trailingIcon: 'assets/images/notification.png',
                 trailingIcon: IconButton(
-                      // padding: EdgeInsets.only(left: kDefaultPadding),
-                     icon: Image(image: AssetImage("assets/images/notification.png")),
-                      onPressed: () {
-                         
-                      },
+                  // padding: EdgeInsets.only(left: kDefaultPadding),
+                  icon: Image(
+                    image: AssetImage(
+                      "assets/images/notification.png",
                     ),
+                    width: 25,
+                    height: 25,
+                    color: Colors.yellow,
+                  ),
+                  onPressed: () {},
+                ),
                 titleFirstName: 'Byte',
                 titleSecondName: 'Bistro',
               ),

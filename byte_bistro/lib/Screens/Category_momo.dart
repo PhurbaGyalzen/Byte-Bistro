@@ -1,4 +1,3 @@
-
 import 'package:byte_bistro/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:byte_bistro/Screens/home/models/food_model.dart';
@@ -38,7 +37,6 @@ class _MOMOState extends State<MOMO> {
                       color: kTextColor,
                     ),
                   ),
-                  
                   Expanded(
                     child: Center(
                       child: Text(
@@ -65,14 +63,16 @@ class _MOMOState extends State<MOMO> {
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       List<Food> data = snapshot.data as List<Food>;
+                      print(" data.length ${data.length}");
 
                       return ListView.builder(
                         itemCount: data.length,
                         itemBuilder: (context, index) {
-                          // print(data[index].categories[0]['name']);
+                          print("data[index].categories ${data[index].categories}");
+                          // print(
+                          //     "data[index].categories[0]['name'] ${data[index].categories[0]['name']}");
 
-                          // ignore: unrelated_type_equality_checks
-                          if (data[index].categories[0]['name'] ==
+                          if (data[index].categories[0]["name"] ==
                               widget.catName) {
                             momoList.add(data[index]);
                             return Container(

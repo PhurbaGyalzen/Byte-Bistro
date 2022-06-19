@@ -16,6 +16,7 @@ import 'package:byte_bistro/Screens/notification/notification.dart';
 import 'package:byte_bistro/Screens/on_boarding_screen/on_boarding_screen.dart';
 import 'package:byte_bistro/Screens/order_history_list_admin.dart';
 import 'package:byte_bistro/Screens/order_sucess.dart';
+import 'package:byte_bistro/Screens/food_detail_screen.dart';
 import 'package:byte_bistro/Screens/profile/profile_screen.dart';
 
 import 'package:byte_bistro/Screens/qr_data.dart';
@@ -110,9 +111,10 @@ class ByteBistro extends StatelessWidget {
         // GetPage(name: '/signup', page: () =>ProfileScreen()),
         GetPage(name: '/adminProfileUpdateForm', page: () => AdminProfileUpdateForm()),
         GetPage(name: '/adminProfile', page: () => AdminProfilePage()),
+         GetPage(name: '/detail_page_dish', page: () => IndividualItemScreen()),
 
         GetPage(name: '/home', page: () => HomePage()),
-        GetPage(name: '/individual', page: () => IndividualItem()),
+        // GetPage(name: '/individual', page: () => IndividualItem()),
         GetPage(name: '/qrscan', page: () => QrScannerScreen()),
         GetPage(name: '/after-order', page: () => AfterOrderScreen()),
         GetPage(name: '/orderSucess', page: () => OrderSucess()),

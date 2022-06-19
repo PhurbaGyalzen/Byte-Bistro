@@ -3,6 +3,7 @@ import 'package:byte_bistro/controller/food_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:clip_shadow/clip_shadow.dart';
 
 class TabItemDetail extends StatefulWidget {
   const TabItemDetail({Key? key}) : super(key: key);
@@ -13,6 +14,9 @@ class TabItemDetail extends StatefulWidget {
 
 class _TabItemDetailState extends State<TabItemDetail> {
   FoodController foodController = Get.find();
+  bool _hasBeenPressed = false;
+  
+  
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +25,11 @@ class _TabItemDetailState extends State<TabItemDetail> {
       height: 280.0,
       child: FutureBuilder(
         future: foodController.getAllFood(),
+        
         builder: (context, snapshot) {
+          
+          
+          
           if (snapshot.hasData) {
             List<Food> data = snapshot.data as List<Food>;
             return SizedBox(
@@ -32,6 +40,7 @@ class _TabItemDetailState extends State<TabItemDetail> {
                     ),
                     itemCount: data.length,
                     itemBuilder: (context, index, realIndex) {
+                      
                       return Container(
                         width: 265,
                         margin: EdgeInsets.only(
@@ -60,15 +69,56 @@ class _TabItemDetailState extends State<TabItemDetail> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(15),
-                              child: Image(
-                                image: AssetImage(
-                                    'assets/images/' + data[index].image),
-                                height: 160,
-                                width: MediaQuery.of(context).size.width - 30,
-                                fit: BoxFit.cover,
-                              ),
+                            Stack(
+                              clipBehavior: Clip.none,
+                              children: [
+                                
+
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(15),
+                                  child: Image(
+                                    image: AssetImage(
+                                        'assets/images/' + data[index].image),
+                                    height: 160,
+                                    width:
+                                        MediaQuery.of(context).size.width - 30,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                Positioned(
+                                  top: -20,
+                                  right: -20,
+                                  child: Container(
+                                    height: 40,
+                                    width: 40,
+                                    decoration: BoxDecoration(
+                                      color: Theme.of(context).primaryColor,
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: IconButton(
+                                      
+                                      icon: Image.asset(
+                                        _hasBeenPressed
+                                            ? 'assets/images/love_fill.png'
+                                            : 'assets/images/love_fill.png',
+                                            color: _hasBeenPressed
+                                            ? Color.fromARGB(255, 247, 51, 37)
+                                            : Colors.white,
+                                      ),
+                                     
+                                            
+                                      onPressed: () {
+                                        setState(
+                                          () {
+                                            _hasBeenPressed = !_hasBeenPressed;
+                                            print("pressed");
+                                          },
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                             SizedBox(
                               height: 15,

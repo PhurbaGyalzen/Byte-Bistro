@@ -20,50 +20,39 @@ class BuildAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         color: Colors.white,
-        margin: EdgeInsets.only(bottom: 30),
+        padding: EdgeInsets.only(left: 20,bottom: 30,right: 20),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
+          // mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Expanded(
-              child: Image(
-                image: AssetImage(leadingIcon),
-                height: 20,
-                width: 20,
-              ),
+            Image(
+              image: AssetImage(leadingIcon),
+              height: 20,
+              width: 20,
             ),
+            
+            Center(
+              child: Text.rich(TextSpan(
+                  text: titleFirstName,
+                  style: TextStyle(
+                      fontSize: 20,
+                      letterSpacing: 0.6,
+                      fontWeight: FontWeight.bold,
+                      wordSpacing: 0.5),
+                  children: [
+                    TextSpan(
+                        text: titleSecondName,
+                        style: TextStyle(
+                            color: kPrimary,
+                            fontSize: 20,
+                            letterSpacing: 0.5,
+                            fontWeight: FontWeight.bold)),
+                  ])),
+            ),
+            Expanded(child: SizedBox()),
             SizedBox(
-              width: 100,
-            ),
-            Text.rich(TextSpan(
-                text: titleFirstName,
-                style: TextStyle(
-                    fontSize: 20,
-                    letterSpacing: 0.6,
-                    fontWeight: FontWeight.bold,
-                    wordSpacing: 0.5),
-                children: [
-                  TextSpan(
-                      text: titleSecondName,
-                      style: TextStyle(
-                          color: kPrimary,
-                          fontSize: 20,
-                          letterSpacing: 0.5,
-                          fontWeight: FontWeight.bold)),
-                ])),
-            SizedBox(
-              width: 120,
-            ),
-            Expanded(
-              child: SizedBox(
-                height: 20,
-                width: 20,
-                child: trailingIcon,
-              ),
-              // child: Image(
-              //   image: AssetImage(trailingIcon),
-              //   height: 20,
-              //   width: 20,
-              // ),
+              height: 20,
+              width: 20,
+              child: trailingIcon,
             )
           ],
         ));

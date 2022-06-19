@@ -21,12 +21,18 @@ class AdminProfileUpdateForm extends StatefulWidget {
 }
 
 class _AdminProfileUpdateFormState extends State<AdminProfileUpdateForm> {
+  
+
   // editing controller
-  final TextEditingController fullnameController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController phoneController = TextEditingController();
-  final TextEditingController addressController = TextEditingController();
-  final TextEditingController bioController = TextEditingController();
+
+  late TextEditingController fullnameController =
+      TextEditingController(text: widget.fullName);
+  late final TextEditingController emailController =
+      TextEditingController(text: widget.email);
+  // final TextEditingController phoneController = TextEditingController(text: phone1);
+  late final TextEditingController addressController =
+      TextEditingController(text: widget.address);
+  late final TextEditingController bioController = TextEditingController(text: widget.bio);
   final formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -80,7 +86,6 @@ class _AdminProfileUpdateFormState extends State<AdminProfileUpdateForm> {
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.only(bottom: 3),
                     floatingLabelBehavior: FloatingLabelBehavior.always,
-                    hintText: widget.fullName,
                     labelText: 'Fullname',
                     hintStyle: TextStyle(
                       fontSize: 16,
@@ -108,7 +113,6 @@ class _AdminProfileUpdateFormState extends State<AdminProfileUpdateForm> {
                     contentPadding: EdgeInsets.only(bottom: 3),
                     floatingLabelBehavior: FloatingLabelBehavior.always,
                     labelText: 'E-mail',
-                    hintText: widget.email,
                     hintStyle: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.normal,
@@ -163,7 +167,6 @@ class _AdminProfileUpdateFormState extends State<AdminProfileUpdateForm> {
                     contentPadding: EdgeInsets.only(bottom: 3),
                     floatingLabelBehavior: FloatingLabelBehavior.always,
                     labelText: 'Address',
-                    hintText: widget.address,
                     hintStyle: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.normal,
@@ -181,7 +184,6 @@ class _AdminProfileUpdateFormState extends State<AdminProfileUpdateForm> {
                     contentPadding: EdgeInsets.only(bottom: 3),
                     floatingLabelBehavior: FloatingLabelBehavior.always,
                     labelText: "Bio",
-                    hintText: widget.bio,
                     hintStyle: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.normal,
@@ -192,8 +194,7 @@ class _AdminProfileUpdateFormState extends State<AdminProfileUpdateForm> {
                 SizedBox(
                   height: 30,
                 ),
-                
-               
+
                 Row(
                   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
