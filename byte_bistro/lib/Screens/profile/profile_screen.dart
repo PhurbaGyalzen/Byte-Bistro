@@ -194,6 +194,9 @@ class ProfileSystem extends StatelessWidget {
                 onClick: () async {
                   // final response = await PersistentHtpp.get('food');
                   // print(response.body);
+                  // await Storage.setObject('token-val', {'value1': 1});
+                  // print('token-val');
+                  // print(await Storage.getObject('token-val'));
                   await Storage.remove('token');
                   await PersistentHtpp.storeAndSetHeader(token: '');
                   Get.offAllNamed('/login');

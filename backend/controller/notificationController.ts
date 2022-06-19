@@ -39,6 +39,7 @@ export const getNotificationByUser = async (
     try {
         const notification = await Notification.find({
             userId: req.params.userId,
+            isOffer: false
         }).populate({
             path: 'userId',
             select: 'fullname',
@@ -58,6 +59,9 @@ export const getOfferNotification = async (
     try {
         const notification = await Notification.find({
             isOffer: true,
+        }).populate({
+            path: 'userId',
+            select: 'fullname',
         })
         res.status(200).json(notification)
     }   
