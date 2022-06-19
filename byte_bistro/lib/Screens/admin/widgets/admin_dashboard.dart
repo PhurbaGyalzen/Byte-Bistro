@@ -97,12 +97,12 @@ class _AdminDashboardState extends State<AdminDashboard> {
                   SizedBox(
                     height: 10,
                   ),
-                  Text('Categories',
-                      style: Theme.of(context).textTheme.bodyText2),
-                  CategoryScreen(),
-                  SizedBox(
-                    height: 30,
-                  ),
+                  // Text('Categories',
+                  //     style: Theme.of(context).textTheme.bodyText2),
+                  // CategoryScreen(),
+                  // SizedBox(
+                  //   height: 30,
+                  // ),
                   Row(children: [
                     ElevatedButton(
                         onPressed: () => Get.toNamed('/adminOrders'),
