@@ -91,4 +91,15 @@ export const removeFavourite = async (
     }
 }
 
-
+export const removeAllFavourites = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    try {
+        const favourites = await Favourite.remove();
+        res.status(200).json({ message: "All favourites removed" });
+    } catch (err) {
+        res.status(400).json({ message: err })
+    }
+}
