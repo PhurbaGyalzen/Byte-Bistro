@@ -6,6 +6,7 @@ import { default as authRoutes } from './routes/authRoutes'
 import { default as qrRoutes } from './routes/qrRoutes'
 import { default as cartRoutes } from './routes/cartRoutes'
 import {default as notificationRoutes} from './routes/notificationRoutes'
+import {default as favouriteRoutes} from './routes/favouriteRoutes'
 import morgan from 'morgan'
 import enableCors from 'middlewares/enable-cors'
 import helmet from 'helmet'
@@ -27,6 +28,7 @@ app.use(passport.initialize({ userProperty: 'currentUser' }))
 app.use('/food', foodRoutes)
 app.use('/category', categoryRoutes)
 app.use('/cart', cartRoutes)
+app.use('/favourite', favouriteRoutes)
 
 app.use('/auth' , authRoutes)
 app.use('/qr', qrRoutes)
@@ -42,5 +44,5 @@ app.listen(port, async () => {
 	})
 	console.log(`⚡️[TCP]: Server is running at http://localhost:${port}`)
 })
-
+app.use(express.static("public"));
 export { app }

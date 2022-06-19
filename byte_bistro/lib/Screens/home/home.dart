@@ -1,4 +1,4 @@
-import 'package:byte_bistro/Screens/edit_profile.dart';
+import 'package:byte_bistro/Screens/favourite/favourite.dart';
 import 'package:byte_bistro/Screens/home/widgets/tab_item.dart';
 import 'package:byte_bistro/Screens/home/widgets/top_of_day.dart';
 import 'package:byte_bistro/Screens/profile/profile_screen.dart';
@@ -13,6 +13,9 @@ import 'package:byte_bistro/Screens/home/widgets/today_special.dart';
 import 'package:get/get.dart';
 import 'package:hidable/hidable.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
+
+import '../favourite/favourite.dart';
+import '../profile/profile_screen.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -29,8 +32,7 @@ class _HomePageState extends State<HomePage> {
     HomeScreen(
       scrollController: scrollController,
     ),
-    HomeScreen(
-      scrollController: scrollController,
+    FavouritePage(
     ),
     QrScannerScreen(),
     HomeScreen(
@@ -67,9 +69,9 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               TabItem(
-                  activeIcon: Icon(Icons.mail),
+                  activeIcon: Icon(Icons.favorite),
                   icon: Icon(
-                    Icons.mail_outline,
+                    Icons.favorite_border_outlined,
                     size: 25,
                   )),
               TabItem(
@@ -139,13 +141,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 trailingIcon: IconButton(
                   // padding: EdgeInsets.only(left: kDefaultPadding),
                   icon: Image(
-                    image: AssetImage(
-                      "assets/images/notification.png",
-                    ),
-                    width: 25,
-                    height: 25,
-                    color: Colors.yellow,
-                  ),
+                      image: AssetImage("assets/images/notification.png")),
                   onPressed: () {},
                 ),
                 titleFirstName: 'Byte',

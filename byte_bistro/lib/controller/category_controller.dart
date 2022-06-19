@@ -13,12 +13,11 @@ class CategoryController extends GetxController {
   List<Category> categoryList = [];
   CategoryService service = Get.put(CategoryService());
   // controller to get all category
-  void getAllCategory() async {
+  getAllCategory() async {
     var data = await service.getAllCategory();
-    if (data != null) {
-      categoryList = data;
-      update();
-    }
+    categoryList = data;
+    update();
+    return data;
   }
 
   addNewCategory(Map<String, String> data) async {

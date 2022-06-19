@@ -2,8 +2,10 @@ import 'package:byte_bistro/Screens/admin/widgets/add_food.dart';
 import 'package:byte_bistro/Screens/admin/widgets/view_food.dart';
 import 'package:byte_bistro/Screens/category/category_screen.dart';
 import 'package:byte_bistro/Screens/home/widgets/app_bar.dart';
+import 'package:byte_bistro/Screens/profile/profile_screen.dart';
 import 'package:byte_bistro/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:get/get.dart';
 
 class AdminDashboard extends StatefulWidget {
@@ -18,17 +20,45 @@ class _AdminDashboardState extends State<AdminDashboard> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kPrimary,
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: SpeedDial(
+        activeBackgroundColor: Colors.red.shade400,
         backgroundColor: kPrimary.withOpacity(0.9),
-        hoverColor: kTextColor,
         foregroundColor: kTextColor,
-        elevation: 10,
-        tooltip: 'Add Food',
-        onPressed: () => showMaterialDialog(),
-        child: Text(
-          '+',
-          style: TextStyle(fontSize: 30, fontWeight: FontWeight.w300),
-        ),
+        activeForegroundColor: Colors.white,
+        animatedIcon: AnimatedIcons.menu_close,
+        animatedIconTheme: IconThemeData(size: 30),
+        overlayColor: kTextColor.withOpacity(0.5),
+        tooltip: 'Toggle menu',
+        overlayOpacity: 0.05,
+        visible: true,
+        curve: Curves.bounceIn,
+        children: [
+          SpeedDialChild(
+            child: Image(
+              image: AssetImage('assets/images/addFood.png'),
+              width: 30,
+              height: 30,
+            ),
+            backgroundColor: kPrimary,
+            onTap: () => showMaterialDialog(),
+          ),
+          SpeedDialChild(
+            child: Image(
+              image: AssetImage('assets/images/addUser.png'),
+              width: 30,
+              height: 30,
+            ),
+            backgroundColor: kPrimary,
+          ),
+          SpeedDialChild(
+            child: Image(
+              image: AssetImage('assets/images/addNotification.png'),
+              width: 30,
+              height: 30,
+            ),
+            backgroundColor: kPrimary,
+          ),
+        ],
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -51,9 +81,15 @@ class _AdminDashboardState extends State<AdminDashboard> {
                     leadingIcon: 'assets/images/menu.png',
                     trailingIcon: IconButton(
                       // padding: EdgeInsets.only(left: kDefaultPadding),
-                      icon: Icon(Icons.person),
+                      icon: Image(
+                      image: AssetImage("assets/images/admin_user.png")),
                       onPressed: () {
-                         Navigator.pushNamed(context, '/adminProfile');
+                        // Navigator.pushNamed(context, '/adminProfile');
+                        final ScrollController scrollController =
+                            ScrollController();
+                        Get.to(() => ProfileScreen(
+                              scrollController: scrollController,
+                            ));
                       },
                     ),
                     titleFirstName: 'Admin',
@@ -62,25 +98,25 @@ class _AdminDashboardState extends State<AdminDashboard> {
                   SizedBox(
                     height: 10,
                   ),
+                  // Text('Categories',
+                  //     style: Theme.of(context).textTheme.bodyText2),
+                  // CategoryScreen(),
+                  // SizedBox(
+                  //   height: 30,
+                  // ),
                   Row(children: [
                     ElevatedButton(
                         onPressed: () => Get.toNamed('/adminOrders'),
                         child: Text(
                           'Orders',
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(color: Colors.black),
                         ),
                         style: ElevatedButton.styleFrom(
-                          primary: Colors.black87,
+                          primary: kPrimary.withOpacity(0.8),
                         ))
                   ]),
                   SizedBox(
-                    height: 30,
-                  ),
-                  Text('Categories',
-                      style: Theme.of(context).textTheme.bodyText2),
-                  CategoryScreen(),
-                  SizedBox(
-                    height: 30,
+                    height: 10,
                   ),
                   ViewFood(),
                 ],

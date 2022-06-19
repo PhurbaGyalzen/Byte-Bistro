@@ -1,3 +1,5 @@
+import 'package:byte_bistro/Services/http_service.dart';
+import 'package:byte_bistro/Services/storage_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -73,6 +75,7 @@ class ProfileNote extends StatelessWidget {
         borderRadius: BorderRadius.circular(50),
       ),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           CircleAvatar(
             radius: 30,
@@ -87,7 +90,7 @@ class ProfileNote extends StatelessWidget {
           // ),
           Column(
             children: const [
-              Text('Sunil Tamang',
+              Text('User 1',
                   style: TextStyle(
                     fontSize: 18,
                     height: 1.5,
@@ -97,7 +100,9 @@ class ProfileNote extends StatelessWidget {
                   style: TextStyle(fontWeight: FontWeight.w300)),
             ],
           ),
-          Expanded(child: SizedBox()),
+          // SizedBox(
+          //   width: 125,
+          // ),
           Opacity(
             opacity: 0.5,
             child: GestureDetector(
@@ -159,7 +164,7 @@ class ProfileSystem extends StatelessWidget {
         padding: EdgeInsets.only(left: 10, right: 10, top: 20, bottom: 20),
         margin: EdgeInsets.only(top: 20),
         child: Column(
-          children: const [
+          children: [
             ProfileListTile(
               imageLeading: 'assets/images/notification.png',
               imageTrailing: 'assets/images/next.png',
@@ -181,10 +186,15 @@ class ProfileSystem extends StatelessWidget {
               text: 'Help',
             ),
             ProfileListTile(
-              imageLeading: 'assets/images/logout.png',
-              imageTrailing: 'assets/images/next.png',
-              text: 'Log out',
-            ),
+                imageLeading: 'assets/images/logout.png',
+                imageTrailing: 'assets/images/next.png',
+                text: 'Log out',
+                onClick: () async {
+                  await Storage.remove('token');
+                  await PersistentHtpp.storeAndSetHeader(token: '');
+                  // Get.toNamed('/login');
+                  Get.offAllNamed('/login');
+                }),
           ],
         ));
   }
@@ -195,13 +205,15 @@ class ProfileListTile extends StatelessWidget {
   final String imageLeading;
   final String imageTrailing;
   final String text;
+  final void Function()? onClick;
 
-  const ProfileListTile({
-    Key? key,
-    required this.imageLeading,
-    required this.imageTrailing,
-    required this.text,
-  }) : super(key: key);
+  const ProfileListTile(
+      {Key? key,
+      required this.imageLeading,
+      required this.imageTrailing,
+      required this.text,
+      this.onClick})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -222,6 +234,7 @@ class ProfileListTile extends StatelessWidget {
           ),
         ),
       ),
+      onTap: onClick,
     );
   }
 }

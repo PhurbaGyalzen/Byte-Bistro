@@ -1,8 +1,9 @@
 import 'dart:convert';
-
+import 'dart:io';
 import 'package:byte_bistro/Services/http_service.dart';
 
 import '../Screens/home/models/food_model.dart';
+import 'package:dio/dio.dart' as dio;
 
 class FoodService {
   // get all food
@@ -10,9 +11,9 @@ class FoodService {
     String endpoint = PersistentHtpp.baseUrl + 'food';
     try {
       final response = await PersistentHtpp.client.get(Uri.parse(endpoint));
-      final jsonResponse = response.body;
+      final stringData = response.body;
       if (response.statusCode == 200) {
-        return foodFromJson(jsonResponse);
+        return foodFromJson(stringData);
       } else {
         return Future.error('Internal Server Error');
       }
@@ -37,13 +38,19 @@ class FoodService {
   // add food
   Future<String> addFood(Map<String, dynamic> data) async {
     String endpoint = PersistentHtpp.baseUrl + 'food';
+    var http = dio.Dio();
+    var imageFileName = data['image'].path;
+    var formData = dio.FormData.fromMap({
+      'name': data['name'],
+      'price': data['price'],
+      'image':
+          await dio.MultipartFile.fromFile(data['image'].path, filename: imageFileName),
+      'description': data['description'],
+    });
     try {
-      final response = await PersistentHtpp.client.post(
-        Uri.parse(endpoint),
-        body: jsonEncode(data),
-        headers: {
-          "Content-Type": "application/json; charset=UTF-8",
-        },
+      final response = await http.post(
+        endpoint,
+        data: formData,
       );
       if (response.statusCode == 200) {
         return 'success';
@@ -122,8 +129,7 @@ class FoodService {
 
   // set food unavailable
   setFoodUnavailable(String foodId) async {
-    String endpoint =
-        PersistentHtpp.baseUrl + 'food/$foodId/setUnAvailable';
+    String endpoint = PersistentHtpp.baseUrl + 'food/$foodId/setUnAvailable';
     try {
       final response = await PersistentHtpp.client.patch(
         Uri.parse(endpoint),
@@ -141,4 +147,23 @@ class FoodService {
     }
   }
 
+  //search and filter food
+  static Future<List<Food>> searchFood(String search) async {
+    if (search == '') {
+      return FoodService().getAllFood();
+    } else {
+      String endpoint = PersistentHtpp.baseUrl + 'food/search/$search';
+      try {
+        final response = await PersistentHtpp.client.get(Uri.parse(endpoint));
+        final stringData = response.body;
+        if (response.statusCode == 200) {
+          return foodFromJson(stringData);
+        } else {
+          return foodFromJson('[]');
+        }
+      } catch (err) {
+        return Future.error(' Error fetching data $err');
+      }
+    }
+  }
 }

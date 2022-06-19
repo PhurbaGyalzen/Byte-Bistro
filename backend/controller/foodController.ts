@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
 import { Category, Food } from '../models/Food'
-
 // controller for viewing single food
 export const getFood = async (
 	req: Request,
@@ -35,13 +34,18 @@ export const putFood = async (
 	res: Response,
 	next: NextFunction
 ) => {
-	const { name, price, description, image, categories } = req.body
+	const name = req.body.name
+	const price = req.body.price
+	const description = req.body.description
+	const imageFileName = req.file?.filename;
+    const imageFileUrl = `images/${imageFileName}`;
+	const categories = req.body.cateogries;
 	try {
 		const food = new Food({
 			name: name,
 			price: price,
 			description: description,
-			image: image,
+			image: imageFileUrl,
 			categories: categories || [],
 			// image: images,
 		})
@@ -132,3 +136,16 @@ export const setUnavailable = async (
 	}
 }
 
+// controller to search and filter food
+export const searchFood = async (
+	req: Request,
+	res: Response,
+	next: NextFunction
+) => {
+	try {
+		const foods = await Food.find({ name: { $regex: req.params.foodName } })
+		res.status(200).json(foods)
+	} catch (err) {
+		res.status(400).json({ message: err })
+	}
+}
