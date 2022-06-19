@@ -42,4 +42,8 @@ class PersistentHtpp {
         headers: {...headers, "Content-Type": "application/json"}, body: body);
     return response;
   }
+
+  static bool isUserAuthenticated(Response response) {
+    return response.statusCode == 401;
+  }
 }
