@@ -82,10 +82,10 @@ class _AdminDashboardState extends State<AdminDashboard> {
                     trailingIcon: IconButton(
                       // padding: EdgeInsets.only(left: kDefaultPadding),
                       icon: Image(
-                      image: AssetImage("assets/images/admin_user.png")),
+                          image: AssetImage("assets/images/admin_user.png")),
                       onPressed: () {
                         // Navigator.pushNamed(context, '/adminProfile');
-                        
+
                         Get.offNamed('/adminProfile');
                       },
                     ),
