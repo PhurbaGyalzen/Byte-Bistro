@@ -1,6 +1,6 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:get/get.dart';
 import "package:http/http.dart" as http;
-import 'package:http/http.dart';
 import './storage_service.dart';
 
 const PORT = 3000;
@@ -11,6 +11,7 @@ class PersistentHtpp {
 
   static String baseUrl =
       'http://' + (dotenv.env['BACKEND_HOST'] ?? baseHost) + ':$PORT/';
+  // static String baseUrl = 'http://httpbin.org/';
 
   static Map<String, String> headers = {};
 
@@ -31,19 +32,38 @@ class PersistentHtpp {
     return true;
   }
 
-  static Future<Response> get(String path) async {
-    Response response =
-        await client.get(Uri.parse(baseUrl + path), headers: headers);
+  static Future<http.Response> _req(String method, String path,
+      {Map<String, String>? extraHeaders, String body = ""}) async {
+    http.Request request = http.Request(method, Uri.parse(baseUrl + path));
+    extraHeaders ??= {};
+    ({...headers, ...extraHeaders}).forEach((key, value) {
+      request.headers[key] = value;
+    });
+    if (method == 'POST') {
+      request.bodyBytes = request.encoding.encode(body);
+    }
+
+    http.StreamedResponse streamedResponse = await client.send(request);
+    http.Response response = await http.Response.fromStream(streamedResponse);
+    if (!isUserAuthenticated(response)) {
+      print("JWT token has expired. redirecting to login page");
+      Get.offAllNamed('/login');
+    }
     return response;
   }
 
-  static Future<Response> post(String path, {String body = ""}) async {
-    Response response = await client.post(Uri.parse(baseUrl + path),
-        headers: {...headers, "Content-Type": "application/json"}, body: body);
+  static Future<http.Response> get(String path) async {
+    http.Response response = await _req('GET', path);
     return response;
   }
 
-  static bool isUserAuthenticated(Response response) {
+  static Future<http.Response> post(String path, {String body = ""}) async {
+    http.Response response = await _req('POST', path,
+        extraHeaders: {"Content-Type": "application/json"}, body: body);
+    return response;
+  }
+
+  static bool isUserAuthenticated(http.Response response) {
     return response.statusCode == 401;
   }
 }
