@@ -3,12 +3,12 @@ import 'package:form_field_validator/form_field_validator.dart';
 import 'package:byte_bistro/controller/logged_user_info_controller.dart';
 import 'package:get/get.dart';
 
-class AdminProfileUpdateForm extends StatefulWidget {
+class UserProfileUpdateForm extends StatefulWidget {
   final String bio;
   final String fullName;
   final String email;
   final String address;
-  const AdminProfileUpdateForm(
+  const UserProfileUpdateForm(
       {Key? key,
       this.bio = '',
       this.fullName = '',
@@ -17,10 +17,10 @@ class AdminProfileUpdateForm extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<AdminProfileUpdateForm> createState() => _AdminProfileUpdateFormState();
+  State<UserProfileUpdateForm> createState() => _UserProfileUpdateFormState();
 }
 
-class _AdminProfileUpdateFormState extends State<AdminProfileUpdateForm> {
+class _UserProfileUpdateFormState extends State<UserProfileUpdateForm> {
   
 
   // editing controller
@@ -200,7 +200,7 @@ class _AdminProfileUpdateFormState extends State<AdminProfileUpdateForm> {
                   children: [
                     OutlinedButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, '/adminProfile');
+                        Navigator.pushNamed(context, '/userProfilePage');
                       },
                       style: OutlinedButton.styleFrom(
                         // primary: Colors.orange,

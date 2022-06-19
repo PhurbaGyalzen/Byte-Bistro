@@ -9,7 +9,7 @@ import 'package:byte_bistro/Screens/admin_profile.dart';
 import 'package:byte_bistro/Screens/admin_profile_update.dart';
 import 'package:byte_bistro/Screens/after_order.dart';
 import 'package:byte_bistro/Screens/category/category_screen.dart';
-import 'package:byte_bistro/Screens/edit_profile.dart';
+import 'package:byte_bistro/Screens/user_profile.dart';
 import 'package:byte_bistro/Screens/favourite/favourite.dart';
 import 'package:byte_bistro/Screens/invoice_detail_page.dart';
 import 'package:byte_bistro/Screens/notification/admin_notification.dart';
@@ -114,9 +114,10 @@ class ByteBistro extends StatelessWidget {
             name: '/adminProfileUpdateForm',
             page: () => AdminProfileUpdateForm()),
         GetPage(name: '/adminProfile', page: () => AdminProfilePage()),
+        GetPage(name: '/detail_page_dish', page: () => IndividualItemScreen()),
 
         GetPage(name: '/home', page: () => HomePage()),
-        GetPage(name: '/individual', page: () => IndividualItem()),
+        // GetPage(name: '/individual', page: () => IndividualItem()),
         GetPage(name: '/qrscan', page: () => QrScannerScreen()),
         GetPage(name: '/after-order', page: () => AfterOrderScreen()),
         GetPage(name: '/orderSucess', page: () => OrderSucess()),
@@ -135,7 +136,7 @@ class ByteBistro extends StatelessWidget {
         GetPage(name: '/onBoardingScreen', page: () => OnBoardingScreen()),
         GetPage(name: '/adminOrders', page: () => AdminOrders()),
         GetPage(name: '/adminOrderDetail', page: () => AdminOrderDetail()),
-        GetPage(name: '/editProfilePage', page: () => EditProfilePage()),
+        GetPage(name: '/userProfilePage', page: () => UserProfilePage()),
       ],
     );
   }
