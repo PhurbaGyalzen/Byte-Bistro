@@ -85,11 +85,8 @@ class _AdminDashboardState extends State<AdminDashboard> {
                       image: AssetImage("assets/images/admin_user.png")),
                       onPressed: () {
                         // Navigator.pushNamed(context, '/adminProfile');
-                        final ScrollController scrollController =
-                            ScrollController();
-                        Get.to(() => ProfileScreen(
-                              scrollController: scrollController,
-                            ));
+                        
+                        Get.offNamed('/adminProfile');
                       },
                     ),
                     titleFirstName: 'Admin',

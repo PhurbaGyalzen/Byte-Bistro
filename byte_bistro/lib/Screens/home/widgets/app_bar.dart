@@ -19,7 +19,7 @@ class BuildAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         color: Colors.white,
-        padding: EdgeInsets.only(left: 20,bottom: 30,right: 20),
+        padding: EdgeInsets.only(bottom: 30,),
         child: Row(
           // mainAxisAlignment: MainAxisAlignment.end,
           children: [
