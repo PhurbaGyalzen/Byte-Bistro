@@ -96,7 +96,7 @@ class ByteBistro extends StatelessWidget {
           ),
         ),
       ),
-      initialRoute: '/home',
+      initialRoute: '/adminScreen',
       debugShowCheckedModeBanner: false,
       title: 'Byte Bistro',
       getPages: [
@@ -106,10 +106,8 @@ class ByteBistro extends StatelessWidget {
         GetPage(name: '/order_history_admin', page: () => OrderHistoryAdmin()),
         GetPage(name: '/invoice_detail', page: () => InvoiceDetail()),
         GetPage(name: '/order_detail', page: () => OrderDetail()),
-        // GetPage(name: '/edit_profile', page: () => EditProfilePage()),
         GetPage(name: '/CategoryMoMo', page: () => MOMO()),
         GetPage(name: '/signup', page: () => SignUpScreen()),
-        // GetPage(name: '/signup', page: () =>ProfileScreen()),
         GetPage(
             name: '/adminProfileUpdateForm',
             page: () => AdminProfileUpdateForm()),
@@ -129,9 +127,7 @@ class ByteBistro extends StatelessWidget {
         GetPage(name: '/addToCart', page: () => AddToCart()),
         GetPage(name: '/notification', page: () => NotificationPage()),
         GetPage(name: '/adminNotification', page: () => AdminNotification()),
-        // GetPage(name: '/profileScreen', page: () => ProfileScreen()),
         GetPage(name: '/favourite', page: () => FavouritePage()),
-
         GetPage(name: '/categoryScreen', page: () => CategoryScreen()),
         GetPage(name: '/onBoardingScreen', page: () => OnBoardingScreen()),
         GetPage(name: '/adminOrders', page: () => AdminOrders()),
