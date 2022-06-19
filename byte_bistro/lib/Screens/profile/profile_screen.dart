@@ -83,38 +83,41 @@ class ProfileNote extends StatelessWidget {
             radius: 30,
             backgroundImage: AssetImage(
               'assets/images/user.jpg',
-            
-              
             ),
           ),
           // SizedBox(
           //   width: 40,
           // ),
-          Column(
-            children: const [
-              Text('User 1',
-                  style: TextStyle(
-                    fontSize: 18,
-                    height: 1.5,
-                    fontWeight: FontWeight.bold,
-                  )),
-              Text('+977 9848859531',
-                  style: TextStyle(fontWeight: FontWeight.w300)),
-            ],
+          Padding(
+            padding: const EdgeInsets.only(left: 10.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const [
+                Text('User 1',
+                    style: TextStyle(
+                      fontSize: 18,
+                      height: 1.5,
+                      fontWeight: FontWeight.bold,
+                    )),
+                Text('+977 9848859531',
+                    style: TextStyle(fontWeight: FontWeight.w300)),
+              ],
+            ),
           ),
-          // SizedBox(
-          //   width: 125,
-          // ),
-          Opacity(
-            opacity: 0.5,
-            child: GestureDetector(
-              onTap: () => Get.toNamed('/editProfilePage'),
-              child: Image(
-                height: 20,
-                width: 20,
-                image: AssetImage(
-                  'assets/images/next.png',
-                ),
+          Expanded(
+            child: SizedBox(
+              width: 125,
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              Get.toNamed('/userProfilePage');
+            },
+            child: Image(
+              height: 20,
+              width: 20,
+              image: AssetImage(
+                'assets/images/next.png',
               ),
             ),
           )
@@ -194,6 +197,9 @@ class ProfileSystem extends StatelessWidget {
                 onClick: () async {
                   // final response = await PersistentHtpp.get('food');
                   // print(response.body);
+                  // await Storage.setObject('token-val', {'value1': 1});
+                  // print('token-val');
+                  // print(await Storage.getObject('token-val'));
                   await Storage.remove('token');
                   await PersistentHtpp.storeAndSetHeader(token: '');
                   Get.offAllNamed('/login');

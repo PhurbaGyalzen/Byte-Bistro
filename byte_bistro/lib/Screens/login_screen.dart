@@ -188,7 +188,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               final SharedPreferences prefs = await _prefs;
 
                               var response = await AuthService.login(
-                                usernameController.text,
+                                usernameController.text.trim(),
                                 passwordController.text,
                               );
 
@@ -203,6 +203,18 @@ class _LoginScreenState extends State<LoginScreen> {
                                   Get.offNamed('/onBoardingScreen');
                                 }
                               } else {
+                                Get.snackbar(
+                                  "Invalid Creditentials",
+                                  "Please try again",
+                                  icon:
+                                      Icon(Icons.person_rounded, color: Colors.white),
+                                  duration: Duration(seconds: 3),
+                                  backgroundColor: Colors.red,
+                                  colorText: Colors.white,
+                                  animationDuration: Duration(seconds: 1),
+                                  dismissDirection: DismissDirection.horizontal,
+                                  snackPosition: SnackPosition.BOTTOM,
+                                );
                                 // print("cannot login");
                               }
                             }

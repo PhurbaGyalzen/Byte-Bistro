@@ -2,7 +2,10 @@ import 'package:byte_bistro/Screens/admin/widgets/add_food.dart';
 import 'package:byte_bistro/Screens/admin/widgets/view_food.dart';
 import 'package:byte_bistro/Screens/category/category_screen.dart';
 import 'package:byte_bistro/Screens/home/widgets/app_bar.dart';
+import 'package:byte_bistro/Screens/login_screen.dart';
 import 'package:byte_bistro/Screens/profile/profile_screen.dart';
+import 'package:byte_bistro/Services/http_service.dart';
+import 'package:byte_bistro/Services/storage_service.dart';
 import 'package:byte_bistro/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
@@ -74,24 +77,134 @@ class _AdminDashboardState extends State<AdminDashboard> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
-                    height: 20,
-                  ),
-                  BuildAppBar(
-                    leadingIcon: 'assets/images/menu.png',
-                    trailingIcon: IconButton(
-                      // padding: EdgeInsets.only(left: kDefaultPadding),
-                      icon: Image(
-                          image: AssetImage("assets/images/admin_user.png")),
-                      onPressed: () {
-                        // Navigator.pushNamed(context, '/adminProfile');
+                  // SizedBox(
+                  //   height: 20,
+                  // ),
+                  // BuildAppBar(
+                  //   leadingIcon: 'assets/images/menu.png',
+                  //   trailingIcon: IconButton(
 
-                        Get.offNamed('/adminProfile');
-                      },
-                    ),
-                    titleFirstName: 'Admin',
-                    titleSecondName: 'Dash',
+                  //     // padding: EdgeInsets.only(left: kDefaultPadding),
+                  //     icon: Image(
+                  //       height:50,
+                  //       width: 50,
+                  //       fit: BoxFit.fill,
+                  //       image: AssetImage(
+                  //         "assets/images/menu.png",
+                  //       ),
+                  //     ),
+                  //     onPressed: () {
+                  //       // Navigator.pushNamed(context, '/adminProfile');
+
+                  //       Get.offNamed('/adminProfile');
+                  //     },
+                  //   ),
+                  //   titleFirstName: 'Admin',
+                  //   titleSecondName: 'Dash',
+                  // ),
+                  Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Get.offNamed('/adminProfile');
+                        },
+                        child: Image.asset(
+                          "assets/images/admin_user.png",
+                          height: 20,
+                          width: 20,
+                        ),
+                      ),
+                      Expanded(child: SizedBox()),
+                      Text.rich(
+                        TextSpan(
+                          text: "Admin",
+                          style: TextStyle(
+                              fontSize: 20,
+                              letterSpacing: 0.6,
+                              fontWeight: FontWeight.bold,
+                              wordSpacing: 0.5),
+                          children: const [
+                            TextSpan(
+                                text: "DashBoard",
+                                style: TextStyle(
+                                    color: kPrimary,
+                                    fontSize: 20,
+                                    letterSpacing: 0.5,
+                                    fontWeight: FontWeight.bold)),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: SizedBox(),
+                      ),
+                      GestureDetector(
+                        onTap: () => showDialog(
+                        barrierDismissible: false,
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: Text('Confirm Navigation'),
+                            content: Text(
+                                'Are you sure you want to logout?'),
+                            actions: [
+                              TextButton(
+                                  onPressed: () {
+                                    Get.back();
+                                  },
+                                  child: Text('Cancel')),
+                              TextButton(
+                                onPressed: () async{
+                                  await Storage.remove('token');
+                                  await PersistentHtpp.storeAndSetHeader(
+                                      token: '');
+                                  Get.offAllNamed('/login');
+                                  
+                                },
+                                child: Text(
+                                  'Leave',
+                                  style: TextStyle(color: Colors.red),
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      ),
+                        // onTap: () {
+                        //   // final response = await PersistentHtpp.get('food');
+                        //   // print(response.body);
+                        //   // await Storage.setObject('token-val', {'value1': 1});
+                        //   // print('token-val');
+                        //   // print(await Storage.getObject('token-val'));
+                        //    AlertDialog alert = AlertDialog(
+                        //     title: const Text('AlertDialog Title'),
+                        //     content: const Text('AlertDialog description'),
+                        //     actions: <Widget>[
+                        //       TextButton(
+                        //         onPressed: () =>
+                        //             Navigator.pop(context, 'Cancel'),
+                        //         child: const Text('Cancel'),
+                        //       ),
+                        //       TextButton(
+                        //         onPressed: () async {
+                        //           await Storage.remove('token');
+                        //           await PersistentHtpp.storeAndSetHeader(
+                        //               token: '');
+                        //           Get.offAllNamed('/login');
+                        //         },
+                        //         child: const Text('OK'),
+                        //       ),
+                        //     ],
+                        //   );
+                        // },
+                        child: Image.asset(
+                          "assets/images/logout.png",
+                          height: 20,
+                          width: 20,
+                        ),
+                      ),
+                    ],
                   ),
+
                   SizedBox(
                     height: 10,
                   ),
