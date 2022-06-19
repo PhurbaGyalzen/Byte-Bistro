@@ -190,7 +190,8 @@ class ProfileSystem extends StatelessWidget {
                 onClick: () async {
                   await Storage.remove('token');
                   await PersistentHtpp.storeAndSetHeader(token: '');
-                  Get.toNamed('/login');
+                  // Get.toNamed('/login');
+                  Get.offAllNamed('/login');
                 }),
           ],
         ));
