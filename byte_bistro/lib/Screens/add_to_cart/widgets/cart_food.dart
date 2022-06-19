@@ -1,4 +1,5 @@
 // CartFood
+import 'package:byte_bistro/Services/http_service.dart';
 import 'package:byte_bistro/controller/cart_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -83,8 +84,8 @@ class CartFood extends StatelessWidget {
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(50),
                                   child: Image(
-                                    image: AssetImage(
-                                        "assets/images/${cartList[index]['image']}"),
+                                    image: NetworkImage(PersistentHtpp.baseUrl +
+                                      cartList[index]['image']),
                                     height: 80,
                                     width: 80,
                                   ),

@@ -151,7 +151,7 @@ class _AddFoodState extends State<AddFood> {
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
                                   const Text(
-                                    "Update your profile picture from",
+                                    "Upload food Image from:",
                                     style: TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold,
