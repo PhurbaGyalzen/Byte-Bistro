@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:byte_bistro/Screens/admin/widgets/admin_dashboard.dart';
 import 'package:byte_bistro/constants/colors.dart';
-import 'package:byte_bistro/controller/category_controller.dart';
 import 'package:byte_bistro/controller/food_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
@@ -19,7 +18,6 @@ class AddFood extends StatefulWidget {
 
 class _AddFoodState extends State<AddFood> {
   final nameController = TextEditingController();
-  final categoryController = TextEditingController();
   final priceController = TextEditingController();
   final descriptionController = TextEditingController();
   var imageName = "";
@@ -133,7 +131,9 @@ class _AddFoodState extends State<AddFood> {
                 textAlign: TextAlign.center,
               ),
               ElevatedButton(
-                  style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(kPrimary) ),
+                  style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(kPrimary)),
                   onPressed: () {
                     Get.bottomSheet(
                       SingleChildScrollView(
@@ -224,7 +224,6 @@ class _AddFoodState extends State<AddFood> {
                     ),
                     onPressed: () => {
                       nameController.clear(),
-                      categoryController.clear(),
                       priceController.clear(),
                       descriptionController.clear(),
                     },
@@ -247,7 +246,6 @@ class _AddFoodState extends State<AddFood> {
                       if (formKey.currentState?.validate() == true) {
                         Map<String, dynamic> data = {
                           "name": nameController.text,
-                          "category": [categoryController.text],
                           "price": priceController.text,
                           "image": pickedImage,
                           "description": descriptionController.text,
@@ -300,30 +298,6 @@ class _AddFoodState extends State<AddFood> {
       decoration: InputDecoration(
         border: OutlineInputBorder(),
         label: Text('Name'),
-        suffixIcon: nameController.text.isEmpty
-            ? Container(
-                width: 0,
-              )
-            : IconButton(
-                icon: Icon(Icons.close),
-                onPressed: () => nameController.clear(),
-              ),
-      ),
-      validator: MultiValidator([
-        RequiredValidator(errorText: 'Required *'),
-      ]),
-    );
-  }
-
-  TextFormField categoryField() {
-    return TextFormField(
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      controller: categoryController,
-      textInputAction: TextInputAction.done,
-      keyboardType: TextInputType.emailAddress,
-      decoration: InputDecoration(
-        border: OutlineInputBorder(),
-        label: Text('Category'),
         suffixIcon: nameController.text.isEmpty
             ? Container(
                 width: 0,
