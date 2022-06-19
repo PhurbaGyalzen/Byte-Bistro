@@ -67,6 +67,22 @@ class NotificationService {
     }
   }
 
+
+  Future<List<Notificationl>> getOfferNotification() async {
+    String endpoint = PersistentHtpp.baseUrl + 'notification/offer';
+    try {
+      final response = await PersistentHtpp.client.get(Uri.parse(endpoint));
+      final jsonResponse = response.body;
+      if (response.statusCode == 200) {
+        return notificationlFromJson(jsonResponse);
+      } else {
+        return Future.error('Internal Server Error');
+      }
+    } catch (err) {
+      return Future.error(' Error fetching data $err');
+    }
+  }
+
   Future<String> updateNotification(
     String notificationId,
     Map<String, dynamic> data,

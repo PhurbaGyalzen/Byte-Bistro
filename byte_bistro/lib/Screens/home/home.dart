@@ -142,7 +142,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   // padding: EdgeInsets.only(left: kDefaultPadding),
                   icon: Image(
                       image: AssetImage("assets/images/notification.png")),
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.toNamed('/notification');
+                  },
                 ),
                 titleFirstName: 'Byte',
                 titleSecondName: 'Bistro',

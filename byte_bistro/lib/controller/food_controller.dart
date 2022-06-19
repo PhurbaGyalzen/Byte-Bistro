@@ -46,6 +46,7 @@ class FoodController extends GetxController {
   // delete single food
   deleteFood(String foodId) async {
     var response = foodService.deleteFood(foodId);
+    getAllFood();
     return response;
   }
 
