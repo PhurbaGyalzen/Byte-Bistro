@@ -4,7 +4,7 @@ import 'package:byte_bistro/controller/notification_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../models/notification.dart';
+import '../../Models/notification.dart';
 
 class NotificationNormal extends StatefulWidget {
   const NotificationNormal({Key? key}) : super(key: key);
@@ -54,7 +54,7 @@ class _NotificationNormalState extends State<NotificationNormal> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              notificationData[index].message,
+                              notificationData[index].title,
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
@@ -64,9 +64,9 @@ class _NotificationNormalState extends State<NotificationNormal> {
                               ),
                             ),
                             Text(
-                              notificationData[index].isOffer
-                                  ? "Offer"
-                                  : "Request",
+                              notificationData[index].message,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 3,
                               style: Theme.of(context).textTheme.bodyText1,
                             ),
                             Padding(

@@ -4,6 +4,7 @@ import 'package:byte_bistro/Screens/add_to_cart/add_to_cart.dart';
 import 'package:byte_bistro/Screens/admin/widgets/add_food.dart';
 import 'package:byte_bistro/Screens/admin/widgets/admin_order_detail.dart';
 import 'package:byte_bistro/Screens/admin/widgets/admin_orders.dart';
+import 'package:byte_bistro/Screens/admin/widgets/update_food.dart';
 import 'package:byte_bistro/Screens/admin/widgets/view_food.dart';
 
 import 'package:byte_bistro/Screens/admin/widgets/admin_dashboard.dart';
@@ -149,6 +150,7 @@ class ByteBistro extends StatelessWidget {
         GetPage(name: '/adminOrders', page: () => AdminOrders()),
         GetPage(name: '/adminOrderDetail', page: () => AdminOrderDetail()),
         GetPage(name: '/userProfilePage', page: () => UserProfilePage()),
+        GetPage(name: '/updateFood', page: () => UpdateFood()),
       ],
     );
   }

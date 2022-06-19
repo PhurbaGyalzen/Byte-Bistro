@@ -31,7 +31,7 @@ class _NotificationPageState extends State<NotificationPage> {
               Icons.arrow_back,
               color: kTextColor,
             ),
-            onPressed: () => Get.back(),
+            onPressed: () => Navigator.pushNamed(context, '/home'),
           ),
           title: Text(
             'My Notifications',
@@ -52,38 +52,38 @@ class _NotificationPageState extends State<NotificationPage> {
             ),
           ]),
           actions: [
-            Stack(children: [
-              Padding(
-                padding: EdgeInsets.only(right: 25, top: 5),
-                child: Image(
-                  image: AssetImage('assets/images/notification.png'),
-                  height: 20,
-                  width: 20,
-                  color: kTextColor,
-                ),
-              ),
-              Positioned(
-                right: 20,
-                top: 2,
-                child: Container(
-                  padding: EdgeInsets.only(
-                    left: 5,
-                    right: 5,
-                  ),
-                  decoration: BoxDecoration(
-                    color: kTextColor,
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                  child: Text(
-                    '1',
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
-            ]),
+            // Stack(children: [
+            //   Padding(
+            //     padding: EdgeInsets.only(right: 25, top: 5),
+            //     child: Image(
+            //       image: AssetImage('assets/images/notification.png'),
+            //       height: 20,
+            //       width: 20,
+            //       color: kTextColor,
+            //     ),
+            //   ),
+            //   Positioned(
+            //     right: 20,
+            //     top: 2,
+            //     child: Container(
+            //       padding: EdgeInsets.only(
+            //         left: 5,
+            //         right: 5,
+            //       ),
+            //       decoration: BoxDecoration(
+            //         color: kTextColor,
+            //         borderRadius: BorderRadius.circular(50),
+            //       ),
+            //       child: Text(
+            //         '1',
+            //         style: TextStyle(
+            //           fontSize: 12,
+            //           color: Colors.white,
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ]),
           ],
         ),
         body: TabBarView(children: const [

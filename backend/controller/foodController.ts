@@ -62,7 +62,7 @@ export const updateFood = async (
 	res: Response,
 	next: NextFunction
 ) => {
-	const { name, price, description, image } = req.body
+	const { name, price, description} = req.body
 	try {
 		const food = await Food.updateOne(
 			{ _id: req.params.foodId },
@@ -71,7 +71,7 @@ export const updateFood = async (
 					name: req.body.name,
 					price: req.body.price,
 					description: req.body.description,
-					image:req.body.image
+					// image:req.body.image
 				},
 			}
 		)

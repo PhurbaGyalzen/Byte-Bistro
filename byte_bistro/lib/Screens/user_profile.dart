@@ -232,7 +232,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                                   width: 120,
                                   child: OutlinedButton(
                                     onPressed: () =>
-                                        Get.toNamed("/adminScreen"),
+                                        Get.toNamed("/home"),
                                     style: OutlinedButton.styleFrom(
                                       // primary: Colors.orange,
                                       primary: Colors.red,

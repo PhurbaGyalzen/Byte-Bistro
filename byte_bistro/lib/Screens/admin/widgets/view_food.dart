@@ -1,4 +1,5 @@
 // import 'package:byte_bistro/Models/food.dart';
+import 'package:byte_bistro/Screens/admin/widgets/update_food.dart';
 import 'package:byte_bistro/Services/http_service.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter/material.dart';
@@ -177,11 +178,37 @@ class ViewFood extends StatelessWidget {
                             SizedBox(
                               width: 15,
                             ),
-                            Image(
-                              image: AssetImage('assets/images/edit.png'),
-                              width: 25,
-                              height: 25,
-                              color: Colors.green,
+                            GestureDetector(
+                              // onTap: () => Get.toNamed(
+                              //     '/updateFood',
+                              //     arguments = [{
+                              //       "id": foodController.foodList[index].id,
+                              //       "name": foodController.foodList[index].name,
+                              //       "price":
+                              //           foodController.foodList[index].price,
+                              //       "description": foodController
+                              //           .foodList[index].description,
+                              //       "image":
+                              //           foodController.foodList[index].image
+                              //     }),
+
+                              onTap: () =>
+                                  Get.toNamed('/updateFood', arguments: [
+                                {"id": foodController.foodList[index].id},
+                                {"name": foodController.foodList[index].name},
+                                {"price": foodController.foodList[index].price},
+                                {
+                                  "description":
+                                      foodController.foodList[index].description
+                                },
+                                {"image": foodController.foodList[index].image},
+                              ]),
+                              child: Image(
+                                image: AssetImage('assets/images/edit.png'),
+                                width: 25,
+                                height: 25,
+                                color: Colors.green,
+                              ),
                             ),
                           ],
                         ),
@@ -216,4 +243,28 @@ class ViewFood extends StatelessWidget {
       ],
     );
   }
+
+  // void showMaterialDialog(
+  //     String id, String name, int price, String description, String image) {
+  //   showDialog(
+  //       barrierDismissible: false,
+  //       context: context,
+  //       builder: (context) {
+  //         return SingleChildScrollView(
+  //           child: Dialog(
+  //             insetAnimationCurve: Curves.fastOutSlowIn,
+  //             insetAnimationDuration: Duration(seconds: 2),
+  //             elevation: 10,
+  //             insetPadding: EdgeInsets.all(10),
+  //             backgroundColor: Colors.white,
+  //             child: UpdateFood(
+  //                 id: id,
+  //                 name: name,
+  //                 price: price,
+  //                 description: description,
+  //                 image: image),
+  //           ),
+  //         );
+  //       });
+  // }
 }
