@@ -123,10 +123,16 @@ class _AdminDashboardState extends State<AdminDashboard> {
                         ),
                       ),
                       Expanded(child: SizedBox()),
-                      Image.asset(
+                      
+                      GestureDetector(
+                        onTap: () {
+                          Get.offNamed('/adminProfile');
+                        },
+                        child:Image.asset(
                         "assets/images/admin_user.png",
                         height: 20,
                         width: 20,
+                      ),
                       ),
                     ],
                   ),
