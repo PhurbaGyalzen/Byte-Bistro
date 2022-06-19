@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:byte_bistro/Services/http_service.dart';
 import 'package:byte_bistro/Services/storage_service.dart';
 import 'package:flutter/material.dart';
@@ -62,7 +64,7 @@ class ProfileNote extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
+      padding: EdgeInsets.only(left: 10, right: 25, top: 10, bottom: 10),
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
@@ -81,11 +83,13 @@ class ProfileNote extends StatelessWidget {
             radius: 30,
             backgroundImage: AssetImage(
               'assets/images/user.jpg',
+            
+              
             ),
           ),
-          SizedBox(
-            width: 40,
-          ),
+          // SizedBox(
+          //   width: 40,
+          // ),
           Column(
             children: const [
               Text('User 1',
@@ -188,9 +192,10 @@ class ProfileSystem extends StatelessWidget {
                 imageTrailing: 'assets/images/next.png',
                 text: 'Log out',
                 onClick: () async {
+                  // final response = await PersistentHtpp.get('food');
+                  // print(response.body);
                   await Storage.remove('token');
                   await PersistentHtpp.storeAndSetHeader(token: '');
-                  // Get.toNamed('/login');
                   Get.offAllNamed('/login');
                 }),
           ],

@@ -6,14 +6,14 @@ import 'package:http/http.dart' as http;
 
 import '../models/food.dart';
 
-class IndividualItem extends StatefulWidget {
-  const IndividualItem({Key? key}) : super(key: key);
+class IndividualItemScreen extends StatefulWidget {
+  const IndividualItemScreen({Key? key}) : super(key: key);
 
   @override
-  _IndividualItemState createState() => _IndividualItemState();
+  _IndividualItemScreenState createState() => _IndividualItemScreenState();
 }
 
-class _IndividualItemState extends State<IndividualItem> {
+class _IndividualItemScreenState extends State<IndividualItemScreen> {
   int _orderCount = 1;
   Food? food;
   FoodController foodController = Get.put(FoodController());

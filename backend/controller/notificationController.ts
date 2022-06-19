@@ -50,6 +50,22 @@ export const getNotificationByUser = async (
     }
 }
 
+export const getOfferNotification = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+ ) => {
+    try {
+        const notification = await Notification.find({
+            isOffer: true,
+        })
+        res.status(200).json(notification)
+    }   
+    catch (err) {
+        res.status(400).json({ message: err })
+    }   
+}
+
 export const putNotification = async (
     req: Request,
     res: Response,
@@ -71,6 +87,7 @@ export const putNotification = async (
         res.status(400).json({ message: err })
     }
 }
+
 
 export const updateNotification = async (
     req: Request,
@@ -120,6 +137,27 @@ export const deleteAllNotification = async (
 ) => {
     try {
         const notification = await Notification.remove({})
+        res.status(200).json(notification)
+    } catch (err) {
+        res.status(400).json({ message: err })
+    }
+}
+
+
+export const markReadNotification = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    try {
+        const notification = await Notification.updateOne(
+            { _id: req.params.notificationId },
+            {
+                $set: {
+                    read: true,
+                },
+            }
+        )
         res.status(200).json(notification)
     } catch (err) {
         res.status(400).json({ message: err })
