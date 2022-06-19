@@ -17,9 +17,9 @@ import {
 const router = Router()
 
 router.get('/', getAllNotification)
+router.get('/offer', getOfferNotification);
 router.get('/:notificationId', getNotification)
 router.get('/user/:userId', getNotificationByUser)
-router.get('/offer', getOfferNotification);
 router.patch('/:notificationId', updateNotification)
 router.patch('/:notificationId/read', markReadNotification);
 router.post('/', putNotification)

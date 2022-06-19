@@ -19,7 +19,7 @@ class _NotificationNormalState extends State<NotificationNormal> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: FutureBuilder(
-          future: data.getUserNotification("627fbfa1d464ffbeb80b985b"),
+          future: data.getOfferNotification(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               List<Notificationl> notificationData =

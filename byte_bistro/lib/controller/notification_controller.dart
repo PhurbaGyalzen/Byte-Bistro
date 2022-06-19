@@ -41,7 +41,7 @@ class NotificationController extends GetxController {
     notificationList.value = response as List;
     return response;
   }
-  getOfferNotification(String userId) async {
+  getOfferNotification() async {
     var response = await notificationService.getOfferNotification();
     notificationList.value = response as List;
     return response;

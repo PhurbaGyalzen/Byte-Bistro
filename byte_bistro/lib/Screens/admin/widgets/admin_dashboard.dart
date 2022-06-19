@@ -77,21 +77,60 @@ class _AdminDashboardState extends State<AdminDashboard> {
                   SizedBox(
                     height: 20,
                   ),
-                  BuildAppBar(
-                    leadingIcon: 'assets/images/menu.png',
-                    trailingIcon: IconButton(
-                      // padding: EdgeInsets.only(left: kDefaultPadding),
-                      icon: Image(
-                      image: AssetImage("assets/images/admin_user.png")),
-                      onPressed: () {
-                        // Navigator.pushNamed(context, '/adminProfile');
-                        
-                        Get.offNamed('/adminProfile');
-                      },
-                    ),
-                    titleFirstName: 'Admin',
-                    titleSecondName: 'Dash',
+                  // BuildAppBar(
+                  //   leadingIcon: 'assets/images/menu.png',
+                  //   trailingIcon: IconButton(
+
+                  //     // padding: EdgeInsets.only(left: kDefaultPadding),
+                  //     icon: Image(
+                  //       height:50,
+                  //       width: 50,
+                  //       fit: BoxFit.fill,
+                  //       image: AssetImage(
+                  //         "assets/images/menu.png",
+                  //       ),
+                  //     ),
+                  //     onPressed: () {
+                  //       // Navigator.pushNamed(context, '/adminProfile');
+
+                  //       Get.offNamed('/adminProfile');
+                  //     },
+                  //   ),
+                  //   titleFirstName: 'Admin',
+                  //   titleSecondName: 'Dash',
+                  // ),
+                  Row(
+                    children: [
+                      Image.asset("assets/images/menu.png"),
+                      Expanded(child: SizedBox()),
+                      Text.rich(
+                        TextSpan(
+                          text: "Admin",
+                          style: TextStyle(
+                              fontSize: 20,
+                              letterSpacing: 0.6,
+                              fontWeight: FontWeight.bold,
+                              wordSpacing: 0.5),
+                          children: const [
+                            TextSpan(
+                                text: "DashBoard",
+                                style: TextStyle(
+                                    color: kPrimary,
+                                    fontSize: 20,
+                                    letterSpacing: 0.5,
+                                    fontWeight: FontWeight.bold)),
+                          ],
+                        ),
+                      ),
+                      Expanded(child: SizedBox()),
+                      Image.asset(
+                        "assets/images/admin_user.png",
+                        height: 20,
+                        width: 20,
+                      ),
+                    ],
                   ),
+
                   SizedBox(
                     height: 10,
                   ),

@@ -11,7 +11,7 @@ class ViewFood extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    FoodController controller = Get.put(FoodController());
+    FoodController foodController = Get.put(FoodController());
     TextEditingController searchController = TextEditingController();
 
     return Column(
@@ -25,7 +25,7 @@ class ViewFood extends StatelessWidget {
               style: Theme.of(context).textTheme.bodyText1,
             ),
             GestureDetector(
-              onTap: () => controller.getAllFood(),
+              onTap: () => foodController.getAllFood(),
               child: Image(
                 image: AssetImage('assets/images/getAllFood.png'),
                 width: 20,
@@ -58,7 +58,7 @@ class ViewFood extends StatelessWidget {
                   color: Colors.black26,
                 ),
                 onPressed: () {
-                  controller.searchFood(searchController.text);
+                  foodController.searchFood(searchController.text);
                 },
               ),
               errorBorder: InputBorder.none,
@@ -74,7 +74,7 @@ class ViewFood extends StatelessWidget {
           height: 400,
           child: Obx(
             () => ListView.builder(
-              itemCount: controller.foodList.length,
+              itemCount: foodController.foodList.length,
               itemBuilder: (BuildContext context, int index) {
                 return Container(
                     width: 355,
@@ -107,8 +107,8 @@ class ViewFood extends StatelessWidget {
                         // dismissible: DismissiblePane(onDismissed: () {}),
                         dismissible: DismissiblePane(onDismissed: () {
                           // foodController.deleteFood(data[index].id);
-                          controller.setFoodUnavailable(
-                              controller.foodList[index].id);
+                          foodController.setFoodUnavailable(
+                              foodController.foodList[index].id);
                           Get.offNamed('/adminScreen');
 
                           // setState(() {});
@@ -122,7 +122,7 @@ class ViewFood extends StatelessWidget {
                           // A SlidableAction can have an icon and/or a label.
                           SlidableAction(
                             onPressed: (value) {
-                              controller.foodList.removeAt(index);
+                              foodController.foodList.removeAt(index);
                               // setState(() {});
                             },
                             backgroundColor: Color(0xFFFE4A49),
@@ -133,6 +133,58 @@ class ViewFood extends StatelessWidget {
                         ],
                       ),
                       child: ListTile(
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            GestureDetector(
+                              onTap: () => showDialog(
+                                  barrierDismissible: false,
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: Text('Confirm'),
+                                      content: Text(
+                                          'Are you sure you want to delete this item ?'),
+                                      actions: [
+                                        TextButton(
+                                            onPressed: () {
+                                              Get.back();
+                                            },
+                                            child: Text('Cancel')),
+                                        TextButton(
+                                          onPressed: () {
+                                            foodController.deleteFood(
+                                                foodController
+                                                    .foodList[index].id);
+
+                                            Get.offAllNamed('/adminScreen');
+                                          },
+                                          child: Text(
+                                            'Ok',
+                                            style: TextStyle(color: Colors.red),
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  }),
+                              child: Image(
+                                image: AssetImage('assets/images/delete.png'),
+                                width: 25,
+                                height: 25,
+                                color: Colors.red,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 15,
+                            ),
+                            Image(
+                              image: AssetImage('assets/images/edit.png'),
+                              width: 25,
+                              height: 25,
+                              color: Colors.green,
+                            ),
+                          ],
+                        ),
                         leading: GestureDetector(
                           behavior: HitTestBehavior.translucent,
                           onTap: () {},
@@ -147,13 +199,13 @@ class ViewFood extends StatelessWidget {
                                   height: 120,
                                   fit: BoxFit.cover,
                                   image: NetworkImage(PersistentHtpp.baseUrl +
-                                      controller.foodList[index].image)),
+                                      foodController.foodList[index].image)),
                             ),
                           ),
                         ),
-                        title: Text(controller.foodList[index].name),
+                        title: Text(foodController.foodList[index].name),
                         subtitle: Text('Rs : ' +
-                            controller.foodList[index].price.toString()),
+                            foodController.foodList[index].price.toString()),
                         dense: false,
                       ),
                     ));
