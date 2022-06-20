@@ -2,6 +2,10 @@ import { Strategy as LocalStrategy } from 'passport-local'
 import bcrypt from 'bcrypt'
 import { User } from '../models/Users'
 import passport from 'passport'
+import {Strategy as GoogleStrategy} from 'passport-google-oauth2'
+
+const GOOGLE_CLIENT_SECRET = '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';
+const GOOGLE_CLIENT_ID = '578642511664-69u8u6ph1f70usukujdotiricgkn0er2.apps.googleusercontent.com';
 
 export const initialize = (passport: passport.PassportStatic) => {
 	passport.use(
@@ -73,4 +77,16 @@ export const initialize = (passport: passport.PassportStatic) => {
 			}
 		)
 	)
+	passport.use(new GoogleStrategy({
+		clientID:  GOOGLE_CLIENT_ID ,
+		clientSecret: GOOGLE_CLIENT_SECRET,
+		callbackURL: "http://localhost:3000/auth/google/callback",
+		passReqToCallback   : true
+	  },
+	  function(request, accessToken, refreshToken, profile, done) {
+		User.findOrCreate({ googleId: profile.id }, function (err, user) {
+		  return done(err, user);
+		});
+	  }
+	));
 }

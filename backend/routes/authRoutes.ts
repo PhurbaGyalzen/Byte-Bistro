@@ -1,5 +1,5 @@
 import { Router, Request, Response, NextFunction } from 'express'
-import { signupUser, signinUser } from '../controller/authController'
+import { signupUser, signinUser, authGoogle } from '../controller/authController'
 import { User } from '@models/Users';
 import { verifyUser } from 'middlewares/jwt-auth';
 
@@ -12,6 +12,10 @@ router.post(
 
     signinUser,
 )
+
+router.get('/google',authGoogle);
+
+
 router.get('/all_user', async (
     req: Request,
     res: Response,

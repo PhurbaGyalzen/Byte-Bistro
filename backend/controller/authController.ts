@@ -53,3 +53,16 @@ export const signinUser = async (
 			})
 	})(req, res, next) //as next closure
 }
+
+
+export const authGoogle = async (
+	req: Request,
+	res: Response,
+	next: NextFunction
+) => {
+	passport.authenticate('google', {
+		scope: ['profile', 'email'],
+		prompt: 'select_account',
+	})(req, res, next)
+}
+
