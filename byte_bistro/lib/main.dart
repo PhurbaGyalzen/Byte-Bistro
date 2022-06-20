@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:byte_bistro/Screens/add_to_cart/add_to_cart.dart';
 import 'package:byte_bistro/Screens/admin/widgets/add_food.dart';
 import 'package:byte_bistro/Screens/admin/widgets/admin_order_detail.dart';
 import 'package:byte_bistro/Screens/admin/widgets/admin_orders.dart';
+import 'package:byte_bistro/Screens/admin/widgets/update_food.dart';
 import 'package:byte_bistro/Screens/admin/widgets/view_food.dart';
 
 import 'package:byte_bistro/Screens/admin/widgets/admin_dashboard.dart';
@@ -26,6 +29,8 @@ import 'package:byte_bistro/Screens/food_detail_screen.dart';
 import 'package:byte_bistro/Screens/swipe_qr_home.dart';
 import 'package:byte_bistro/Screens/user_order_history_list.dart';
 import 'package:byte_bistro/Services/http_service.dart';
+import 'package:byte_bistro/Services/storage_service.dart';
+import 'package:byte_bistro/utils/str_decoder.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -37,9 +42,20 @@ import 'package:flutter/services.dart';
 import 'Screens/user_history_detail.dart';
 import 'constants/colors.dart';
 
+Map<String, dynamic> tokenDecoded = {};
 int tableNo = 0;
+
 Future<void> main() async {
   await dotenv.load(fileName: ".env");
+  String? token = await Storage.get('token');
+  print(token);
+  if (token != null) {
+    try {
+      String payload = token.split('.')[1];
+      tokenDecoded = jsonDecode(BaseSixtyFour.b64decode(payload));
+    } catch (RangeError) {}
+  }
+
   await PersistentHtpp.storeAndSetHeader();
   runApp(const ByteBistro());
 }
@@ -96,7 +112,8 @@ class ByteBistro extends StatelessWidget {
           ),
         ),
       ),
-      initialRoute: '/adminScreen',
+      initialRoute: tokenDecoded['username'] != null ? '/home' : '/login',
+      // initialRoute: '/login',
       debugShowCheckedModeBanner: false,
       title: 'Byte Bistro',
       getPages: [
@@ -133,6 +150,7 @@ class ByteBistro extends StatelessWidget {
         GetPage(name: '/adminOrders', page: () => AdminOrders()),
         GetPage(name: '/adminOrderDetail', page: () => AdminOrderDetail()),
         GetPage(name: '/userProfilePage', page: () => UserProfilePage()),
+        GetPage(name: '/updateFood', page: () => UpdateFood()),
       ],
     );
   }

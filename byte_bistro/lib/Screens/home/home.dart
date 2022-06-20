@@ -150,7 +150,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Expanded(child: SizedBox()),
                       Text.rich(
                         TextSpan(
-                          text: "Admin",
+                          text: "Byte",
                           style: TextStyle(
                               fontSize: 20,
                               letterSpacing: 0.6,
@@ -158,7 +158,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               wordSpacing: 0.5),
                           children: const [
                             TextSpan(
-                                text: "DashBoard",
+                                text: "Bistro",
                                 style: TextStyle(
                                     color: kPrimary,
                                     fontSize: 20,
