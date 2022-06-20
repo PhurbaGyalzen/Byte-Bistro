@@ -54,7 +54,7 @@ class _NotificationOfferState extends State<NotificationOffer> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              notificationData[index].message,
+                              notificationData[index].title,
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
@@ -64,9 +64,7 @@ class _NotificationOfferState extends State<NotificationOffer> {
                               ),
                             ),
                             Text(
-                              notificationData[index].isOffer
-                                  ? "Offer"
-                                  : "Request",
+                              notificationData[index].message,
                               style: Theme.of(context).textTheme.bodyText1,
                             ),
                             Padding(
