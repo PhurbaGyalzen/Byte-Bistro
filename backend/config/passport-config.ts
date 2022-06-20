@@ -83,10 +83,7 @@ export const initialize = (passport: passport.PassportStatic) => {
 		callbackURL: "http://localhost:3000/auth/google/callback",
 		passReqToCallback   : true
 	  },
-	  function(request, accessToken, refreshToken, profile, done) {
-		User.findOrCreate({ googleId: profile.id }, function (err, user) {
-		  return done(err, user);
-		});
+	  function(request: any, accessToken: string, refreshToken: string, profile: any, done: any) {
 	  }
 	));
 }
