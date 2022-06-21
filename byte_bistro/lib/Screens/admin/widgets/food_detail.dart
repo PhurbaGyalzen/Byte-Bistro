@@ -2,8 +2,12 @@ import 'package:byte_bistro/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../Services/http_service.dart';
+
 class FoodDetail extends StatelessWidget {
-  const FoodDetail({Key? key}) : super(key: key);
+  FoodDetail({Key? key}) : super(key: key);
+
+  final data = Get.arguments;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +52,7 @@ class FoodDetail extends StatelessWidget {
 // food title
             Center(
               child: Text(
-                'Buff Momo',
+                data[1]['name'],
                 style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.w600,
@@ -68,7 +72,9 @@ class FoodDetail extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: Image(
-                  image: AssetImage('assets/images/buffMomo.jpg'),
+                  image: NetworkImage(
+                    PersistentHtpp.baseUrl + data[4]['image'],
+                  ),
                   fit: BoxFit.cover,
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height * 0.35,
@@ -182,13 +188,13 @@ class FoodDetail extends StatelessWidget {
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
+                    children: [
                       Text('Price',
                           style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w300,
                               height: 1.5)),
-                      Text('Rs 120',
+                      Text(data[2]['price'].toString(),
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w400,
@@ -217,10 +223,17 @@ class FoodDetail extends StatelessWidget {
                 left: 20,
                 bottom: 20,
               ),
-              child: Text(
-                  'Buff momo is mainly made from buff meat and flour. Buff momo recipe is more special than other momo and it is yummy and delicious.',
-                  style: TextStyle(
-                      fontSize: 16, fontWeight: FontWeight.w300, height: 1.5)),
+              child: Container(
+                height: 80,
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  child: Text(data[3]['description'],
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w300,
+                          height: 1.5)),
+                ),
+              ),
             ),
 
             Padding(

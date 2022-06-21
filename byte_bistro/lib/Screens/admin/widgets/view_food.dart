@@ -200,7 +200,16 @@ class ViewFood extends StatelessWidget {
                         ),
                         leading: GestureDetector(
                           behavior: HitTestBehavior.translucent,
-                          onTap: () => Get.toNamed('/foodDetail'),
+                          onTap: () => Get.toNamed('/foodDetail', arguments: [
+                            {"id": foodController.foodList[index].id},
+                            {"name": foodController.foodList[index].name},
+                            {"price": foodController.foodList[index].price},
+                            {
+                              "description":
+                                  foodController.foodList[index].description
+                            },
+                            {"image": foodController.foodList[index].image},
+                          ]),
                           child: Container(
                             width: 48,
                             height: 48,
