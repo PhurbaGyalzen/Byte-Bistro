@@ -18,33 +18,30 @@ class FoodDetail extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // navigation
-            Container(
-              decoration: BoxDecoration(color: Colors.grey.withOpacity(0.05)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  IconButton(
-                    padding: EdgeInsets.only(left: 10),
-                    icon: Icon(
-                      Icons.arrow_back,
-                      size: 20,
-                    ),
-                    onPressed: () => Get.offNamed('/adminScreen'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                IconButton(
+                  padding: EdgeInsets.only(left: 10),
+                  icon: Icon(
+                    Icons.arrow_back,
+                    size: 20,
                   ),
-                  SizedBox(width: 60),
-                  GestureDetector(
-                    onTap: () {},
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 15),
-                      child: Image(
-                        image: AssetImage('assets/images/love_not_fill.png'),
-                        width: 20,
-                        height: 20,
-                      ),
+                  onPressed: () => Get.offNamed('/adminScreen'),
+                ),
+                SizedBox(width: 60),
+                GestureDetector(
+                  onTap: () {},
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 15),
+                    child: Image(
+                      image: AssetImage('assets/images/love_not_fill.png'),
+                      width: 20,
+                      height: 20,
                     ),
-                  )
-                ],
-              ),
+                  ),
+                )
+              ],
             ),
 
             SizedBox(height: 10),
@@ -77,7 +74,7 @@ class FoodDetail extends StatelessWidget {
                   ),
                   fit: BoxFit.cover,
                   width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.35,
+                  height: MediaQuery.of(context).size.height * 0.3,
                 ),
               ),
             ),
@@ -121,7 +118,7 @@ class FoodDetail extends StatelessWidget {
             ),
 
             SizedBox(
-              height: 30,
+              height: 25,
             ),
 
             //food tab
@@ -222,9 +219,10 @@ class FoodDetail extends StatelessWidget {
               padding: const EdgeInsets.only(
                 left: 20,
                 bottom: 20,
+                top: 5,
               ),
-              child: Container(
-                height: 80,
+              child: SizedBox(
+                height: 100,
                 child: SingleChildScrollView(
                   scrollDirection: Axis.vertical,
                   child: Text(data[3]['description'],
