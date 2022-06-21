@@ -84,6 +84,10 @@ export const initialize = (passport: passport.PassportStatic) => {
 		passReqToCallback   : true
 	  },
 	  function(request: any, accessToken: string, refreshToken: string, profile: any, done: any) {
-	  }
+		
+		
+		console.log(profile);
+		done(null, profile);
+	}
 	));
 }

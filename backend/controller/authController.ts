@@ -72,8 +72,8 @@ export const authGoogleCallback = async (
 	next: NextFunction
 ) => {
 	passport.authenticate('google', {
-		successRedirect: '/',
-		failureRedirect: '/',
+		successRedirect: '/google/success',
+		failureRedirect: '/google/failed',
 	})(req, res, next)
 }
 
