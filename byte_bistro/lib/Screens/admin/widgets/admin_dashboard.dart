@@ -153,7 +153,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                   ),
 
                   SizedBox(
-                    height: 40,
+                    height: 20,
                   ),
                   // Text('Categories',
                   //     style: Theme.of(context).textTheme.bodyText2),
