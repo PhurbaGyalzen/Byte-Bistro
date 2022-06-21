@@ -4,6 +4,8 @@ import { Strategy as LocalStrategy } from 'passport-local'
 
 import { initialize } from '../config/passport-config'
 import jsonwebtoken from 'jsonwebtoken'
+import { User } from '@models/Users'
+import nodemailer from 'nodemailer'
 
 initialize(passport)
 
@@ -93,3 +95,32 @@ export const authFailure = async (
 	res.status(401).json({ message: 'Failed Google authentication' });
 }
 
+
+export const resetPassword = async (req: Request, res: Response, next: NextFunction) => {
+	const email = req.body.email
+	const user = await User.findOne({
+		email: email
+	})
+	if (user) {
+		const transport = nodemailer.createTransport({
+			host: "smtp.mailtrap.io",
+			port: 2525,
+			secure: false,
+			auth: {
+			  user: "eaa7407bad9b0e",
+			  pass: "36338c0e16cb14"
+			}
+		  });
+		  let info = await transport.sendMail({
+			from: '"Byte Bistro 🍴" <byte@bistro.com>', // sender address
+			to: `${email}`, // list of receivers
+			subject: "OTP Code", // Subject line
+			text: "Your OTP code is ", // plain text body
+			html: "<b>Hello world?</b>", // html body
+		  });
+		
+		  console.log("Message sent: %s", info.messageId);
+	}
+	// do not leak unnecessary information. always serve this response regardless of any shortcomings.
+	return res.status(200).json({success: true, message: `An email with a OTP has been sent to ${email}, if it exists.`})
+}
