@@ -10,6 +10,7 @@ import 'package:byte_bistro/Screens/admin_profile.dart';
 import 'package:byte_bistro/Screens/admin_profile_update.dart';
 import 'package:byte_bistro/Screens/after_order.dart';
 import 'package:byte_bistro/Screens/category/category_screen.dart';
+import 'package:byte_bistro/Screens/home/widgets/individual_item.dart';
 import 'package:byte_bistro/Screens/user_profile.dart';
 import 'package:byte_bistro/Screens/favourite/favourite.dart';
 import 'package:byte_bistro/Screens/invoice_detail_page.dart';
@@ -97,7 +98,7 @@ class ByteBistro extends StatelessWidget {
           ),
         ),
       ),
-      initialRoute: '/login',
+      initialRoute: '/individual',
       debugShowCheckedModeBanner: false,
       title: 'Byte Bistro',
       getPages: [
@@ -114,9 +115,8 @@ class ByteBistro extends StatelessWidget {
             page: () => AdminProfileUpdateForm()),
         GetPage(name: '/adminProfile', page: () => AdminProfilePage()),
         GetPage(name: '/detail_page_dish', page: () => IndividualItemScreen()),
-
         GetPage(name: '/home', page: () => HomePage()),
-        // GetPage(name: '/individual', page: () => IndividualItem()),
+        GetPage(name: '/individual', page: () => IndividualItem()),
         GetPage(name: '/qrscan', page: () => QrScannerScreen()),
         GetPage(name: '/after-order', page: () => AfterOrderScreen()),
         GetPage(name: '/orderSucess', page: () => OrderSucess()),

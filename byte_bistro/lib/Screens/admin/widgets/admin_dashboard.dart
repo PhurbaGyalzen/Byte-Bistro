@@ -139,36 +139,34 @@ class _AdminDashboardState extends State<AdminDashboard> {
                       ),
                       GestureDetector(
                         onTap: () => showDialog(
-                        barrierDismissible: false,
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            title: Text('Confirm Navigation'),
-                            content: Text(
-                                'Are you sure you want to logout?'),
-                            actions: [
-                              TextButton(
-                                  onPressed: () {
-                                    Get.back();
+                          barrierDismissible: false,
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: Text('Confirm Navigation'),
+                              content: Text('Are you sure you want to logout?'),
+                              actions: [
+                                TextButton(
+                                    onPressed: () {
+                                      Get.back();
+                                    },
+                                    child: Text('Cancel')),
+                                TextButton(
+                                  onPressed: () async {
+                                    await Storage.remove('token');
+                                    await PersistentHtpp.storeAndSetHeader(
+                                        token: '');
+                                    Get.offAllNamed('/login');
                                   },
-                                  child: Text('Cancel')),
-                              TextButton(
-                                onPressed: () async{
-                                  await Storage.remove('token');
-                                  await PersistentHtpp.storeAndSetHeader(
-                                      token: '');
-                                  Get.offAllNamed('/login');
-                                  
-                                },
-                                child: Text(
-                                  'Leave',
-                                  style: TextStyle(color: Colors.red),
+                                  child: Text(
+                                    'Leave',
+                                    style: TextStyle(color: Colors.red),
+                                  ),
                                 ),
-                              ),
-                            ],
-                          );
-                        },
-                      ),
+                              ],
+                            );
+                          },
+                        ),
                         // onTap: () {
                         //   // final response = await PersistentHtpp.get('food');
                         //   // print(response.body);
