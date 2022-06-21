@@ -4,7 +4,7 @@ import 'package:byte_bistro/controller/notification_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../Models/notification.dart';
+import '../../models/notification.dart';
 
 class NotificationNormal extends StatefulWidget {
   const NotificationNormal({Key? key}) : super(key: key);

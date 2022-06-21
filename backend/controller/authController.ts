@@ -53,3 +53,43 @@ export const signinUser = async (
 			})
 	})(req, res, next) //as next closure
 }
+
+
+export const authGoogle = async (
+	req: Request,
+	res: Response,
+	next: NextFunction
+) => {
+	passport.authenticate('google', {
+		scope: ['profile', 'email'],
+		prompt: 'select_account',
+	})(req, res, next)
+}
+
+export const authGoogleCallback = async (
+	req: Request,
+	res: Response,
+	next: NextFunction
+) => {
+	passport.authenticate('google', {
+		successRedirect: '/',
+		failureRedirect: '/',
+	})(req, res, next)
+}
+
+export const authSuccess = async (
+	req: Request,
+	res: Response,
+	next: NextFunction
+) => {
+	res.status(200).json({ message: 'Successful Google authentication' });
+}
+
+export const authFailure = async (
+	req: Request,
+	res: Response,
+	next: NextFunction
+) => {
+	res.status(401).json({ message: 'Failed Google authentication' });
+}
+
