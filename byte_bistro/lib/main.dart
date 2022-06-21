@@ -12,6 +12,7 @@ import 'package:byte_bistro/Screens/admin_profile.dart';
 import 'package:byte_bistro/Screens/admin_profile_update.dart';
 import 'package:byte_bistro/Screens/after_order.dart';
 import 'package:byte_bistro/Screens/category/category_screen.dart';
+import 'package:byte_bistro/Screens/home/widgets/individual_item.dart';
 import 'package:byte_bistro/Screens/user_profile.dart';
 import 'package:byte_bistro/Screens/favourite/favourite.dart';
 import 'package:byte_bistro/Screens/invoice_detail_page.dart';
@@ -35,6 +36,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 // import 'globals.dart' as globals;
+import 'Screens/admin/widgets/food_detail.dart';
 import 'Screens/login_screen.dart';
 import 'package:byte_bistro/Screens/Category_momo.dart';
 import 'package:flutter/services.dart';
@@ -112,7 +114,8 @@ class ByteBistro extends StatelessWidget {
           ),
         ),
       ),
-      initialRoute: tokenDecoded['username'] != null ? '/home' : '/login',
+      initialRoute:
+          tokenDecoded['username'] != null ? '/adminScreen' : '/login',
       // initialRoute: '/login',
       debugShowCheckedModeBanner: false,
       title: 'Byte Bistro',
@@ -130,7 +133,6 @@ class ByteBistro extends StatelessWidget {
             page: () => AdminProfileUpdateForm()),
         GetPage(name: '/adminProfile', page: () => AdminProfilePage()),
         GetPage(name: '/detail_page_dish', page: () => IndividualItemScreen()),
-
         GetPage(name: '/home', page: () => HomePage()),
         // GetPage(name: '/individual', page: () => IndividualItem()),
         GetPage(name: '/qrscan', page: () => QrScannerScreen()),
@@ -151,6 +153,7 @@ class ByteBistro extends StatelessWidget {
         GetPage(name: '/adminOrderDetail', page: () => AdminOrderDetail()),
         GetPage(name: '/userProfilePage', page: () => UserProfilePage()),
         GetPage(name: '/updateFood', page: () => UpdateFood()),
+        GetPage(name: '/foodDetail', page: () => FoodDetail()),
       ],
     );
   }

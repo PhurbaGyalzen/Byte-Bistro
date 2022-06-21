@@ -1,9 +1,5 @@
 import 'package:byte_bistro/Screens/admin/widgets/add_food.dart';
 import 'package:byte_bistro/Screens/admin/widgets/view_food.dart';
-import 'package:byte_bistro/Screens/category/category_screen.dart';
-import 'package:byte_bistro/Screens/home/widgets/app_bar.dart';
-import 'package:byte_bistro/Screens/login_screen.dart';
-import 'package:byte_bistro/Screens/profile/profile_screen.dart';
 import 'package:byte_bistro/Services/http_service.dart';
 import 'package:byte_bistro/Services/storage_service.dart';
 import 'package:byte_bistro/constants/colors.dart';
@@ -77,31 +73,9 @@ class _AdminDashboardState extends State<AdminDashboard> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // SizedBox(
-                  //   height: 20,
-                  // ),
-                  // BuildAppBar(
-                  //   leadingIcon: 'assets/images/menu.png',
-                  //   trailingIcon: IconButton(
-
-                  //     // padding: EdgeInsets.only(left: kDefaultPadding),
-                  //     icon: Image(
-                  //       height:50,
-                  //       width: 50,
-                  //       fit: BoxFit.fill,
-                  //       image: AssetImage(
-                  //         "assets/images/menu.png",
-                  //       ),
-                  //     ),
-                  //     onPressed: () {
-                  //       // Navigator.pushNamed(context, '/adminProfile');
-
-                  //       Get.offNamed('/adminProfile');
-                  //     },
-                  //   ),
-                  //   titleFirstName: 'Admin',
-                  //   titleSecondName: 'Dash',
-                  // ),
+                  SizedBox(
+                    height: 10,
+                  ),
                   Row(
                     children: [
                       GestureDetector(
@@ -109,9 +83,9 @@ class _AdminDashboardState extends State<AdminDashboard> {
                           Get.offNamed('/adminProfile');
                         },
                         child: Image.asset(
-                          "assets/images/admin_user.png",
-                          height: 20,
-                          width: 20,
+                          "assets/images/account.png",
+                          height: 25,
+                          width: 25,
                         ),
                       ),
                       Expanded(child: SizedBox()),
@@ -137,76 +111,49 @@ class _AdminDashboardState extends State<AdminDashboard> {
                       Expanded(
                         child: SizedBox(),
                       ),
-                      GestureDetector(
-                        onTap: () => showDialog(
-                        barrierDismissible: false,
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            title: Text('Confirm Navigation'),
-                            content: Text(
-                                'Are you sure you want to logout?'),
-                            actions: [
-                              TextButton(
-                                  onPressed: () {
-                                    Get.back();
-                                  },
-                                  child: Text('Cancel')),
-                              TextButton(
-                                onPressed: () async{
-                                  await Storage.remove('token');
-                                  await PersistentHtpp.storeAndSetHeader(
-                                      token: '');
-                                  Get.offAllNamed('/login');
-                                  
-                                },
-                                child: Text(
-                                  'Leave',
-                                  style: TextStyle(color: Colors.red),
+                      PopupMenuButton(itemBuilder: (context) {
+                        return [
+                          PopupMenuItem(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: const [
+                                SizedBox(
+                                  width: 5,
                                 ),
-                              ),
-                            ],
-                          );
-                        },
-                      ),
-                        // onTap: () {
-                        //   // final response = await PersistentHtpp.get('food');
-                        //   // print(response.body);
-                        //   // await Storage.setObject('token-val', {'value1': 1});
-                        //   // print('token-val');
-                        //   // print(await Storage.getObject('token-val'));
-                        //    AlertDialog alert = AlertDialog(
-                        //     title: const Text('AlertDialog Title'),
-                        //     content: const Text('AlertDialog description'),
-                        //     actions: <Widget>[
-                        //       TextButton(
-                        //         onPressed: () =>
-                        //             Navigator.pop(context, 'Cancel'),
-                        //         child: const Text('Cancel'),
-                        //       ),
-                        //       TextButton(
-                        //         onPressed: () async {
-                        //           await Storage.remove('token');
-                        //           await PersistentHtpp.storeAndSetHeader(
-                        //               token: '');
-                        //           Get.offAllNamed('/login');
-                        //         },
-                        //         child: const Text('OK'),
-                        //       ),
-                        //     ],
-                        //   );
-                        // },
-                        child: Image.asset(
-                          "assets/images/logout.png",
-                          height: 20,
-                          width: 20,
-                        ),
-                      ),
+                                Image(
+                                  image:
+                                      AssetImage('assets/images/padlock.png'),
+                                  width: 25,
+                                  height: 25,
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Text('Change Password'),
+                              ],
+                            ),
+                            value: 'logout',
+                          ),
+                          PopupMenuItem(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: const [
+                                logoutWidget(),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Text('Logout'),
+                              ],
+                            ),
+                            value: 'logout',
+                          ),
+                        ];
+                      }),
                     ],
                   ),
 
                   SizedBox(
-                    height: 10,
+                    height: 20,
                   ),
                   // Text('Categories',
                   //     style: Theme.of(context).textTheme.bodyText2),
@@ -255,5 +202,77 @@ class _AdminDashboardState extends State<AdminDashboard> {
             ),
           );
         });
+  }
+}
+
+class logoutWidget extends StatelessWidget {
+  const logoutWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Logout'),
+            content: Text('Are you sure you want to logout?'),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Get.back();
+                  },
+                  child: Text('Cancel')),
+              TextButton(
+                onPressed: () async {
+                  await Storage.remove('token');
+                  await PersistentHtpp.storeAndSetHeader(token: '');
+                  Get.offAllNamed('/login');
+                },
+                child: Text(
+                  'Leave',
+                  style: TextStyle(color: Colors.red),
+                ),
+              ),
+            ],
+          );
+        },
+      ),
+      // onTap: () {
+      //   // final response = await PersistentHtpp.get('food');
+      //   // print(response.body);
+      //   // await Storage.setObject('token-val', {'value1': 1});
+      //   // print('token-val');
+      //   // print(await Storage.getObject('token-val'));
+      //    AlertDialog alert = AlertDialog(
+      //     title: const Text('AlertDialog Title'),
+      //     content: const Text('AlertDialog description'),
+      //     actions: <Widget>[
+      //       TextButton(
+      //         onPressed: () =>
+      //             Navigator.pop(context, 'Cancel'),
+      //         child: const Text('Cancel'),
+      //       ),
+      //       TextButton(
+      //         onPressed: () async {
+      //           await Storage.remove('token');
+      //           await PersistentHtpp.storeAndSetHeader(
+      //               token: '');
+      //           Get.offAllNamed('/login');
+      //         },
+      //         child: const Text('OK'),
+      //       ),
+      //     ],
+      //   );
+      // },
+      child: Image.asset(
+        "assets/images/logout.png",
+        height: 20,
+        width: 20,
+      ),
+    );
   }
 }
