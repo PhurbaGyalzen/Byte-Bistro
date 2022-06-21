@@ -44,7 +44,7 @@ class OnBoardingScreen extends StatelessWidget {
                   Column(
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(left: 30, right: 30),
+                        padding: EdgeInsets.only(right: 70),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(20),
                           // child: Image(
