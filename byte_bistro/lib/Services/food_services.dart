@@ -47,7 +47,7 @@ class FoodService {
           await dio.MultipartFile.fromFile(data['image'].path, filename: imageFileName),
       'description': data['description'],
     });
-    try {
+    try { 
       final response = await http.post(
         endpoint,
         data: formData,

@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.byte_bistro">
    <application
-        android:label="byte_bistro"
+        android:label="Byte Bistro"
         android:name="${applicationName}"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:icon="@mipmap/ic_launcher">
