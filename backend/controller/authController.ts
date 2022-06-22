@@ -111,15 +111,16 @@ export const resetPassword = async (req: Request, res: Response, next: NextFunct
 			  pass: "36338c0e16cb14"
 			}
 		  });
-		  let info = await transport.sendMail({
+		  let info = transport.sendMail({
 			from: '"Byte Bistro 🍴" <byte@bistro.com>', // sender address
 			to: `${email}`, // list of receivers
 			subject: "OTP Code", // Subject line
 			text: "Your OTP code is ", // plain text body
-			html: "<b>Hello world?</b>", // html body
+			html: "<h1>Your OTP code is</h1> <pre>3535</pre>", // html body
+		  }).then(info => {
+			console.log("Message sent: %s", info.messageId);
 		  });
 		
-		  console.log("Message sent: %s", info.messageId);
 	}
 	// do not leak unnecessary information. always serve this response regardless of any shortcomings.
 	return res.status(200).json({success: true, message: `An email with a OTP has been sent to ${email}, if it exists.`})
