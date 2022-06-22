@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:byte_bistro/Screens/admin/widgets/admin_dashboard.dart';
 import 'package:byte_bistro/constants/colors.dart';
 import 'package:byte_bistro/controller/food_controller.dart';
 import 'package:flutter/material.dart';
@@ -71,32 +70,7 @@ class _AddFoodState extends State<AddFood> {
                       style: Theme.of(context).textTheme.headline1,
                     ),
                     GestureDetector(
-                      onTap: () => showDialog(
-                          barrierDismissible: false,
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: Text('Confirm Navigation'),
-                              content: Text(
-                                  'Are you sure you want to leave this window?'),
-                              actions: [
-                                TextButton(
-                                    onPressed: () {
-                                      Get.back();
-                                    },
-                                    child: Text('Cancel')),
-                                TextButton(
-                                  onPressed: () {
-                                    Get.off(() => AdminDashboard());
-                                  },
-                                  child: Text(
-                                    'Leave',
-                                    style: TextStyle(color: Colors.red),
-                                  ),
-                                ),
-                              ],
-                            );
-                          }),
+                      onTap: () => Get.back(),
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
@@ -216,24 +190,6 @@ class _AddFoodState extends State<AddFood> {
               ),
               Row(
                 children: [
-                  // ElevatedButton(
-                  //   style: ElevatedButton.styleFrom(
-                  //     primary: kTextLightColor.withOpacity(0.3),
-                  //     onPrimary: kTextColor,
-                  //     minimumSize: Size(50, 40),
-                  //   ),
-                  //   onPressed: () => {
-                  //     nameController.clear(),
-                  //     priceController.clear(),
-                  //     descriptionController.clear(),
-                  //   },
-                  //   child: Text(
-                  //     'CLEAR',
-                  //     style: Theme.of(context).textTheme.headline2,
-                  //     textAlign: TextAlign.center,
-                  //   ),
-                  // ),
-
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       primary: kPrimary.withOpacity(0.8),
