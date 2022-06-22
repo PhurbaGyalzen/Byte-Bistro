@@ -6,6 +6,8 @@ import 'package:byte_bistro/models/loged_user_info.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../constants/colors.dart';
+
 class AdminProfilePage extends StatefulWidget {
   const AdminProfilePage({Key? key}) : super(key: key);
 
@@ -24,21 +26,25 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          'Profile',
+          style: Theme.of(context).textTheme.headline1,
+        ),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Get.offNamed('/adminScreen'),
+        ),
+        backgroundColor: kPrimary,
+        foregroundColor: kTextColor,
+      ),
       body: Container(
         padding: EdgeInsets.only(left: 26, top: 15, right: 26),
         child: Column(
           children: [
             SizedBox(
-              height: 15,
-            ),
-            Center(
-              child: Text(
-                "Profile",
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
-              ),
-            ),
-            SizedBox(
-              height: 40,
+              height: 50,
             ),
             Center(
               child: Stack(
@@ -71,7 +77,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
               ),
             ),
             SizedBox(
-              height: 20,
+              height: 70,
             ),
             Expanded(
               child: FutureBuilder(
@@ -110,7 +116,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                                     style: TextStyle(
                                         fontSize: 18,
                                         // fontWeight: FontWeight.w500,
-                                        letterSpacing: 2.2,
+                                        letterSpacing: 1,
                                         color: Colors.black),
                                   ),
                                 )
@@ -145,7 +151,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                                     style: TextStyle(
                                         fontSize: 18,
                                         // fontWeight: FontWeight.w500,
-                                        letterSpacing: 2.2,
+                                        letterSpacing: 1,
                                         color: Colors.black),
                                   ),
                                 )
@@ -180,7 +186,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                                     style: TextStyle(
                                         fontSize: 18,
                                         // fontWeight: FontWeight.w500,
-                                        letterSpacing: 2.2,
+                                        letterSpacing: 1,
                                         color: Colors.black),
                                   ),
                                 )
@@ -216,37 +222,18 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                                     style: TextStyle(
                                         fontSize: 18,
                                         // fontWeight: FontWeight.w500,
-                                        letterSpacing: 2.2,
+                                        letterSpacing: 1,
                                         color: Colors.black),
                                   ),
                                 )
                               ],
                             ),
                             SizedBox(
-                              height: 120,
+                              height: 40,
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                SizedBox(
-                                  width: 120,
-                                  child: OutlinedButton(
-                                    onPressed: () =>
-                                        Get.toNamed("/adminScreen"),
-                                    style: OutlinedButton.styleFrom(
-                                      // primary: Colors.orange,
-                                      primary: Colors.red,
-                                      shape: const StadiumBorder(),
-                                    ),
-                                    child: Text(
-                                      "Back",
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          letterSpacing: 2.2,
-                                          color: Colors.black),
-                                    ),
-                                  ),
-                                ),
                                 SizedBox(
                                   width: 120,
                                   child: ElevatedButton(
@@ -281,7 +268,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                                       "Edit",
                                       style: TextStyle(
                                           fontSize: 14,
-                                          letterSpacing: 2.2,
+                                          letterSpacing: 1.5,
                                           color: Colors.black),
                                     ),
                                   ),

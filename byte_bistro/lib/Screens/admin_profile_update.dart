@@ -21,8 +21,6 @@ class AdminProfileUpdateForm extends StatefulWidget {
 }
 
 class _AdminProfileUpdateFormState extends State<AdminProfileUpdateForm> {
-  
-
   // editing controller
 
   late TextEditingController fullnameController =
@@ -32,7 +30,8 @@ class _AdminProfileUpdateFormState extends State<AdminProfileUpdateForm> {
   // final TextEditingController phoneController = TextEditingController(text: phone1);
   late final TextEditingController addressController =
       TextEditingController(text: widget.address);
-  late final TextEditingController bioController = TextEditingController(text: widget.bio);
+  late final TextEditingController bioController =
+      TextEditingController(text: widget.bio);
   final formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -76,7 +75,7 @@ class _AdminProfileUpdateFormState extends State<AdminProfileUpdateForm> {
                   ),
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 60,
                 ),
                 TextFormField(
                   validator: RequiredValidator(errorText: '*required'),
@@ -95,7 +94,7 @@ class _AdminProfileUpdateFormState extends State<AdminProfileUpdateForm> {
                   ),
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 30,
                 ),
                 TextFormField(
                   validator: MultiValidator(
@@ -121,7 +120,7 @@ class _AdminProfileUpdateFormState extends State<AdminProfileUpdateForm> {
                   ),
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 30,
                 ),
                 // TextFormField(
                 //   validator:
@@ -175,7 +174,7 @@ class _AdminProfileUpdateFormState extends State<AdminProfileUpdateForm> {
                   ),
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 30,
                 ),
                 TextFormField(
                   validator: RequiredValidator(errorText: '*required'),
@@ -192,7 +191,7 @@ class _AdminProfileUpdateFormState extends State<AdminProfileUpdateForm> {
                   ),
                 ),
                 SizedBox(
-                  height: 30,
+                  height: 60,
                 ),
 
                 Row(
