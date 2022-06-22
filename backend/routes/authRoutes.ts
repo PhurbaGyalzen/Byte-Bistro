@@ -70,8 +70,6 @@ router.put('/profile_update', verifyUser, async (
                 phones: req.body.phone,
                 address: req.body.address,
                 bio: req.body.bio,
-                
-
             }
         })
         res.status(200).json(users)
