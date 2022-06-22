@@ -6,6 +6,8 @@ import { initialize } from '../config/passport-config'
 import jsonwebtoken from 'jsonwebtoken'
 import { User } from '@models/Users'
 import nodemailer from 'nodemailer'
+import { OTP } from '@utils/otp_gen'
+
 
 initialize(passport)
 
@@ -95,7 +97,6 @@ export const authFailure = async (
 	res.status(401).json({ message: 'Failed Google authentication' });
 }
 
-
 export const resetPassword = async (req: Request, res: Response, next: NextFunction) => {
 	const email = req.body.email
 	const user = await User.findOne({
@@ -111,14 +112,17 @@ export const resetPassword = async (req: Request, res: Response, next: NextFunct
 			  pass: process.env.MAIL_PASS
 			}
 		  });
+		  const otp = OTP.generateOTP()
+		  OTP.add(user.email, otp)
 		  let info = transport.sendMail({
 			from: '"Byte Bistro 🍴" <byte@bistro.com>', // sender address
-			to: `${email}`, // list of receivers
-			subject: "OTP Code", // Subject line
-			text: "Your OTP code is ", // plain text body
-			html: "<h1>Your OTP code is</h1> <pre>3535</pre>", // html body
+			to: `${user.email}`, // list of receivers
+			subject: "OTP Code",
+			text: `Your OTP code for Byte Bistro is ${otp}`,
+			html: `<h1>Your OTP code for Byte Bistro is</h1> <pre>${otp}</pre>`,
 		  }).then(info => {
 			console.log("Message sent: %s", info.messageId);
+			console.log(OTP.OTPs)
 		  });
 		
 	}
