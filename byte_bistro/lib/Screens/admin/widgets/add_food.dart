@@ -216,31 +216,29 @@ class _AddFoodState extends State<AddFood> {
               ),
               Row(
                 children: [
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: kTextLightColor.withOpacity(0.3),
-                      onPrimary: kTextColor,
-                      minimumSize: Size(50, 40),
-                    ),
-                    onPressed: () => {
-                      nameController.clear(),
-                      priceController.clear(),
-                      descriptionController.clear(),
-                    },
-                    child: Text(
-                      'CLEAR',
-                      style: Theme.of(context).textTheme.headline2,
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 50,
-                  ),
+                  // ElevatedButton(
+                  //   style: ElevatedButton.styleFrom(
+                  //     primary: kTextLightColor.withOpacity(0.3),
+                  //     onPrimary: kTextColor,
+                  //     minimumSize: Size(50, 40),
+                  //   ),
+                  //   onPressed: () => {
+                  //     nameController.clear(),
+                  //     priceController.clear(),
+                  //     descriptionController.clear(),
+                  //   },
+                  //   child: Text(
+                  //     'CLEAR',
+                  //     style: Theme.of(context).textTheme.headline2,
+                  //     textAlign: TextAlign.center,
+                  //   ),
+                  // ),
+
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       primary: kPrimary.withOpacity(0.8),
                       onPrimary: kTextColor,
-                      minimumSize: Size(75, 40),
+                      minimumSize: Size(100, 40),
                     ),
                     onPressed: () async {
                       if (formKey.currentState?.validate() == true) {
