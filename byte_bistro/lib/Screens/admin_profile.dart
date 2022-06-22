@@ -29,7 +29,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
         child: Column(
           children: [
             SizedBox(
-              height: 15,
+              height: 20,
             ),
             Center(
               child: Text(
@@ -38,7 +38,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
               ),
             ),
             SizedBox(
-              height: 40,
+              height: 50,
             ),
             Center(
               child: Stack(
@@ -71,7 +71,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
               ),
             ),
             SizedBox(
-              height: 20,
+              height: 70,
             ),
             Expanded(
               child: FutureBuilder(
@@ -110,7 +110,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                                     style: TextStyle(
                                         fontSize: 18,
                                         // fontWeight: FontWeight.w500,
-                                        letterSpacing: 2.2,
+                                        letterSpacing: 1,
                                         color: Colors.black),
                                   ),
                                 )
@@ -145,7 +145,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                                     style: TextStyle(
                                         fontSize: 18,
                                         // fontWeight: FontWeight.w500,
-                                        letterSpacing: 2.2,
+                                        letterSpacing: 1,
                                         color: Colors.black),
                                   ),
                                 )
@@ -180,7 +180,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                                     style: TextStyle(
                                         fontSize: 18,
                                         // fontWeight: FontWeight.w500,
-                                        letterSpacing: 2.2,
+                                        letterSpacing: 1,
                                         color: Colors.black),
                                   ),
                                 )
@@ -216,14 +216,14 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                                     style: TextStyle(
                                         fontSize: 18,
                                         // fontWeight: FontWeight.w500,
-                                        letterSpacing: 2.2,
+                                        letterSpacing: 1,
                                         color: Colors.black),
                                   ),
                                 )
                               ],
                             ),
                             SizedBox(
-                              height: 120,
+                              height: 110,
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -242,7 +242,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                                       "Back",
                                       style: TextStyle(
                                           fontSize: 14,
-                                          letterSpacing: 2.2,
+                                          letterSpacing: 1.5,
                                           color: Colors.black),
                                     ),
                                   ),
@@ -281,7 +281,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                                       "Edit",
                                       style: TextStyle(
                                           fontSize: 14,
-                                          letterSpacing: 2.2,
+                                          letterSpacing: 1.5,
                                           color: Colors.black),
                                     ),
                                   ),
