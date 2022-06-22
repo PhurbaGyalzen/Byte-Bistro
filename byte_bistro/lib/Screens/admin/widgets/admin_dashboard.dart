@@ -41,22 +41,6 @@ class _AdminDashboardState extends State<AdminDashboard> {
             backgroundColor: kPrimary,
             onTap: () => showMaterialDialog(),
           ),
-          SpeedDialChild(
-            child: Image(
-              image: AssetImage('assets/images/addUser.png'),
-              width: 30,
-              height: 30,
-            ),
-            backgroundColor: kPrimary,
-          ),
-          SpeedDialChild(
-            child: Image(
-              image: AssetImage('assets/images/addNotification.png'),
-              width: 30,
-              height: 30,
-            ),
-            backgroundColor: kPrimary,
-          ),
         ],
       ),
       body: SafeArea(

@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 
 import '../../../Services/http_service.dart';
 
-class FoodDetail extends StatelessWidget {
-  FoodDetail({Key? key}) : super(key: key);
+class UserFoodDetail extends StatelessWidget {
+  UserFoodDetail({Key? key}) : super(key: key);
 
   final data = Get.arguments;
 

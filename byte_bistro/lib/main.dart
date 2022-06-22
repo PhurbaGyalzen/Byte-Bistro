@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:byte_bistro/Screens/add_to_cart/add_to_cart.dart';
 import 'package:byte_bistro/Screens/admin/widgets/add_food.dart';
+import 'package:byte_bistro/Screens/admin/widgets/admin_food_detail.dart';
 import 'package:byte_bistro/Screens/admin/widgets/admin_order_detail.dart';
 import 'package:byte_bistro/Screens/admin/widgets/admin_orders.dart';
 import 'package:byte_bistro/Screens/admin/widgets/update_food.dart';
@@ -12,7 +13,6 @@ import 'package:byte_bistro/Screens/admin_profile.dart';
 import 'package:byte_bistro/Screens/admin_profile_update.dart';
 import 'package:byte_bistro/Screens/after_order.dart';
 import 'package:byte_bistro/Screens/category/category_screen.dart';
-import 'package:byte_bistro/Screens/home/widgets/individual_item.dart';
 import 'package:byte_bistro/Screens/user_profile.dart';
 import 'package:byte_bistro/Screens/favourite/favourite.dart';
 import 'package:byte_bistro/Screens/invoice_detail_page.dart';
@@ -36,7 +36,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 // import 'globals.dart' as globals;
-import 'Screens/admin/widgets/food_detail.dart';
+import 'Screens/admin/widgets/user_food_detail.dart';
 import 'Screens/login_screen.dart';
 import 'package:byte_bistro/Screens/Category_momo.dart';
 import 'package:flutter/services.dart';
@@ -153,7 +153,8 @@ class ByteBistro extends StatelessWidget {
         GetPage(name: '/adminOrderDetail', page: () => AdminOrderDetail()),
         GetPage(name: '/userProfilePage', page: () => UserProfilePage()),
         GetPage(name: '/updateFood', page: () => UpdateFood()),
-        GetPage(name: '/foodDetail', page: () => FoodDetail()),
+        GetPage(name: '/userFoodDetail', page: () => UserFoodDetail()),
+        GetPage(name: '/adminFoodDetail', page: () => AdminFoodDetail()),
       ],
     );
   }
