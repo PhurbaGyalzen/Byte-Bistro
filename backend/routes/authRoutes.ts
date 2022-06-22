@@ -1,5 +1,5 @@
 import { Router, Request, Response, NextFunction } from 'express'
-import { signupUser, signinUser, authGoogle, authGoogleCallback, authFailure, authSuccess, resetPassword } from '../controller/authController'
+import { signupUser, signinUser, authGoogle, authGoogleCallback, authFailure, authSuccess, resetPassword, verifyResetPassword } from '../controller/authController'
 import { User } from '@models/Users';
 import { verifyUser } from 'middlewares/jwt-auth';
 
@@ -13,6 +13,7 @@ router.post(
     signinUser,
 )
 router.post('/resetPassword', resetPassword)
+router.post('/verifyResetPassword', verifyResetPassword)
 router.get('/google',authGoogle);
 router.get('/google/callback',authGoogleCallback);
 router.get('/google/failed',authFailure);
