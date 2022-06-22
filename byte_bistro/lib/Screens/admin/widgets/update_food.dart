@@ -75,48 +75,6 @@ class _UpdateFoodState extends State<UpdateFood> {
                             'Food Details',
                             style: Theme.of(context).textTheme.headline1,
                           ),
-                          GestureDetector(
-                            onTap: () => showDialog(
-                              barrierDismissible: false,
-                              context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                  title: Text('Confirm Navigation'),
-                                  content: Text(
-                                      'Are you sure you want to leave this window?'),
-                                  actions: [
-                                    TextButton(
-                                        onPressed: () {
-                                          Get.back();
-                                        },
-                                        child: Text('Cancel')),
-                                    TextButton(
-                                      onPressed: () {
-                                        Get.off(() => AdminDashboard());
-                                      },
-                                      child: Text(
-                                        'Leave',
-                                        style: TextStyle(color: Colors.red),
-                                      ),
-                                    ),
-                                  ],
-                                );
-                              },
-                            ),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5),
-                                color: kTextLightColor.withOpacity(0.2),
-                              ),
-                              child: Image(
-                                height: 25,
-                                width: 25,
-                                fit: BoxFit.cover,
-                                image: AssetImage('assets/images/cross.png'),
-                                color: kTextLightColor,
-                              ),
-                            ),
-                          )
                         ],
                       ),
                     ),
@@ -138,25 +96,6 @@ class _UpdateFoodState extends State<UpdateFood> {
                     ),
                     Row(
                       children: [
-                        // ElevatedButton(
-                        //   style: ElevatedButton.styleFrom(
-                        //     primary: kTextLightColor.withOpacity(0.3),
-                        //     onPrimary: kTextColor,
-                        //     minimumSize: Size(50, 40),
-                        //   ),
-                        //   onPressed: () => {
-                        //     nameController.clear(),
-                        //     priceController.clear(),
-                        //     // imageController.clear(),
-                        //     descriptionController.clear(),
-                        //   },
-                        //   child: Text(
-                        //     'CLEAR',
-                        //     style: Theme.of(context).textTheme.headline2,
-                        //     textAlign: TextAlign.center,
-                        //   ),
-                        // ),
-
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             primary: kPrimary.withOpacity(0.8),
@@ -263,30 +202,6 @@ class _UpdateFoodState extends State<UpdateFood> {
       ]),
     );
   }
-
-  // TextFormField imageField() {
-  //   return TextFormField(
-  //     autovalidateMode: AutovalidateMode.onUserInteraction,
-  //     controller: imageController,
-  //     textInputAction: TextInputAction.done,
-  //     keyboardType: TextInputType.emailAddress,
-  //     decoration: InputDecoration(
-  //       border: OutlineInputBorder(),
-  //       label: Text('Image'),
-  //       suffixIcon: imageController.text.isEmpty
-  //           ? Container(
-  //               width: 0,
-  //             )
-  //           : IconButton(
-  //               icon: Icon(Icons.close),
-  //               onPressed: () => imageController.clear(),
-  //             ),
-  //     ),
-  //     validator: MultiValidator([
-  //       RequiredValidator(errorText: 'Required *'),
-  //     ]),
-  //   );
-  // }
 
   TextFormField descriptionField() {
     return TextFormField(
