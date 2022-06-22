@@ -107,8 +107,8 @@ export const resetPassword = async (req: Request, res: Response, next: NextFunct
 			port: 2525,
 			secure: false,
 			auth: {
-			  user: "eaa7407bad9b0e",
-			  pass: "36338c0e16cb14"
+			  user: process.env.MAIL_USERNAME,
+			  pass: process.env.MAIL_PASS
 			}
 		  });
 		  let info = transport.sendMail({
