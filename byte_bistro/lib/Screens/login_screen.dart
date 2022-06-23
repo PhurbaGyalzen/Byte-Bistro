@@ -31,16 +31,18 @@ class _LoginScreenState extends State<LoginScreen> {
         child: SafeArea(
           child: Column(
             children: [
-              const SizedBox(
-                height: 30,
-              ),
+              // const SizedBox(
+              //   height: 10,
+              // ),
               Image.asset(
                 'assets/images/login.png',
               ),
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 40,
-                  vertical: 40,
+                padding: const EdgeInsets.only(
+                  
+                  left: 40,
+                  right: 40,
+                  bottom: 10
                 ),
                 child: Form(
                   key: _formkey,
@@ -200,14 +202,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                   Get.offNamed('/adminScreen');
                                 } else if (response.isAdmin == false) {
                                   prefs.setString("token", response.token);
-                                  Get.offNamed('/onBoardingScreen');
+                                  // Get.offNamed('/onBoardingScreen');
+                                  Get.offNamed('/changePassword');
                                 }
                               } else {
                                 Get.snackbar(
                                   "Invalid Creditentials",
                                   "Please try again",
-                                  icon:
-                                      Icon(Icons.person_rounded, color: Colors.white),
+                                  icon: Icon(Icons.person_rounded,
+                                      color: Colors.white),
                                   duration: Duration(seconds: 3),
                                   backgroundColor: Colors.red,
                                   colorText: Colors.white,
@@ -234,6 +237,27 @@ class _LoginScreenState extends State<LoginScreen> {
 
                       const SizedBox(
                         height: 10,
+                      ),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: const Color(0xFFDD4839),
+                          shape: const StadiumBorder(),
+                          minimumSize: const Size(
+                            double.infinity,
+                            50,
+                          ),
+                        ),
+                        onPressed: () {},
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset('assets/images/google.png'),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            const Text('Login with Google'),
+                          ],
+                        ),
                       ),
 
                       const SizedBox(
