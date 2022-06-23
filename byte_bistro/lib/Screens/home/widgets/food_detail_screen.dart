@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
-import '../models/food.dart';
+import '../../../models/food.dart';
 
 class IndividualItemScreen extends StatefulWidget {
   const IndividualItemScreen({Key? key}) : super(key: key);

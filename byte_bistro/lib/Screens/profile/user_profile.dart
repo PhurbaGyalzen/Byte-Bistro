@@ -1,12 +1,12 @@
 // ignore_for_file: deprecated_member_use
 
-import 'package:byte_bistro/Screens/user_profile_update.dart';
+import 'package:byte_bistro/Screens/profile/user_profile_update.dart';
 import 'package:byte_bistro/controller/logged_user_info_controller.dart';
 import 'package:byte_bistro/models/loged_user_info.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../constants/colors.dart';
+import '../../constants/colors.dart';
 
 class UserProfilePage extends StatefulWidget {
   const UserProfilePage({Key? key}) : super(key: key);

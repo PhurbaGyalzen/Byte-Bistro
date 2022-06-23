@@ -182,6 +182,11 @@ class ProfileSystem extends StatelessWidget {
               text: 'Help',
             ),
             ProfileListTile(
+              imageLeading: 'assets/images/accept.png',
+              imageTrailing: 'assets/images/next.png',
+              text: 'Terms & Conditions',
+            ),
+            ProfileListTile(
                 imageLeading: 'assets/images/logout.png',
                 imageTrailing: 'assets/images/next.png',
                 text: 'Log out',
