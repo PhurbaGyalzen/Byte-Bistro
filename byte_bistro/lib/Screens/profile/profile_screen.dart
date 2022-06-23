@@ -175,6 +175,7 @@ class ProfileSystem extends StatelessWidget {
               imageLeading: 'assets/images/padlock.png',
               imageTrailing: 'assets/images/next.png',
               text: 'Change Password',
+              onClick: () => Get.toNamed('/changePassword'),
             ),
             ProfileListTile(
               imageLeading: 'assets/images/help.png',

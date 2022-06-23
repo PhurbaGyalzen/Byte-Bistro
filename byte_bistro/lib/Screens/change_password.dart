@@ -24,6 +24,18 @@ class _ChangePasswordState extends State<ChangePassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Change Password',
+          style: TextStyle(fontSize: 20, letterSpacing: 1, height: 1.5),
+        ),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Get.offNamed('/profileScreen'),
+        ),
+        backgroundColor: kPrimary,
+        foregroundColor: kTextColor,
+      ),
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.only(
