@@ -24,7 +24,7 @@ const UserSchemaFields: Record<keyof IUser, any> = {
 	},
 	passwordHash: {
 		type: String,
-		required: true,
+		// required: true,
 		minlength: 8,
 		maxlength: 1024,
 	},
