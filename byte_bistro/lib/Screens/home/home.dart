@@ -78,9 +78,9 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               TabItem(
-                activeIcon: Icon(Icons.shopping_cart),
+                activeIcon: Icon(Icons.book),
                 icon: Icon(
-                  Icons.shopping_cart_outlined,
+                  Icons.book_outlined,
                   size: 25,
                 ),
               ),

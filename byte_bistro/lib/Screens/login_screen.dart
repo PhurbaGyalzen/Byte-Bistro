@@ -203,7 +203,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 } else if (response.isAdmin == false) {
                                   prefs.setString("token", response.token);
                                   // Get.offNamed('/onBoardingScreen');
-                                  Get.offNamed('/changePassword');
+                                  Get.offNamed('/home');
                                 }
                               } else {
                                 Get.snackbar(

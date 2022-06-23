@@ -72,11 +72,8 @@ router.put('/profile_update', verifyUser, async (
                 phones: req.body.phone,
                 address: req.body.address,
                 bio: req.body.bio,
-<<<<<<< HEAD
 
 
-=======
->>>>>>> f7a15b0b07e077765e97917d203d246aa30e891d
             }
         })
         res.status(200).json(users)
