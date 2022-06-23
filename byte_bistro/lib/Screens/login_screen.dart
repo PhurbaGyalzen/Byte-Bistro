@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-
-//import 'package:byte_bistro/Services/http_service.dart';
-=======
 import 'package:byte_bistro/Screens/google_signin_api.dart';
->>>>>>> 7a921ad1de1bc864ffcb21b71bb581f0c156c818
 import 'package:byte_bistro/Services/http_service.dart';
 import 'package:byte_bistro/Services/storage_service.dart';
 import 'package:byte_bistro/constants/colors.dart';
@@ -48,16 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 'assets/images/login.png',
               ),
               Container(
-<<<<<<< HEAD
-                padding: const EdgeInsets.only(
-                  
-                  left: 40,
-                  right: 40,
-                  bottom: 10
-                ),
-=======
                 padding: const EdgeInsets.only(left: 40, right: 40, bottom: 10),
->>>>>>> 7a921ad1de1bc864ffcb21b71bb581f0c156c818
                 child: Form(
                   key: _formkey,
                   child: Column(
@@ -117,9 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       TextFormField(
                         controller: passwordController,
                         validator: RequiredValidator(errorText: 'required*'),
-
                         obscureText: _isObscure,
-
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
                             borderSide: const BorderSide(
@@ -207,8 +191,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 passwordController.text,
                               );
 
-
-                             if (response != null) {
+                              if (response != null) {
                                 await PersistentHtpp.storeAndSetHeader(
                                     token: response.token);
                                 if (response.isAdmin == true) {
@@ -217,11 +200,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 } else if (response.isAdmin == false) {
                                   prefs.setString("token", response.token);
                                   // Get.offNamed('/onBoardingScreen');
-<<<<<<< HEAD
-                                  Get.offNamed('/changePassword');
-=======
                                   Get.offNamed('/home');
->>>>>>> 7a921ad1de1bc864ffcb21b71bb581f0c156c818
                                 }
                               } else {
                                 Get.snackbar(
@@ -314,5 +293,4 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
-
 }
