@@ -38,7 +38,7 @@ export const signinUser = async (
 		if (!user) {
 			return res.status(401).json({ message: info.message }) // 401 Unauthorized
 		}
-		const token = jsonwebtoken.sign(
+		const token:String = jsonwebtoken.sign(
 			{
 				id: user._id,
 				username: user.username,
@@ -71,9 +71,33 @@ export const authGoogleCallback = async (
 	res: Response,
 	next: NextFunction
 ) => {
-	passport.authenticate('google', {
+	passport.authenticate('google',{
+		session: false,
 		successRedirect: '/google/success',
 		failureRedirect: '/google/failed',
+	}, (err,user,info:any) => {
+		if (err) {
+			return next(err)
+		}
+		if (!user) {
+			return res.status(401).json({ message: info.message }) // 401 Unauthorized
+		}
+		const token:String = jsonwebtoken.sign(
+			{
+				id: user._id,
+				username: user.username,
+			},
+			process.env.JWT_SECRET!,
+			{ expiresIn: '2d' }
+		)
+		return res
+			.status(200)
+			.json({
+				message: 'User logged in successfully',
+				token: token,
+				// user,
+				isAdmin: user['isAdmin'],
+			})
 	})(req, res, next)
 }
 
