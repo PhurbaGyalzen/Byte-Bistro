@@ -1,5 +1,6 @@
 import 'package:byte_bistro/Screens/admin/widgets/add_food.dart';
 import 'package:byte_bistro/Screens/admin/widgets/view_food.dart';
+import 'package:byte_bistro/Screens/category/category_screen.dart';
 import 'package:byte_bistro/Services/http_service.dart';
 import 'package:byte_bistro/Services/storage_service.dart';
 import 'package:byte_bistro/constants/colors.dart';
@@ -132,6 +133,9 @@ class _AdminDashboardState extends State<AdminDashboard> {
                   SizedBox(
                     height: 10,
                   ),
+                  Text('Categories',
+                      style: Theme.of(context).textTheme.bodyText2),
+                  CategoryScreen(),
                   SizedBox(
                     height: 20,
                   ),
