@@ -38,12 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 'assets/images/login.png',
               ),
               Container(
-                padding: const EdgeInsets.only(
-                  
-                  left: 40,
-                  right: 40,
-                  bottom: 10
-                ),
+                padding: const EdgeInsets.only(left: 40, right: 40, bottom: 10),
                 child: Form(
                   key: _formkey,
                   child: Column(
@@ -203,7 +198,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 } else if (response.isAdmin == false) {
                                   prefs.setString("token", response.token);
                                   // Get.offNamed('/onBoardingScreen');
-                                  Get.offNamed('/changePassword');
+                                  Get.offNamed('/home');
                                 }
                               } else {
                                 Get.snackbar(

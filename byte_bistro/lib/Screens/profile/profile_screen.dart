@@ -172,9 +172,9 @@ class ProfileSystem extends StatelessWidget {
         child: Column(
           children: [
             ProfileListTile(
-              imageLeading: 'assets/images/settings.png',
+              imageLeading: 'assets/images/padlock.png',
               imageTrailing: 'assets/images/next.png',
-              text: 'Settings',
+              text: 'Change Password',
             ),
             ProfileListTile(
               imageLeading: 'assets/images/help.png',
