@@ -13,12 +13,8 @@ import 'package:byte_bistro/Screens/admin_profile.dart';
 import 'package:byte_bistro/Screens/admin_profile_update.dart';
 import 'package:byte_bistro/Screens/after_order.dart';
 import 'package:byte_bistro/Screens/category/category_screen.dart';
-<<<<<<< HEAD
 import 'package:byte_bistro/Screens/change_password.dart';
-import 'package:byte_bistro/Screens/testing.dart';
-=======
 import 'package:byte_bistro/Screens/profile/profile_screen.dart';
->>>>>>> f7a15b0b07e077765e97917d203d246aa30e891d
 import 'package:byte_bistro/Screens/user_profile.dart';
 import 'package:byte_bistro/Screens/favourite/favourite.dart';
 import 'package:byte_bistro/Screens/invoice_detail_page.dart';
@@ -120,17 +116,12 @@ class ByteBistro extends StatelessWidget {
           ),
         ),
       ),
-<<<<<<< HEAD
       initialRoute: '/login',
-=======
-      initialRoute: tokenDecoded['username'] != null ? '/home' : '/login',
-      // initialRoute: '/login',
->>>>>>> f7a15b0b07e077765e97917d203d246aa30e891d
       debugShowCheckedModeBanner: false,
       title: 'Byte Bistro',
       getPages: [
         GetPage(name: '/login', page: () => LoginScreen()),
-        GetPage(name: '/tesing', page: () => TestingExpanded()),
+        // GetPage(name: '/tesing', page: () => TestingExpanded()),
         GetPage(
             name: '/orderHistory_user_list', page: () => OrderHistoryUser()),
         GetPage(name: '/order_history_admin', page: () => OrderHistoryAdmin()),
