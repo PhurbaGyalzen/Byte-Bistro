@@ -1,5 +1,5 @@
 import { Router, Request, Response, NextFunction } from 'express'
-import { signupUser, signinUser } from '../controller/authController'
+import { signupUser, signinUser, authGoogle, authGoogleCallback, authFailure, authSuccess, resetPassword, verifyResetPassword } from '../controller/authController'
 import { User } from '@models/Users';
 import { verifyUser } from 'middlewares/jwt-auth';
 import bcrypt from 'bcrypt'
@@ -13,6 +13,15 @@ router.post(
 
     signinUser,
 )
+router.post('/resetPassword', resetPassword)
+router.post('/verifyResetPassword', verifyResetPassword)
+router.get('/google',authGoogle);
+router.get('/google/callback',authGoogleCallback);
+router.get('/google/failed',authFailure);
+router.get('/google/success',authSuccess);
+
+
+
 router.get('/all_user', async (
     req: Request,
     res: Response,
@@ -63,8 +72,11 @@ router.put('/profile_update', verifyUser, async (
                 phones: req.body.phone,
                 address: req.body.address,
                 bio: req.body.bio,
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> f7a15b0b07e077765e97917d203d246aa30e891d
             }
         })
         res.status(200).json(users)

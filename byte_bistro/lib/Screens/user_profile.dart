@@ -6,6 +6,8 @@ import 'package:byte_bistro/models/loged_user_info.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../constants/colors.dart';
+
 class UserProfilePage extends StatefulWidget {
   const UserProfilePage({Key? key}) : super(key: key);
 
@@ -24,19 +26,22 @@ class _UserProfilePageState extends State<UserProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Profile Details',
+          style: TextStyle(fontSize: 20, letterSpacing: 1, height: 1.5),
+        ),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Get.offNamed('/profileScreen'),
+        ),
+        backgroundColor: kPrimary,
+        foregroundColor: kTextColor,
+      ),
       body: Container(
         padding: EdgeInsets.only(left: 26, top: 15, right: 26),
         child: Column(
           children: [
-            SizedBox(
-              height: 15,
-            ),
-            Center(
-              child: Text(
-                "Profile",
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
-              ),
-            ),
             SizedBox(
               height: 40,
             ),
@@ -71,7 +76,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
               ),
             ),
             SizedBox(
-              height: 20,
+              height: 30,
             ),
             Expanded(
               child: FutureBuilder(
@@ -90,6 +95,54 @@ class _UserProfilePageState extends State<UserProfilePage> {
                       itemBuilder: (context, index) {
                         return Column(
                           children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  width: 120,
+                                  child: OutlinedButton(
+                                    onPressed: () {
+                                      setState(
+                                        () {
+                                          fullName = data.fullname;
+                                          email = data.email;
+                                          address = data.address;
+                                          bio = data.bio;
+                                        },
+                                      );
+
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              UserProfileUpdateForm(
+                                            bio: bio,
+                                            fullName: fullName,
+                                            address: address,
+                                            email: email,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    style: OutlinedButton.styleFrom(
+                                      // primary: Colors.orange,
+                                      primary: Colors.red,
+                                      shape: const StadiumBorder(),
+                                    ),
+                                    child: Text(
+                                      "Edit",
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          letterSpacing: 2.2,
+                                          color: Colors.black),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 50,
+                            ),
                             Row(
                               children: [
                                 Icon(
@@ -110,7 +163,8 @@ class _UserProfilePageState extends State<UserProfilePage> {
                                     style: TextStyle(
                                         fontSize: 18,
                                         // fontWeight: FontWeight.w500,
-                                        letterSpacing: 2.2,
+                                        letterSpacing: 1,
+                                        height: 1.5,
                                         color: Colors.black),
                                   ),
                                 )
@@ -145,7 +199,8 @@ class _UserProfilePageState extends State<UserProfilePage> {
                                     style: TextStyle(
                                         fontSize: 18,
                                         // fontWeight: FontWeight.w500,
-                                        letterSpacing: 2.2,
+                                        letterSpacing: 1,
+                                        height: 1.5,
                                         color: Colors.black),
                                   ),
                                 )
@@ -180,7 +235,8 @@ class _UserProfilePageState extends State<UserProfilePage> {
                                     style: TextStyle(
                                         fontSize: 18,
                                         // fontWeight: FontWeight.w500,
-                                        letterSpacing: 2.2,
+                                        letterSpacing: 1,
+                                        height: 1.5,
                                         color: Colors.black),
                                   ),
                                 )
@@ -216,77 +272,15 @@ class _UserProfilePageState extends State<UserProfilePage> {
                                     style: TextStyle(
                                         fontSize: 18,
                                         // fontWeight: FontWeight.w500,
-                                        letterSpacing: 2.2,
+                                        letterSpacing: 1,
+                                        height: 1.5,
                                         color: Colors.black),
                                   ),
                                 )
                               ],
                             ),
                             SizedBox(
-                              height: 120,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                SizedBox(
-                                  width: 120,
-                                  child: OutlinedButton(
-                                    onPressed: () =>
-                                        Get.toNamed("/home"),
-                                    style: OutlinedButton.styleFrom(
-                                      // primary: Colors.orange,
-                                      primary: Colors.red,
-                                      shape: const StadiumBorder(),
-                                    ),
-                                    child: Text(
-                                      "Back",
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          letterSpacing: 2.2,
-                                          color: Colors.black),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 120,
-                                  child: ElevatedButton(
-                                    onPressed: () {
-                                      setState(
-                                        () {
-                                          fullName = data.fullname;
-                                          email = data.email;
-                                          address = data.address;
-                                          bio = data.bio;
-                                        },
-                                      );
-
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              UserProfileUpdateForm(
-                                            bio: bio,
-                                            fullName: fullName,
-                                            address: address,
-                                            email: email,
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      primary: Color(0xFFFFC61F),
-                                      shape: const StadiumBorder(),
-                                    ),
-                                    child: Text(
-                                      "Edit",
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          letterSpacing: 2.2,
-                                          color: Colors.black),
-                                    ),
-                                  ),
-                                )
-                              ],
+                              height: 80,
                             ),
                             SizedBox(
                               height: 15,

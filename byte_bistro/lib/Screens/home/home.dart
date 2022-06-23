@@ -32,15 +32,12 @@ class _HomePageState extends State<HomePage> {
     HomeScreen(
       scrollController: scrollController,
     ),
-    FavouritePage(
-    ),
+    FavouritePage(),
     QrScannerScreen(),
     HomeScreen(
       scrollController: scrollController,
     ),
-    ProfileScreen(
-      scrollController: scrollController,
-    ),
+    ProfileScreen(),
 
     // EditProfilePage(),
   ];
@@ -136,66 +133,44 @@ class _HomeScreenState extends State<HomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          // Get.offNamed('/adminProfile');
-                        },
-                        child:Image.asset(
-                        "assets/images/menu.png",
-                        height: 20,
-                        width: 20,
-                      ),
-                      ),
-                      Expanded(child: SizedBox()),
-                      Text.rich(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text.rich(
+                    TextSpan(
+                      text: "Byte",
+                      style: TextStyle(
+                          fontSize: 20,
+                          letterSpacing: 0.6,
+                          fontWeight: FontWeight.bold,
+                          wordSpacing: 0.5),
+                      children: const [
                         TextSpan(
-                          text: "Byte",
-                          style: TextStyle(
-                              fontSize: 20,
-                              letterSpacing: 0.6,
-                              fontWeight: FontWeight.bold,
-                              wordSpacing: 0.5),
-                          children: const [
-                            TextSpan(
-                                text: "Bistro",
-                                style: TextStyle(
-                                    color: kPrimary,
-                                    fontSize: 20,
-                                    letterSpacing: 0.5,
-                                    fontWeight: FontWeight.bold)),
-                          ],
-                        ),
-                      ),
-                      Expanded(child: SizedBox()),
-                      GestureDetector(
-                        onTap: () {
-                          Get.offNamed('/notification');
-                        },
-                        child:Image.asset(
-                        "assets/images/notification.png",
-                        height: 20,
-                        width: 20,
-                      ),
-                      ),
-                      
-                      
-                      
-                    ],
+                            text: "Bistro",
+                            style: TextStyle(
+                                color: kPrimary,
+                                fontSize: 20,
+                                letterSpacing: 0.5,
+                                fontWeight: FontWeight.bold)),
+                      ],
+                    ),
                   ),
-              // BuildAppBar(
-              //   leadingIcon: 'assets/images/menu.png',
-              //   // trailingIcon: 'assets/images/notification.png',
-              //   trailingIcon: IconButton(
-              //     // padding: EdgeInsets.only(left: kDefaultPadding),
-              //     icon: Image(
-              //         image: AssetImage("assets/images/notification.png")),
-              //     onPressed: () {
-              //       Get.toNamed('/notification');
-              //     },
-              //   ),
-              //   titleFirstName: 'Byte',
-              //   titleSecondName: 'Bistro',
+                  GestureDetector(
+                    onTap: () {
+                      Get.offNamed('/notification');
+                    },
+                    child: Image.asset(
+                      "assets/images/notification.png",
+                      height: 20,
+                      width: 20,
+                    ),
+                  ),
+                ],
+              ),
+
+              SizedBox(
+                height: 20,
+              ),
+
               // ),
               AppNote(),
               FoodTab(),

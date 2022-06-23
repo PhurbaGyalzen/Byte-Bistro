@@ -3,6 +3,8 @@ import 'package:form_field_validator/form_field_validator.dart';
 import 'package:byte_bistro/controller/logged_user_info_controller.dart';
 import 'package:get/get.dart';
 
+import '../constants/colors.dart';
+
 class UserProfileUpdateForm extends StatefulWidget {
   final String bio;
   final String fullName;
@@ -21,8 +23,6 @@ class UserProfileUpdateForm extends StatefulWidget {
 }
 
 class _UserProfileUpdateFormState extends State<UserProfileUpdateForm> {
-  
-
   // editing controller
 
   late TextEditingController fullnameController =
@@ -32,11 +32,24 @@ class _UserProfileUpdateFormState extends State<UserProfileUpdateForm> {
   // final TextEditingController phoneController = TextEditingController(text: phone1);
   late final TextEditingController addressController =
       TextEditingController(text: widget.address);
-  late final TextEditingController bioController = TextEditingController(text: widget.bio);
+  late final TextEditingController bioController =
+      TextEditingController(text: widget.bio);
   final formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Edit Profile',
+          style: TextStyle(fontSize: 20, letterSpacing: 1, height: 1.5),
+        ),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Get.offNamed('/userProfilePage'),
+        ),
+        backgroundColor: kPrimary,
+        foregroundColor: kTextColor,
+      ),
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.only(left: 26, top: 50, right: 26),
@@ -76,7 +89,7 @@ class _UserProfileUpdateFormState extends State<UserProfileUpdateForm> {
                   ),
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 60,
                 ),
                 TextFormField(
                   validator: RequiredValidator(errorText: '*required'),
@@ -91,6 +104,8 @@ class _UserProfileUpdateFormState extends State<UserProfileUpdateForm> {
                       fontSize: 16,
                       fontWeight: FontWeight.normal,
                       color: Colors.black,
+                      height: 1.5,
+                      letterSpacing: 1,
                     ),
                   ),
                 ),
@@ -117,49 +132,15 @@ class _UserProfileUpdateFormState extends State<UserProfileUpdateForm> {
                       fontSize: 16,
                       fontWeight: FontWeight.normal,
                       color: Colors.black,
+                      height: 1.5,
+                      letterSpacing: 1,
                     ),
                   ),
                 ),
                 SizedBox(
                   height: 20,
                 ),
-                // TextFormField(
-                //   validator:
-                //       RequiredValidator(
-                //           errorText:
-                //               '*required'),
-                //   controller:
-                //       phoneController,
-                //   decoration:
-                //       InputDecoration(
-                //     contentPadding:
-                //         EdgeInsets.only(
-                //             bottom: 3),
-                //     floatingLabelBehavior:
-                //         FloatingLabelBehavior
-                //             .always,
-                //     labelText: 'Phone',
-                //     hintText: (data
-                //                 .phones
-                //                 .toString() ==
-                //             '[]'
-                //         ? ""
-                //         : data.phones[0]
-                //             .toString()),
-                //     hintStyle:
-                //         TextStyle(
-                //       fontSize: 16,
-                //       fontWeight:
-                //           FontWeight
-                //               .normal,
-                //       color:
-                //           Colors.black,
-                //     ),
-                //   ),
-                // ),
-                // SizedBox(
-                //   height: 20,
-                // ),
+               
                 TextFormField(
                   validator: RequiredValidator(errorText: '*required'),
                   controller: addressController,
@@ -171,6 +152,8 @@ class _UserProfileUpdateFormState extends State<UserProfileUpdateForm> {
                       fontSize: 16,
                       fontWeight: FontWeight.normal,
                       color: Colors.black,
+                      height: 1.5,
+                      letterSpacing: 1,
                     ),
                   ),
                 ),
@@ -188,34 +171,18 @@ class _UserProfileUpdateFormState extends State<UserProfileUpdateForm> {
                       fontSize: 16,
                       fontWeight: FontWeight.normal,
                       color: Colors.black,
+                      height: 1.5,
+                      letterSpacing: 1,
                     ),
                   ),
                 ),
                 SizedBox(
-                  height: 30,
+                  height: 40,
                 ),
 
                 Row(
                   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    OutlinedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/userProfilePage');
-                      },
-                      style: OutlinedButton.styleFrom(
-                        // primary: Colors.orange,
-                        primary: Colors.red,
-                        shape: const StadiumBorder(),
-                      ),
-                      child: Text(
-                        "Cancel",
-                        style: TextStyle(
-                            fontSize: 14,
-                            letterSpacing: 2.2,
-                            color: Colors.black),
-                      ),
-                    ),
-                    Expanded(child: SizedBox()),
                     ElevatedButton(
                       onPressed: () async {
                         if (formkey.currentState!.validate()) {

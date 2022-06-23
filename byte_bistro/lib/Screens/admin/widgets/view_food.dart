@@ -177,17 +177,40 @@ class ViewFood extends StatelessWidget {
                             SizedBox(
                               width: 15,
                             ),
-                            Image(
-                              image: AssetImage('assets/images/edit.png'),
-                              width: 25,
-                              height: 25,
-                              color: Colors.green,
+                            GestureDetector(
+                              onTap: () =>
+                                  Get.toNamed('/updateFood', arguments: [
+                                {"id": foodController.foodList[index].id},
+                                {"name": foodController.foodList[index].name},
+                                {"price": foodController.foodList[index].price},
+                                {
+                                  "description":
+                                      foodController.foodList[index].description
+                                },
+                                {"image": foodController.foodList[index].image},
+                              ]),
+                              child: Image(
+                                image: AssetImage('assets/images/edit.png'),
+                                width: 25,
+                                height: 25,
+                                color: Colors.green,
+                              ),
                             ),
                           ],
                         ),
                         leading: GestureDetector(
                           behavior: HitTestBehavior.translucent,
-                          onTap: () {},
+                          onTap: () =>
+                              Get.toNamed('/adminFoodDetail', arguments: [
+                            {"id": foodController.foodList[index].id},
+                            {"name": foodController.foodList[index].name},
+                            {"price": foodController.foodList[index].price},
+                            {
+                              "description":
+                                  foodController.foodList[index].description
+                            },
+                            {"image": foodController.foodList[index].image},
+                          ]),
                           child: Container(
                             width: 48,
                             height: 48,

@@ -6,6 +6,8 @@ import 'package:byte_bistro/models/loged_user_info.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../constants/colors.dart';
+
 class AdminProfilePage extends StatefulWidget {
   const AdminProfilePage({Key? key}) : super(key: key);
 
@@ -24,21 +26,24 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Profile',
+          style: TextStyle(fontSize: 20, letterSpacing: 1, height: 1.5),
+        ),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Get.offNamed('/adminScreen'),
+        ),
+        backgroundColor: kPrimary,
+        foregroundColor: kTextColor,
+      ),
       body: Container(
         padding: EdgeInsets.only(left: 26, top: 15, right: 26),
         child: Column(
           children: [
             SizedBox(
-              height: 15,
-            ),
-            Center(
-              child: Text(
-                "Profile",
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
-              ),
-            ),
-            SizedBox(
-              height: 40,
+              height: 50,
             ),
             Center(
               child: Stack(
@@ -71,7 +76,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
               ),
             ),
             SizedBox(
-              height: 20,
+              height: 30,
             ),
             Expanded(
               child: FutureBuilder(
@@ -90,6 +95,54 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                       itemBuilder: (context, index) {
                         return Column(
                           children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  width: 120,
+                                  child: OutlinedButton(
+                                    onPressed: () {
+                                      setState(
+                                        () {
+                                          fullName = data.fullname;
+                                          email = data.email;
+                                          address = data.address;
+                                          bio = data.bio;
+                                        },
+                                      );
+
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              AdminProfileUpdateForm(
+                                            bio: bio,
+                                            fullName: fullName,
+                                            address: address,
+                                            email: email,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                      style: OutlinedButton.styleFrom(
+                                      // primary: Colors.orange,
+                                      primary: Colors.red,
+                                      shape: const StadiumBorder(),
+                                    ),
+                                    child: Text(
+                                      "Edit",
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          letterSpacing: 1.5,
+                                          color: Colors.black),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                            SizedBox(
+                              height: 40,
+                            ),
                             Row(
                               children: [
                                 Icon(
@@ -110,7 +163,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                                     style: TextStyle(
                                         fontSize: 18,
                                         // fontWeight: FontWeight.w500,
-                                        letterSpacing: 2.2,
+                                        letterSpacing: 1,
                                         color: Colors.black),
                                   ),
                                 )
@@ -145,7 +198,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                                     style: TextStyle(
                                         fontSize: 18,
                                         // fontWeight: FontWeight.w500,
-                                        letterSpacing: 2.2,
+                                        letterSpacing: 1,
                                         color: Colors.black),
                                   ),
                                 )
@@ -180,7 +233,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                                     style: TextStyle(
                                         fontSize: 18,
                                         // fontWeight: FontWeight.w500,
-                                        letterSpacing: 2.2,
+                                        letterSpacing: 1,
                                         color: Colors.black),
                                   ),
                                 )
@@ -216,77 +269,14 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                                     style: TextStyle(
                                         fontSize: 18,
                                         // fontWeight: FontWeight.w500,
-                                        letterSpacing: 2.2,
+                                        letterSpacing: 1,
                                         color: Colors.black),
                                   ),
                                 )
                               ],
                             ),
                             SizedBox(
-                              height: 120,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                SizedBox(
-                                  width: 120,
-                                  child: OutlinedButton(
-                                    onPressed: () =>
-                                        Get.toNamed("/adminScreen"),
-                                    style: OutlinedButton.styleFrom(
-                                      // primary: Colors.orange,
-                                      primary: Colors.red,
-                                      shape: const StadiumBorder(),
-                                    ),
-                                    child: Text(
-                                      "Back",
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          letterSpacing: 2.2,
-                                          color: Colors.black),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 120,
-                                  child: ElevatedButton(
-                                    onPressed: () {
-                                      setState(
-                                        () {
-                                          fullName = data.fullname;
-                                          email = data.email;
-                                          address = data.address;
-                                          bio = data.bio;
-                                        },
-                                      );
-
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              AdminProfileUpdateForm(
-                                            bio: bio,
-                                            fullName: fullName,
-                                            address: address,
-                                            email: email,
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      primary: Color(0xFFFFC61F),
-                                      shape: const StadiumBorder(),
-                                    ),
-                                    child: Text(
-                                      "Edit",
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          letterSpacing: 2.2,
-                                          color: Colors.black),
-                                    ),
-                                  ),
-                                )
-                              ],
+                              height: 40,
                             ),
                             SizedBox(
                               height: 15,

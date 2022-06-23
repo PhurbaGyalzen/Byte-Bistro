@@ -45,39 +45,7 @@ class _QrScannerState extends State<QrScannerScreen> {
                     borderWidth: 10, borderColor: Colors.blueGrey),
               ),
             ),
-            Positioned(child: Align(child: buildControlButtons()), top: 5),
-            Positioned(
-              child: Container(
-                width: 35,
-                height: 35,
-                padding: EdgeInsets.only(bottom: 5, right: 5),
-                margin: EdgeInsets.only(left: 10, top: 5),
-                decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.8),
-                  borderRadius: BorderRadius.circular(100),
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 5,
-                      offset: Offset(0, 3), // changes position of shadow
-                      color: Color(0xFFB0CCE1).withOpacity(0.32),
-                    ),
-                  ],
-                ),
-                child: IconButton(
-                  color: Colors.black,
-                  icon: Icon(
-                    Icons.close,
-                    size: 20,
-                  ),
-                  onPressed: () => widget.pageController?.previousPage(
-                      duration: Duration(milliseconds: 300),
-                      curve: Curves.easeIn),
-                ),
-              ),
-              left: 10,
-              top: 5,
-            ),
-            // Expanded(flex: 2, child: buildControlButtons()),
+            Positioned(child: buildControlButtons(), top: 15, right: 140),
             Positioned(
                 bottom: 30,
                 child: Center(

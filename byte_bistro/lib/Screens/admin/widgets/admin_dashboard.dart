@@ -1,9 +1,5 @@
 import 'package:byte_bistro/Screens/admin/widgets/add_food.dart';
 import 'package:byte_bistro/Screens/admin/widgets/view_food.dart';
-import 'package:byte_bistro/Screens/category/category_screen.dart';
-import 'package:byte_bistro/Screens/home/widgets/app_bar.dart';
-import 'package:byte_bistro/Screens/login_screen.dart';
-import 'package:byte_bistro/Screens/profile/profile_screen.dart';
 import 'package:byte_bistro/Services/http_service.dart';
 import 'package:byte_bistro/Services/storage_service.dart';
 import 'package:byte_bistro/constants/colors.dart';
@@ -22,6 +18,78 @@ class _AdminDashboardState extends State<AdminDashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Admin Dashboard',
+          style: TextStyle(fontSize: 20, letterSpacing: 1, height: 1.5),
+        ),
+        actions: [
+          PopupMenuButton(itemBuilder: (context) {
+            return [
+              PopupMenuItem(
+                child: ListTile(
+                  title: Text('Change Password'),
+                  leading: Image(
+                    image: AssetImage('assets/images/padlock.png'),
+                    width: 25,
+                    height: 25,
+                  ),
+                ),
+                value: 'Change Password',
+              ),
+              PopupMenuItem(
+                child: ListTile(
+                  onTap: () => showDialog(
+                    barrierDismissible: false,
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: Text('Logout'),
+                        content: Text('Are you sure you want to logout?'),
+                        actions: [
+                          TextButton(
+                              onPressed: () {
+                                Get.back();
+                              },
+                              child: Text('Cancel')),
+                          TextButton(
+                            onPressed: () async {
+                              await Storage.remove('token');
+                              await PersistentHtpp.storeAndSetHeader(token: '');
+                              Get.offAllNamed('/login');
+                            },
+                            child: Text(
+                              'Leave',
+                              style: TextStyle(color: Colors.red),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                  title: Text('Logout'),
+                  leading: Image(
+                    image: AssetImage(
+                      "assets/images/logout.png",
+                    ),
+                    width: 25,
+                    height: 25,
+                  ),
+                ),
+                value: 'logout',
+              ),
+            ];
+          }),
+        ],
+        leading: IconButton(
+          icon: Icon(Icons.person),
+          onPressed: () {
+            Get.offNamed('/adminProfile');
+          },
+        ),
+        backgroundColor: kPrimary,
+        foregroundColor: kTextColor,
+      ),
       backgroundColor: kPrimary,
       floatingActionButton: SpeedDial(
         activeBackgroundColor: Colors.red.shade400,
@@ -45,22 +113,6 @@ class _AdminDashboardState extends State<AdminDashboard> {
             backgroundColor: kPrimary,
             onTap: () => showMaterialDialog(),
           ),
-          SpeedDialChild(
-            child: Image(
-              image: AssetImage('assets/images/addUser.png'),
-              width: 30,
-              height: 30,
-            ),
-            backgroundColor: kPrimary,
-          ),
-          SpeedDialChild(
-            child: Image(
-              image: AssetImage('assets/images/addNotification.png'),
-              width: 30,
-              height: 30,
-            ),
-            backgroundColor: kPrimary,
-          ),
         ],
       ),
       body: SafeArea(
@@ -77,143 +129,12 @@ class _AdminDashboardState extends State<AdminDashboard> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // SizedBox(
-                  //   height: 20,
-                  // ),
-                  // BuildAppBar(
-                  //   leadingIcon: 'assets/images/menu.png',
-                  //   trailingIcon: IconButton(
-
-                  //     // padding: EdgeInsets.only(left: kDefaultPadding),
-                  //     icon: Image(
-                  //       height:50,
-                  //       width: 50,
-                  //       fit: BoxFit.fill,
-                  //       image: AssetImage(
-                  //         "assets/images/menu.png",
-                  //       ),
-                  //     ),
-                  //     onPressed: () {
-                  //       // Navigator.pushNamed(context, '/adminProfile');
-
-                  //       Get.offNamed('/adminProfile');
-                  //     },
-                  //   ),
-                  //   titleFirstName: 'Admin',
-                  //   titleSecondName: 'Dash',
-                  // ),
-                  Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          Get.offNamed('/adminProfile');
-                        },
-                        child: Image.asset(
-                          "assets/images/admin_user.png",
-                          height: 20,
-                          width: 20,
-                        ),
-                      ),
-                      Expanded(child: SizedBox()),
-                      Text.rich(
-                        TextSpan(
-                          text: "Admin",
-                          style: TextStyle(
-                              fontSize: 20,
-                              letterSpacing: 0.6,
-                              fontWeight: FontWeight.bold,
-                              wordSpacing: 0.5),
-                          children: const [
-                            TextSpan(
-                                text: "DashBoard",
-                                style: TextStyle(
-                                    color: kPrimary,
-                                    fontSize: 20,
-                                    letterSpacing: 0.5,
-                                    fontWeight: FontWeight.bold)),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: SizedBox(),
-                      ),
-                      GestureDetector(
-                        onTap: () => showDialog(
-                        barrierDismissible: false,
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            title: Text('Confirm Navigation'),
-                            content: Text(
-                                'Are you sure you want to logout?'),
-                            actions: [
-                              TextButton(
-                                  onPressed: () {
-                                    Get.back();
-                                  },
-                                  child: Text('Cancel')),
-                              TextButton(
-                                onPressed: () async{
-                                  await Storage.remove('token');
-                                  await PersistentHtpp.storeAndSetHeader(
-                                      token: '');
-                                  Get.offAllNamed('/login');
-                                  
-                                },
-                                child: Text(
-                                  'Leave',
-                                  style: TextStyle(color: Colors.red),
-                                ),
-                              ),
-                            ],
-                          );
-                        },
-                      ),
-                        // onTap: () {
-                        //   // final response = await PersistentHtpp.get('food');
-                        //   // print(response.body);
-                        //   // await Storage.setObject('token-val', {'value1': 1});
-                        //   // print('token-val');
-                        //   // print(await Storage.getObject('token-val'));
-                        //    AlertDialog alert = AlertDialog(
-                        //     title: const Text('AlertDialog Title'),
-                        //     content: const Text('AlertDialog description'),
-                        //     actions: <Widget>[
-                        //       TextButton(
-                        //         onPressed: () =>
-                        //             Navigator.pop(context, 'Cancel'),
-                        //         child: const Text('Cancel'),
-                        //       ),
-                        //       TextButton(
-                        //         onPressed: () async {
-                        //           await Storage.remove('token');
-                        //           await PersistentHtpp.storeAndSetHeader(
-                        //               token: '');
-                        //           Get.offAllNamed('/login');
-                        //         },
-                        //         child: const Text('OK'),
-                        //       ),
-                        //     ],
-                        //   );
-                        // },
-                        child: Image.asset(
-                          "assets/images/logout.png",
-                          height: 20,
-                          width: 20,
-                        ),
-                      ),
-                    ],
-                  ),
-
                   SizedBox(
                     height: 10,
                   ),
-                  // Text('Categories',
-                  //     style: Theme.of(context).textTheme.bodyText2),
-                  // CategoryScreen(),
-                  // SizedBox(
-                  //   height: 30,
-                  // ),
+                  SizedBox(
+                    height: 20,
+                  ),
                   Row(children: [
                     ElevatedButton(
                         onPressed: () => Get.toNamed('/adminOrders'),

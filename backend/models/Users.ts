@@ -4,6 +4,7 @@ export interface IUser {
 	username: string
 	passwordHash: string
 	email: string
+	googleId: string
 	fullname: string
 	phones: string[]
 	address: string
@@ -23,13 +24,20 @@ const UserSchemaFields: Record<keyof IUser, any> = {
 	},
 	passwordHash: {
 		type: String,
-		required: true,
+		// required: true,
 		minlength: 8,
 		maxlength: 1024,
 	},
 	email: {
 		type: String,
 		required: true,
+		minlength: 1,
+		maxlength: 255,
+		unique: true,
+	},
+	googleId: {
+		type: String,
+		required: false,
 		minlength: 1,
 		maxlength: 255,
 		unique: true,
