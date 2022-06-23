@@ -18,17 +18,19 @@ class ProfileScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: kPrimary,
         elevation: 0,
-        // leading: IconButton(
-        //   icon: Icon(
-        //     Icons.arrow_back,
-        //     color: kTextColor,
-        //   ),
-        //   onPressed: () => Get.toNamed('/home'),
-        // ),
-        title: Text(
-          'My Profile',
-          style: TextStyle(color: kTextColor, fontSize: 16),
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: kTextColor,
+          ),
+          onPressed: () => Get.offAllNamed('/home'),
         ),
+        title: Text(' Profile',
+            style: TextStyle(
+                color: kTextColor,
+                fontSize: 18,
+                height: 1.5,
+                letterSpacing: 1)),
       ),
       backgroundColor: kPrimary,
       body: SafeArea(
@@ -46,7 +48,7 @@ class ProfileScreen extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: const [
                 ProfileNote(),
-                ProfileUser(),
+                // ProfileUser(),
                 ProfileSystem(),
               ],
             ),
@@ -139,14 +141,9 @@ class ProfileUser extends StatelessWidget {
       child: Column(
         children: const [
           ProfileListTile(
-            imageLeading: 'assets/images/credit-card.png',
+            imageLeading: 'assets/images/shoppingCart.png',
             imageTrailing: 'assets/images/next.png',
-            text: 'Payment Methods',
-          ),
-          ProfileListTile(
-            imageLeading: 'assets/images/like.png',
-            imageTrailing: 'assets/images/next.png',
-            text: 'Favourites',
+            text: 'Cart',
           ),
           ProfileListTile(
             imageLeading: 'assets/images/shoppingCart.png',
@@ -171,19 +168,9 @@ class ProfileSystem extends StatelessWidget {
         child: Column(
           children: [
             ProfileListTile(
-              imageLeading: 'assets/images/notification.png',
-              imageTrailing: 'assets/images/next.png',
-              text: 'Notification',
-            ),
-            ProfileListTile(
               imageLeading: 'assets/images/settings.png',
               imageTrailing: 'assets/images/next.png',
               text: 'Settings',
-            ),
-            ProfileListTile(
-              imageLeading: 'assets/images/add-user.png',
-              imageTrailing: 'assets/images/next.png',
-              text: 'Invite Friends',
             ),
             ProfileListTile(
               imageLeading: 'assets/images/help.png',
