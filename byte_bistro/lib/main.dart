@@ -9,6 +9,8 @@ import 'package:byte_bistro/Screens/admin_profile.dart';
 import 'package:byte_bistro/Screens/admin_profile_update.dart';
 import 'package:byte_bistro/Screens/after_order.dart';
 import 'package:byte_bistro/Screens/category/category_screen.dart';
+import 'package:byte_bistro/Screens/change_password.dart';
+import 'package:byte_bistro/Screens/testing.dart';
 import 'package:byte_bistro/Screens/user_profile.dart';
 import 'package:byte_bistro/Screens/favourite/favourite.dart';
 import 'package:byte_bistro/Screens/invoice_detail_page.dart';
@@ -96,11 +98,12 @@ class ByteBistro extends StatelessWidget {
           ),
         ),
       ),
-      initialRoute: '/home',
+      initialRoute: '/login',
       debugShowCheckedModeBanner: false,
       title: 'Byte Bistro',
       getPages: [
         GetPage(name: '/login', page: () => LoginScreen()),
+        GetPage(name: '/tesing', page: () => TestingExpanded()),
         GetPage(
             name: '/orderHistory_user_list', page: () => OrderHistoryUser()),
         GetPage(name: '/order_history_admin', page: () => OrderHistoryAdmin()),
@@ -115,6 +118,7 @@ class ByteBistro extends StatelessWidget {
         GetPage(name: '/detail_page_dish', page: () => IndividualItemScreen()),
 
         GetPage(name: '/home', page: () => HomePage()),
+        GetPage(name: '/changePassword', page: () => ChangePassword()),
         // GetPage(name: '/individual', page: () => IndividualItem()),
         GetPage(name: '/qrscan', page: () => QrScannerScreen()),
         GetPage(name: '/after-order', page: () => AfterOrderScreen()),

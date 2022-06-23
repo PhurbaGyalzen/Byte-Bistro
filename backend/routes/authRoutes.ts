@@ -2,6 +2,7 @@ import { Router, Request, Response, NextFunction } from 'express'
 import { signupUser, signinUser } from '../controller/authController'
 import { User } from '@models/Users';
 import { verifyUser } from 'middlewares/jwt-auth';
+import bcrypt from 'bcrypt'
 
 const router = Router()
 
@@ -62,7 +63,7 @@ router.put('/profile_update', verifyUser, async (
                 phones: req.body.phone,
                 address: req.body.address,
                 bio: req.body.bio,
-                
+
 
             }
         })
@@ -73,6 +74,115 @@ router.put('/profile_update', verifyUser, async (
     }
 })
 
+
+//change password
+router.put('/changepassword', verifyUser, async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+
+) => {
+    try {
+        await User.findById(req.user?.id)
+            .then(async user => {
+                // const hash = bcrypt.hash(req.body.newpassword, 12);
+                await bcrypt.compare(req.body.oldPassword, user?.passwordHash!, async (err, result) => {
+
+                    if (!result) {
+                        console.log("err")
+                        console.log(err)
+                        return res.status(401).json({
+                            message: "!=oldPassword"
+                        });
+
+                    }
+
+                    if (result) {
+                        console.log("result");
+                        console.log(result);
+                        if (req.body.oldPassword == req.body.newPassword) {
+                            return res.status(401).json({
+                                message: "old==new"
+                                // message: "failed to change to password due to same old and new"
+                            });
+
+
+
+                        }
+
+
+
+
+                        if (req.body.oldPassword != req.body.newPassword) {
+
+
+                            const hash = await bcrypt.hash(req.body.newPassword, 12)
+                            console.log("req.body.oldPassword != req.body.newPassword");
+
+                            const user = await User.findByIdAndUpdate(req.user?.id, {
+                                $set: {
+                                    passwordHash: hash,
+                                }
+                            }).then(result => {
+                                return res.status(200).json({
+                                    // message: "password changed",
+                                    message: "success",
+                                    
+                                });
+                            }).catch(err => {
+                                return res.status(400).json({
+                                    message: err
+                                });
+                            })
+
+
+
+
+                        }
+
+
+
+
+                    }
+
+
+                });
+                //  return "failed";
+
+            }
+
+
+
+
+
+
+
+
+
+            )
+            .catch(err => {
+                return res.status(400).json({
+                    message: err
+                })
+
+            }
+            )
+
+
+
+
+
+
+
+
+    }
+    //try end
+
+
+    catch (err) {
+        res.status(400).json({ message: err })
+    }
+})
 
 
 
