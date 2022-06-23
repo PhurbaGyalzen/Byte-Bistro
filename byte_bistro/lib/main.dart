@@ -9,12 +9,13 @@ import 'package:byte_bistro/Screens/admin/widgets/update_food.dart';
 import 'package:byte_bistro/Screens/admin/widgets/view_food.dart';
 
 import 'package:byte_bistro/Screens/admin/widgets/admin_dashboard.dart';
-import 'package:byte_bistro/Screens/admin_profile.dart';
-import 'package:byte_bistro/Screens/admin_profile_update.dart';
+import 'package:byte_bistro/Screens/profile/admin_profile.dart';
+import 'package:byte_bistro/Screens/profile/admin_profile_update.dart';
 import 'package:byte_bistro/Screens/after_order.dart';
 import 'package:byte_bistro/Screens/category/category_screen.dart';
+import 'package:byte_bistro/Screens/change_password.dart';
 import 'package:byte_bistro/Screens/profile/profile_screen.dart';
-import 'package:byte_bistro/Screens/user_profile.dart';
+import 'package:byte_bistro/Screens/profile/user_profile.dart';
 import 'package:byte_bistro/Screens/favourite/favourite.dart';
 import 'package:byte_bistro/Screens/invoice_detail_page.dart';
 import 'package:byte_bistro/Screens/notification/admin_notification.dart';
@@ -27,7 +28,7 @@ import 'package:byte_bistro/Screens/qr_data.dart';
 import 'package:byte_bistro/Screens/qr_scanner.dart';
 import 'package:byte_bistro/Screens/signup_screen.dart';
 import 'package:byte_bistro/Screens/home/home.dart';
-import 'package:byte_bistro/Screens/food_detail_screen.dart';
+import 'package:byte_bistro/Screens/home/widgets/food_detail_screen.dart';
 import 'package:byte_bistro/Screens/swipe_qr_home.dart';
 import 'package:byte_bistro/Screens/user_order_history_list.dart';
 import 'package:byte_bistro/Services/http_service.dart';
@@ -115,12 +116,12 @@ class ByteBistro extends StatelessWidget {
           ),
         ),
       ),
-      initialRoute: tokenDecoded['username'] != null ? '/home' : '/login',
-      // initialRoute: '/login',
+      initialRoute: '/login',
       debugShowCheckedModeBanner: false,
       title: 'Byte Bistro',
       getPages: [
         GetPage(name: '/login', page: () => LoginScreen()),
+        // GetPage(name: '/tesing', page: () => TestingExpanded()),
         GetPage(
             name: '/orderHistory_user_list', page: () => OrderHistoryUser()),
         GetPage(name: '/order_history_admin', page: () => OrderHistoryAdmin()),
@@ -134,6 +135,7 @@ class ByteBistro extends StatelessWidget {
         GetPage(name: '/adminProfile', page: () => AdminProfilePage()),
         GetPage(name: '/detail_page_dish', page: () => IndividualItemScreen()),
         GetPage(name: '/home', page: () => HomePage()),
+        GetPage(name: '/changePassword', page: () => ChangePassword()),
         // GetPage(name: '/individual', page: () => IndividualItem()),
         GetPage(name: '/qrscan', page: () => QrScannerScreen()),
         GetPage(name: '/after-order', page: () => AfterOrderScreen()),
