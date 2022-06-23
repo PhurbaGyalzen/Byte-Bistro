@@ -19,7 +19,7 @@ class FavouritePage extends StatelessWidget {
             leading: IconButton(
                 icon: Icon(Icons.arrow_back),
                 color: Colors.black,
-                onPressed: () => Get.offAll('/home')),
+                onPressed: () => Get.offAllNamed('/home')),
             title: Text(
               'Favourite',
               style: Theme.of(context).textTheme.headline1,
