@@ -25,5 +25,8 @@ export class OTP {
     static get(key: string): IOtp | null {
         return OTP.OTPs[key] || null
     }
+    static remove(key: string): void {
+        delete OTP.OTPs[key]
+    }
 }
 
