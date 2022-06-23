@@ -8,9 +8,9 @@ import 'package:get/get.dart';
 import '../../constants/colors.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({Key? key, required this.scrollController})
-      : super(key: key);
-  final ScrollController scrollController;
+  const ProfileScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,6 @@ class ProfileScreen extends StatelessWidget {
       backgroundColor: kPrimary,
       body: SafeArea(
         child: SingleChildScrollView(
-          controller: scrollController,
           child: Container(
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
@@ -65,65 +64,70 @@ class ProfileNote extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(left: 10, right: 25, top: 10, bottom: 10),
-      decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-            blurRadius: 20,
-            offset: Offset(0, 3), // changes position of shadow
-            color: Color(0xFFB0CCE1).withOpacity(0.32),
-          ),
-        ],
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(50),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          CircleAvatar(
-            radius: 30,
-            backgroundImage: AssetImage(
-              'assets/images/user.jpg',
+    return GestureDetector(
+      onTap: () {
+        Get.toNamed('/userProfilePage');
+      },
+      child: Container(
+        padding: EdgeInsets.only(left: 10, right: 25, top: 10, bottom: 10),
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              blurRadius: 20,
+              offset: Offset(0, 3), // changes position of shadow
+              color: Color(0xFFB0CCE1).withOpacity(0.32),
             ),
-          ),
-          // SizedBox(
-          //   width: 40,
-          // ),
-          Padding(
-            padding: const EdgeInsets.only(left: 10.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                Text('User 1',
-                    style: TextStyle(
-                      fontSize: 18,
-                      height: 1.5,
-                      fontWeight: FontWeight.bold,
-                    )),
-                Text('+977 9848859531',
-                    style: TextStyle(fontWeight: FontWeight.w300)),
-              ],
-            ),
-          ),
-          Expanded(
-            child: SizedBox(
-              width: 125,
-            ),
-          ),
-          GestureDetector(
-            onTap: () {
-              Get.toNamed('/userProfilePage');
-            },
-            child: Image(
-              height: 20,
-              width: 20,
-              image: AssetImage(
-                'assets/images/next.png',
+          ],
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(50),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            CircleAvatar(
+              radius: 30,
+              backgroundImage: AssetImage(
+                'assets/images/user.jpg',
               ),
             ),
-          )
-        ],
+            // SizedBox(
+            //   width: 40,
+            // ),
+            Padding(
+              padding: const EdgeInsets.only(left: 10.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: const [
+                  Text('User 1',
+                      style: TextStyle(
+                        fontSize: 18,
+                        height: 1.5,
+                        fontWeight: FontWeight.bold,
+                      )),
+                  Text('+977 9848859531',
+                      style: TextStyle(fontWeight: FontWeight.w300)),
+                ],
+              ),
+            ),
+            Expanded(
+              child: SizedBox(
+                width: 125,
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                Get.toNamed('/userProfilePage');
+              },
+              child: Image(
+                height: 20,
+                width: 20,
+                image: AssetImage(
+                  'assets/images/next.png',
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

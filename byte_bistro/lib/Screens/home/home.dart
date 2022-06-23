@@ -37,9 +37,7 @@ class _HomePageState extends State<HomePage> {
     HomeScreen(
       scrollController: scrollController,
     ),
-    ProfileScreen(
-      scrollController: scrollController,
-    ),
+    ProfileScreen(),
 
     // EditProfilePage(),
   ];

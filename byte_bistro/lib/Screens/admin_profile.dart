@@ -76,7 +76,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
               ),
             ),
             SizedBox(
-              height: 70,
+              height: 30,
             ),
             Expanded(
               child: FutureBuilder(
@@ -95,6 +95,54 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                       itemBuilder: (context, index) {
                         return Column(
                           children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  width: 120,
+                                  child: OutlinedButton(
+                                    onPressed: () {
+                                      setState(
+                                        () {
+                                          fullName = data.fullname;
+                                          email = data.email;
+                                          address = data.address;
+                                          bio = data.bio;
+                                        },
+                                      );
+
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              AdminProfileUpdateForm(
+                                            bio: bio,
+                                            fullName: fullName,
+                                            address: address,
+                                            email: email,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                      style: OutlinedButton.styleFrom(
+                                      // primary: Colors.orange,
+                                      primary: Colors.red,
+                                      shape: const StadiumBorder(),
+                                    ),
+                                    child: Text(
+                                      "Edit",
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          letterSpacing: 1.5,
+                                          color: Colors.black),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                            SizedBox(
+                              height: 40,
+                            ),
                             Row(
                               children: [
                                 Icon(
@@ -229,50 +277,6 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                             ),
                             SizedBox(
                               height: 40,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                SizedBox(
-                                  width: 120,
-                                  child: ElevatedButton(
-                                    onPressed: () {
-                                      setState(
-                                        () {
-                                          fullName = data.fullname;
-                                          email = data.email;
-                                          address = data.address;
-                                          bio = data.bio;
-                                        },
-                                      );
-
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              AdminProfileUpdateForm(
-                                            bio: bio,
-                                            fullName: fullName,
-                                            address: address,
-                                            email: email,
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      primary: Color(0xFFFFC61F),
-                                      shape: const StadiumBorder(),
-                                    ),
-                                    child: Text(
-                                      "Edit",
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          letterSpacing: 1.5,
-                                          color: Colors.black),
-                                    ),
-                                  ),
-                                )
-                              ],
                             ),
                             SizedBox(
                               height: 15,

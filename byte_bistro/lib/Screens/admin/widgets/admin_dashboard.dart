@@ -27,35 +27,54 @@ class _AdminDashboardState extends State<AdminDashboard> {
           PopupMenuButton(itemBuilder: (context) {
             return [
               PopupMenuItem(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: const [
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Image(
-                      image: AssetImage('assets/images/padlock.png'),
-                      width: 25,
-                      height: 25,
-                    ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Text('Change Password'),
-                  ],
+                child: ListTile(
+                  title: Text('Change Password'),
+                  leading: Image(
+                    image: AssetImage('assets/images/padlock.png'),
+                    width: 25,
+                    height: 25,
+                  ),
                 ),
-                value: 'logout',
+                value: 'Change Password',
               ),
               PopupMenuItem(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: const [
-                    logoutWidget(),
-                    SizedBox(
-                      width: 5,
+                child: ListTile(
+                  onTap: () => showDialog(
+                    barrierDismissible: false,
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: Text('Logout'),
+                        content: Text('Are you sure you want to logout?'),
+                        actions: [
+                          TextButton(
+                              onPressed: () {
+                                Get.back();
+                              },
+                              child: Text('Cancel')),
+                          TextButton(
+                            onPressed: () async {
+                              await Storage.remove('token');
+                              await PersistentHtpp.storeAndSetHeader(token: '');
+                              Get.offAllNamed('/login');
+                            },
+                            child: Text(
+                              'Leave',
+                              style: TextStyle(color: Colors.red),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                  title: Text('Logout'),
+                  leading: Image(
+                    image: AssetImage(
+                      "assets/images/logout.png",
                     ),
-                    Text('Logout'),
-                  ],
+                    width: 25,
+                    height: 25,
+                  ),
                 ),
                 value: 'logout',
               ),
@@ -113,16 +132,9 @@ class _AdminDashboardState extends State<AdminDashboard> {
                   SizedBox(
                     height: 10,
                   ),
-
                   SizedBox(
                     height: 20,
                   ),
-                  // Text('Categories',
-                  //     style: Theme.of(context).textTheme.bodyText2),
-                  // CategoryScreen(),
-                  // SizedBox(
-                  //   height: 30,
-                  // ),
                   Row(children: [
                     ElevatedButton(
                         onPressed: () => Get.toNamed('/adminOrders'),
@@ -164,77 +176,5 @@ class _AdminDashboardState extends State<AdminDashboard> {
             ),
           );
         });
-  }
-}
-
-class logoutWidget extends StatelessWidget {
-  const logoutWidget({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text('Logout'),
-            content: Text('Are you sure you want to logout?'),
-            actions: [
-              TextButton(
-                  onPressed: () {
-                    Get.back();
-                  },
-                  child: Text('Cancel')),
-              TextButton(
-                onPressed: () async {
-                  await Storage.remove('token');
-                  await PersistentHtpp.storeAndSetHeader(token: '');
-                  Get.offAllNamed('/login');
-                },
-                child: Text(
-                  'Leave',
-                  style: TextStyle(color: Colors.red),
-                ),
-              ),
-            ],
-          );
-        },
-      ),
-      // onTap: () {
-      //   // final response = await PersistentHtpp.get('food');
-      //   // print(response.body);
-      //   // await Storage.setObject('token-val', {'value1': 1});
-      //   // print('token-val');
-      //   // print(await Storage.getObject('token-val'));
-      //    AlertDialog alert = AlertDialog(
-      //     title: const Text('AlertDialog Title'),
-      //     content: const Text('AlertDialog description'),
-      //     actions: <Widget>[
-      //       TextButton(
-      //         onPressed: () =>
-      //             Navigator.pop(context, 'Cancel'),
-      //         child: const Text('Cancel'),
-      //       ),
-      //       TextButton(
-      //         onPressed: () async {
-      //           await Storage.remove('token');
-      //           await PersistentHtpp.storeAndSetHeader(
-      //               token: '');
-      //           Get.offAllNamed('/login');
-      //         },
-      //         child: const Text('OK'),
-      //       ),
-      //     ],
-      //   );
-      // },
-      child: Image.asset(
-        "assets/images/logout.png",
-        height: 20,
-        width: 20,
-      ),
-    );
   }
 }

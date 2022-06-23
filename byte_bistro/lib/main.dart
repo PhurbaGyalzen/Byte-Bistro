@@ -13,6 +13,7 @@ import 'package:byte_bistro/Screens/admin_profile.dart';
 import 'package:byte_bistro/Screens/admin_profile_update.dart';
 import 'package:byte_bistro/Screens/after_order.dart';
 import 'package:byte_bistro/Screens/category/category_screen.dart';
+import 'package:byte_bistro/Screens/profile/profile_screen.dart';
 import 'package:byte_bistro/Screens/user_profile.dart';
 import 'package:byte_bistro/Screens/favourite/favourite.dart';
 import 'package:byte_bistro/Screens/invoice_detail_page.dart';
@@ -114,8 +115,7 @@ class ByteBistro extends StatelessWidget {
           ),
         ),
       ),
-      initialRoute:
-          tokenDecoded['username'] != null ? '/home' : '/login',
+      initialRoute: tokenDecoded['username'] != null ? '/home' : '/login',
       // initialRoute: '/login',
       debugShowCheckedModeBanner: false,
       title: 'Byte Bistro',
@@ -155,6 +155,7 @@ class ByteBistro extends StatelessWidget {
         GetPage(name: '/updateFood', page: () => UpdateFood()),
         GetPage(name: '/userFoodDetail', page: () => UserFoodDetail()),
         GetPage(name: '/adminFoodDetail', page: () => AdminFoodDetail()),
+        GetPage(name: '/profileScreen', page: () => ProfileScreen()),
       ],
     );
   }

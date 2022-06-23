@@ -40,7 +40,7 @@ class _AdminProfileUpdateFormState extends State<AdminProfileUpdateForm> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Update Profile',
+          'Edit Profile',
           style: TextStyle(fontSize: 20, letterSpacing: 1, height: 1.5),
         ),
         leading: IconButton(
