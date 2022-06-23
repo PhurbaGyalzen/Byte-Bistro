@@ -18,6 +18,59 @@ class _AdminDashboardState extends State<AdminDashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Admin Dashboard',
+          style: TextStyle(fontSize: 20, letterSpacing: 1, height: 1.5),
+        ),
+        actions: [
+          PopupMenuButton(itemBuilder: (context) {
+            return [
+              PopupMenuItem(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: const [
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Image(
+                      image: AssetImage('assets/images/padlock.png'),
+                      width: 25,
+                      height: 25,
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text('Change Password'),
+                  ],
+                ),
+                value: 'logout',
+              ),
+              PopupMenuItem(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: const [
+                    logoutWidget(),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text('Logout'),
+                  ],
+                ),
+                value: 'logout',
+              ),
+            ];
+          }),
+        ],
+        leading: IconButton(
+          icon: Icon(Icons.person),
+          onPressed: () {
+            Get.offNamed('/adminProfile');
+          },
+        ),
+        backgroundColor: kPrimary,
+        foregroundColor: kTextColor,
+      ),
       backgroundColor: kPrimary,
       floatingActionButton: SpeedDial(
         activeBackgroundColor: Colors.red.shade400,
@@ -59,81 +112,6 @@ class _AdminDashboardState extends State<AdminDashboard> {
                 children: [
                   SizedBox(
                     height: 10,
-                  ),
-                  Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          Get.offNamed('/adminProfile');
-                        },
-                        child: Image.asset(
-                          "assets/images/account.png",
-                          height: 25,
-                          width: 25,
-                        ),
-                      ),
-                      Expanded(child: SizedBox()),
-                      Text.rich(
-                        TextSpan(
-                          text: "Admin",
-                          style: TextStyle(
-                              fontSize: 20,
-                              letterSpacing: 0.6,
-                              fontWeight: FontWeight.bold,
-                              wordSpacing: 0.5),
-                          children: const [
-                            TextSpan(
-                                text: "DashBoard",
-                                style: TextStyle(
-                                    color: kPrimary,
-                                    fontSize: 20,
-                                    letterSpacing: 0.5,
-                                    fontWeight: FontWeight.bold)),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: SizedBox(),
-                      ),
-                      PopupMenuButton(itemBuilder: (context) {
-                        return [
-                          PopupMenuItem(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: const [
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                Image(
-                                  image:
-                                      AssetImage('assets/images/padlock.png'),
-                                  width: 25,
-                                  height: 25,
-                                ),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                Text('Change Password'),
-                              ],
-                            ),
-                            value: 'logout',
-                          ),
-                          PopupMenuItem(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: const [
-                                logoutWidget(),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                Text('Logout'),
-                              ],
-                            ),
-                            value: 'logout',
-                          ),
-                        ];
-                      }),
-                    ],
                   ),
 
                   SizedBox(

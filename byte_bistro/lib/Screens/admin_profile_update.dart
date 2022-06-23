@@ -39,10 +39,9 @@ class _AdminProfileUpdateFormState extends State<AdminProfileUpdateForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
         title: Text(
           'Update Profile',
-          style: Theme.of(context).textTheme.headline1,
+          style: TextStyle(fontSize: 20, letterSpacing: 1, height: 1.5),
         ),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
@@ -107,6 +106,8 @@ class _AdminProfileUpdateFormState extends State<AdminProfileUpdateForm> {
                         fontSize: 16,
                         fontWeight: FontWeight.normal,
                         color: Colors.black,
+                        height: 1.5,
+                        letterSpacing: 1,
                       ),
                     ),
                   ),
@@ -133,6 +134,8 @@ class _AdminProfileUpdateFormState extends State<AdminProfileUpdateForm> {
                         fontSize: 16,
                         fontWeight: FontWeight.normal,
                         color: Colors.black,
+                        height: 1.5,
+                        letterSpacing: 1,
                       ),
                     ),
                   ),
@@ -150,6 +153,8 @@ class _AdminProfileUpdateFormState extends State<AdminProfileUpdateForm> {
                         fontSize: 16,
                         fontWeight: FontWeight.normal,
                         color: Colors.black,
+                        height: 1.5,
+                        letterSpacing: 1,
                       ),
                     ),
                   ),
@@ -167,6 +172,8 @@ class _AdminProfileUpdateFormState extends State<AdminProfileUpdateForm> {
                         fontSize: 16,
                         fontWeight: FontWeight.normal,
                         color: Colors.black,
+                        height: 1.5,
+                        letterSpacing: 1,
                       ),
                     ),
                   ),
