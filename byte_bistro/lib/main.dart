@@ -160,6 +160,7 @@ class ByteBistro extends StatelessWidget {
         GetPage(name: '/updateFood', page: () => UpdateFood()),
         GetPage(name: '/userFoodDetail', page: () => UserFoodDetail()),
         GetPage(name: '/adminFoodDetail', page: () => AdminFoodDetail()),
+        GetPage(name: '/userFoodDetail', page: () => UserFoodDetail()),
         GetPage(name: '/profileScreen', page: () => ProfileScreen()),
       ],
     );
