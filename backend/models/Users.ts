@@ -13,7 +13,7 @@ export interface IUser {
 	bio: string
 	favoriteFoods: Types.ObjectId[]
 }
-interface IUserDoc extends IUser, Document {}
+export interface IUserDoc extends IUser, Document {}
 
 const UserSchemaFields: Record<keyof IUser, any> = {
 	username: {
