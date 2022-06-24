@@ -32,6 +32,12 @@ class DummyLogin extends StatelessWidget {
                   height: 8,
                 ),
                 Text('Email: ' + user.email),
+                SizedBox(
+                  height: 5,
+                ),
+                Text(user.displayName!),
+                // Text(user.)
+                Text(user.serverAuthCode!),
               ],
               mainAxisAlignment: MainAxisAlignment.center,
             )),

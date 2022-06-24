@@ -27,6 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future signIn() async {
     final user = await GoogleSignInApi.login();
+    print(user);
 
     if (user == null) {
       ScaffoldMessenger.of(context)
