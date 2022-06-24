@@ -1,3 +1,4 @@
+import 'package:byte_bistro/Screens/dummy.dart';
 import 'package:byte_bistro/Screens/google_signin_api.dart';
 import 'package:byte_bistro/Services/http_service.dart';
 import 'package:byte_bistro/Services/storage_service.dart';
@@ -26,14 +27,14 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future signIn() async {
     final user = await GoogleSignInApi.login();
-    
-    if (user == null){
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("Sign In with Google failed")
+
+    if (user == null) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("Sign In with Google failed")));
+    } else {
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (context) => DummyLogin(user: user),
       ));
-    }
-    else {
-      Get.toNamed('/dummy');
     }
   }
 
@@ -112,7 +113,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       TextFormField(
                         controller: passwordController,
                         validator: RequiredValidator(errorText: 'required*'),
+
+                        // obscureText: true,
                         obscureText: _isObscure,
+
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
                             borderSide: const BorderSide(
@@ -269,6 +273,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       const SizedBox(
                         height: 10,
                       ),
+
+                      ///sign up
                       GestureDetector(
                         onTap: () {
                           Get.toNamed('/signup');
