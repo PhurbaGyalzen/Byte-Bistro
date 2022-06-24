@@ -116,7 +116,8 @@ class ByteBistro extends StatelessWidget {
           ),
         ),
       ),
-      initialRoute: '/login',
+      // initialRoute: '/login',
+      initialRoute: tokenDecoded['username'] != null ? '/home' : '/login',
       debugShowCheckedModeBanner: false,
       title: 'Byte Bistro',
       getPages: [
