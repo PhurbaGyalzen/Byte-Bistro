@@ -7,6 +7,7 @@ import 'package:byte_bistro/Screens/admin/widgets/admin_order_detail.dart';
 import 'package:byte_bistro/Screens/admin/widgets/admin_orders.dart';
 import 'package:byte_bistro/Screens/admin/widgets/update_food.dart';
 import 'package:byte_bistro/Screens/admin/widgets/view_food.dart';
+import 'package:byte_bistro/Screens/reset_password.dart';
 
 import 'package:byte_bistro/Screens/admin/widgets/admin_dashboard.dart';
 import 'package:byte_bistro/Screens/profile/admin_profile.dart';
@@ -130,6 +131,7 @@ class ByteBistro extends StatelessWidget {
         GetPage(name: '/order_detail', page: () => OrderDetail()),
         GetPage(name: '/CategoryMoMo', page: () => MOMO()),
         GetPage(name: '/signup', page: () => SignUpScreen()),
+        GetPage(name: '/reset_password', page: () => ForgetPasswordScreen()),
         GetPage(
             name: '/adminProfileUpdateForm',
             page: () => AdminProfileUpdateForm()),

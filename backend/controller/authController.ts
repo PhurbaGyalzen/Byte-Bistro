@@ -1,10 +1,9 @@
 import { NextFunction, Request, Response } from 'express'
 import passport from 'passport'
-import { Strategy as LocalStrategy } from 'passport-local'
 
 import { initialize } from '../config/passport-config'
 import jsonwebtoken from 'jsonwebtoken'
-import { User } from '@models/Users'
+import { IUserDoc, User } from '@models/Users'
 import nodemailer from 'nodemailer'
 import { OTP } from '@utils/otp_gen'
 
@@ -26,19 +25,15 @@ export const signupUser = async (
 	})(req, res, next) //as next closure
 }
 
-export const signinUser = async (
-	req: Request,
-	res: Response,
-	next: NextFunction
-) => {
-	passport.authenticate('local-login', (err, user, info) => {
+const localLogin = (req: Request, res: Response, next: NextFunction) => {
+	return (err: any, user: IUserDoc | null, info: any) => {
 		if (err) {
 			return next(err)
 		}
 		if (!user) {
 			return res.status(401).json({ message: info.message }) // 401 Unauthorized
 		}
-		const token:String = jsonwebtoken.sign(
+		const token: String = jsonwebtoken.sign(
 			{
 				id: user._id,
 				username: user.username,
@@ -49,10 +44,21 @@ export const signinUser = async (
 		return res.status(200).json({
 			message: 'User logged in successfully',
 			token: token,
-			// user,
 			isAdmin: user['isAdmin'],
 		})
-	})(req, res, next) //as next closure
+	}
+}
+
+export const signinUser = async (
+	req: Request,
+	res: Response,
+	next: NextFunction
+) => {
+	passport.authenticate('local-login', localLogin(req, res, next))(
+		req,
+		res,
+		next
+	)
 }
 
 export const authGoogle = async (
@@ -71,34 +77,36 @@ export const authGoogleCallback = async (
 	res: Response,
 	next: NextFunction
 ) => {
-	passport.authenticate('google',{
-		session: false,
-		successRedirect: '/google/success',
-		failureRedirect: '/google/failed',
-	}, (err,user,info:any) => {
-		if (err) {
-			return next(err)
-		}
-		if (!user) {
-			return res.status(401).json({ message: info.message }) // 401 Unauthorized
-		}
-		const token:String = jsonwebtoken.sign(
-			{
-				id: user._id,
-				username: user.username,
-			},
-			process.env.JWT_SECRET!,
-			{ expiresIn: '2d' }
-		)
-		return res
-			.status(200)
-			.json({
+	passport.authenticate(
+		'google',
+		{
+			session: false,
+			successRedirect: '/google/success',
+			failureRedirect: '/google/failed',
+		},
+		(err, user, info: any) => {
+			if (err) {
+				return next(err)
+			}
+			if (!user) {
+				return res.status(401).json({ message: info.message }) // 401 Unauthorized
+			}
+			const token: String = jsonwebtoken.sign(
+				{
+					id: user._id,
+					username: user.username,
+				},
+				process.env.JWT_SECRET!,
+				{ expiresIn: '2d' }
+			)
+			return res.status(200).json({
 				message: 'User logged in successfully',
 				token: token,
 				// user,
 				isAdmin: user['isAdmin'],
 			})
-	})(req, res, next)
+		}
+	)(req, res, next)
 }
 
 export const authSuccess = async (
@@ -137,19 +145,23 @@ export const resetPassword = async (
 			},
 		})
 		const otp = OTP.generateOTP()
-		OTP.add(user.email, otp)
-		let info = transport
-			.sendMail({
-				from: '"Byte Bistro 🍴" <byte@bistro.com>', // sender address
-				to: `${user.email}`, // list of receivers
-				subject: 'OTP Code',
-				text: `Your OTP code for Byte Bistro is ${otp}`,
-				html: `<h1>Your OTP code for Byte Bistro is</h1> <pre>${otp}</pre>`,
-			})
-			.then((info) => {
-				console.log('Message sent: %s', info.messageId)
-				console.log(OTP.OTPs)
-			})
+		OTP.add(user.email, otp).then(() => {
+
+			let info = transport
+				.sendMail({
+					from: '"Byte Bistro 🍴" <byte@bistro.com>', // sender address
+					to: `${user.email}`, // list of receivers
+					subject: 'OTP Code',
+					text: `Your OTP code for Byte Bistro is ${otp}`,
+					html: `<h1>Your OTP code for Byte Bistro is</h1> <pre>${otp}</pre>`,
+				})
+				.then((info) => {
+					console.log('Message sent: %s', info.messageId)
+					console.log(OTP.OTPs)
+				}).catch((err) => {
+					console.log(err)
+				})
+		})
 	}
 	// do not leak unnecessary information. always serve this response regardless of any shortcomings.
 	return res.status(200).json({
@@ -166,7 +178,7 @@ export const verifyResetPassword = async (
 	const email = req.body.email
 	const otp = req.body.otp
 
-	const otpObj = OTP.get(email)
+	const otpObj = await OTP.get(email)
 	if (!otpObj || otpObj.value !== otp) {
 		return res
 			.status(401)
@@ -178,24 +190,9 @@ export const verifyResetPassword = async (
 			.status(403)
 			.json({ success: false, message: 'OTP has already expired.' })
 	}
-	OTP.remove(email)
-	// TODO: refactor the function from local-login and resuse here.
+	await OTP.remove(email)
+	
 	const user = await User.findOne({ email: email })
-	if (user) {
-		const token = jsonwebtoken.sign(
-			{
-				id: user._id,
-				username: user.username,
-			},
-			process.env.JWT_SECRET!,
-			{ expiresIn: '2d' }
-		)
-		return res.status(200).json({
-			success: true,
-			message: 'correct OTP',
-			email: email,
-			token: token,
-		})
-		// now redirect to change password from frontend
-	}
+	return localLogin(req, res, next)(null, user, null)
+	// now redirect to change password from frontend
 }

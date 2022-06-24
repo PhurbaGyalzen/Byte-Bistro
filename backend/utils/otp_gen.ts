@@ -1,11 +1,9 @@
+import { IOtp, OtpModel } from "@models/Otp"
 
 const otpLength = parseInt(process.env.OTP_LENGTH!, 10)
-const OTP_TIMROUT_MINS = 5
+const otpTimeout = parseInt(process.env.OTP_TIMEOUT_MINS!, 10)
 
-interface IOtp {
-    value: string
-    expireTimestamp: number
-}
+
 
 export class OTP {
     static OTPs: Record<string, IOtp> = {}
@@ -16,17 +14,29 @@ export class OTP {
         }
         return otp
     }
-    static add(key: string, value: string): void {
-        OTP.OTPs[key] = {
+    static async add(key: string, value: string): Promise<void> {
+        // OTP.OTPs[key] = {
+        //     value: value,
+        //     expireTimestamp: new Date().getTime() + (otpTimeout * 60_000)
+        // }
+        const otp = new OtpModel({
+            email: key,
             value: value,
-            expireTimestamp: new Date().getTime() + (OTP_TIMROUT_MINS * 60_000)
-        }
+            expireTimestamp: new Date().getTime() + (otpTimeout * 60_000)
+        })
+        await otp.save()
+
     }
-    static get(key: string): IOtp | null {
-        return OTP.OTPs[key] || null
+    static async get(key: string): Promise<IOtp | null> {
+        // return OTP.OTPs[key] || null
+        const otp = await OtpModel.findOne({email: key})
+        return otp
     }
-    static remove(key: string): void {
-        delete OTP.OTPs[key]
+    static async remove(key: string): Promise<void> {
+        // delete OTP.OTPs[key]
+        await OtpModel.deleteOne({
+            email: key
+        })
     }
 }
 
