@@ -1,12 +1,17 @@
 import 'dart:io';
 
 import 'package:byte_bistro/constants/colors.dart';
+import 'package:byte_bistro/controller/category_controller.dart';
 import 'package:byte_bistro/controller/food_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 // import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:multi_select_flutter/chip_display/multi_select_chip_display.dart';
+import 'package:multi_select_flutter/dialog/multi_select_dialog_field.dart';
+import 'package:multi_select_flutter/util/multi_select_item.dart';
+import 'package:multi_select_flutter/util/multi_select_list_type.dart';
 
 class AddFood extends StatefulWidget {
   const AddFood({Key? key}) : super(key: key);
@@ -49,6 +54,7 @@ class _AddFoodState extends State<AddFood> {
   @override
   Widget build(BuildContext context) {
     FoodController foodController = Get.put(FoodController());
+    CategoryController categoryController = Get.find();
 
     return Form(
       key: formKey,
@@ -96,6 +102,46 @@ class _AddFoodState extends State<AddFood> {
                 height: 20,
               ),
               priceField(),
+              // MultiSelectDialogField(
+              //   listType: MultiSelectListType.LIST,
+              //   chipDisplay: MultiSelectChipDisplay.none(),
+              //   decoration: BoxDecoration(
+              //     color: Colors.blue.withOpacity(0.1),
+              //     borderRadius: BorderRadius.all(Radius.circular(40)),
+              //     border: Border.all(
+              //       color: Colors.blue,
+              //       width: 2,
+              //     ),
+              //   ),
+              //   buttonIcon: Icon(
+              //     Icons.account_box,
+              //     color: Colors.blue,
+              //   ),
+              //   buttonText: Text(
+              //     "Favorite Players",
+              //     style: TextStyle(
+              //       color: Colors.blue[800],
+              //       fontSize: 16,
+              //     ),
+              //   ),
+              //   items: categoryController.categoryList
+              //       .map((player) =>
+              //           MultiSelectItem<Players>(player, player.name!))
+              //       .toList(),
+              //   title: Text("Players"),
+              //   selectedColor: Colors.blue,
+              //   searchable: true,
+              //   onConfirm: (results) {
+              //     controller.selectedPlayer = results;
+              //     controller.selectedPlayerValue.value = "";
+              //     controller.selectedPlayer.forEach((element) {
+              //       controller.selectedPlayerValue.value =
+              //           controller.selectedPlayerValue.value +
+              //               " " +
+              //               element.name;
+              //     });
+              //   },
+              // ),
               SizedBox(
                 height: 20,
               ),

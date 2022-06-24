@@ -112,10 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       TextFormField(
                         controller: passwordController,
                         validator: RequiredValidator(errorText: 'required*'),
-
-                        // obscureText: true,
                         obscureText: _isObscure,
-
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
                             borderSide: const BorderSide(
@@ -272,8 +269,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       const SizedBox(
                         height: 10,
                       ),
-
-                      ///sign up
                       GestureDetector(
                         onTap: () {
                           Get.toNamed('/signup');

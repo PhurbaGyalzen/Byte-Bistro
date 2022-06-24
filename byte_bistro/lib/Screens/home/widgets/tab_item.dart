@@ -1,4 +1,3 @@
-
 import 'package:byte_bistro/Screens/home/models/food_model.dart';
 import 'package:byte_bistro/Services/http_service.dart';
 import 'package:byte_bistro/controller/favourite_controller.dart';
@@ -19,11 +18,12 @@ class TabItemDetail extends StatefulWidget {
 
 class _TabItemDetailState extends State<TabItemDetail> {
   FoodController foodController = Get.find();
-  LoggedUserInfoController loggedUserInfoController = Get.put(LoggedUserInfoController());
+  LoggedUserInfoController loggedUserInfoController =
+      Get.put(LoggedUserInfoController());
   FavouriteController favouriteController = Get.put(FavouriteController());
   // print(loggedUserInfoController);
   List favouriteList = [];
-  
+
   bool _hasBeenPressed = false;
 
   @override
@@ -34,13 +34,14 @@ class _TabItemDetailState extends State<TabItemDetail> {
   }
 
   Future getFavourite() async {
-    List<Favourite> response = await favouriteController.getUserFavourites("627fbfa1d464ffbeb80b985b");
+    List<Favourite> response =
+        await favouriteController.getUserFavourites("627fbfa1d464ffbeb80b985b");
     print(response);
     setState(() {
       favouriteList = response[0].userId.favoriteFoods;
     });
   }
-  
+
   @override
   Widget build(BuildContext context) {
     List<dynamic> cartList = [];
@@ -48,12 +49,10 @@ class _TabItemDetailState extends State<TabItemDetail> {
       height: 280.0,
       child: FutureBuilder(
         future: foodController.getAllFood(),
-        
         builder: (context, snapshot) {
-          
           if (snapshot.hasData) {
             List<Food> data = snapshot.data as List<Food>;
-            
+
             return SizedBox(
                 child: CarouselSlider.builder(
                     options: CarouselOptions(
@@ -63,142 +62,153 @@ class _TabItemDetailState extends State<TabItemDetail> {
                     itemCount: data.length,
                     itemBuilder: (context, index, realIndex) {
                       bool exists = favouriteList.contains(data[index].id);
-                      return Container(
-                        width: 265,
-                        margin: EdgeInsets.only(
-                          top: 20,
-                          left: 0,
-                          bottom: 8,
-                        ),
-                        padding: EdgeInsets.only(
-                          left: 15,
-                          right: 15,
-                          top: 10,
-                          bottom: 10,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              blurRadius: 5,
-                              offset:
-                                  Offset(0, 3), // changes position of shadow
-                              color: Color(0xFFB0CCE1).withOpacity(0.32),
-                            ),
-                          ],
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Stack(
-                              clipBehavior: Clip.none,
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(15),
-                                  child: Image(
-                                    image: NetworkImage(PersistentHtpp.baseUrl + data[index].image),
-                                    height: 160,
-                                    width:
-                                        MediaQuery.of(context).size.width - 30,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                Positioned(
-                                  top: -20,
-                                  right: -20,
-                                  child: Container(
-                                    height: 40,
-                                    width: 40,
-                                    decoration: BoxDecoration(
-                                      color: Theme.of(context).primaryColor,
-                                      shape: BoxShape.circle,
+                      return GestureDetector(
+                        onTap: () => Get.toNamed('/adminScreen'),
+                        child: Container(
+                          width: 265,
+                          margin: EdgeInsets.only(
+                            top: 20,
+                            left: 0,
+                            bottom: 8,
+                          ),
+                          padding: EdgeInsets.only(
+                            left: 15,
+                            right: 15,
+                            top: 10,
+                            bottom: 10,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                blurRadius: 5,
+                                offset:
+                                    Offset(0, 3), // changes position of shadow
+                                color: Color(0xFFB0CCE1).withOpacity(0.32),
+                              ),
+                            ],
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Stack(
+                                clipBehavior: Clip.none,
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(15),
+                                    child: Image(
+                                      image: NetworkImage(
+                                          PersistentHtpp.baseUrl +
+                                              data[index].image),
+                                      height: 160,
+                                      width: MediaQuery.of(context).size.width -
+                                          30,
+                                      fit: BoxFit.cover,
                                     ),
-                                    child: IconButton(
-                                      
-                                      icon: Icon(
-                                        exists
-                                            ? Icons.favorite
-                                            : Icons.favorite_border,
-                                        color: exists
-                                            ? Colors.red
-                                            : Colors.white,
-                                        
+                                  ),
+                                  Positioned(
+                                    top: -20,
+                                    right: -20,
+                                    child: Container(
+                                      height: 40,
+                                      width: 40,
+                                      decoration: BoxDecoration(
+                                        color: Theme.of(context).primaryColor,
+                                        shape: BoxShape.circle,
                                       ),
-                                      onPressed: exists ? null : () {
-                                        Map<String, dynamic> dataD = {
-                                          "foodId": data[index].id,
-                                          "userId": "627fbfa1d464ffbeb80b985b"
-                                        };
-                                        print("Error");
-                                        print(data[index].id);
-                                        var response =  favouriteController.addFavourite(dataD);
-                                        print(response);
-                                        final snackbarSucess =
-                                          SnackBar(content: Text('Added to favourites'));
-                                        final snackbarFail =
-                                          SnackBar(content: Text('The item is already added to favourites'));
+                                      child: IconButton(
+                                        icon: Icon(
+                                          exists
+                                              ? Icons.favorite
+                                              : Icons.favorite_border,
+                                          color: exists
+                                              ? Colors.red
+                                              : Colors.white,
+                                        ),
+                                        onPressed: exists
+                                            ? null
+                                            : () {
+                                                Map<String, dynamic> dataD = {
+                                                  "foodId": data[index].id,
+                                                  "userId":
+                                                      "627fbfa1d464ffbeb80b985b"
+                                                };
+                                                print("Error");
+                                                print(data[index].id);
+                                                var response =
+                                                    favouriteController
+                                                        .addFavourite(dataD);
+                                                print(response);
+                                                final snackbarSucess = SnackBar(
+                                                    content: Text(
+                                                        'Added to favourites'));
+                                                final snackbarFail = SnackBar(
+                                                    content: Text(
+                                                        'The item is already added to favourites'));
 
-                                        if (response == "success") {
-                
-                                          snackbarSucess;
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(snackbarSucess);
-                                          // setState(
-                                          //   () {
-                                          //     exists = true;
-                                          //   },
-                                          // );
-                                        } else {
-                                          snackbarFail;
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(snackbarSucess);
-                                        }
-                                      }, 
+                                                if (response == "success") {
+                                                  snackbarSucess;
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(
+                                                          snackbarSucess);
+                                                  // setState(
+                                                  //   () {
+                                                  //     exists = true;
+                                                  //   },
+                                                  // );
+                                                } else {
+                                                  snackbarFail;
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(
+                                                          snackbarSucess);
+                                                }
+                                              },
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
-
-                            SizedBox(
-                              height: 15,
-                            ),
-                            Text(
-                              data[index].name,
-                              style: Theme.of(context).textTheme.headline2,
-                            ),
-                            SizedBox(height: 10),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Rs ' + data[index].price.toString(),
-                                  style: Theme.of(context).textTheme.bodyText2,
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    var cartData = {
-                                      "index": index,
-                                      "name": data[index].name,
-                                      "price": data[index].price,
-                                      "description": data[index].description,
-                                      "image": data[index].image,
-                                    };
-                                    cartList.add(cartData);
-                                    Get.toNamed('/addToCart',
-                                        arguments: cartList);
-                                  },
-                                  child: Image(
-                                      image: AssetImage(
-                                          'assets/images/shoppingCart.png'),
-
-                                      height: 20,
-                                      width: 20),
-                                )
-                              ],
-                            ),
-                          ],
+                                ],
+                              ),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              Text(
+                                data[index].name,
+                                style: Theme.of(context).textTheme.headline2,
+                              ),
+                              SizedBox(height: 10),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Rs ' + data[index].price.toString(),
+                                    style:
+                                        Theme.of(context).textTheme.bodyText2,
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      var cartData = {
+                                        "index": index,
+                                        "name": data[index].name,
+                                        "price": data[index].price,
+                                        "description": data[index].description,
+                                        "image": data[index].image,
+                                      };
+                                      cartList.add(cartData);
+                                      Get.toNamed('/addToCart',
+                                          arguments: cartList);
+                                    },
+                                    child: Image(
+                                        image: AssetImage(
+                                            'assets/images/shoppingCart.png'),
+                                        height: 20,
+                                        width: 20),
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       );
                     }));
