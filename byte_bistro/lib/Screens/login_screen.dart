@@ -25,7 +25,16 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController passwordController = TextEditingController();
 
   Future signIn() async {
-    await GoogleSignInApi.login();
+    final user = await GoogleSignInApi.login();
+    
+    if (user == null){
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("Sign In with Google failed")
+      ));
+    }
+    else {
+      Get.toNamed('/dummy');
+    }
   }
 
   @override
