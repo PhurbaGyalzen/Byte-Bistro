@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
 import passport from 'passport'
-import { Strategy as LocalStrategy } from 'passport-local'
 
 import { initialize } from '../config/passport-config'
 import jsonwebtoken from 'jsonwebtoken'
@@ -27,7 +26,7 @@ export const signupUser = async (
 }
 
 const localLogin = (req: Request, res: Response, next: NextFunction) => {
-	return (err: any, user: IUserDoc, info: any) => {
+	return (err: any, user: IUserDoc | null, info: any) => {
 		if (err) {
 			return next(err)
 		}
@@ -188,23 +187,8 @@ export const verifyResetPassword = async (
 			.json({ success: false, message: 'OTP has already expired.' })
 	}
 	OTP.remove(email)
-	// TODO: refactor the function from local-login and resuse here.
+	
 	const user = await User.findOne({ email: email })
-	if (user) {
-		const token = jsonwebtoken.sign(
-			{
-				id: user._id,
-				username: user.username,
-			},
-			process.env.JWT_SECRET!,
-			{ expiresIn: '2d' }
-		)
-		return res.status(200).json({
-			success: true,
-			message: 'correct OTP',
-			email: email,
-			token: token,
-		})
-		// now redirect to change password from frontend
-	}
+	return localLogin(req, res, next)(null, user, null)
+	// now redirect to change password from frontend
 }
