@@ -145,19 +145,23 @@ export const resetPassword = async (
 			},
 		})
 		const otp = OTP.generateOTP()
-		OTP.add(user.email, otp)
-		let info = transport
-			.sendMail({
-				from: '"Byte Bistro 🍴" <byte@bistro.com>', // sender address
-				to: `${user.email}`, // list of receivers
-				subject: 'OTP Code',
-				text: `Your OTP code for Byte Bistro is ${otp}`,
-				html: `<h1>Your OTP code for Byte Bistro is</h1> <pre>${otp}</pre>`,
-			})
-			.then((info) => {
-				console.log('Message sent: %s', info.messageId)
-				console.log(OTP.OTPs)
-			})
+		OTP.add(user.email, otp).then(() => {
+
+			let info = transport
+				.sendMail({
+					from: '"Byte Bistro 🍴" <byte@bistro.com>', // sender address
+					to: `${user.email}`, // list of receivers
+					subject: 'OTP Code',
+					text: `Your OTP code for Byte Bistro is ${otp}`,
+					html: `<h1>Your OTP code for Byte Bistro is</h1> <pre>${otp}</pre>`,
+				})
+				.then((info) => {
+					console.log('Message sent: %s', info.messageId)
+					console.log(OTP.OTPs)
+				}).catch((err) => {
+					console.log(err)
+				})
+		})
 	}
 	// do not leak unnecessary information. always serve this response regardless of any shortcomings.
 	return res.status(200).json({
@@ -174,7 +178,7 @@ export const verifyResetPassword = async (
 	const email = req.body.email
 	const otp = req.body.otp
 
-	const otpObj = OTP.get(email)
+	const otpObj = await OTP.get(email)
 	if (!otpObj || otpObj.value !== otp) {
 		return res
 			.status(401)
@@ -186,7 +190,7 @@ export const verifyResetPassword = async (
 			.status(403)
 			.json({ success: false, message: 'OTP has already expired.' })
 	}
-	OTP.remove(email)
+	await OTP.remove(email)
 	
 	const user = await User.findOne({ email: email })
 	return localLogin(req, res, next)(null, user, null)
