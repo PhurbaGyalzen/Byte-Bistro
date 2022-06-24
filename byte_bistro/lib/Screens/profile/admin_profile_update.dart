@@ -3,7 +3,7 @@ import 'package:form_field_validator/form_field_validator.dart';
 import 'package:byte_bistro/controller/logged_user_info_controller.dart';
 import 'package:get/get.dart';
 
-import '../constants/colors.dart';
+import '../../constants/colors.dart';
 
 class AdminProfileUpdateForm extends StatefulWidget {
   final String bio;

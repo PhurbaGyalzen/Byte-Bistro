@@ -1,3 +1,4 @@
+import 'package:byte_bistro/Screens/google_signin_api.dart';
 import 'package:byte_bistro/Services/http_service.dart';
 import 'package:byte_bistro/Services/storage_service.dart';
 import 'package:byte_bistro/constants/colors.dart';
@@ -23,6 +24,10 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
+  Future signIn() async {
+    await GoogleSignInApi.login();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,12 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 'assets/images/login.png',
               ),
               Container(
-                padding: const EdgeInsets.only(
-                  
-                  left: 40,
-                  right: 40,
-                  bottom: 10
-                ),
+                padding: const EdgeInsets.only(left: 40, right: 40, bottom: 10),
                 child: Form(
                   key: _formkey,
                   child: Column(
@@ -103,10 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       TextFormField(
                         controller: passwordController,
                         validator: RequiredValidator(errorText: 'required*'),
-
-                        // obscureText: true,
                         obscureText: _isObscure,
-
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
                             borderSide: const BorderSide(
@@ -247,7 +244,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             50,
                           ),
                         ),
-                        onPressed: () {},
+                        onPressed: signIn,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -263,8 +260,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       const SizedBox(
                         height: 10,
                       ),
-
-                      ///sign up
                       GestureDetector(
                         onTap: () {
                           Get.toNamed('/signup');
