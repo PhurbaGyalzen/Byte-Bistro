@@ -26,6 +26,7 @@ class _AddFoodState extends State<AddFood> {
   final descriptionController = TextEditingController();
   var imageName = "";
   late File? pickedImage;
+  List categoryToSent = [];
 
   @override
   void initState() {
@@ -147,18 +148,10 @@ class _AddFoodState extends State<AddFood> {
                         categoryController.selectedCategoryValue.value +
                             " " +
                             element.name;
+                    categoryToSent.add("${element.id}");
+                    print(categoryToSent);
                   });
                 },
-                // onConfirm: (results) {
-                //   controller.selectedPlayer = results;
-                //   controller.selectedPlayerValue.value = "";
-                //   controller.selectedPlayer.forEach((element) {
-                //     controller.selectedPlayerValue.value =
-                //         controller.selectedPlayerValue.value +
-                //             " " +
-                //             element.name;
-                //   });
-                // },
               ),
               Obx(() => Text(categoryController.selectedCategoryValue.value)),
               SizedBox(
@@ -268,6 +261,7 @@ class _AddFoodState extends State<AddFood> {
                           "price": priceController.text,
                           "image": pickedImage,
                           "description": descriptionController.text,
+                          "categories": categoryToSent,
                         };
 
                         String response = await foodController.addFood(data);

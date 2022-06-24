@@ -1,7 +1,4 @@
-// To parse this JSON data, do
-//
-//     final food = foodFromJson(jsonString);
-
+import 'package:meta/meta.dart';
 import 'dart:convert';
 
 List<Food> foodFromJson(String str) =>
@@ -25,17 +22,17 @@ class Food {
     required this.v,
   });
 
-  String id;
-  String name;
-  int price;
-  String description;
-  String image;
-  List<dynamic> categories;
-  bool isAvailable;
-  List<dynamic> ingredients;
-  DateTime createdAt;
-  DateTime updatedAt;
-  int v;
+  final String id;
+  final String name;
+  final int price;
+  final String description;
+  final String image;
+  final List<Category> categories;
+  final bool isAvailable;
+  final List<dynamic> ingredients;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  final int v;
 
   factory Food.fromJson(Map<String, dynamic> json) => Food(
         id: json["_id"],
@@ -43,7 +40,8 @@ class Food {
         price: json["price"],
         description: json["description"],
         image: json["image"],
-        categories: List<dynamic>.from(json["categories"].map((x) => x)),
+        categories: List<Category>.from(
+            json["categories"].map((x) => Category.fromJson(x))),
         isAvailable: json["isAvailable"],
         ingredients: List<dynamic>.from(json["ingredients"].map((x) => x)),
         createdAt: DateTime.parse(json["createdAt"]),
@@ -57,11 +55,35 @@ class Food {
         "price": price,
         "description": description,
         "image": image,
-        "categories": List<dynamic>.from(categories.map((x) => x)),
+        "categories": List<dynamic>.from(categories.map((x) => x.toJson())),
         "isAvailable": isAvailable,
         "ingredients": List<dynamic>.from(ingredients.map((x) => x)),
         "createdAt": createdAt.toIso8601String(),
         "updatedAt": updatedAt.toIso8601String(),
+        "__v": v,
+      };
+}
+
+class Category {
+  Category({
+    required this.id,
+    required this.name,
+    required this.v,
+  });
+
+  final String id;
+  final String name;
+  final int v;
+
+  factory Category.fromJson(Map<String, dynamic> json) => Category(
+        id: json["_id"],
+        name: json["name"],
+        v: json["__v"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "_id": id,
+        "name": name,
         "__v": v,
       };
 }

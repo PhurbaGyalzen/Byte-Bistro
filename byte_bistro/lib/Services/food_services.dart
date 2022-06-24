@@ -43,11 +43,12 @@ class FoodService {
     var formData = dio.FormData.fromMap({
       'name': data['name'],
       'price': data['price'],
-      'image':
-          await dio.MultipartFile.fromFile(data['image'].path, filename: imageFileName),
+      'image': await dio.MultipartFile.fromFile(data['image'].path,
+          filename: imageFileName),
       'description': data['description'],
+      'categories': data['categories'],
     });
-    try { 
+    try {
       final response = await http.post(
         endpoint,
         data: formData,
