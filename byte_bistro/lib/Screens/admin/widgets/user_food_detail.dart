@@ -27,7 +27,7 @@ class UserFoodDetail extends StatelessWidget {
                     Icons.arrow_back,
                     size: 20,
                   ),
-                  onPressed: () => Get.offNamed('/adminScreen'),
+                  onPressed: () => Get.offNamed('/home'),
                 ),
                 SizedBox(width: 60),
                 GestureDetector(

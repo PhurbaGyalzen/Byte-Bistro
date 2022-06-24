@@ -13,6 +13,7 @@ class CategoryController extends GetxController {
 
   List<Category> categoryList = [];
   List<MultiSelectItem> dropDownData = [];
+  List<dynamic> selectedCategory = [];
   var selectedCategoryValue = ''.obs;
   CategoryService service = Get.put(CategoryService());
   // controller to get all category

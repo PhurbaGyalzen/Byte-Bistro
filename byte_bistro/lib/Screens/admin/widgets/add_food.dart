@@ -102,46 +102,65 @@ class _AddFoodState extends State<AddFood> {
                 height: 20,
               ),
               priceField(),
-              // MultiSelectDialogField(
-              //   listType: MultiSelectListType.LIST,
-              //   chipDisplay: MultiSelectChipDisplay.none(),
-              //   decoration: BoxDecoration(
-              //     color: Colors.blue.withOpacity(0.1),
-              //     borderRadius: BorderRadius.all(Radius.circular(40)),
-              //     border: Border.all(
-              //       color: Colors.blue,
-              //       width: 2,
-              //     ),
-              //   ),
-              //   buttonIcon: Icon(
-              //     Icons.account_box,
-              //     color: Colors.blue,
-              //   ),
-              //   buttonText: Text(
-              //     "Favorite Players",
-              //     style: TextStyle(
-              //       color: Colors.blue[800],
-              //       fontSize: 16,
-              //     ),
-              //   ),
-              //   items: categoryController.categoryList
-              //       .map((player) =>
-              //           MultiSelectItem<Players>(player, player.name!))
-              //       .toList(),
-              //   title: Text("Players"),
-              //   selectedColor: Colors.blue,
-              //   searchable: true,
-              //   onConfirm: (results) {
-              //     controller.selectedPlayer = results;
-              //     controller.selectedPlayerValue.value = "";
-              //     controller.selectedPlayer.forEach((element) {
-              //       controller.selectedPlayerValue.value =
-              //           controller.selectedPlayerValue.value +
-              //               " " +
-              //               element.name;
-              //     });
-              //   },
-              // ),
+              SizedBox(
+                height: 20,
+              ),
+              MultiSelectDialogField(
+                initialValue: categoryController.selectedCategory,
+                listType: MultiSelectListType.CHIP,
+                chipDisplay: MultiSelectChipDisplay.none(),
+                decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(0.1),
+                  borderRadius: BorderRadius.all(Radius.circular(40)),
+                  border: Border.all(
+                    color: Colors.white,
+                    width: 2,
+                  ),
+                ),
+                buttonIcon: Icon(
+                  Icons.food_bank_rounded,
+                  color: Colors.black,
+                ),
+                buttonText: Text(
+                  "Select Categories",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 16,
+                  ),
+                ),
+                items: categoryController.categoryList
+                    .map((categories) =>
+                        MultiSelectItem(categories, categories.name))
+                    .toList(),
+                title: Text("Categories"),
+                selectedColor: Colors.black,
+                selectedItemsTextStyle: TextStyle(
+                    color: Colors.white,
+                    height: 1.5,
+                    fontWeight: FontWeight.bold),
+                searchable: true,
+                onConfirm: (results) {
+                  categoryController.selectedCategory = results;
+                  categoryController.selectedCategoryValue.value = "";
+                  categoryController.selectedCategory.forEach((element) {
+                    categoryController.selectedCategoryValue.value =
+                        categoryController.selectedCategoryValue.value +
+                            " " +
+                            element.name;
+                  });
+                },
+                // onConfirm: (results) {
+                //   controller.selectedPlayer = results;
+                //   controller.selectedPlayerValue.value = "";
+                //   controller.selectedPlayer.forEach((element) {
+                //     controller.selectedPlayerValue.value =
+                //         controller.selectedPlayerValue.value +
+                //             " " +
+                //             element.name;
+                //   });
+                // },
+              ),
+              Obx(() => Text(categoryController.selectedCategoryValue.value)),
               SizedBox(
                 height: 20,
               ),
@@ -258,6 +277,8 @@ class _AddFoodState extends State<AddFood> {
                             SnackBar(content: Text('Food addition failed'));
 
                         if (response == "success") {
+                          categoryController.selectedCategory = [];
+                          categoryController.selectedCategoryValue.value = " ";
                           Navigator.pushNamed(context, '/adminScreen')
                               .then((_) {
                             // This block runs when you have returned back to the 1st Page from 2nd.

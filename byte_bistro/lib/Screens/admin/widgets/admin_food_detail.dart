@@ -109,12 +109,18 @@ class AdminFoodDetail extends StatelessWidget {
 
             Padding(
               padding: const EdgeInsets.only(
-                left: 20,
+                left: 10,
                 bottom: 20,
                 top: 5,
               ),
-              child: SizedBox(
-                height: 100,
+              child: Container(
+                margin: EdgeInsets.only(right: 10),
+                padding: EdgeInsets.all(5),
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.white),
+                height: 220,
                 child: SingleChildScrollView(
                   scrollDirection: Axis.vertical,
                   child: Text(data[3]['description'],
@@ -122,31 +128,6 @@ class AdminFoodDetail extends StatelessWidget {
                           fontSize: 16,
                           fontWeight: FontWeight.w300,
                           height: 1.5)),
-                ),
-              ),
-            ),
-
-            Padding(
-              padding: const EdgeInsets.only(
-                left: 20,
-                top: 5,
-                bottom: 5,
-                right: 20,
-              ),
-              child: ElevatedButton(
-                onPressed: () {},
-                child: Text(
-                  'Add to cart',
-                  style: Theme.of(context).textTheme.headline1,
-                ),
-                style: ElevatedButton.styleFrom(
-                  minimumSize: const Size.fromHeight(50),
-                  primary: kPrimary,
-                  textStyle: TextStyle(
-                    color: kTextLightColor,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w300,
-                  ),
                 ),
               ),
             ),

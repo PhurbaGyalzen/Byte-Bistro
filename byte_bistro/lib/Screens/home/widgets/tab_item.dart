@@ -63,7 +63,16 @@ class _TabItemDetailState extends State<TabItemDetail> {
                     itemBuilder: (context, index, realIndex) {
                       bool exists = favouriteList.contains(data[index].id);
                       return GestureDetector(
-                        onTap: () => Get.toNamed('/adminScreen'),
+                        onTap: () => Get.toNamed('/userFoodDetail', arguments: [
+                          {"id": foodController.foodList[index].id},
+                          {"name": foodController.foodList[index].name},
+                          {"price": foodController.foodList[index].price},
+                          {
+                            "description":
+                                foodController.foodList[index].description
+                          },
+                          {"image": foodController.foodList[index].image},
+                        ]),
                         child: Container(
                           width: 265,
                           margin: EdgeInsets.only(
