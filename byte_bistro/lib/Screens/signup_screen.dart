@@ -183,7 +183,7 @@ class _SignUpState extends State<SignUpScreen> {
                       //password start
                       TextFormField(
                         validator: RequiredValidator(errorText: '*required'),
-                        obscureText: true,
+                        obscureText: _isObscure,
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
                             borderSide: const BorderSide(
