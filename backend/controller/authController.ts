@@ -68,7 +68,7 @@ export const googleAuthentication = async (
 	next: NextFunction
 ) => {
 
-	const {email, googleId, username} = req.body;
+	const {email, googleId, username, fullname} = req.body;
 	const user = await User.findOne({ googleId: googleId });
 	if (user) {
 		const token: String = jsonwebtoken.sign(
@@ -90,6 +90,7 @@ export const googleAuthentication = async (
 			email: email,
 			googleId: googleId,
 			username: username,
+			fullname: username,
 			isAdmin: false,
 		});
 		await newUser.save();
@@ -102,7 +103,7 @@ export const googleAuthentication = async (
 			{ expiresIn: '2d' }
 		)
 		return res.status(200).json({
-			message: 'User logged in successfully',
+			message: 'User Signed up and logged in',
 			token: token,
 			isAdmin: newUser['isAdmin'],
 		});
