@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 
 import '../constants/colors.dart';
 
 class ContactUs extends StatelessWidget {
-  const ContactUs({Key? key}) : super(key: key);
+  ContactUs({Key? key}) : super(key: key);
+  TextEditingController nameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,31 @@ class ContactUs extends StatelessWidget {
         child: SingleChildScrollView(
           child: Container(
             padding: EdgeInsets.only(top: 20, left: 20),
-            child: Column(),
+            child: Column(
+              children: [
+                TextFormField(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  controller: nameController,
+                  textInputAction: TextInputAction.done,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    label: Text('Name'),
+                    suffixIcon: nameController.text.isEmpty
+                        ? Container(
+                            width: 0,
+                          )
+                        : IconButton(
+                            icon: Icon(Icons.close),
+                            onPressed: () => nameController.clear(),
+                          ),
+                  ),
+                  validator: MultiValidator([
+                    RequiredValidator(errorText: 'Required *'),
+                  ]),
+                )
+              ],
+            ),
           ),
         ),
       ),
