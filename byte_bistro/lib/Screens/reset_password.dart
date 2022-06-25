@@ -1,3 +1,4 @@
+import 'package:byte_bistro/Services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -85,9 +86,15 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                   width: double.infinity,
                   height: 50,
                   child: ElevatedButton(
-                    onPressed: () {
-                      String text = emailController.text.trim();
-                      print('email is $text');
+                    onPressed: () async {
+                      String email = emailController.text.trim();
+                      print('email is $email');
+                      Map<String, dynamic> data =
+                          await AuthService.resetPassword(email);
+                      if (data['success']) {
+                        // get snackbar
+                        Get.toNamed('/verify_reset_password');
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                       primary: Colors.orange,

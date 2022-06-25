@@ -133,6 +133,7 @@ class ByteBistro extends StatelessWidget {
         // GetPage(name: '/CategoryMoMo', page: () => MOMO()),
         GetPage(name: '/signup', page: () => SignUpScreen()),
         GetPage(name: '/reset_password', page: () => ForgetPasswordScreen()),
+        // GetPage(name: '/verify_reset_password', page: () => VerifyResetPassword()),
         GetPage(
             name: '/adminProfileUpdateForm',
             page: () => AdminProfileUpdateForm()),
