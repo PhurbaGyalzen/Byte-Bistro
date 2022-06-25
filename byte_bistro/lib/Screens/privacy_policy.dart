@@ -10,7 +10,7 @@ class PrivacyPolicy extends StatelessWidget {
     {
       "title": "Privacy Policy",
       "description":
-          "FoodGanj operates the ‘FoodGanj’ app (both in Google Play Store and Apple App Store) and its website www.foodganj.com . This page is used to inform users who have decided to use our app regarding policies with the collection, use and disclosure of Personal Information. If you choose to use our App 'FoodGanj', then you agree to the collection and use of information as mentioned in this policy. The personal information that our app collects are solely used for providing service to its users. The information collected will not be used or shared with any party except as described in this policy.",
+          "Byte Bistro operates the ‘Byte Bistro’ app (both in Google Play Store and Apple App Store) and its website www.Byte Bistro.com . This page is used to inform users who have decided to use our app regarding policies with the collection, use and disclosure of Personal Information. If you choose to use our App 'Byte Bistro', then you agree to the collection and use of information as mentioned in this policy. The personal information that our app collects are solely used for providing service to its users. The information collected will not be used or shared with any party except as described in this policy.",
     },
     {
       "title": "Information Collection and Usage",
