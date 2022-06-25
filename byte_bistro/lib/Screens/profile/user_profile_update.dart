@@ -1,3 +1,5 @@
+import 'package:byte_bistro/Services/http_service.dart';
+import 'package:byte_bistro/models/loged_user_info.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:byte_bistro/controller/logged_user_info_controller.dart';
@@ -35,6 +37,7 @@ class _UserProfileUpdateFormState extends State<UserProfileUpdateForm> {
   late final TextEditingController bioController =
       TextEditingController(text: widget.bio);
   final formkey = GlobalKey<FormState>();
+  final LoggedUserInfoController userController = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,34 +61,51 @@ class _UserProfileUpdateFormState extends State<UserProfileUpdateForm> {
             child: Column(
               children: [
                 Center(
-                  child: Stack(
-                    children: [
-                      CircleAvatar(
-                        backgroundImage:
-                            AssetImage('assets/images/buffMomo.jpg'),
-                        radius: 70,
-                      ),
-                      Positioned(
-                        bottom: 0,
-                        right: 0,
-                        child: Container(
-                          height: 40,
-                          width: 40,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              width: 4,
-                              color: Theme.of(context).scaffoldBackgroundColor,
+                  child: FutureBuilder(
+                    future: userController.getLoggedUserInfo(),
+                    builder: (context, snapshot) {
+                      LoggedUserInfo? data = snapshot.data as LoggedUserInfo?;
+                      if (snapshot.hasData) {
+                        return Stack(
+                          children: [
+                            CircleAvatar(
+                              backgroundImage:
+                                  NetworkImage( PersistentHtpp.baseUrl
+                      + data!.profile,
+                    ),
+                              radius: 70,
                             ),
-                            color: Color(0xFFFFC61F),
-                          ),
-                          child: Icon(
-                            Icons.camera_alt,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ],
+                            Positioned(
+                              bottom: 0,
+                              right: 0,
+                              child: Container(
+                                height: 40,
+                                width: 40,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    width: 4,
+                                    color: Theme.of(context)
+                                        .scaffoldBackgroundColor,
+                                  ),
+                                  color: Color(0xFFFFC61F),
+                                ),
+                                child: Icon(
+                                  Icons.camera_alt,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
+                      } else {
+                        return CircleAvatar(
+                          radius: 50,
+                          backgroundImage:
+                              NetworkImage('https://i.pravatar.cc/300'),
+                        );
+                      }
+                    },
                   ),
                 ),
                 SizedBox(
@@ -140,7 +160,6 @@ class _UserProfileUpdateFormState extends State<UserProfileUpdateForm> {
                 SizedBox(
                   height: 20,
                 ),
-               
                 TextFormField(
                   validator: RequiredValidator(errorText: '*required'),
                   controller: addressController,
@@ -179,7 +198,6 @@ class _UserProfileUpdateFormState extends State<UserProfileUpdateForm> {
                 SizedBox(
                   height: 40,
                 ),
-
                 Row(
                   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
