@@ -14,7 +14,7 @@ class LoggedUserInfoController extends GetxController {
   }
 
   // get user
-  getLoggedUserInfo() async {
+  Future getLoggedUserInfo() async {
     LoggedUserInfo response = await LoggedUserInfoService.getUserInfoSevice();
 
     userInfo.value = [response];

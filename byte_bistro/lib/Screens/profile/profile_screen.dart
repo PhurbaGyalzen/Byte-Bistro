@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:byte_bistro/Services/http_service.dart';
 import 'package:byte_bistro/Services/storage_service.dart';
+import 'package:byte_bistro/controller/logged_user_info_controller.dart';
+import 'package:byte_bistro/models/loged_user_info.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -45,7 +47,7 @@ class ProfileScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
-              children: const [
+              children: [
                 ProfileNote(),
                 // ProfileUser(),
                 ProfileSystem(),
@@ -60,7 +62,8 @@ class ProfileScreen extends StatelessWidget {
 
 // ProfileNote
 class ProfileNote extends StatelessWidget {
-  const ProfileNote({Key? key}) : super(key: key);
+  ProfileNote({Key? key}) : super(key: key);
+  final LoggedUserInfoController userController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -81,52 +84,64 @@ class ProfileNote extends StatelessWidget {
           color: Colors.white,
           borderRadius: BorderRadius.circular(50),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            CircleAvatar(
-              radius: 30,
-              backgroundImage: AssetImage(
-                'assets/images/user.jpg',
-              ),
-            ),
-            // SizedBox(
-            //   width: 40,
-            // ),
-            Padding(
-              padding: const EdgeInsets.only(left: 10.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text('User 1',
-                      style: TextStyle(
-                        fontSize: 18,
-                        height: 1.5,
-                        fontWeight: FontWeight.bold,
-                      )),
-                  Text('+977 9848859531',
-                      style: TextStyle(fontWeight: FontWeight.w300)),
+        child: FutureBuilder(
+          future: userController.getLoggedUserInfo(),
+          builder: (context, snapshot) {
+            LoggedUserInfo data = snapshot.data as LoggedUserInfo;
+            if (snapshot.hasData) {
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  CircleAvatar(
+                    radius: 30,
+                    backgroundImage: NetworkImage( PersistentHtpp.baseUrl
+                      + data.profile,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 40,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(data.username,
+                            style: TextStyle(
+                              fontSize: 18,
+                              height: 1.5,
+                              fontWeight: FontWeight.bold,
+                            )),
+                        Text('+977 9848859531',
+                            style: TextStyle(fontWeight: FontWeight.w300)),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: SizedBox(
+                      width: 125,
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Get.toNamed('/userProfilePage');
+                    },
+                    child: Image(
+                      height: 20,
+                      width: 20,
+                      image: AssetImage(
+                        'assets/images/next.png',
+                      ),
+                    ),
+                  )
                 ],
-              ),
-            ),
-            Expanded(
-              child: SizedBox(
-                width: 125,
-              ),
-            ),
-            GestureDetector(
-              onTap: () {
-                Get.toNamed('/userProfilePage');
-              },
-              child: Image(
-                height: 20,
-                width: 20,
-                image: AssetImage(
-                  'assets/images/next.png',
-                ),
-              ),
-            )
-          ],
+              );
+            } else {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+          },
         ),
       ),
     );
