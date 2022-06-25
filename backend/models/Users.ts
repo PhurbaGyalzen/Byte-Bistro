@@ -1,6 +1,7 @@
 import mongoose, { Document, Schema, Types } from 'mongoose'
 
 export interface IUser {
+	profile: string
 	username: string
 	passwordHash: string
 	email: string
@@ -16,6 +17,11 @@ export interface IUser {
 export interface IUserDoc extends IUser, Document {}
 
 const UserSchemaFields: Record<keyof IUser, any> = {
+	profile: {
+		type: String,
+		required: true,
+		default: 'images/default-profile.png',
+	},
 	username: {
 		type: String,
 		required: true,
