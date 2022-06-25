@@ -87,7 +87,7 @@ class ProfileNote extends StatelessWidget {
         child: FutureBuilder(
           future: userController.getLoggedUserInfo(),
           builder: (context, snapshot) {
-            LoggedUserInfo data = snapshot.data as LoggedUserInfo;
+            LoggedUserInfo? data = snapshot.data as LoggedUserInfo?;
             if (snapshot.hasData) {
               return Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -95,7 +95,7 @@ class ProfileNote extends StatelessWidget {
                   CircleAvatar(
                     radius: 30,
                     backgroundImage: NetworkImage( PersistentHtpp.baseUrl
-                      + data.profile,
+                      + data!.profile,
                     ),
                   ),
                   SizedBox(
@@ -112,7 +112,7 @@ class ProfileNote extends StatelessWidget {
                               height: 1.5,
                               fontWeight: FontWeight.bold,
                             )),
-                        Text('+977 9848859531',
+                        Text(data.email,
                             style: TextStyle(fontWeight: FontWeight.w300)),
                       ],
                     ),
