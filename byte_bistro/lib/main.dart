@@ -33,6 +33,7 @@ import 'package:byte_bistro/Screens/home/home.dart';
 import 'package:byte_bistro/Screens/home/widgets/food_detail_screen.dart';
 import 'package:byte_bistro/Screens/swipe_qr_home.dart';
 import 'package:byte_bistro/Screens/user_order_history_list.dart';
+import 'package:byte_bistro/Screens/verify_reset_password.dart';
 import 'package:byte_bistro/Services/http_service.dart';
 import 'package:byte_bistro/Services/storage_service.dart';
 import 'package:byte_bistro/utils/str_decoder.dart';
@@ -133,7 +134,8 @@ class ByteBistro extends StatelessWidget {
         // GetPage(name: '/CategoryMoMo', page: () => MOMO()),
         GetPage(name: '/signup', page: () => SignUpScreen()),
         GetPage(name: '/reset_password', page: () => ForgetPasswordScreen()),
-        // GetPage(name: '/verify_reset_password', page: () => VerifyResetPassword()),
+        GetPage(
+            name: '/verify_reset_password', page: () => VerifyResetPassword()),
         GetPage(
             name: '/adminProfileUpdateForm',
             page: () => AdminProfileUpdateForm()),
