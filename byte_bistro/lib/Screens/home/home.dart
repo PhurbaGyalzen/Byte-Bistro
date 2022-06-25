@@ -1,6 +1,7 @@
 import 'package:byte_bistro/Screens/favourite/favourite.dart';
 import 'package:byte_bistro/Screens/home/widgets/tab_item.dart';
 import 'package:byte_bistro/Screens/home/widgets/top_of_day.dart';
+import 'package:byte_bistro/Screens/license_section.dart';
 import 'package:byte_bistro/Screens/profile/profile_screen.dart';
 import 'package:byte_bistro/Screens/qr_scanner.dart';
 import 'package:byte_bistro/constants/colors.dart';
@@ -34,9 +35,7 @@ class _HomePageState extends State<HomePage> {
     ),
     FavouritePage(),
     QrScannerScreen(),
-    HomeScreen(
-      scrollController: scrollController,
-    ),
+    LicenseSection(),
     ProfileScreen(),
 
     // EditProfilePage(),
