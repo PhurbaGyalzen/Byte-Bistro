@@ -19,6 +19,23 @@ class AuthService {
     }
   }
 
+  static Future<LoginResponse?> googleAuth(
+      String username, String googleId, String fullname, String email) async {
+    String endpoint = PersistentHtpp.baseUrl + "auth/google";
+    var response = await PersistentHtpp.client.post(Uri.parse(endpoint), body: {
+      'username': username,
+      'googleId': googleId,
+      'fullname': fullname,
+      'email': email
+    });
+    if (response.statusCode == 200) {
+      var json = jsonDecode(response.body);
+      return LoginResponse.fromJson(json);
+    } else {
+      return null;
+    }
+  }
+
   static Future<Food> fetchFoodDetails(String foodId) async {
     String endpoint = PersistentHtpp.baseUrl + 'food/$foodId';
 
