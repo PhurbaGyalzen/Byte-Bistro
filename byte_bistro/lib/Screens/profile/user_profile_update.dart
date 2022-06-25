@@ -69,18 +69,17 @@ class _UserProfileUpdateFormState extends State<UserProfileUpdateForm> {
                         return Stack(
                           children: [
                             CircleAvatar(
-                              backgroundImage:
-                                  NetworkImage( PersistentHtpp.baseUrl
-                      + data!.profile,
-                    ),
+                              backgroundImage: NetworkImage(
+                                PersistentHtpp.baseUrl + data!.profile,
+                              ),
                               radius: 70,
                             ),
                             Positioned(
                               bottom: 0,
                               right: 0,
                               child: Container(
-                                height: 40,
-                                width: 40,
+                                height: 50,
+                                width: 50,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   border: Border.all(
@@ -90,9 +89,11 @@ class _UserProfileUpdateFormState extends State<UserProfileUpdateForm> {
                                   ),
                                   color: Color(0xFFFFC61F),
                                 ),
-                                child: Icon(
-                                  Icons.camera_alt,
-                                  color: Colors.white,
+                                child: IconButton(
+                                  icon: Icon(Icons.edit, color: Colors.white),
+                                  onPressed: () {
+                                    print("edit");
+                                  },
                                 ),
                               ),
                             ),

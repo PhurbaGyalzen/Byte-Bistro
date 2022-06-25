@@ -55,10 +55,9 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                       return Stack(
                         children: [
                           CircleAvatar(
-                            backgroundImage:
-                               NetworkImage( PersistentHtpp.baseUrl
-                      + data!.profile,
-                    ),
+                            backgroundImage: NetworkImage(
+                              PersistentHtpp.baseUrl + data!.profile,
+                            ),
                             radius: 60,
                           ),
                           Positioned(
@@ -76,10 +75,8 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                                 ),
                                 color: Theme.of(context).primaryColor,
                               ),
-                              child: Icon(
-                                Icons.edit,
-                                color: Colors.white,
-                              ),
+                              child: Icon(Icons.verified_user,
+                                  color: Colors.white),
                             ),
                           ),
                         ],
@@ -138,7 +135,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                                         ),
                                       );
                                     },
-                                      style: OutlinedButton.styleFrom(
+                                    style: OutlinedButton.styleFrom(
                                       // primary: Colors.orange,
                                       primary: Colors.red,
                                       shape: const StadiumBorder(),

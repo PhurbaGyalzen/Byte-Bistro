@@ -77,7 +77,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                                 color: Theme.of(context).primaryColor,
                               ),
                               child: Icon(
-                                Icons.edit,
+                                Icons.verified_user,
                                 color: Colors.white,
                               ),
                             ),

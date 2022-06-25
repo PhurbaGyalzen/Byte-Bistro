@@ -80,8 +80,8 @@ class _AdminProfileUpdateFormState extends State<AdminProfileUpdateForm> {
                               bottom: 0,
                               right: 0,
                               child: Container(
-                                height: 40,
-                                width: 40,
+                                height: 50,
+                                width: 50,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   border: Border.all(
@@ -91,9 +91,11 @@ class _AdminProfileUpdateFormState extends State<AdminProfileUpdateForm> {
                                   ),
                                   color: Color(0xFFFFC61F),
                                 ),
-                                child: Icon(
-                                  Icons.camera_alt,
-                                  color: Colors.white,
+                                child: IconButton(
+                                  icon: Icon(Icons.edit, color: Colors.white),
+                                  onPressed: () {
+                                    print("edit");
+                                  },
                                 ),
                               ),
                             ),
