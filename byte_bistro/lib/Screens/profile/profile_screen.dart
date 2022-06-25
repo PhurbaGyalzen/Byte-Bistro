@@ -205,6 +205,18 @@ class ProfileSystem extends StatelessWidget {
               text: 'Terms & Conditions',
             ),
             ProfileListTile(
+              onClick: () => Get.toNamed('/termsAndConditions'),
+              imageLeading: 'assets/images/stamp.png',
+              imageTrailing: 'assets/images/next.png',
+              text: 'License',
+            ),
+            ProfileListTile(
+              onClick: () => Get.toNamed('/privacyPolicy'),
+              imageLeading: 'assets/images/privacy.png',
+              imageTrailing: 'assets/images/next.png',
+              text: 'Privacy Policy',
+            ),
+            ProfileListTile(
                 imageLeading: 'assets/images/logout.png',
                 imageTrailing: 'assets/images/next.png',
                 text: 'Log out',

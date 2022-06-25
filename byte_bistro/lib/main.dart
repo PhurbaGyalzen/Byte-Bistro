@@ -8,6 +8,7 @@ import 'package:byte_bistro/Screens/admin/widgets/admin_orders.dart';
 import 'package:byte_bistro/Screens/admin/widgets/update_food.dart';
 import 'package:byte_bistro/Screens/admin/widgets/view_food.dart';
 import 'package:byte_bistro/Screens/license_section.dart';
+import 'package:byte_bistro/Screens/privacy_policy.dart';
 import 'package:byte_bistro/Screens/reset_password.dart';
 
 import 'package:byte_bistro/Screens/admin/widgets/admin_dashboard.dart';
@@ -169,6 +170,7 @@ class ByteBistro extends StatelessWidget {
         GetPage(name: '/profileScreen', page: () => ProfileScreen()),
         GetPage(name: '/licenseSection', page: () => LicenseSection()),
         GetPage(name: '/termsAndConditions', page: () => TermsAndCondition()),
+        GetPage(name: '/privacyPolicy', page: () => PrivacyPolicy()),
       ],
     );
   }

@@ -61,7 +61,7 @@ class TermsAndCondition extends StatelessWidget {
             leading: IconButton(
                 icon: Icon(Icons.arrow_back),
                 color: Colors.black,
-                onPressed: () => Get.offAllNamed('/profileScreen')),
+                onPressed: () => Get.toNamed('/profileScreen')),
             title: Text(
               'Terms & Conditions',
               style: Theme.of(context).textTheme.headline1,
