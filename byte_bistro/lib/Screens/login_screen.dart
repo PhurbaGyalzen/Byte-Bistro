@@ -27,15 +27,42 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future signIn() async {
     final user = await GoogleSignInApi.login();
-    print(user);
 
     if (user == null) {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text("Sign In with Google failed")));
     } else {
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (context) => DummyLogin(user: user),
-      ));
+      final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+      final SharedPreferences prefs = await _prefs;
+
+      var response = await AuthService.googleAuth(
+          user.displayName.toString(),
+          user.id.toString(),
+          user.displayName.toString(),
+          user.email.toString());
+      if (response != null) {
+        await PersistentHtpp.storeAndSetHeader(token: response.token);
+        if (response.isAdmin == true) {
+          prefs.setString("token", response.token);
+          Get.offNamed('/adminScreen');
+        } else if (response.isAdmin == false) {
+          prefs.setString("token", response.token);
+          // Get.offNamed('/onBoardingScreen');
+          Get.offNamed('/home');
+        }
+      } else {
+        Get.snackbar(
+          "Couldn't get response",
+          "Please try again",
+          icon: Icon(Icons.person_rounded, color: Colors.white),
+          duration: Duration(seconds: 3),
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+          animationDuration: Duration(seconds: 1),
+          dismissDirection: DismissDirection.horizontal,
+          snackPosition: SnackPosition.BOTTOM,
+        );
+      }
     }
   }
 
