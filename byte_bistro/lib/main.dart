@@ -32,6 +32,7 @@ import 'package:byte_bistro/Screens/signup_screen.dart';
 import 'package:byte_bistro/Screens/home/home.dart';
 import 'package:byte_bistro/Screens/home/widgets/food_detail_screen.dart';
 import 'package:byte_bistro/Screens/swipe_qr_home.dart';
+import 'package:byte_bistro/Screens/terms_and_conditions.dart';
 import 'package:byte_bistro/Screens/user_order_history_list.dart';
 import 'package:byte_bistro/Services/http_service.dart';
 import 'package:byte_bistro/Services/storage_service.dart';
@@ -165,6 +166,7 @@ class ByteBistro extends StatelessWidget {
         GetPage(name: '/userFoodDetail', page: () => UserFoodDetail()),
         GetPage(name: '/profileScreen', page: () => ProfileScreen()),
         GetPage(name: '/licenseSection', page: () => LicenseSection()),
+        GetPage(name: '/termsAndConditions', page: () => TermsAndCondition()),
       ],
     );
   }

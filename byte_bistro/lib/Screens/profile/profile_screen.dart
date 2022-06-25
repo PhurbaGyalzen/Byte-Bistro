@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:byte_bistro/Screens/terms_and_conditions.dart';
 import 'package:byte_bistro/Services/http_service.dart';
 import 'package:byte_bistro/Services/storage_service.dart';
 import 'package:byte_bistro/controller/logged_user_info_controller.dart';
@@ -94,8 +95,8 @@ class ProfileNote extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     radius: 30,
-                    backgroundImage: NetworkImage( PersistentHtpp.baseUrl
-                      + data!.profile,
+                    backgroundImage: NetworkImage(
+                      PersistentHtpp.baseUrl + data!.profile,
                     ),
                   ),
                   SizedBox(
@@ -198,6 +199,7 @@ class ProfileSystem extends StatelessWidget {
               text: 'Help',
             ),
             ProfileListTile(
+              onClick: () => Get.toNamed('/termsAndConditions'),
               imageLeading: 'assets/images/accept.png',
               imageTrailing: 'assets/images/next.png',
               text: 'Terms & Conditions',
