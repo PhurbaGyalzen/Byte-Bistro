@@ -31,7 +31,8 @@ class _ChangePasswordState extends State<ChangePassword> {
         ),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
-          onPressed: () => Get.offNamed('/profileScreen'),
+          // onPressed: () => Get.offNamed('/profileScreen'),
+          onPressed: () => Get.back(),
         ),
         backgroundColor: kPrimary,
         foregroundColor: kTextColor,
