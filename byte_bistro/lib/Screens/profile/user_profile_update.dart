@@ -133,7 +133,7 @@ class _UserProfileUpdateFormState extends State<UserProfileUpdateForm> {
                                                     CrossAxisAlignment.stretch,
                                                 children: [
                                                   const Text(
-                                                    "Upload food Image from:",
+                                                    "Upload Profile Image from:",
                                                     style: TextStyle(
                                                         fontSize: 18,
                                                         fontWeight:
