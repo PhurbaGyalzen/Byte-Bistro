@@ -1,9 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class ForgetPasswordScreen extends StatelessWidget {
-  static const routeName = "/restpwScreen";
+class ForgetPasswordScreen extends StatefulWidget {
+  @override
+  _ForgetPasswordScreenState createState() => _ForgetPasswordScreenState();
+}
 
-  const ForgetPasswordScreen({Key? key}) : super(key: key);
+class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
+  TextEditingController emailController =
+      TextEditingController(text: Get.arguments['email']);
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,7 +56,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                 ),
                 const Spacer(),
                 const Text(
-                  "Please enter your email to recieve a link to create a new password via email",
+                  "Please enter your email to receive a One Time Password(OTP) so that we can verify you.",
                   textAlign: TextAlign.center,
                 ),
                 const Spacer(),
@@ -55,7 +67,8 @@ class ForgetPasswordScreen extends StatelessWidget {
                     color: Color(0xFFF2F2F2),
                     shape: StadiumBorder(),
                   ),
-                  child: const TextField(
+                  child: TextField(
+                    controller: emailController,
                     decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: "Email",
@@ -72,7 +85,10 @@ class ForgetPasswordScreen extends StatelessWidget {
                   width: double.infinity,
                   height: 50,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      String text = emailController.text.trim();
+                      print('email is $text');
+                    },
                     style: ElevatedButton.styleFrom(
                       primary: Colors.orange,
                       shape: const StadiumBorder(),

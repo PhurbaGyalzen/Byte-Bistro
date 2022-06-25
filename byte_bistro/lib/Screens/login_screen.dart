@@ -215,7 +215,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       //forgot password
                       GestureDetector(
                         onTap: () {
-                          Navigator.pushNamed(context, '/forgotPassword');
+                          Navigator.pushNamed(context, '/reset_password',
+                              arguments: <String, String>{
+                                'email': usernameController.text.trim()
+                              });
                         },
                         child: Text(
                           "Forgot your password?",
