@@ -193,11 +193,11 @@ class ProfileSystem extends StatelessWidget {
               text: 'Change Password',
               onClick: () => Get.toNamed('/changePassword'),
             ),
-            ProfileListTile(
-              imageLeading: 'assets/images/help.png',
-              imageTrailing: 'assets/images/next.png',
-              text: 'Help',
-            ),
+            // ProfileListTile(
+            //   imageLeading: 'assets/images/help.png',
+            //   imageTrailing: 'assets/images/next.png',
+            //   text: 'Help',
+            // ),
             ProfileListTile(
               onClick: () => Get.toNamed('/termsAndConditions'),
               imageLeading: 'assets/images/accept.png',
@@ -215,6 +215,18 @@ class ProfileSystem extends StatelessWidget {
               imageLeading: 'assets/images/privacy.png',
               imageTrailing: 'assets/images/next.png',
               text: 'Privacy Policy',
+            ),
+            ProfileListTile(
+              onClick: () => Get.toNamed('/faq'),
+              imageLeading: 'assets/images/help.png',
+              imageTrailing: 'assets/images/next.png',
+              text: 'FAQ',
+            ),
+            ProfileListTile(
+              onClick: () => Get.toNamed('/contactUs'),
+              imageLeading: 'assets/images/telephone.png',
+              imageTrailing: 'assets/images/next.png',
+              text: 'Contact Us',
             ),
             ProfileListTile(
                 imageLeading: 'assets/images/logout.png',
