@@ -61,6 +61,56 @@ export const signinUser = async (
 	)
 }
 
+
+export const googleAuthentication = async (
+	req: Request,
+	res: Response,
+	next: NextFunction
+) => {
+
+	const {email, googleId, username} = req.body;
+	const user = await User.findOne({ googleId: googleId });
+	if (user) {
+		const token: String = jsonwebtoken.sign(
+			{
+				id: user._id,
+				username: user.username,
+			},
+			process.env.JWT_SECRET!,
+			{ expiresIn: '2d' }
+		)
+		return res.status(200).json({
+			message: 'User logged in successfully',
+			token: token,
+			isAdmin: user['isAdmin'],
+		})
+	}
+	else {
+		const newUser = new User({
+			email: email,
+			googleId: googleId,
+			username: username,
+			isAdmin: false,
+		});
+		await newUser.save();
+		const token: String = jsonwebtoken.sign(
+			{
+				id: newUser._id,
+				username: newUser.username,
+			},
+			process.env.JWT_SECRET!,
+			{ expiresIn: '2d' }
+		)
+		return res.status(200).json({
+			message: 'User logged in successfully',
+			token: token,
+			isAdmin: newUser['isAdmin'],
+		});
+	}
+
+}
+
+
 export const authGoogle = async (
 	req: Request,
 	res: Response,
@@ -71,6 +121,8 @@ export const authGoogle = async (
 		prompt: 'select_account',
 	})(req, res, next)
 }
+
+
 
 export const authGoogleCallback = async (
 	req: Request,
