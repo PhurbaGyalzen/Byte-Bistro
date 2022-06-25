@@ -1,7 +1,13 @@
+import 'dart:io';
+
+import 'package:byte_bistro/Services/auth_service.dart';
+import 'package:byte_bistro/Services/http_service.dart';
+import 'package:byte_bistro/models/loged_user_info.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:byte_bistro/controller/logged_user_info_controller.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../constants/colors.dart';
 
@@ -35,6 +41,27 @@ class _AdminProfileUpdateFormState extends State<AdminProfileUpdateForm> {
   late final TextEditingController bioController =
       TextEditingController(text: widget.bio);
   final formkey = GlobalKey<FormState>();
+  final LoggedUserInfoController userController = Get.find();
+  var imageName = "";
+  late File? pickedImage;
+
+  Future<void> pickImage(ImageSource imageType) async {
+    try {
+      final photo = await ImagePicker().pickImage(source: imageType);
+      if (photo == null) return;
+      final tempImage = File(photo.path);
+      var res = await AuthService.updateProfile(tempImage);
+      setState((){
+        pickedImage = tempImage;
+        imageName = tempImage.path.split("/").last;
+      });
+      Get.back();
+    } catch (error) {
+      debugPrint(error.toString());
+    }
+  }
+
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,36 +86,132 @@ class _AdminProfileUpdateFormState extends State<AdminProfileUpdateForm> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Center(
-                    child: Stack(
-                      children: [
-                        CircleAvatar(
-                          backgroundImage:
-                              AssetImage('assets/images/buffMomo.jpg'),
-                          radius: 70,
-                        ),
-                        Positioned(
-                          bottom: 0,
-                          right: 0,
-                          child: Container(
-                            height: 40,
-                            width: 40,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                width: 4,
-                                color:
-                                    Theme.of(context).scaffoldBackgroundColor,
-                              ),
-                              color: Color(0xFFFFC61F),
-                            ),
-                            child: Icon(
-                              Icons.camera_alt,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ],
+                    child: FutureBuilder(
+                    future: userController.getLoggedUserInfo(),
+                    builder: (context, snapshot) {
+                      LoggedUserInfo? data = snapshot.data as LoggedUserInfo?;
+                      if (snapshot.hasData) {
+                        return Stack(
+                          children: [
+                            CircleAvatar(
+                              backgroundImage:
+                                  NetworkImage( PersistentHtpp.baseUrl
+                      + data!.profile,
                     ),
+                              radius: 70,
+                            ),
+                            Positioned(
+                              bottom: 0,
+                              right: 0,
+                              child: Container(
+                                height: 50,
+                                width: 50,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    width: 4,
+                                    color: Theme.of(context)
+                                        .scaffoldBackgroundColor,
+                                  ),
+                                  color: Color(0xFFFFC61F),
+                                ),
+                                child: IconButton(
+                                  icon: Icon(Icons.edit, color: Colors.white),
+                                  onPressed: () {
+                                    Get.bottomSheet(
+                                      SingleChildScrollView(
+                                        child: ClipRRect(
+                                          borderRadius: const BorderRadius.only(
+                                            topLeft: Radius.circular(10.0),
+                                            topRight: Radius.circular(10.0),
+                                          ),
+                                          child: Container(
+                                            color: Colors.black,
+                                            height: 250,
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.stretch,
+                                                children: [
+                                                  const Text(
+                                                    "Upload Profile Image from:",
+                                                    style: TextStyle(
+                                                        fontSize: 18,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Colors.white),
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 10,
+                                                  ),
+                                                  ElevatedButton.icon(
+                                                    style: ElevatedButton
+                                                        .styleFrom(
+                                                      primary:
+                                                          kPrimary, // Background color
+                                                    ),
+                                                    onPressed: () {
+                                                      pickImage(
+                                                          ImageSource.camera);
+                                                    },
+                                                    icon: const Icon(
+                                                        Icons.camera),
+                                                    label: const Text("CAMERA"),
+                                                  ),
+                                                  ElevatedButton.icon(
+                                                    style: ElevatedButton
+                                                        .styleFrom(
+                                                      primary:
+                                                          kPrimary, // Background color
+                                                    ),
+                                                    onPressed: () {
+                                                      pickImage(
+                                                          ImageSource.gallery);
+                                                    },
+                                                    icon:
+                                                        const Icon(Icons.image),
+                                                    label:
+                                                        const Text("GALLERY"),
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 10,
+                                                  ),
+                                                  ElevatedButton.icon(
+                                                    style: ElevatedButton
+                                                        .styleFrom(
+                                                      primary:
+                                                          kPrimary, // Background color
+                                                    ),
+                                                    onPressed: () {
+                                                      Get.back();
+                                                    },
+                                                    icon:
+                                                        const Icon(Icons.close),
+                                                    label: const Text("CANCEL"),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
+                      } else {
+                        return CircleAvatar(
+                          radius: 50,
+                        );
+                      }
+                    },
+                  ),
                   ),
                   SizedBox(
                     height: 60,

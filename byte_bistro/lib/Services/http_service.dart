@@ -45,7 +45,7 @@ class PersistentHtpp {
 
     http.StreamedResponse streamedResponse = await client.send(request);
     http.Response response = await http.Response.fromStream(streamedResponse);
-    if (!isUserAuthenticated(response)) {
+    if (isUserNotAuthenticated(response)) {
       print("JWT token has expired. redirecting to login page");
       Get.offAllNamed('/login');
     }
@@ -63,7 +63,7 @@ class PersistentHtpp {
     return response;
   }
 
-  static bool isUserAuthenticated(http.Response response) {
+  static bool isUserNotAuthenticated(http.Response response) {
     return response.statusCode == 401;
   }
 }

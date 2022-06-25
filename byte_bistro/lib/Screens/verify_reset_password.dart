@@ -2,18 +2,17 @@ import 'package:byte_bistro/Services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ForgetPasswordScreen extends StatefulWidget {
+class VerifyResetPassword extends StatefulWidget {
   @override
-  _ForgetPasswordScreenState createState() => _ForgetPasswordScreenState();
+  _VerifyResetPasswordState createState() => _VerifyResetPasswordState();
 }
 
-class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
-  TextEditingController emailController =
-      TextEditingController(text: Get.arguments['email']);
+class _VerifyResetPasswordState extends State<VerifyResetPassword> {
+  TextEditingController otpController = TextEditingController();
 
   @override
   void dispose() {
-    emailController.dispose();
+    otpController.dispose();
     super.dispose();
   }
 
@@ -50,14 +49,14 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                 ),
                 const Spacer(),
                 const Text(
-                  "Reset Password",
+                  "Verification",
                   style: TextStyle(
                     fontSize: 25,
                   ),
                 ),
                 const Spacer(),
-                const Text(
-                  "Please enter your email to receive a One Time Password(OTP) so that we can verify you.",
+                Text(
+                  "Enter the ${Get.arguments['optLength']} digit OTP sent to ${Get.arguments['email']}. The OTP will expire in T-${Get.arguments['otpTimeout']} minutes.",
                   textAlign: TextAlign.center,
                 ),
                 const Spacer(),
@@ -69,10 +68,10 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                     shape: StadiumBorder(),
                   ),
                   child: TextField(
-                    controller: emailController,
+                    controller: otpController,
                     decoration: InputDecoration(
                         border: InputBorder.none,
-                        hintText: "Email",
+                        hintText: "OTP Code",
                         hintStyle: TextStyle(
                           color: Color(0xFFB6B7B7),
                         ),
@@ -87,18 +86,13 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                   height: 50,
                   child: ElevatedButton(
                     onPressed: () async {
-                      String email = emailController.text.trim();
+                      String email = otpController.text.trim();
                       print('email is $email');
                       Map<String, dynamic> data =
                           await AuthService.resetPassword(email);
                       if (data['success']) {
-                        print(data);
                         // get snackbar
-                        Get.toNamed('/verify_reset_password',
-                            arguments: <String, dynamic>{
-                              'email': email,
-                              'otpTimeout': data['otpTimeoutMins']
-                            });
+                        Get.toNamed('/verify_reset_password');
                       }
                     },
                     style: ElevatedButton.styleFrom(

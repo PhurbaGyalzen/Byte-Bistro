@@ -178,6 +178,9 @@ export const authFailure = async (
 	res.status(401).json({ message: 'Failed Google authentication' })
 }
 
+const OTP_TIMEOUT_MINS = parseInt(process.env.OTP_TIMEOUT_MINS!, 10)
+const OTP_LENGTH = parseInt(process.env.OTP_LENGTH!, 10)
+
 export const resetPassword = async (
 	req: Request,
 	res: Response,
@@ -220,6 +223,8 @@ export const resetPassword = async (
 	return res.status(200).json({
 		success: true,
 		message: `An email with a OTP has been sent to ${email}, if it exists.`,
+		otpTimeoutMins: OTP_TIMEOUT_MINS,
+		otpLength: OTP_LENGTH
 	})
 }
 

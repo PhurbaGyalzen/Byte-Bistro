@@ -1,4 +1,5 @@
 import { Router, Request, Response, NextFunction } from 'express'
+import { uploadImage } from 'middlewares/file'
 import {
 	signupUser,
 	signinUser,
@@ -143,6 +144,23 @@ router.put(
 		} catch (err) {
 			//try end
 
+			res.status(400).json({ message: err })
+		}
+	}
+)
+
+router.patch('/profile', uploadImage.single("profile"), verifyUser , 
+	async (req: Request, res: Response, next: NextFunction) => {
+		const imageFileName = req.file?.filename;
+  		const imageFileUrl = `images/${imageFileName}`;
+		try {
+			const users = await User.findByIdAndUpdate(req.user?.id, {
+				$set: {
+					profile: imageFileUrl,
+				},
+			})
+			res.status(200).json(users)
+		} catch (err) {
 			res.status(400).json({ message: err })
 		}
 	}

@@ -18,6 +18,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formkey = GlobalKey<FormState>();
+  final user = GoogleSignInApi.logout();
 
   bool _isObscure = true;
 
@@ -27,10 +28,21 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future signIn() async {
     final user = await GoogleSignInApi.login();
+    print(user);
 
     if (user == null) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text("Sign In with Google failed")));
+      print("user is null");
+      Get.snackbar(
+        "Sign in with googleS",
+        "Please try again",
+        icon: Icon(Icons.person_rounded, color: Colors.white),
+        duration: Duration(seconds: 3),
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+        animationDuration: Duration(seconds: 1),
+        dismissDirection: DismissDirection.horizontal,
+        snackPosition: SnackPosition.BOTTOM,
+      );
     } else {
       final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
       final SharedPreferences prefs = await _prefs;
@@ -40,6 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
           user.id.toString(),
           user.displayName.toString(),
           user.email.toString());
+      print(response);
       if (response != null) {
         await PersistentHtpp.storeAndSetHeader(token: response.token);
         if (response.isAdmin == true) {
@@ -202,7 +215,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       //forgot password
                       GestureDetector(
                         onTap: () {
-                          Navigator.pushNamed(context, '/forgotPassword');
+                          Navigator.pushNamed(context, '/reset_password',
+                              arguments: <String, String>{
+                                'email': usernameController.text.trim()
+                              });
                         },
                         child: Text(
                           "Forgot your password?",
