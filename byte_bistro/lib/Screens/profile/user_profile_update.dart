@@ -101,8 +101,6 @@ class _UserProfileUpdateFormState extends State<UserProfileUpdateForm> {
                       } else {
                         return CircleAvatar(
                           radius: 50,
-                          backgroundImage:
-                              NetworkImage('https://i.pravatar.cc/300'),
                         );
                       }
                     },

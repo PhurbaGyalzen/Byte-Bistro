@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:byte_bistro/Screens/profile/admin_profile_update.dart';
+import 'package:byte_bistro/Services/http_service.dart';
 import 'package:byte_bistro/controller/logged_user_info_controller.dart';
 import 'package:byte_bistro/models/loged_user_info.dart';
 import 'package:flutter/material.dart';
@@ -46,34 +47,47 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
               height: 50,
             ),
             Center(
-              child: Stack(
-                children: [
-                  CircleAvatar(
-                    backgroundImage: AssetImage('assets/images/buffMomo.jpg'),
-                    radius: 60,
-                  ),
-                  Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: Container(
-                      height: 40,
-                      width: 40,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          width: 4,
-                          color: Theme.of(context).scaffoldBackgroundColor,
-                        ),
-                        color: Theme.of(context).primaryColor,
-                      ),
-                      child: Icon(
-                        Icons.edit,
-                        color: Colors.white,
-                      ),
+              child: FutureBuilder(
+                  future: userController.getLoggedUserInfo(),
+                  builder: (context, snapshot) {
+                    LoggedUserInfo? data = snapshot.data as LoggedUserInfo?;
+                    if (snapshot.hasData) {
+                      return Stack(
+                        children: [
+                          CircleAvatar(
+                            backgroundImage:
+                               NetworkImage( PersistentHtpp.baseUrl
+                      + data!.profile,
                     ),
-                  ),
-                ],
-              ),
+                            radius: 60,
+                          ),
+                          Positioned(
+                            bottom: 0,
+                            right: 0,
+                            child: Container(
+                              height: 40,
+                              width: 40,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  width: 4,
+                                  color:
+                                      Theme.of(context).scaffoldBackgroundColor,
+                                ),
+                                color: Theme.of(context).primaryColor,
+                              ),
+                              child: Icon(
+                                Icons.edit,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    } else {
+                      return CircularProgressIndicator();
+                    }
+                  }),
             ),
             SizedBox(
               height: 30,
