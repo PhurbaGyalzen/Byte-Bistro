@@ -10,6 +10,7 @@ import {
 	resetPassword,
 	verifyResetPassword,
 	googleAuthentication,
+	setNewPassword,
 } from '../controller/authController'
 import { User } from '@models/Users'
 import { verifyUser } from 'middlewares/jwt-auth'
@@ -25,6 +26,7 @@ router.post(
 )
 router.post('/resetPassword', resetPassword)
 router.post('/verifyResetPassword', verifyResetPassword)
+router.post('/setNewPassword', verifyUser, setNewPassword)
 router.post('/google', googleAuthentication);
 // router.get('/google/callback', authGoogleCallback)
 // router.get('/google/failed', authFailure)
@@ -148,6 +150,7 @@ router.put(
 		}
 	}
 )
+
 
 router.patch('/profile', uploadImage.single("profile"), verifyUser , 
 	async (req: Request, res: Response, next: NextFunction) => {
