@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 
+import '../Services/auth_service.dart';
+
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
 
@@ -13,6 +15,11 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpState extends State<SignUpScreen> {
   final _formkey = GlobalKey<FormState>();
   bool _isObscure = true;
+
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController fullnameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +48,7 @@ class _SignUpState extends State<SignUpScreen> {
                     children: [
                       ///name field start
                       TextFormField(
+                        controller: fullnameController,
                         validator: RequiredValidator(errorText: '*required'),
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
@@ -86,6 +94,7 @@ class _SignUpState extends State<SignUpScreen> {
 
                       //userName start
                       TextFormField(
+                        controller: usernameController,
                         validator: RequiredValidator(errorText: '*required'),
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
@@ -130,6 +139,7 @@ class _SignUpState extends State<SignUpScreen> {
 
                       //email start
                       TextFormField(
+                        controller: emailController,
                         validator: MultiValidator([
                           EmailValidator(
                             errorText: 'enter a valid email address',
@@ -180,8 +190,8 @@ class _SignUpState extends State<SignUpScreen> {
                       const SizedBox(
                         height: 15,
                       ),
-                      //password start
                       TextFormField(
+                        controller: passwordController,
                         validator: RequiredValidator(errorText: '*required'),
                         obscureText: true,
                         decoration: InputDecoration(
@@ -243,9 +253,44 @@ class _SignUpState extends State<SignUpScreen> {
                         height: 50,
                         width: double.infinity,
                         child: ElevatedButton(
-                          onPressed: () {
+                          onPressed: () async {
                             if (_formkey.currentState!.validate()) {
                               Navigator.popAndPushNamed(context, '/login');
+                              var response = await AuthService.signup(
+                                usernameController.text.trim(),
+                                passwordController.text.trim(),
+                                emailController.text.trim(),
+                                fullnameController.text.trim(),
+                              );
+
+                              if (response != null) {
+                                Get.snackbar(
+                                  "User Registered Successfully",
+                                  "Please Login",
+                                  icon: Icon(Icons.person_rounded,
+                                      color: Colors.white),
+                                  duration: Duration(seconds: 3),
+                                  backgroundColor: Colors.red,
+                                  colorText: Colors.white,
+                                  animationDuration: Duration(seconds: 1),
+                                  dismissDirection: DismissDirection.horizontal,
+                                  snackPosition: SnackPosition.BOTTOM,
+                                );
+                              } else {
+                                Get.snackbar(
+                                  "User failed to be registered",
+                                  "Please try again",
+                                  icon: Icon(Icons.person_rounded,
+                                      color: Colors.white),
+                                  duration: Duration(seconds: 3),
+                                  backgroundColor: Colors.red,
+                                  colorText: Colors.white,
+                                  animationDuration: Duration(seconds: 1),
+                                  dismissDirection: DismissDirection.horizontal,
+                                  snackPosition: SnackPosition.BOTTOM,
+                                );
+                                // print("cannot login");
+                              }
                             }
                           },
                           child: Text(
@@ -290,7 +335,6 @@ class _SignUpState extends State<SignUpScreen> {
                       SizedBox(
                         height: 10,
                       ),
-                      
                     ],
                   ),
                 ),
