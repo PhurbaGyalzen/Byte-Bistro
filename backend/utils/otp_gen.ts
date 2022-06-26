@@ -1,7 +1,7 @@
 import { IOtp, OtpModel } from "@models/Otp"
 
-const otpLength = parseInt(process.env.OTP_LENGTH!, 10)
-const otpTimeout = parseInt(process.env.OTP_TIMEOUT_MINS!, 10)
+const otpLength = parseFloat(process.env.OTP_LENGTH!)
+const otpTimeout = parseFloat(process.env.OTP_TIMEOUT_MINS!)
 
 
 

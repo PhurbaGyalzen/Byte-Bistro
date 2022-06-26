@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 import passport from 'passport'
 
-import { initialize } from '../config/passport-config'
+import { initialize, passwordHasher } from '../config/passport-config'
 import jsonwebtoken from 'jsonwebtoken'
 import { IUserDoc, User } from '@models/Users'
 import nodemailer from 'nodemailer'
@@ -178,8 +178,8 @@ export const authFailure = async (
 	res.status(401).json({ message: 'Failed Google authentication' })
 }
 
-const OTP_TIMEOUT_MINS = parseInt(process.env.OTP_TIMEOUT_MINS!, 10)
-const OTP_LENGTH = parseInt(process.env.OTP_LENGTH!, 10)
+const OTP_TIMEOUT_MINS = parseFloat(process.env.OTP_TIMEOUT_MINS!)
+const OTP_LENGTH = parseFloat(process.env.OTP_LENGTH!)
 
 export const resetPassword = async (
 	req: Request,
@@ -190,6 +190,7 @@ export const resetPassword = async (
 	const user = await User.findOne({
 		email: email,
 	})
+
 	if (user) {
 		const transport = nodemailer.createTransport({
 			host: 'smtp.mailtrap.io',
