@@ -9,6 +9,10 @@ const GOOGLE_CLIENT_SECRET = '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'
 const GOOGLE_CLIENT_ID =
 	'578642511664-69u8u6ph1f70usukujdotiricgkn0er2.apps.googleusercontent.com'
 
+export const passwordHasher = async (password: string) => {
+	return await bcrypt.hash(password, 12)
+}
+
 export const initialize = (passport: passport.PassportStatic) => {
 	passport.use(
 		'local-signup',
@@ -37,9 +41,9 @@ export const initialize = (passport: passport.PassportStatic) => {
 					})
 				}
 
-				const hash = await bcrypt.hash(password, 12)
+				const hash = await passwordHasher(password)
 				const newUser: any = new User({
-					username,
+					username: username,
 					passwordHash: hash,
 					email: body.email,
 					fullname: body.fullname,

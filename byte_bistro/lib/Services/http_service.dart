@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import "package:http/http.dart" as http;
@@ -39,13 +41,13 @@ class PersistentHtpp {
     ({...headers, ...extraHeaders}).forEach((key, value) {
       request.headers[key] = value;
     });
-    if (method == 'POST') {
+    if (method == 'POST' || method == 'PUT') {
       request.bodyBytes = request.encoding.encode(body);
     }
 
     http.StreamedResponse streamedResponse = await client.send(request);
     http.Response response = await http.Response.fromStream(streamedResponse);
-    if (!isUserAuthenticated(response)) {
+    if (isUserNotAuthenticated(response)) {
       print("JWT token has expired. redirecting to login page");
       Get.offAllNamed('/login');
     }
@@ -63,7 +65,20 @@ class PersistentHtpp {
     return response;
   }
 
-  static bool isUserAuthenticated(http.Response response) {
-    return response.statusCode == 401;
+  static Future<http.Response> put(String path, {String body = ""}) async {
+    http.Response response = await _req('PUT', path,
+        extraHeaders: {"Content-Type": "application/json"}, body: body);
+    return response;
+  }
+
+  static bool isUserNotAuthenticated(http.Response response) {
+    bool hasRequiredMsg = false;
+    try {
+      var bodyJson = jsonDecode(response.body);
+      hasRequiredMsg = bodyJson['message'] == 'User not authorized';
+    } catch (Exception) {
+      return false;
+    }
+    return response.statusCode == 401 && hasRequiredMsg;
   }
 }

@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 import passport from 'passport'
 
-import { initialize } from '../config/passport-config'
+import { initialize, passwordHasher } from '../config/passport-config'
 import jsonwebtoken from 'jsonwebtoken'
 import { IUserDoc, User } from '@models/Users'
 import nodemailer from 'nodemailer'
@@ -178,6 +178,9 @@ export const authFailure = async (
 	res.status(401).json({ message: 'Failed Google authentication' })
 }
 
+const OTP_TIMEOUT_MINS = parseFloat(process.env.OTP_TIMEOUT_MINS!)
+const OTP_LENGTH = parseFloat(process.env.OTP_LENGTH!)
+
 export const resetPassword = async (
 	req: Request,
 	res: Response,
@@ -187,6 +190,7 @@ export const resetPassword = async (
 	const user = await User.findOne({
 		email: email,
 	})
+
 	if (user) {
 		const transport = nodemailer.createTransport({
 			host: 'smtp.mailtrap.io',
@@ -220,6 +224,8 @@ export const resetPassword = async (
 	return res.status(200).json({
 		success: true,
 		message: `An email with a OTP has been sent to ${email}, if it exists.`,
+		otpTimeoutMins: OTP_TIMEOUT_MINS,
+		otpLength: OTP_LENGTH
 	})
 }
 
@@ -237,15 +243,32 @@ export const verifyResetPassword = async (
 			.status(401)
 			.json({ success: false, message: 'OTP does not match' })
 	}
-
+	
+	await OTP.remove(email)
 	if (otpObj.expireTimestamp < new Date().getTime()) {
 		return res
 			.status(403)
 			.json({ success: false, message: 'OTP has already expired.' })
 	}
-	await OTP.remove(email)
 	
 	const user = await User.findOne({ email: email })
 	return localLogin(req, res, next)(null, user, null)
 	// now redirect to change password from frontend
 }
+
+export const setNewPassword = async (
+	req: Request,
+	res: Response,
+	next: NextFunction
+) => {
+	const newPassword = req.body.newPassword
+	const hashedPassword = await passwordHasher(newPassword)
+	const user = await User.findByIdAndUpdate(req.user!.id, {
+		$set: {
+			passwordHash: hashedPassword
+		} 
+	})
+	return res.status(200).json({success: true, message: 'Password updated successfully.'})
+	// now redirect to change password from frontend
+}
+

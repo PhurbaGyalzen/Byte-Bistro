@@ -1,19 +1,19 @@
 import 'package:byte_bistro/Services/auth_service.dart';
+import 'package:byte_bistro/Services/http_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ForgetPasswordScreen extends StatefulWidget {
+class VerifyResetPassword extends StatefulWidget {
   @override
-  _ForgetPasswordScreenState createState() => _ForgetPasswordScreenState();
+  _VerifyResetPasswordState createState() => _VerifyResetPasswordState();
 }
 
-class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
-  TextEditingController emailController =
-      TextEditingController(text: Get.arguments['email']);
-
+class _VerifyResetPasswordState extends State<VerifyResetPassword> {
+  TextEditingController otpController = TextEditingController();
+  var args = Get.arguments;
   @override
   void dispose() {
-    emailController.dispose();
+    otpController.dispose();
     super.dispose();
   }
 
@@ -38,7 +38,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          Navigator.pushNamed(context, '/login');
+                          Get.back();
                         },
                         child: const Icon(
                           Icons.arrow_back_ios_rounded,
@@ -50,14 +50,14 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                 ),
                 const Spacer(),
                 const Text(
-                  "Reset Password",
+                  "Verification",
                   style: TextStyle(
                     fontSize: 25,
                   ),
                 ),
                 const Spacer(),
-                const Text(
-                  "Please enter your email to receive a One Time Password(OTP) so that we can verify you.",
+                Text(
+                  "Enter the ${args['otpLength']} digit OTP sent to ${args['email']}. The OTP will expire in T-${args['otpTimeout']} minutes.",
                   textAlign: TextAlign.center,
                 ),
                 const Spacer(),
@@ -69,10 +69,11 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                     shape: StadiumBorder(),
                   ),
                   child: TextField(
-                    controller: emailController,
+                    keyboardType: TextInputType.number,
+                    controller: otpController,
                     decoration: InputDecoration(
                         border: InputBorder.none,
-                        hintText: "Email",
+                        hintText: "OTP Code",
                         hintStyle: TextStyle(
                           color: Color(0xFFB6B7B7),
                         ),
@@ -87,24 +88,44 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                   height: 50,
                   child: ElevatedButton(
                     onPressed: () async {
-                      String email = emailController.text.trim();
+                      String otp = otpController.text.trim();
                       Map<String, dynamic> data =
-                          await AuthService.resetPassword(email);
-                      if (data['success']) {
-                        // get snackbar
-                        Get.toNamed('/verify_reset_password',
-                            arguments: <String, dynamic>{
-                              'email': email,
-                              'otpTimeout': data['otpTimeoutMins'],
-                              'otpLength': data['otpLength']
-                            });
+                          await AuthService.verifyResetPassword(
+                              Get.arguments['email'], otp);
+                      if (data['token'] != null) {
+                        PersistentHtpp.storeAndSetHeader(token: data['token']);
+                        Get.snackbar(
+                          "OTP correct",
+                          "",
+                          icon: Icon(Icons.lock, color: Colors.white),
+                          duration: Duration(seconds: 2),
+                          backgroundColor: Colors.green,
+                          colorText: Colors.white,
+                          animationDuration: Duration(seconds: 1),
+                          dismissDirection: DismissDirection.horizontal,
+                          snackPosition: SnackPosition.BOTTOM,
+                        );
+                        Get.toNamed('/set_new_password');
+                      } else {
+                        print(data);
+                        Get.snackbar(
+                          "OTP Error",
+                          data['message'],
+                          icon: Icon(Icons.lock, color: Colors.white),
+                          duration: Duration(seconds: 2),
+                          backgroundColor: Colors.red,
+                          colorText: Colors.white,
+                          animationDuration: Duration(seconds: 1),
+                          dismissDirection: DismissDirection.horizontal,
+                          snackPosition: SnackPosition.BOTTOM,
+                        );
                       }
                     },
                     style: ElevatedButton.styleFrom(
                       primary: Colors.orange,
                       shape: const StadiumBorder(),
                     ),
-                    child: const Text("Send"),
+                    child: const Text("Verify"),
                   ),
                 ),
                 const Spacer(

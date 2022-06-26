@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:byte_bistro/Services/http_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import "package:http/http.dart" as http;
 
 import '../models/food.dart';
 import 'package:dio/dio.dart' as dio;
@@ -38,6 +39,22 @@ class AuthService {
     } else {
       return null;
     }
+  }
+
+  static Future<Map<String, dynamic>> resetPassword(String email) async {
+    http.Response response = await PersistentHtpp.post('auth/resetPassword',
+        body: jsonEncode({'email': email}));
+    Map<String, dynamic> data = jsonDecode(response.body);
+    return data;
+  }
+
+  static Future<Map<String, dynamic>> verifyResetPassword(
+      String email, String otp) async {
+    http.Response response = await PersistentHtpp.post(
+        'auth/verifyResetPassword',
+        body: jsonEncode({'email': email, 'otp': otp}));
+    Map<String, dynamic> data = jsonDecode(response.body);
+    return data;
   }
 
   static Future<LoginResponse?> googleAuth(

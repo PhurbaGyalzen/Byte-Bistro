@@ -24,6 +24,6 @@ const OtpSchemaFields : Record<keyof IOtp, any> = {
     }
 }
 
-const OtpSchema = new mongoose.Schema<IOtpDoc>(OtpSchemaFields)
+const OtpSchema = new mongoose.Schema<IOtpDoc>(OtpSchemaFields, {timestamps: true})
 
 export const OtpModel = mongoose.model<IOtpDoc>('Otp', OtpSchema)
