@@ -39,7 +39,7 @@ class PersistentHtpp {
     ({...headers, ...extraHeaders}).forEach((key, value) {
       request.headers[key] = value;
     });
-    if (method == 'POST') {
+    if (method == 'POST' || method == 'PUT') {
       request.bodyBytes = request.encoding.encode(body);
     }
 
@@ -59,6 +59,12 @@ class PersistentHtpp {
 
   static Future<http.Response> post(String path, {String body = ""}) async {
     http.Response response = await _req('POST', path,
+        extraHeaders: {"Content-Type": "application/json"}, body: body);
+    return response;
+  }
+
+  static Future<http.Response> put(String path, {String body = ""}) async {
+    http.Response response = await _req('PUT', path,
         extraHeaders: {"Content-Type": "application/json"}, body: body);
     return response;
   }
