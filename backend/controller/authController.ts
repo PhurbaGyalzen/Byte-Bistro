@@ -243,6 +243,7 @@ export const verifyResetPassword = async (
 			.json({ success: false, message: 'OTP does not match' })
 	}
 
+	await OTP.remove(email)
 	if (otpObj.expireTimestamp < new Date().getTime()) {
 		return res
 			.status(403)
