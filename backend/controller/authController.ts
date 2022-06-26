@@ -242,16 +242,32 @@ export const verifyResetPassword = async (
 			.status(401)
 			.json({ success: false, message: 'OTP does not match' })
 	}
-
+	
 	await OTP.remove(email)
 	if (otpObj.expireTimestamp < new Date().getTime()) {
 		return res
 			.status(403)
 			.json({ success: false, message: 'OTP has already expired.' })
 	}
-	await OTP.remove(email)
 	
 	const user = await User.findOne({ email: email })
 	return localLogin(req, res, next)(null, user, null)
 	// now redirect to change password from frontend
 }
+
+export const setNewPassword = async (
+	req: Request,
+	res: Response,
+	next: NextFunction
+) => {
+	const newPassword = req.body.newPassword
+	const hashedPassword = await passwordHasher(newPassword)
+	const user = await User.findByIdAndUpdate(req.user!.id, {
+		$set: {
+			passwordHash: hashedPassword
+		} 
+	})
+	return res.status(200).json({success: true, message: 'Password updated successfully.'})
+	// now redirect to change password from frontend
+}
+
