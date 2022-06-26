@@ -23,6 +23,7 @@ class _TabItemDetailState extends State<TabItemDetail> {
   FavouriteController favouriteController = Get.put(FavouriteController());
   // print(loggedUserInfoController);
   List favouriteList = [];
+  var loggedUser;
 
   bool _hasBeenPressed = false;
 
@@ -31,6 +32,13 @@ class _TabItemDetailState extends State<TabItemDetail> {
     // TODO: implement initState
     super.initState();
     getFavourite();
+  }
+
+  Future getUser() async {
+    var user = await loggedUserInfoController.getLoggedUserInfo();
+    setState(() {
+      loggedUser = user;
+    });
   }
 
   Future getFavourite() async {

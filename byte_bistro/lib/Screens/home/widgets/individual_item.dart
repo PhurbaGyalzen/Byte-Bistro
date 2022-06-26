@@ -408,7 +408,7 @@ class _IndividualItemState extends State<IndividualItem> {
                                                                         'assets/images/notification.png'),
                                                                     height: 25,
                                                                   ),
-                                                                   Text(
+                                                                  Text(
                                                                       'Add to Cart')
                                                                 ],
                                                               )),
