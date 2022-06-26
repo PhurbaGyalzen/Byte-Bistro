@@ -28,6 +28,7 @@ import 'package:byte_bistro/Screens/order_sucess.dart';
 
 import 'package:byte_bistro/Screens/qr_data.dart';
 import 'package:byte_bistro/Screens/qr_scanner.dart';
+import 'package:byte_bistro/Screens/set_new_password.dart';
 import 'package:byte_bistro/Screens/signup_screen.dart';
 import 'package:byte_bistro/Screens/home/home.dart';
 import 'package:byte_bistro/Screens/home/widgets/food_detail_screen.dart';
@@ -142,6 +143,7 @@ class ByteBistro extends StatelessWidget {
         GetPage(name: '/adminProfile', page: () => AdminProfilePage()),
         GetPage(name: '/detail_page_dish', page: () => IndividualItemScreen()),
         GetPage(name: '/home', page: () => HomePage()),
+        GetPage(name: '/set_new_password', page: () => SetNewPassword()),
         GetPage(name: '/changePassword', page: () => ChangePassword()),
         // GetPage(name: '/individual', page: () => IndividualItem()),
         GetPage(name: '/qrscan', page: () => QrScannerScreen()),
