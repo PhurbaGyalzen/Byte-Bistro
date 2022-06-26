@@ -37,7 +37,7 @@ export class OTP {
     }
     static async remove(key: string): Promise<void> {
         // delete OTP.OTPs[key]
-        await OtpModel.deleteOne({
+        await OtpModel.deleteMany({
             email: key
         })
     }
