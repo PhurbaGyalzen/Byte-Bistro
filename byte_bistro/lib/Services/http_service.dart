@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import "package:http/http.dart" as http;
@@ -70,6 +72,13 @@ class PersistentHtpp {
   }
 
   static bool isUserNotAuthenticated(http.Response response) {
-    return response.statusCode == 401;
+    bool hasRequiredMsg = false;
+    try {
+      var bodyJson = jsonDecode(response.body);
+      hasRequiredMsg = bodyJson['message'] == 'User not authorized';
+    } catch (Exception) {
+      return false;
+    }
+    return response.statusCode == 401 && hasRequiredMsg;
   }
 }
