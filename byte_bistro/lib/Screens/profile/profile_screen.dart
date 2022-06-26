@@ -1,11 +1,13 @@
 import 'dart:convert';
 
+import 'package:byte_bistro/Screens/google_signin_api.dart';
 import 'package:byte_bistro/Services/http_service.dart';
 import 'package:byte_bistro/Services/storage_service.dart';
 import 'package:byte_bistro/controller/logged_user_info_controller.dart';
 import 'package:byte_bistro/models/loged_user_info.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../constants/colors.dart';
 
@@ -94,8 +96,8 @@ class ProfileNote extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     radius: 30,
-                    backgroundImage: NetworkImage( PersistentHtpp.baseUrl
-                      + data!.profile,
+                    backgroundImage: NetworkImage(
+                      PersistentHtpp.baseUrl + data!.profile,
                     ),
                   ),
                   SizedBox(
@@ -212,6 +214,9 @@ class ProfileSystem extends StatelessWidget {
                   // await Storage.setObject('token-val', {'value1': 1});
                   // print('token-val');
                   // print(await Storage.getObject('token-val'));
+
+                  GoogleSignInApi.logout();
+
                   await Storage.remove('token');
                   await PersistentHtpp.storeAndSetHeader(token: '');
                   Get.offAllNamed('/login');
