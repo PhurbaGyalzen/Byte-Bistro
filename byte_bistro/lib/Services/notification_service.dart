@@ -52,6 +52,26 @@ class NotificationService {
     }
   }
 
+  Future<String> addOfferNotification(Map<String, dynamic> data) async {
+    String endpoint = PersistentHtpp.baseUrl + 'notification/offer';
+    try {
+      final response = await PersistentHtpp.client.post(
+        Uri.parse(endpoint),
+        body: jsonEncode(data),
+        headers: {
+          "Content-Type": "application/json; charset=UTF-8",
+        },
+      );
+      if (response.statusCode == 200) {
+        return 'success';
+      } else {
+        return Future.error('err');
+      }
+    } catch (err) {
+      return Future.error(' err');
+    }
+  }
+
   Future<List<Notificationl>> getUserNotification(String userId) async {
     String endpoint = PersistentHtpp.baseUrl + 'notification/user/$userId';
     try {
@@ -66,7 +86,6 @@ class NotificationService {
       return Future.error(' Error fetching data $err');
     }
   }
-
 
   Future<List<Notificationl>> getOfferNotification() async {
     String endpoint = PersistentHtpp.baseUrl + 'notification/offer';
