@@ -83,7 +83,28 @@ export const putNotification = async (
             message: message,
             image: image,
             read: false,
-            isOffer: isOffer,
+            isOffer: false,
+        })
+        await notification.save()
+        res.status(200).json(notification)
+    } catch (err) {
+        res.status(400).json({ message: err })
+    }
+}
+
+export const putOfferNotification = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    const { title, message,image  } = req.body
+    try {
+
+        const notification = new Notification({
+            title: title,
+            message: message,
+            image: image,
+            isOffer: true,
         })
         await notification.save()
         res.status(200).json(notification)
