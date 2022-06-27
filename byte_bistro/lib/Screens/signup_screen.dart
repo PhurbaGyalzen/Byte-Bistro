@@ -255,13 +255,14 @@ class _SignUpState extends State<SignUpScreen> {
                         child: ElevatedButton(
                           onPressed: () async {
                             if (_formkey.currentState!.validate()) {
-                              Navigator.popAndPushNamed(context, '/login');
                               var response = await AuthService.signup(
                                 usernameController.text.trim(),
                                 passwordController.text.trim(),
                                 emailController.text.trim(),
                                 fullnameController.text.trim(),
                               );
+                              print(usernameController.text.trim());
+                              print(response);
 
                               if (response != null) {
                                 Get.snackbar(
@@ -270,16 +271,17 @@ class _SignUpState extends State<SignUpScreen> {
                                   icon: Icon(Icons.person_rounded,
                                       color: Colors.white),
                                   duration: Duration(seconds: 3),
-                                  backgroundColor: Colors.red,
+                                  backgroundColor: Colors.green,
                                   colorText: Colors.white,
                                   animationDuration: Duration(seconds: 1),
                                   dismissDirection: DismissDirection.horizontal,
                                   snackPosition: SnackPosition.BOTTOM,
                                 );
+                                Navigator.popAndPushNamed(context, '/login');
                               } else {
                                 Get.snackbar(
                                   "User failed to be registered",
-                                  "Please try again",
+                                  "Please try again/ Can be duplicate email entry",
                                   icon: Icon(Icons.person_rounded,
                                       color: Colors.white),
                                   duration: Duration(seconds: 3),

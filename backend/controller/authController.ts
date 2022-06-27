@@ -16,9 +16,11 @@ export const signupUser = async (
 ) => {
 	passport.authenticate('local-signup', (err, user, info) => {
 		if (err) {
+			console.log(err)
 			return next(err)
 		}
 		if (!user) {
+			console.log(info);
 			return res.status(401).json({ message: info.message }) // 401 Unauthorized
 		}
 		return res.status(201).json(user)
