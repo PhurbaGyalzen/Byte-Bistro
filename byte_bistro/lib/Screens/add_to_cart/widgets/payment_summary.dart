@@ -1,4 +1,6 @@
 //PaymentSummary
+import 'package:byte_bistro/Services/http_service.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:esewa_pnp/esewa.dart';
 import 'package:esewa_pnp/esewa_pnp.dart';
 import 'package:flutter/material.dart';
@@ -23,12 +25,17 @@ class PaymentSummary extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // PromoSearchBox(),
         Container(
-          padding: EdgeInsets.only(top: 10, bottom: 10, left: 8, right: 8),
-          margin: EdgeInsets.only(top: 30),
+          padding: EdgeInsets.only(bottom: 10, left: 8, right: 8),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Padding(
+                  padding: EdgeInsets.only(bottom: 20),
+                  child: Text(
+                    'Payment Summary',
+                    style: Theme.of(context).textTheme.headline1,
+                  )),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: const [
@@ -97,25 +104,91 @@ class PaymentSummary extends StatelessWidget {
               SizedBox(
                 height: 50,
               ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: kPrimary,
-                  minimumSize: const Size(350, 50),
-                  maximumSize: const Size(450, 50),
-                ),
-                child: Text(
-                  'CHECKOUT',
-                  style: TextStyle(
-                    color: kTextColor,
-                    letterSpacing: 0.5,
+              Padding(
+                  padding: EdgeInsets.only(
+                    bottom: 30,
+                  ),
+                  child: Text(
+                    'Payment Method',
+                    style: Theme.of(context).textTheme.headline1,
+                  )),
+              InkWell(
+                onTap: () {},
+                child: Container(
+                  padding:
+                      EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 15),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(
+                        width: 1, color: kTextLightColor.withOpacity(0.5)),
+                  ),
+                  child: Row(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Image(
+                          image: AssetImage('assets/images/dollar.png'),
+                          height: 30,
+                          width: 50,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        'Cash',
+                        style: TextStyle(
+                          color: Colors.black,
+                          letterSpacing: 0.5,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                onPressed: () {
+              ),
+              SizedBox(
+                width: 20,
+                height: 20,
+              ),
+              InkWell(
+                onTap: () {
                   _initPayment(product);
                 },
-                // style: ButtonStyle(
-                //     backgroundColor: MaterialStateProperty.all(kPrimary)),
-              )
+                child: Container(
+                  padding:
+                      EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 15),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(
+                          width: 1, color: kTextLightColor.withOpacity(0.5))),
+                  child: Row(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Image(
+                          image: AssetImage('assets/images/esewa_logo.png'),
+                          height: 30,
+                          width: 30,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        'Esewa',
+                        style: TextStyle(
+                          color: Colors.black,
+                          letterSpacing: 0.5,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ],
           ),
         ),

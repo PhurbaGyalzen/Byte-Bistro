@@ -47,6 +47,7 @@ class _UpdateFoodState extends State<UpdateFood> {
 
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         title: Text(
           'Update Food',
           style: Theme.of(context).textTheme.headline1,

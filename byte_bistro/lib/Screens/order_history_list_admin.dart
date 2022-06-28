@@ -19,6 +19,7 @@ class _OrderHistoryAdminState extends State<OrderHistoryAdmin> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         backgroundColor: Theme.of(context).primaryColor,
         leading: BackButton(
           onPressed: () {},

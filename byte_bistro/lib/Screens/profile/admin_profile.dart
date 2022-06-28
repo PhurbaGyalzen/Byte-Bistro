@@ -28,6 +28,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         title: Text(
           'Profile',
           style: TextStyle(fontSize: 20, letterSpacing: 1, height: 1.5),

@@ -17,6 +17,7 @@ class _AddToCartState extends State<AddToCart> {
     final cartList = Get.arguments;
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         title: Text(
           'Cart Items',
           style: TextStyle(fontSize: 20, letterSpacing: 1, height: 1.5),

@@ -12,7 +12,7 @@ class CartFood extends StatelessWidget {
   CartFood({Key? key, required this.cartList}) : super(key: key);
   final CartController cartController = Get.find();
 
-  List<dynamic> cartList;
+  final List<dynamic> cartList;
 
   @override
   Widget build(BuildContext context) {
@@ -52,12 +52,12 @@ class CartFood extends StatelessWidget {
                   BoxShadow(
                     blurRadius: 5,
                     offset: Offset(0, 3), // changes position of shadow
-                    color: Color(0xFFB0CCE1).withOpacity(0.2),
+                    color: Color(0xFFB0CCE1).withOpacity(0.02),
                   ),
                 ],
               ),
               child: SizedBox(
-                height: 400,
+                height: 450,
                 child: ListView.builder(
                     itemCount: cartList.length,
                     itemBuilder: (context, index) => Slidable(
@@ -111,6 +111,8 @@ class CartFood extends StatelessWidget {
                                     ),
                                   ],
                                 ),
+
+                                // Add and Remove Item
                                 Row(
                                   children: [
                                     Container(
