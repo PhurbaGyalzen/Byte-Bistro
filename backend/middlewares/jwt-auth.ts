@@ -3,16 +3,16 @@ import passport from 'passport'
 import { IUserDoc, User } from '../models/Users'
 import { AUTHORIZATION_FAIL_MSG } from '../config/constants'
 import { Request, Response, NextFunction } from 'express'
-import { IAuthenticatedUser } from '@mytypes/Auth'
+import { IAuthenticatedUser, IUserInfoToSign } from '@mytypes/Auth'
 import jsonwebtoken from 'jsonwebtoken'
 
 
 const JWT_SECRET: string = process.env.JWT_SECRET!
 
-export const jwtSigner = (user: IUserDoc) => {
+export const jwtSigner = (user: IUserDoc | IUserInfoToSign) => {
 	return jsonwebtoken.sign(
 		{
-			id: user._id,
+			id: user.id,
 			username: user.username,
 		},
 		JWT_SECRET,
@@ -20,6 +20,11 @@ export const jwtSigner = (user: IUserDoc) => {
 		)
 	}
 
+export const jwtVerify = (token: string) => {
+	return jsonwebtoken.verify(token, JWT_SECRET) as IAuthenticatedUser
+}
+
+// TODO: replace passport jwt with own function
 passport.use(
 	'jwt',
 	new JWT(
