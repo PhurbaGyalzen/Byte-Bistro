@@ -14,6 +14,7 @@ export const jwtSigner = (user: IUserDoc | IUserInfoToSign) => {
 		{
 			id: user.id,
 			username: user.username,
+			isAdmin: user.isAdmin
 		},
 		JWT_SECRET,
 		{ expiresIn: '2d' }
