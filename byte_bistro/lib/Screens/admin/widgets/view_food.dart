@@ -1,5 +1,6 @@
 // import 'package:byte_bistro/Models/food.dart';
 import 'package:byte_bistro/Services/http_service.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -218,11 +219,21 @@ class ViewFood extends StatelessWidget {
                             alignment: Alignment.center,
                             child: CircleAvatar(
                               radius: 200.0,
-                              child: Image(
-                                  height: 120,
+                              child: SizedBox(
+                                height: 120,
+                                child: CachedNetworkImage(
                                   fit: BoxFit.cover,
-                                  image: NetworkImage(PersistentHtpp.baseUrl +
-                                      foodController.foodList[index].image)),
+                                  imageUrl: PersistentHtpp.baseUrl +
+                                      foodController.foodList[index].image,
+                                  placeholder: (context, url) => Image(
+                                      fit: BoxFit.cover,
+                                      image: AssetImage(
+                                        'assets/images/loading.gif',
+                                      )),
+                                  errorWidget: (context, url, error) =>
+                                      Icon(Icons.error),
+                                ),
+                              ),
                             ),
                           ),
                         ),
