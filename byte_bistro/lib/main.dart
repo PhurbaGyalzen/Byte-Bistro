@@ -131,13 +131,8 @@ class ByteBistro extends StatelessWidget {
           ),
         ),
       ),
-<<<<<<< HEAD
-      // initialRoute: '/addNotification',
+      // initialRoute: '/adminScreen',
       initialRoute: tokenDecoded['username'] != null ? '/home' : '/login',
-=======
-      initialRoute: '/adminScreen',
-      // initialRoute: tokenDecoded['username'] != null ? '/home' : '/login',
->>>>>>> 5fd70fd15d2a2e8ea235a8e6bb71f61b3eb0938f
       debugShowCheckedModeBanner: false,
       title: 'Byte Bistro',
       getPages: [
@@ -176,12 +171,9 @@ class ByteBistro extends StatelessWidget {
         GetPage(name: '/dataScreen', page: () => QrDataScreen()),
         GetPage(name: '/swipeHome', page: () => SwipeHome()),
         GetPage(name: '/addToCart', page: () => AddToCart()),
-<<<<<<< HEAD
         GetPage(name: '/notification', page: () => NotificationPage()),
         GetPage(name: '/addNotification', page: () => AddNotification()),
         GetPage(name: '/adminNotification', page: () => AdminNotification()),
-=======
->>>>>>> 5fd70fd15d2a2e8ea235a8e6bb71f61b3eb0938f
         GetPage(name: '/favourite', page: () => FavouritePage()),
         GetPage(name: '/categoryScreen', page: () => CategoryScreen()),
         GetPage(name: '/onBoardingScreen', page: () => OnBoardingScreen()),
