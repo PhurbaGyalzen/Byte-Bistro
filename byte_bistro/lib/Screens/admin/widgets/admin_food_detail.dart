@@ -1,4 +1,5 @@
 import 'package:byte_bistro/constants/colors.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -57,13 +58,19 @@ class AdminFoodDetail extends StatelessWidget {
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                child: Image(
-                  image: NetworkImage(
-                    PersistentHtpp.baseUrl + data[4]['image'],
-                  ),
-                  fit: BoxFit.cover,
+                child: SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height * 0.3,
+                  child: CachedNetworkImage(
+                    fit: BoxFit.cover,
+                    imageUrl: PersistentHtpp.baseUrl + data[4]['image'],
+                    placeholder: (context, url) => Image(
+                        fit: BoxFit.cover,
+                        image: AssetImage(
+                          'assets/images/loading.gif',
+                        )),
+                    errorWidget: (context, url, error) => Icon(Icons.error),
+                  ),
                 ),
               ),
             ),
