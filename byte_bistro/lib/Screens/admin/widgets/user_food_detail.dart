@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../Services/http_service.dart';
+import 'package:badges/badges.dart';
 
 class UserFoodDetail extends StatelessWidget {
   UserFoodDetail({Key? key}) : super(key: key);
@@ -32,8 +33,10 @@ class UserFoodDetail extends StatelessWidget {
                 SizedBox(width: 60),
                 Row(
                   children: [
-                    GestureDetector(
-                      onTap: () {},
+                    InkWell(
+                      onTap: () {
+                        print('hello');
+                      },
                       child: Padding(
                         padding: const EdgeInsets.only(right: 15),
                         child: Image(
@@ -44,14 +47,20 @@ class UserFoodDetail extends StatelessWidget {
                       ),
                     ),
                     SizedBox(width: 10),
-                    GestureDetector(
-                      onTap: () {},
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 15),
-                        child: Image(
-                          image: AssetImage('assets/images/flatCart.png'),
-                          width: 20,
-                          height: 20,
+                    Badge(
+                      position: BadgePosition.topEnd(top: -8, end: 3),
+                      badgeColor: kPrimary,
+                      elevation: 0,
+                      badgeContent: Text('3'),
+                      child: GestureDetector(
+                        onTap: () {},
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 15),
+                          child: Image(
+                            image: AssetImage('assets/images/flatCart.png'),
+                            width: 20,
+                            height: 20,
+                          ),
                         ),
                       ),
                     ),
