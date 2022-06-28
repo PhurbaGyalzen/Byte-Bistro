@@ -8,6 +8,7 @@ import 'package:byte_bistro/models/loged_user_info.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class TabItemDetail extends StatefulWidget {
   const TabItemDetail({Key? key}) : super(key: key);
@@ -114,14 +115,22 @@ class _TabItemDetailState extends State<TabItemDetail> {
                                 children: [
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(15),
-                                    child: Image(
-                                      image: NetworkImage(
-                                          PersistentHtpp.baseUrl +
-                                              data[index].image),
+                                    child: SizedBox(
                                       height: 160,
                                       width: MediaQuery.of(context).size.width -
                                           30,
-                                      fit: BoxFit.cover,
+                                      child: CachedNetworkImage(
+                                        fit: BoxFit.cover,
+                                        imageUrl:
+                                            PersistentHtpp.baseUrl +
+                                                foodController.foodList[index]
+                                                    .image,
+                                        placeholder: (context, url) =>
+                                            Image(fit: BoxFit.cover, image: 
+                                                AssetImage('assets/images/loading.gif',)),
+                                        errorWidget: (context, url, error) =>
+                                            Icon(Icons.error),
+                                      ),
                                     ),
                                   ),
                                   Positioned(
