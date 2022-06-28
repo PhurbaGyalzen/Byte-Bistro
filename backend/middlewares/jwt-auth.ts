@@ -1,15 +1,30 @@
 import { Strategy as JWT, ExtractJwt } from 'passport-jwt'
 import passport from 'passport'
-import { User } from '../models/Users'
+import { IUserDoc, User } from '../models/Users'
 import { AUTHORIZATION_FAIL_MSG } from '../config/constants'
 import { Request, Response, NextFunction } from 'express'
 import { IAuthenticatedUser } from '@mytypes/Auth'
+import jsonwebtoken from 'jsonwebtoken'
+
+
+const JWT_SECRET: string = process.env.JWT_SECRET!
+
+export const jwtSigner = (user: IUserDoc) => {
+	return jsonwebtoken.sign(
+		{
+			id: user._id,
+			username: user.username,
+		},
+		JWT_SECRET,
+		{ expiresIn: '2d' }
+		)
+	}
 
 passport.use(
 	'jwt',
 	new JWT(
 		{
-			secretOrKey: process.env.JWT_SECRET,
+			secretOrKey: JWT_SECRET,
 			jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
 			algorithms: ['HS256'],
 			passReqToCallback: true,
