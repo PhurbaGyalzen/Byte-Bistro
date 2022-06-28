@@ -159,11 +159,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         onTap: () {
                           Get.offNamed('/notification');
                         },
-                        child: Image.asset(
-                          "assets/images/notification.png",
-                          height: 20,
-                          width: 20,
-                        ),
+                        child: Icon(Icons.notifications_outlined, size: 28),
                       ),
                       SizedBox(
                         width: 20,
@@ -172,12 +168,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         onTap: () {
                           Get.offNamed('/profileScreen');
                         },
-                        child: Image.asset(
-                          "assets/images/user.png",
-                          color: Colors.black87,
-                          height: 20,
-                          width: 20,
-                        ),
+                        child: Icon(Icons.person, size: 28),
                       ),
                     ],
                   ),

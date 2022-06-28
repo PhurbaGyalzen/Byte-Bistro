@@ -32,7 +32,22 @@ class AppNote extends StatelessWidget {
               ],
             );
           } else {
-            return Text('Loading...');
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text( "loading...",
+                  style: Theme.of(context).textTheme.bodyText1,
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Text(
+                  '',
+                  style: Theme.of(context).textTheme.bodyText2,
+                ),
+              ],
+            );
+            
           }
         });
   }
