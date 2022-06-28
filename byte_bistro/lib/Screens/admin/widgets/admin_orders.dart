@@ -26,7 +26,8 @@ class _AdminOrdersState extends State<AdminOrders> {
     // print('initstate');
     // print(WebSocketService.origin);
     // should connect again?
-    socket.connect();
+    // socket.connect();
+    WebSocketService.authenticate();
   }
 
   @override

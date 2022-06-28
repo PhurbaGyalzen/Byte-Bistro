@@ -4,6 +4,7 @@ import { Express } from 'express'
 import { Cart, ICart } from '@models/Cart'
 import { User } from '@models/Users'
 import { jwtSigner, jwtVerify } from 'middlewares/jwt-auth'
+import { IAuthenticatedUser } from '@mytypes/Auth'
 
 const initWebSocket = (app: Express) => {
 	const httpServer = createServer(app)
@@ -28,10 +29,14 @@ const initWebSocket = (app: Express) => {
 		socket.on('auth', (data) => {
 			console.log('/auth')
 			console.log(data)
-			const userInfo = jwtVerify(
-				data.token
-				)
-			currUserId = userInfo.username
+			let userInfo: IAuthenticatedUser | null = null
+			try {
+				userInfo = jwtVerify(data.token)
+			} catch (e) {}
+			if (userInfo) {
+				// if (userInfo.)
+				currUserId = userInfo.username
+			}
 		})
 		socket.on('chat_message', (data) => {
 			console.log(data)
