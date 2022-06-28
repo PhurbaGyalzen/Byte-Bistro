@@ -21,6 +21,7 @@ class _TabItemDetailState extends State<TabItemDetail> {
   LoggedUserInfoController loggedUserInfoController =
       Get.put(LoggedUserInfoController());
   FavouriteController favouriteController = Get.put(FavouriteController());
+
   // print(loggedUserInfoController);
   List favouriteList = [];
   var loggedUser;

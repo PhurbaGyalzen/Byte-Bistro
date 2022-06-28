@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:byte_bistro/Screens/add_to_cart/add_to_cart.dart';
 import 'package:byte_bistro/Screens/admin/widgets/add_food.dart';
+import 'package:byte_bistro/Screens/admin/widgets/add_notification.dart';
 import 'package:byte_bistro/Screens/admin/widgets/admin_food_detail.dart';
 import 'package:byte_bistro/Screens/admin/widgets/admin_order_detail.dart';
 import 'package:byte_bistro/Screens/admin/widgets/admin_orders.dart';
@@ -41,6 +42,7 @@ import 'package:byte_bistro/Screens/user_order_history_list.dart';
 import 'package:byte_bistro/Screens/verify_reset_password.dart';
 import 'package:byte_bistro/Services/http_service.dart';
 import 'package:byte_bistro/Services/storage_service.dart';
+import 'package:byte_bistro/controller/logged_user_info_controller.dart';
 import 'package:byte_bistro/utils/str_decoder.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -69,12 +71,13 @@ Future<void> main() async {
   }
 
   await PersistentHtpp.storeAndSetHeader();
-  runApp(const ByteBistro());
+  runApp(ByteBistro());
 }
 
 class ByteBistro extends StatelessWidget {
-  const ByteBistro({Key? key}) : super(key: key);
-
+  ByteBistro({Key? key}) : super(key: key);
+  LoggedUserInfoController loggedUserInfoController =
+      Get.put(LoggedUserInfoController());
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -124,7 +127,7 @@ class ByteBistro extends StatelessWidget {
           ),
         ),
       ),
-      // initialRoute: '/login',
+      // initialRoute: '/addNotification',
       initialRoute: tokenDecoded['username'] != null ? '/home' : '/login',
       debugShowCheckedModeBanner: false,
       title: 'Byte Bistro',
@@ -160,6 +163,7 @@ class ByteBistro extends StatelessWidget {
         GetPage(name: '/swipeHome', page: () => SwipeHome()),
         GetPage(name: '/addToCart', page: () => AddToCart()),
         GetPage(name: '/notification', page: () => NotificationPage()),
+        GetPage(name: '/addNotification', page: () => AddNotification()),
         GetPage(name: '/adminNotification', page: () => AdminNotification()),
         GetPage(name: '/favourite', page: () => FavouritePage()),
         GetPage(name: '/categoryScreen', page: () => CategoryScreen()),

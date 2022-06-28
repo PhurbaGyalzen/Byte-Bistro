@@ -19,7 +19,8 @@ class _NotificationOfferState extends State<NotificationOffer> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: FutureBuilder(
-          future: notificationController.getUserNotification("627fbfa1d464ffbeb80b985b"),
+          future: notificationController
+              .getUserNotification("627fbfa1d464ffbeb80b985b"),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               List<Notificationl> notificationData =
