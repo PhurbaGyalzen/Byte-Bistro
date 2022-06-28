@@ -16,6 +16,19 @@ class _AddToCartState extends State<AddToCart> {
   Widget build(BuildContext context) {
     final cartList = Get.arguments;
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        title: Text(
+          'Cart Items',
+          style: TextStyle(fontSize: 20, letterSpacing: 1, height: 1.5),
+        ),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Get.offNamed('/home'),
+        ),
+        backgroundColor: kPrimary,
+        foregroundColor: kTextColor,
+      ),
       backgroundColor: kPrimary,
       body: SafeArea(
         child: SingleChildScrollView(

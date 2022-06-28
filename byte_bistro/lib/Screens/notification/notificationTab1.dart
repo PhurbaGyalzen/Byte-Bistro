@@ -1,6 +1,7 @@
 // import 'package:byte_bistro/Screens/notification/notification_data.dart';
 import 'package:byte_bistro/constants/colors.dart';
 import 'package:byte_bistro/controller/notification_controller.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -76,14 +77,20 @@ class _NotificationNormalState extends State<NotificationNormal> {
                               ),
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(10),
-                                child: Image(
-                                  fit: BoxFit.cover,
-                                  height: 190,
+                                child: SizedBox(
+                                      height: 190,
                                   width: MediaQuery.of(context).size.width,
-                                  image: NetworkImage(
-                                    notificationData[index].image,
-                                  ),
-                                ),
+                                      child: CachedNetworkImage(
+                                        fit: BoxFit.cover,
+                                        imageUrl:
+                                                notificationData[index].image,
+                                        placeholder: (context, url) =>
+                                            Image(fit: BoxFit.cover, image: 
+                                                AssetImage('assets/images/loading.gif',)),
+                                        errorWidget: (context, url, error) =>
+                                            Icon(Icons.error),
+                                      ),
+                                    ),
                               ),
                             ),
                             // Row(

@@ -65,6 +65,7 @@ class _UserProfileUpdateFormState extends State<UserProfileUpdateForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         title: Text(
           'Edit Profile',
           style: TextStyle(fontSize: 20, letterSpacing: 1, height: 1.5),

@@ -25,6 +25,7 @@ class _ChangePasswordState extends State<ChangePassword> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         title: Text(
           'Change Password',
           style: TextStyle(fontSize: 20, letterSpacing: 1, height: 1.5),

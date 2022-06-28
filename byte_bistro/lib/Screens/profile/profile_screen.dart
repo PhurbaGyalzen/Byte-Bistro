@@ -140,8 +140,19 @@ class ProfileNote extends StatelessWidget {
                 ],
               );
             } else {
-              return Center(
-                child: CircularProgressIndicator(),
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: const [
+                  Padding(
+                    padding: EdgeInsets.only(left: 10.0),
+                    child: Image(
+                        fit: BoxFit.cover,
+                        height: 60,
+                        image: AssetImage(
+                          'assets/images/profile_shimmer.gif',
+                        )),
+                  ),
+                ],
               );
             }
           },
