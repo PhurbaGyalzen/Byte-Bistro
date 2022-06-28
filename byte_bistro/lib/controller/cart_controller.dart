@@ -1,4 +1,5 @@
 import 'package:byte_bistro/Services/cart_service.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CartController extends GetxController {
@@ -14,18 +15,26 @@ class CartController extends GetxController {
     super.onInit();
   }
 
-  addQuantity() {
-    foodQuantity.value++;
-    update();
+  addFood() {
+    noOfItems.value++;
   }
 
-  minusQuantity() {
-    if (foodQuantity.value <= 1) {
-      foodQuantity.value = 1;
+  removeFood() {
+    if (noOfItems.value > 1) {
+      noOfItems.value--;
     } else {
-      foodQuantity.value--;
+      Get.snackbar(
+        "Item Limit",
+        "Item count can not be less than 1",
+        icon: Icon(Icons.person_rounded, color: Colors.black),
+        duration: Duration(seconds: 3),
+        backgroundColor: Colors.yellow,
+        colorText: Colors.black,
+        animationDuration: Duration(seconds: 1),
+        dismissDirection: DismissDirection.horizontal,
+        snackPosition: SnackPosition.TOP,
+      );
     }
-    update();
   }
 
   getAllCart() async {
