@@ -14,17 +14,15 @@ class CartController extends GetxController {
     super.onInit();
   }
 
-  addQuantity() {
-    foodQuantity.value++;
+  addFood() {
+    noOfItems.value++;
     update();
   }
 
-  minusQuantity() {
-    if (foodQuantity.value <= 1) {
-      foodQuantity.value = 1;
-    } else {
-      foodQuantity.value--;
-    }
+  removeFood() {
+    if (noOfItems.value > 1) {
+      noOfItems.value--;
+    } else {}
     update();
   }
 

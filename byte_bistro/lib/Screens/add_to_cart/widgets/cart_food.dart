@@ -115,22 +115,22 @@ class CartFood extends StatelessWidget {
                                 // Add and Remove Item
                                 Row(
                                   children: [
-                                    Container(
+                                    InkWell(
+                                      onTap: () => cartController.removeFood(),
+                                      child: Container(
                                         padding: EdgeInsets.all(5),
                                         decoration: BoxDecoration(
                                             color: kPrimary.withOpacity(0.2),
                                             borderRadius:
                                                 BorderRadius.circular(5)),
-                                        child: GestureDetector(
-                                          onTap: () =>
-                                              cartController.minusQuantity(),
-                                          child: Image(
-                                            image: AssetImage(
-                                                'assets/images/minusBorder.png'),
-                                            height: 20,
-                                            width: 20,
-                                          ),
-                                        )),
+                                        child: Image(
+                                          image: AssetImage(
+                                              'assets/images/minusBorder.png'),
+                                          height: 20,
+                                          width: 20,
+                                        ),
+                                      ),
+                                    ),
                                     Padding(
                                       padding: EdgeInsets.only(
                                         left: 12,
@@ -141,31 +141,32 @@ class CartFood extends StatelessWidget {
                                         init:
                                             CartController(), // intialize with the Controller
                                         builder: (value) => Text(cartController
-                                                .foodQuantity.value
+                                                .noOfItems.value
                                                 .toString()
                                             //       .toString(),, // value is an instance of Controller.
                                             ),
                                       ),
                                     ),
-                                    Container(
+                                    InkWell(
+                                      onTap: () {
+                                        cartController.addFood();
+                                        cartController.updatePrice(
+                                            cartList[index]['price']);
+                                      },
+                                      child: Container(
                                         padding: EdgeInsets.all(5),
                                         decoration: BoxDecoration(
                                             color: kPrimary,
                                             borderRadius:
                                                 BorderRadius.circular(5)),
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            cartController.addQuantity();
-                                            cartController.updatePrice(
-                                                cartList[index]['price']);
-                                          },
-                                          child: Image(
-                                            image: AssetImage(
-                                                'assets/images/add.png'),
-                                            height: 20,
-                                            width: 20,
-                                          ),
-                                        )),
+                                        child: Image(
+                                          image: AssetImage(
+                                              'assets/images/add.png'),
+                                          height: 20,
+                                          width: 20,
+                                        ),
+                                      ),
+                                    ),
                                   ],
                                 ),
                                 GetBuilder<CartController>(
