@@ -30,16 +30,33 @@ class UserFoodDetail extends StatelessWidget {
                   onPressed: () => Get.offNamed('/home'),
                 ),
                 SizedBox(width: 60),
-                GestureDetector(
-                  onTap: () {},
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 15),
-                    child: Image(
-                      image: AssetImage('assets/images/love_not_fill.png'),
-                      width: 20,
-                      height: 20,
+                Row(
+                  children: [
+                    GestureDetector(
+                      onTap: () {},
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 15),
+                        child: Image(
+                          image: AssetImage('assets/images/love_not_fill.png'),
+                          width: 20,
+                          height: 20,
+                        ),
+                      ),
                     ),
-                  ),
+                    SizedBox(width: 10),
+                    GestureDetector(
+                      onTap: () {},
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 15),
+                        child: Image(
+                          image: AssetImage('assets/images/flatCart.png'),
+                          width: 20,
+                          height: 20,
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 10),
+                  ],
                 )
               ],
             ),
