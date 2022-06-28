@@ -8,6 +8,7 @@ class CartController extends GetxController {
   var foodQuantity = 1.obs;
   var foodPrice = 0.obs;
   var noOfItems = 1.obs;
+  var noOfCartItems = 0.obs;
 
   @override
   void onInit() {

@@ -115,14 +115,11 @@ class PaymentSummary extends StatelessWidget {
               InkWell(
                 onTap: () {},
                 child: Container(
-                  
                   padding:
                       EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 15),
                   decoration: BoxDecoration(
                     color: kPrimary,
                     borderRadius: BorderRadius.circular(20),
-                    border: Border.all(
-                        width: 1, color: kTextLightColor.withOpacity(0.5)),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -163,10 +160,9 @@ class PaymentSummary extends StatelessWidget {
                   padding:
                       EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 15),
                   decoration: BoxDecoration(
-                      color: Colors.green[500],
-                      borderRadius: BorderRadius.circular(20),
-                      border: Border.all(
-                          width: 1, color: kTextLightColor.withOpacity(0.5))),
+                    color: Colors.green[500],
+                    borderRadius: BorderRadius.circular(20),
+                  ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
