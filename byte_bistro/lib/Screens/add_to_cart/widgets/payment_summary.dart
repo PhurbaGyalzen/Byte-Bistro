@@ -115,18 +115,20 @@ class PaymentSummary extends StatelessWidget {
               InkWell(
                 onTap: () {},
                 child: Container(
+                  
                   padding:
                       EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 15),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: kPrimary,
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(
                         width: 1, color: kTextLightColor.withOpacity(0.5)),
                   ),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.circular(0),
                         child: Image(
                           image: AssetImage('assets/images/dollar.png'),
                           height: 30,
@@ -138,10 +140,11 @@ class PaymentSummary extends StatelessWidget {
                         width: 10,
                       ),
                       Text(
-                        'Cash',
+                        'Pay with Cash',
                         style: TextStyle(
                           color: Colors.black,
-                          letterSpacing: 0.5,
+                          letterSpacing: 1,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ],
@@ -160,11 +163,12 @@ class PaymentSummary extends StatelessWidget {
                   padding:
                       EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 15),
                   decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: Colors.green[500],
                       borderRadius: BorderRadius.circular(20),
                       border: Border.all(
                           width: 1, color: kTextLightColor.withOpacity(0.5))),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       ClipRRect(
                         borderRadius: BorderRadius.circular(20),
@@ -179,10 +183,11 @@ class PaymentSummary extends StatelessWidget {
                         width: 10,
                       ),
                       Text(
-                        'Esewa',
+                        'Pay with Esewa',
                         style: TextStyle(
-                          color: Colors.black,
-                          letterSpacing: 0.5,
+                          color: Colors.white,
+                          letterSpacing: 1,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ],
