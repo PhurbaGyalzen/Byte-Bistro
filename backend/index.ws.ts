@@ -15,12 +15,12 @@ const initWebSocket = (app: Express) => {
 	})
 
 	io.on('connection', async (socket) => {
-		let currUserId = 'sanjib'
+		let currUser: IAuthenticatedUser
 		console.log('a user connected')
 		socket.on('set_user_id', (data) => {
 			console.log(data)
-			currUserId = data.userId
-			socket.join(currUserId)
+			currUser.id = data.userId
+			socket.join(currUser.username)
 			// socket.send({
 			// 	socketId: socket.id,
 			// })
@@ -34,8 +34,7 @@ const initWebSocket = (app: Express) => {
 				userInfo = jwtVerify(data.token)
 			} catch (e) {}
 			if (userInfo) {
-				// if (userInfo.)
-				currUserId = userInfo.username
+				currUser = userInfo
 			}
 		})
 		socket.on('chat_message', (data) => {
@@ -101,14 +100,19 @@ const initWebSocket = (app: Express) => {
 		// emtted by admin
 		socket.on('order_status_change', async (data) => {
 			console.log('admin: requested order status change')
-			// console.log((await io.fetchSockets())[0].id)
-			console.log(currUserId)
-			if (currUserId) {
-				io.to(currUserId).emit('order_status_change', {
-					orderId: data.orderId,
-					orderStatus: data.orderStatus,
-					orderDurationMin: data.orderDurationMin,
-				})
+			if (!currUser.isAdmin) {
+				console.log('user is not admin. No events will be emitted.')
+			} else {
+
+				// console.log((await io.fetchSockets())[0].id)
+				console.log(currUser)
+				if (currUser) {
+					io.to(currUser.username).emit('order_status_change', {
+						orderId: data.orderId,
+						orderStatus: data.orderStatus,
+						orderDurationMin: data.orderDurationMin,
+					})
+				}
 			}
 		})
 	})
