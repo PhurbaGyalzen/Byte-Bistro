@@ -121,13 +121,14 @@ class _TabItemDetailState extends State<TabItemDetail> {
                                           30,
                                       child: CachedNetworkImage(
                                         fit: BoxFit.cover,
-                                        imageUrl:
-                                            PersistentHtpp.baseUrl +
-                                                foodController.foodList[index]
-                                                    .image,
-                                        placeholder: (context, url) =>
-                                            Image(fit: BoxFit.cover, image: 
-                                                AssetImage('assets/images/loading.gif',)),
+                                        imageUrl: PersistentHtpp.baseUrl +
+                                            foodController
+                                                .foodList[index].image,
+                                        placeholder: (context, url) => Image(
+                                            fit: BoxFit.cover,
+                                            image: AssetImage(
+                                              'assets/images/loading.gif',
+                                            )),
                                         errorWidget: (context, url, error) =>
                                             Icon(Icons.error),
                                       ),

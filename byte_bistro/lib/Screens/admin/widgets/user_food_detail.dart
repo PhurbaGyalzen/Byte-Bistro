@@ -1,4 +1,6 @@
 import 'package:byte_bistro/constants/colors.dart';
+import 'package:byte_bistro/controller/cart_controller.dart';
+import 'package:byte_bistro/controller/category_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -10,6 +12,8 @@ class UserFoodDetail extends StatelessWidget {
   UserFoodDetail({Key? key}) : super(key: key);
 
   final data = Get.arguments;
+
+  final CartController cartController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -113,42 +117,42 @@ class UserFoodDetail extends StatelessWidget {
             ),
 
 // item add remove button
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  width: 35,
-                  height: 35,
-                  margin: EdgeInsets.only(right: 20),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(40), color: kPrimary),
-                  child: IconButton(
-                    icon: Icon(Icons.remove),
-                    iconSize: 18,
-                    onPressed: () {},
-                  ),
-                ),
-                Text(
-                  '2',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w300,
-                  ),
-                ),
-                Container(
-                  width: 35,
-                  height: 35,
-                  margin: EdgeInsets.only(left: 20),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(40), color: kPrimary),
-                  child: IconButton(
-                    icon: Icon(Icons.add),
-                    iconSize: 18,
-                    onPressed: () {},
-                  ),
-                ),
-              ],
-            ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: [
+            //     Container(
+            //       width: 35,
+            //       height: 35,
+            //       margin: EdgeInsets.only(right: 20),
+            //       decoration: BoxDecoration(
+            //           borderRadius: BorderRadius.circular(40), color: kPrimary),
+            //       child: IconButton(
+            //         icon: Icon(Icons.remove),
+            //         iconSize: 18,
+            //         onPressed: () {},
+            //       ),
+            //     ),
+            //     Text(
+            //       cartController.noOfItems.value.toString(),
+            //       style: TextStyle(
+            //         fontSize: 18,
+            //         fontWeight: FontWeight.w300,
+            //       ),
+            //     ),
+            //     Container(
+            //       width: 35,
+            //       height: 35,
+            //       margin: EdgeInsets.only(left: 20),
+            //       decoration: BoxDecoration(
+            //           borderRadius: BorderRadius.circular(40), color: kPrimary),
+            //       child: IconButton(
+            //         icon: Icon(Icons.add),
+            //         iconSize: 18,
+            //         onPressed: () {},
+            //       ),
+            //     ),
+            //   ],
+            // ),
 
             SizedBox(
               height: 25,

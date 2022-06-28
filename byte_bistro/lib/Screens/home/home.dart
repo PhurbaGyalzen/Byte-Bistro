@@ -84,9 +84,9 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               TabItem(
-                activeIcon: Icon(Icons.person),
+                activeIcon: Icon(Icons.shopping_cart),
                 icon: Icon(
-                  Icons.person_outlined,
+                  Icons.shopping_cart_outlined,
                   size: 25,
                 ),
               ),
@@ -153,15 +153,33 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      Get.offNamed('/notification');
-                    },
-                    child: Image.asset(
-                      "assets/images/notification.png",
-                      height: 20,
-                      width: 20,
-                    ),
+                  Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Get.offNamed('/notification');
+                        },
+                        child: Image.asset(
+                          "assets/images/notification.png",
+                          height: 20,
+                          width: 20,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Get.offNamed('/profileScreen');
+                        },
+                        child: Image.asset(
+                          "assets/images/user.png",
+                          color: Colors.black87,
+                          height: 20,
+                          width: 20,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),

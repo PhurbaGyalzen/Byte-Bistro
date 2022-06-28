@@ -1,4 +1,3 @@
-
 import 'package:byte_bistro/Services/cart_service.dart';
 import 'package:get/get.dart';
 
@@ -7,6 +6,7 @@ class CartController extends GetxController {
   CartService cartService = Get.put(CartService());
   var foodQuantity = 1.obs;
   var foodPrice = 0.obs;
+  var noOfItems = 1.obs;
 
   @override
   void onInit() {

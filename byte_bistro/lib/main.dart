@@ -41,6 +41,7 @@ import 'package:byte_bistro/Screens/user_order_history_list.dart';
 import 'package:byte_bistro/Screens/verify_reset_password.dart';
 import 'package:byte_bistro/Services/http_service.dart';
 import 'package:byte_bistro/Services/storage_service.dart';
+import 'package:byte_bistro/controller/cart_controller.dart';
 import 'package:byte_bistro/utils/str_decoder.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -69,11 +70,13 @@ Future<void> main() async {
   }
 
   await PersistentHtpp.storeAndSetHeader();
-  runApp(const ByteBistro());
+  runApp(ByteBistro());
 }
 
 class ByteBistro extends StatelessWidget {
-  const ByteBistro({Key? key}) : super(key: key);
+  ByteBistro({Key? key}) : super(key: key);
+
+  final CartController cartController = Get.put(CartController());
 
   @override
   Widget build(BuildContext context) {
