@@ -42,11 +42,8 @@ import 'package:byte_bistro/Screens/user_order_history_list.dart';
 import 'package:byte_bistro/Screens/verify_reset_password.dart';
 import 'package:byte_bistro/Services/http_service.dart';
 import 'package:byte_bistro/Services/storage_service.dart';
-<<<<<<< HEAD
 import 'package:byte_bistro/controller/logged_user_info_controller.dart';
-=======
 import 'package:byte_bistro/controller/cart_controller.dart';
->>>>>>> a31171034fdd312bae580c3d74111666fad94c8a
 import 'package:byte_bistro/utils/str_decoder.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -134,27 +131,37 @@ class ByteBistro extends StatelessWidget {
           ),
         ),
       ),
+<<<<<<< HEAD
       // initialRoute: '/addNotification',
       initialRoute: tokenDecoded['username'] != null ? '/home' : '/login',
+=======
+      initialRoute: '/adminScreen',
+      // initialRoute: tokenDecoded['username'] != null ? '/home' : '/login',
+>>>>>>> 5fd70fd15d2a2e8ea235a8e6bb71f61b3eb0938f
       debugShowCheckedModeBanner: false,
       title: 'Byte Bistro',
       getPages: [
         GetPage(name: '/login', page: () => LoginScreen()),
         // GetPage(name: '/tesing', page: () => TestingExpanded()),
-        GetPage(
-            name: '/orderHistory_user_list', page: () => OrderHistoryUser()),
-        GetPage(name: '/order_history_admin', page: () => OrderHistoryAdmin()),
-        GetPage(name: '/invoice_detail', page: () => InvoiceDetail()),
-        GetPage(name: '/order_detail', page: () => OrderDetail()),
-        // GetPage(name: '/CategoryMoMo', page: () => MOMO()),
         GetPage(name: '/signup', page: () => SignUpScreen()),
         GetPage(name: '/reset_password', page: () => ForgetPasswordScreen()),
         GetPage(
             name: '/verify_reset_password', page: () => VerifyResetPassword()),
+        GetPage(name: '/adminScreen', page: () => AdminDashboard()),
+        GetPage(name: '/order_history_admin', page: () => OrderHistoryAdmin()),
         GetPage(
             name: '/adminProfileUpdateForm',
             page: () => AdminProfileUpdateForm()),
         GetPage(name: '/adminProfile', page: () => AdminProfilePage()),
+        GetPage(name: '/adminNotification', page: () => AdminNotification()),
+        GetPage(name: '/adminOrders', page: () => AdminOrders()),
+        GetPage(name: '/adminFoodDetail', page: () => AdminFoodDetail()),
+        GetPage(name: '/adminOrderDetail', page: () => AdminOrderDetail()),
+        GetPage(name: '/invoice_detail', page: () => InvoiceDetail()),
+        GetPage(
+            name: '/orderHistory_user_list', page: () => OrderHistoryUser()),
+        GetPage(name: '/order_detail', page: () => OrderDetail()),
+        // GetPage(name: '/CategoryMoMo', page: () => MOMO()),
         GetPage(name: '/detail_page_dish', page: () => IndividualItemScreen()),
         GetPage(name: '/home', page: () => HomePage()),
         GetPage(name: '/set_new_password', page: () => SetNewPassword()),
@@ -165,22 +172,22 @@ class ByteBistro extends StatelessWidget {
         GetPage(name: '/orderSucess', page: () => OrderSucess()),
         GetPage(name: '/addFood', page: () => AddFood()),
         GetPage(name: '/viewFood', page: () => ViewFood()),
-        GetPage(name: '/adminScreen', page: () => AdminDashboard()),
+        GetPage(name: '/notification', page: () => NotificationPage()),
         GetPage(name: '/dataScreen', page: () => QrDataScreen()),
         GetPage(name: '/swipeHome', page: () => SwipeHome()),
         GetPage(name: '/addToCart', page: () => AddToCart()),
+<<<<<<< HEAD
         GetPage(name: '/notification', page: () => NotificationPage()),
         GetPage(name: '/addNotification', page: () => AddNotification()),
         GetPage(name: '/adminNotification', page: () => AdminNotification()),
+=======
+>>>>>>> 5fd70fd15d2a2e8ea235a8e6bb71f61b3eb0938f
         GetPage(name: '/favourite', page: () => FavouritePage()),
         GetPage(name: '/categoryScreen', page: () => CategoryScreen()),
         GetPage(name: '/onBoardingScreen', page: () => OnBoardingScreen()),
-        GetPage(name: '/adminOrders', page: () => AdminOrders()),
-        GetPage(name: '/adminOrderDetail', page: () => AdminOrderDetail()),
         GetPage(name: '/userProfilePage', page: () => UserProfilePage()),
         GetPage(name: '/updateFood', page: () => UpdateFood()),
         GetPage(name: '/userFoodDetail', page: () => UserFoodDetail()),
-        GetPage(name: '/adminFoodDetail', page: () => AdminFoodDetail()),
         GetPage(name: '/userFoodDetail', page: () => UserFoodDetail()),
         GetPage(name: '/profileScreen', page: () => ProfileScreen()),
         GetPage(name: '/licenseSection', page: () => LicenseSection()),

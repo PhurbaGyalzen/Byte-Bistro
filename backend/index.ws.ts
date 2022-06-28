@@ -3,6 +3,7 @@ import { Server } from 'socket.io'
 import { Express } from 'express'
 import { Cart, ICart } from '@models/Cart'
 import { User } from '@models/Users'
+import { jwtSigner, jwtVerify } from 'middlewares/jwt-auth'
 
 const initWebSocket = (app: Express) => {
 	const httpServer = createServer(app)
@@ -22,6 +23,15 @@ const initWebSocket = (app: Express) => {
 			// socket.send({
 			// 	socketId: socket.id,
 			// })
+		})
+
+		socket.on('auth', (data) => {
+			console.log('/auth')
+			console.log(data)
+			const userInfo = jwtVerify(
+				data.token
+				)
+			currUserId = userInfo.username
 		})
 		socket.on('chat_message', (data) => {
 			console.log(data)
