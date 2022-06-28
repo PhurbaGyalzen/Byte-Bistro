@@ -87,7 +87,7 @@ class ByteBistro extends StatelessWidget {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
     ));
-    String initialRoute = '/login';
+    String initialRoute = '/addNotification';
     if (tokenDecoded['username'] != null) {
       initialRoute = '/home';
       if (tokenDecoded['isAdmin']) {
