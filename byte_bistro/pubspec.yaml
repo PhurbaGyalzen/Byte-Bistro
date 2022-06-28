@@ -61,6 +61,7 @@ dependencies:
   flutter_native_splash: ^2.1.6
   multi_select_flutter: ^4.1.2
   jwt_decode: ^0.3.1
+  badges: ^2.0.3
 
 dev_dependencies:
   flutter_test:
