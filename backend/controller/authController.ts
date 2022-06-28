@@ -6,6 +6,7 @@ import jsonwebtoken from 'jsonwebtoken'
 import { IUserDoc, User } from '@models/Users'
 import nodemailer from 'nodemailer'
 import { OTP } from '@utils/otp_gen'
+import { jwtSigner } from 'middlewares/jwt-auth'
 
 initialize(passport)
 
@@ -35,14 +36,7 @@ const localLogin = (req: Request, res: Response, next: NextFunction) => {
 		if (!user) {
 			return res.status(401).json({ message: info.message }) // 401 Unauthorized
 		}
-		const token: String = jsonwebtoken.sign(
-			{
-				id: user._id,
-				username: user.username,
-			},
-			process.env.JWT_SECRET!,
-			{ expiresIn: '2d' }
-		)
+		const token: string = jwtSigner(user)
 		return res.status(200).json({
 			message: 'User logged in successfully',
 			token: token,
@@ -73,19 +67,7 @@ export const googleAuthentication = async (
 	const {email, googleId, username, fullname} = req.body;
 	const user = await User.findOne({ googleId: googleId });
 	if (user) {
-		const token: String = jsonwebtoken.sign(
-			{
-				id: user._id,
-				username: user.username,
-			},
-			process.env.JWT_SECRET!,
-			{ expiresIn: '2d' }
-		)
-		return res.status(200).json({
-			message: 'User logged in successfully',
-			token: token,
-			isAdmin: user['isAdmin'],
-		})
+		return localLogin(req, res, next)(null, user, null)
 	}
 	else {
 		const newUser = new User({
@@ -96,14 +78,7 @@ export const googleAuthentication = async (
 			isAdmin: false,
 		});
 		await newUser.save();
-		const token: String = jsonwebtoken.sign(
-			{
-				id: newUser._id,
-				username: newUser.username,
-			},
-			process.env.JWT_SECRET!,
-			{ expiresIn: '2d' }
-		)
+		const token: string = jwtSigner(newUser)
 		return res.status(200).json({
 			message: 'User Signed up and logged in',
 			token: token,
@@ -139,28 +114,7 @@ export const authGoogleCallback = async (
 			successRedirect: '/google/success',
 			failureRedirect: '/google/failed',
 		},
-		(err, user, info: any) => {
-			if (err) {
-				return next(err)
-			}
-			if (!user) {
-				return res.status(401).json({ message: info.message }) // 401 Unauthorized
-			}
-			const token: String = jsonwebtoken.sign(
-				{
-					id: user._id,
-					username: user.username,
-				},
-				process.env.JWT_SECRET!,
-				{ expiresIn: '2d' }
-			)
-			return res.status(200).json({
-				message: 'User logged in successfully',
-				token: token,
-				// user,
-				isAdmin: user['isAdmin'],
-			})
-		}
+		localLogin(req, res, next)
 	)(req, res, next)
 }
 

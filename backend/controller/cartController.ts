@@ -1,9 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 
-import { Category, Food } from '../models/Food'
 import { Cart } from '@models/Cart'
-import { IRequest } from '@mytypes/Request'
-import { IAuthenticatedUser } from '@mytypes/Auth'
 
 export const getCart = async (
 	req: Request,
