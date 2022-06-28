@@ -126,8 +126,8 @@ class CartFood extends StatelessWidget {
                                         child: Image(
                                           image: AssetImage(
                                               'assets/images/minusBorder.png'),
-                                          height: 20,
-                                          width: 20,
+                                          height: 25,
+                                          width: 25,
                                         ),
                                       ),
                                     ),
@@ -136,16 +136,11 @@ class CartFood extends StatelessWidget {
                                         left: 12,
                                         right: 12,
                                       ),
-                                      child: GetBuilder<CartController>(
-                                        // specify type as Controller
-                                        init:
-                                            CartController(), // intialize with the Controller
-                                        builder: (value) => Text(cartController
-                                                .noOfItems.value
-                                                .toString()
-                                            //       .toString(),, // value is an instance of Controller.
-                                            ),
-                                      ),
+                                      child: Obx(() => Text(cartController
+                                              .noOfItems.value
+                                              .toString()
+                                          //       .toString(),, // value is an instance of Controller.
+                                          )),
                                     ),
                                     InkWell(
                                       onTap: () {
@@ -162,8 +157,8 @@ class CartFood extends StatelessWidget {
                                         child: Image(
                                           image: AssetImage(
                                               'assets/images/add.png'),
-                                          height: 20,
-                                          width: 20,
+                                          height: 25,
+                                          width: 25,
                                         ),
                                       ),
                                     ),
