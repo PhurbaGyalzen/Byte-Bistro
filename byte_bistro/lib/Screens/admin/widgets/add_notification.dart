@@ -191,12 +191,14 @@ class _AddNotificationState extends State<AddNotification> {
                 TextFormField(
                   validator: RequiredValidator(errorText: '*required'),
                   controller: fullnameController,
+                  minLines: 2,
+                  maxLines: 2,
                   // initialValue:
                   //     data.fullname,
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.only(bottom: 3),
                     floatingLabelBehavior: FloatingLabelBehavior.always,
-                    labelText: 'Fullname',
+                    labelText: 'Title',
                     hintStyle: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.normal,
@@ -212,19 +214,18 @@ class _AddNotificationState extends State<AddNotification> {
                 TextFormField(
                   validator: MultiValidator(
                     [
-                      EmailValidator(
-                        errorText: 'enter a valid email address',
-                      ),
                       RequiredValidator(
                         errorText: '*required',
                       ),
                     ],
                   ),
                   controller: emailController,
+                  minLines: 8,
+                  maxLines: 10,
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.only(bottom: 3),
                     floatingLabelBehavior: FloatingLabelBehavior.always,
-                    labelText: 'E-mail',
+                    labelText: 'Description',
                     hintStyle: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.normal,
@@ -233,47 +234,6 @@ class _AddNotificationState extends State<AddNotification> {
                       letterSpacing: 1,
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                TextFormField(
-                  validator: RequiredValidator(errorText: '*required'),
-                  controller: addressController,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.only(bottom: 3),
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                    labelText: 'Address',
-                    hintStyle: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.normal,
-                      color: Colors.black,
-                      height: 1.5,
-                      letterSpacing: 1,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                TextFormField(
-                  validator: RequiredValidator(errorText: '*required'),
-                  controller: bioController,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.only(bottom: 3),
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                    labelText: "Bio",
-                    hintStyle: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.normal,
-                      color: Colors.black,
-                      height: 1.5,
-                      letterSpacing: 1,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 40,
                 ),
                 Row(
                   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -287,12 +247,10 @@ class _AddNotificationState extends State<AddNotification> {
                             // "phones":
                             //     [phoneController
                             //         .text],
-                            "bio": bioController.text,
-                            "address": addressController.text,
                           };
-                          String response =
-                              await LoggedUserInfoController.updateProfileInfo(
-                                  data);
+                          // String response =
+                          //     await LoggedUserInfoController.updateProfileInfo(
+                          //         data);
 
                           // if (response ==
                           //     'success') {
@@ -307,15 +265,15 @@ class _AddNotificationState extends State<AddNotification> {
                           // final snackbarFail = SnackBar(
                           //     content: Text('Profile updation failed'));
 
-                          if (response == "success") {
-                            Get.toNamed("/adminProfile");
+                          // if (response == "success") {
+                          //   Get.toNamed("/adminProfile");
 
-                            // snackbarSucess;
-                            // ScaffoldMessenger.of(context)
-                            //     .showSnackBar(snackbarSucess);
-                            // foodController
-                            //     .getAllFood();
-                          }
+                          //   // snackbarSucess;
+                          //   // ScaffoldMessenger.of(context)
+                          //   //     .showSnackBar(snackbarSucess);
+                          //   // foodController
+                          //   //     .getAllFood();
+                          // }
                           //  else {
                           //   snackbarFail;
                           //   ScaffoldMessenger.of(context)
@@ -329,7 +287,7 @@ class _AddNotificationState extends State<AddNotification> {
                         shape: const StadiumBorder(),
                       ),
                       child: Text(
-                        "Update",
+                        "Add Notification",
                         style: TextStyle(
                             fontSize: 14,
                             letterSpacing: 2.2,
