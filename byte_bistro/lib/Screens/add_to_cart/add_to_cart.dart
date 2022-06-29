@@ -17,7 +17,7 @@ class _AddToCartState extends State<AddToCart> {
   @override
   Widget build(BuildContext context) {
     final CartController cartController = Get.find();
-    final cartList = Get.arguments;
+    // final cartList = Get.arguments;
     return WillPopScope(
       onWillPop: () async {
         return false;
@@ -37,19 +37,22 @@ class _AddToCartState extends State<AddToCart> {
             Badge(
               padding: EdgeInsets.all(6),
               child: IconButton(
-                icon: Icon(Icons.shopping_cart_outlined),
+                icon: Icon(Icons.shopping_cart_outlined, size: 30),
                 onPressed: () => Get.offNamed('/home'),
               ),
-              position: BadgePosition.topEnd(top: 5, end: 4),
+              position: BadgePosition.topEnd(top: 5, end: -5),
               badgeColor: Colors.black,
               elevation: 0,
               badgeContent: Obx(
                 () => Text(
-                  cartController.noOfCartItems.value.toString(),
+                  cartController.cartList.length.toString().padLeft(2, "0"),
                   style: TextStyle(color: Colors.white),
                 ),
               ),
             ),
+            SizedBox(
+              width: 10,
+            )
           ],
           backgroundColor: kPrimary,
           foregroundColor: kTextColor,
@@ -65,9 +68,7 @@ class _AddToCartState extends State<AddToCart> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CartFood(
-                    cartList: cartList,
-                  ),
+                  CartFood(),
                   PaymentSummary(),
                 ],
               ),

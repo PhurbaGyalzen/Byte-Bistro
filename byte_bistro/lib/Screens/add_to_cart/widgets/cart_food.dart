@@ -9,10 +9,9 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import '../../../constants/colors.dart';
 
 class CartFood extends StatelessWidget {
-  CartFood({Key? key, required this.cartList}) : super(key: key);
+  CartFood({Key? key}) : super(key: key);
   final CartController cartController = Get.find();
 
-  final List<dynamic> cartList;
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +58,7 @@ class CartFood extends StatelessWidget {
               child: SizedBox(
                 height: 450,
                 child: ListView.builder(
-                    itemCount: cartList.length,
+                    itemCount: cartController.cartList.length,
                     itemBuilder: (context, index) => Slidable(
                           child: Container(
                             padding: EdgeInsets.all(10),
@@ -94,14 +93,14 @@ class CartFood extends StatelessWidget {
                                     height: 50,
                                     width: 50,
                                     imageUrl: PersistentHtpp.baseUrl +
-                                        cartList[index]['image'],
+                                        cartController.cartList[index]['image'],
                                   ),
                                 ),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      cartList[index]['name'],
+                                      cartController.cartList[index]['name'],
                                       style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold,
@@ -146,7 +145,8 @@ class CartFood extends StatelessWidget {
                                       onTap: () {
                                         cartController.addFood();
                                         cartController.updatePrice(
-                                            cartList[index]['price']);
+                                            cartController.cartList[index]
+                                                ['price']);
                                       },
                                       child: Container(
                                         padding: EdgeInsets.all(5),
@@ -169,7 +169,8 @@ class CartFood extends StatelessWidget {
                                     init:
                                         CartController(), // intialize with the Controller
                                     builder: (value) => Text(
-                                          (cartList[index]['price'] *
+                                          (cartController.cartList[index]
+                                                      ['price'] *
                                                   cartController
                                                       .foodQuantity.value)
                                               .toString(),

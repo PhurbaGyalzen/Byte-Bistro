@@ -63,7 +63,7 @@ class _TabItemDetailState extends State<TabItemDetail> {
                 child: CarouselSlider.builder(
                     options: CarouselOptions(
                       height: 300.0,
-                      autoPlay: true,
+                      autoPlay: false,
                     ),
                     itemCount: data.length,
                     itemBuilder: (context, index, realIndex) {
@@ -218,9 +218,27 @@ class _TabItemDetailState extends State<TabItemDetail> {
                                         "description": data[index].description,
                                         "image": data[index].image,
                                       };
-                                      cartController.cartList.add(cartData);
-                                      Get.toNamed('/addToCart',
-                                          arguments: cartController.cartList);
+                                      bool response = cartController
+                                          .addFoodInCart(cartData);
+                                      if (response == false) {
+                                        Get.snackbar(
+                                          "Food",
+                                          "Food already added to cart",
+                                          icon: Icon(Icons.no_meals,
+                                              color: Colors.white),
+                                          duration: Duration(seconds: 3),
+                                          backgroundColor: Colors.black,
+                                          colorText: Colors.white,
+                                          animationDuration:
+                                              Duration(seconds: 1),
+                                          dismissDirection:
+                                              DismissDirection.horizontal,
+                                          snackPosition: SnackPosition.TOP,
+                                        );
+                                      } else {
+                                        Get.toNamed('/addToCart',
+                                            arguments: cartController.cartList);
+                                      }
                                     },
                                     child: Container(
                                       padding: EdgeInsets.all(5),

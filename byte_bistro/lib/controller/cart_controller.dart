@@ -16,10 +16,12 @@ class CartController extends GetxController {
     super.onInit();
   }
 
+// add food count
   addFood() {
     noOfItems.value++;
   }
 
+// remove food count
   removeFood() {
     if (noOfItems.value > 1) {
       noOfItems.value--;
@@ -35,6 +37,25 @@ class CartController extends GetxController {
         dismissDirection: DismissDirection.horizontal,
         snackPosition: SnackPosition.TOP,
       );
+    }
+  }
+
+// controller to add food in cart
+  addFoodInCart(Map<String, Object> food) {
+    if (cartList.isEmpty) {
+      cartList.add(food);
+      return true;
+    } else {
+      var customList = cartList.where((item) {
+        return item['index'] == food['index'];
+      });
+      // if list doesn't contain that food we will add
+      if (customList.isEmpty) {
+        cartList.add(food);
+        return true;
+      } else {
+        return false;
+      }
     }
   }
 
