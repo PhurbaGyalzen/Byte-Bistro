@@ -25,12 +25,12 @@ class CartController extends GetxController {
       noOfItems.value--;
     } else {
       Get.snackbar(
-        "Item Limit",
-        "Item count can not be less than 1",
-        icon: Icon(Icons.person_rounded, color: Colors.black),
+        "Item",
+        "Must choose at least 1 food ",
+        icon: Icon(Icons.no_meals, color: Colors.white),
         duration: Duration(seconds: 3),
-        backgroundColor: Colors.yellow,
-        colorText: Colors.black,
+        backgroundColor: Colors.black,
+        colorText: Colors.white,
         animationDuration: Duration(seconds: 1),
         dismissDirection: DismissDirection.horizontal,
         snackPosition: SnackPosition.TOP,
