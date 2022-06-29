@@ -12,7 +12,6 @@ class CartFood extends StatelessWidget {
   CartFood({Key? key}) : super(key: key);
   final CartController cartController = Get.find();
 
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -49,10 +48,30 @@ class CartFood extends StatelessWidget {
             ],
           ),
           child: ListView.builder(
-            shrinkWrap: true,
-            primary: false,
+              shrinkWrap: true,
+              primary: false,
               itemCount: cartController.cartList.length,
               itemBuilder: (context, index) => Slidable(
+                    key: UniqueKey(),
+                    startActionPane: ActionPane(
+                      motion: const ScrollMotion(),
+                      dismissible: DismissiblePane(onDismissed: () {
+                        cartController.removeFoodFromList(index);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Food removed from cart')),
+                        );
+                      }),
+                      children: [
+                        // A SlidableAction can have an icon and/or a label.
+                        SlidableAction(
+                          onPressed: (value) {},
+                          backgroundColor: Color(0xFFFE4A49),
+                          foregroundColor: Colors.white,
+                          icon: Icons.edit_outlined,
+                          label: 'Remove Food ',
+                        ),
+                      ],
+                    ),
                     child: Container(
                       padding: EdgeInsets.all(10),
                       margin: EdgeInsets.only(
@@ -63,8 +82,7 @@ class CartFood extends StatelessWidget {
                         boxShadow: [
                           BoxShadow(
                             blurRadius: 5,
-                            offset: Offset(
-                                0, 3), // changes position of shadow
+                            offset: Offset(0, 3), // changes position of shadow
                             color: Color(0xFFB0CCE1).withOpacity(0.32),
                           ),
                         ],
@@ -108,13 +126,12 @@ class CartFood extends StatelessWidget {
                           Row(
                             children: [
                               InkWell(
-                                onTap: () => cartController.removeFood(),
+                                onTap: () => cartController.removeFoodCount(),
                                 child: Container(
                                   padding: EdgeInsets.all(5),
                                   decoration: BoxDecoration(
                                       color: kPrimary.withOpacity(0.2),
-                                      borderRadius:
-                                          BorderRadius.circular(5)),
+                                      borderRadius: BorderRadius.circular(5)),
                                   child: Image(
                                     image: AssetImage(
                                         'assets/images/minusBorder.png'),
@@ -128,28 +145,24 @@ class CartFood extends StatelessWidget {
                                   left: 12,
                                   right: 12,
                                 ),
-                                child: Obx(() => Text(cartController
-                                        .noOfItems.value
-                                        .toString()
+                                child: Obx(() => Text(
+                                    cartController.noOfItems.value.toString()
                                     //       .toString(),, // value is an instance of Controller.
                                     )),
                               ),
                               InkWell(
                                 onTap: () {
-                                  cartController.addFood();
+                                  cartController.addFoodCount();
                                   cartController.updatePrice(
-                                      cartController.cartList[index]
-                                          ['price']);
+                                      cartController.cartList[index]['price']);
                                 },
                                 child: Container(
                                   padding: EdgeInsets.all(5),
                                   decoration: BoxDecoration(
                                       color: kPrimary,
-                                      borderRadius:
-                                          BorderRadius.circular(5)),
+                                      borderRadius: BorderRadius.circular(5)),
                                   child: Image(
-                                    image: AssetImage(
-                                        'assets/images/add.png'),
+                                    image: AssetImage('assets/images/add.png'),
                                     height: 25,
                                     width: 25,
                                   ),
@@ -162,10 +175,8 @@ class CartFood extends StatelessWidget {
                               init:
                                   CartController(), // intialize with the Controller
                               builder: (value) => Text(
-                                    (cartController.cartList[index]
-                                                ['price'] *
-                                            cartController
-                                                .foodQuantity.value)
+                                    (cartController.cartList[index]['price'] *
+                                            cartController.foodQuantity.value)
                                         .toString(),
                                     style: TextStyle(
                                       color: kTextColor,

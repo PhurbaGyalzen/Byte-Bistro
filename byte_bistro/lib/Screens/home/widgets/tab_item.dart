@@ -217,6 +217,7 @@ class _TabItemDetailState extends State<TabItemDetail> {
                                         "price": data[index].price,
                                         "description": data[index].description,
                                         "image": data[index].image,
+                                        "foodCount": 1,
                                       };
                                       bool response = cartController
                                           .addFoodInCart(cartData);

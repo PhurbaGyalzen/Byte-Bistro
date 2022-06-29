@@ -17,12 +17,12 @@ class CartController extends GetxController {
   }
 
 // add food count
-  addFood() {
+  addFoodCount() {
     noOfItems.value++;
   }
 
 // remove food count
-  removeFood() {
+  removeFoodCount() {
     if (noOfItems.value > 1) {
       noOfItems.value--;
     } else {
@@ -38,6 +38,11 @@ class CartController extends GetxController {
         snackPosition: SnackPosition.TOP,
       );
     }
+  }
+
+  // controller to remove food from cartList
+  void removeFoodFromList(int index) {
+    cartList.removeAt(index);
   }
 
 // controller to add food in cart
