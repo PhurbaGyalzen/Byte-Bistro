@@ -17,14 +17,16 @@ class CartController extends GetxController {
   }
 
 // add food count
-  addFoodCount() {
-    noOfItems.value++;
+  addFoodCount(int index) {
+    cartList[index]['foodCount'] += noOfItems.value;
+    cartList.refresh();
   }
 
 // remove food count
-  removeFoodCount() {
-    if (noOfItems.value > 1) {
-      noOfItems.value--;
+  removeFoodCount(int index) {
+    if (cartList[index]['foodCount'] > 1) {
+      cartList[index]['foodCount'] -= noOfItems.value;
+      cartList.refresh();
     } else {
       Get.snackbar(
         "Item",
@@ -43,6 +45,11 @@ class CartController extends GetxController {
   // controller to remove food from cartList
   void removeFoodFromList(int index) {
     cartList.removeAt(index);
+  }
+
+  // controller to remove all item from cartList
+  void removeAllItemFromList() {
+    cartList.clear();
   }
 
 // controller to add food in cart

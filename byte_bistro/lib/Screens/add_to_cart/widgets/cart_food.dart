@@ -31,6 +31,18 @@ class CartFood extends StatelessWidget {
             style: TextStyle(fontSize: 20, color: Colors.black),
           ),
         ),
+        // OutlinedButton(
+        //     onPressed: () {
+        //       cartController.cartList.clear();
+        //       setState() {}
+        //     },
+        //     child: Text(
+        //       'Remove All',
+        //       style: TextStyle(fontWeight: FontWeight.w300, letterSpacing: 0.5),
+        //     )),
+        // SizedBox(
+        //   height: 10,
+        // ),
         Container(
           padding: EdgeInsets.only(
             left: 10,
@@ -135,7 +147,7 @@ class CartFood extends StatelessWidget {
                           Row(
                             children: [
                               InkWell(
-                                onTap: () => cartController.removeFoodCount(),
+                                onTap: () => cartController.removeFoodCount(index),
                                 child: Container(
                                   padding: EdgeInsets.all(5),
                                   decoration: BoxDecoration(
@@ -155,13 +167,15 @@ class CartFood extends StatelessWidget {
                                   right: 12,
                                 ),
                                 child: Obx(() => Text(
-                                    cartController.noOfItems.value.toString()
-                                    //       .toString(),, // value is an instance of Controller.
+                                      cartController.cartList[index]
+                                              ['foodCount']
+                                          .toString(),
+                                      //       .toString(),, // value is an instance of Controller.
                                     )),
                               ),
                               InkWell(
                                 onTap: () {
-                                  cartController.addFoodCount();
+                                  cartController.addFoodCount(index);
                                   cartController.updatePrice(
                                       cartController.cartList[index]['price']);
                                 },
