@@ -64,9 +64,9 @@ Future<void> main() async {
   await dotenv.load(fileName: ".env");
   String? token = await Storage.get('token');
   print(token);
-  if (token != null) {
+  if (token != "") {
     try {
-      String payload = token.split('.')[1];
+      String payload = token!.split('.')[1];
       tokenDecoded = jsonDecode(BaseSixtyFour.b64decode(payload));
     } catch (RangeError) {}
   }
@@ -87,7 +87,7 @@ class ByteBistro extends StatelessWidget {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
     ));
-    String initialRoute = '/addNotification';
+    String initialRoute = '/login';
     if (tokenDecoded['username'] != null) {
       initialRoute = '/home';
       if (tokenDecoded['isAdmin']) {
