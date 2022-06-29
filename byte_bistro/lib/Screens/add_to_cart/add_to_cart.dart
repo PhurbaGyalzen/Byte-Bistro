@@ -57,7 +57,7 @@ class _AddToCartState extends State<AddToCart> {
           backgroundColor: kPrimary,
           foregroundColor: kTextColor,
         ),
-        backgroundColor: kPrimary,
+        backgroundColor: Colors.white,
         body: SafeArea(
           child: SingleChildScrollView(
             child: Container(

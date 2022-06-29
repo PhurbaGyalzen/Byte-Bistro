@@ -26,7 +26,7 @@ class PaymentSummary extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          padding: EdgeInsets.only(bottom: 10, left: 8, right: 8),
+          padding: EdgeInsets.only(bottom: 10, left: 8, right: 8, top: 30),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

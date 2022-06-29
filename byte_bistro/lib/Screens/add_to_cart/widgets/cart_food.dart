@@ -15,180 +15,171 @@ class CartFood extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        margin: EdgeInsets.only(
-          top: 20,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.only(bottom: 10),
+          child: Text(
+            'Your Cart',
+            style: TextStyle(fontSize: 16),
+          ),
         ),
-        // height: MediaQuery.of(context).size.height,
-        height: 350,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: EdgeInsets.only(bottom: 10),
-              child: Text(
-                'Your Cart',
-                style: TextStyle(fontSize: 16),
+        Padding(
+          padding: EdgeInsets.only(bottom: 20),
+          child: Text(
+            'Food',
+            style: TextStyle(fontSize: 20, color: Colors.black),
+          ),
+        ),
+        Container(
+          padding: EdgeInsets.only(
+            left: 10,
+            right: 10,
+          ),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: kTextLightColor.withOpacity(0.05),
+            boxShadow: [
+              BoxShadow(
+                blurRadius: 5,
+                offset: Offset(0, 3), // changes position of shadow
+                color: Color(0xFFB0CCE1).withOpacity(0.02),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(bottom: 20),
-              child: Text(
-                'Food',
-                style: TextStyle(fontSize: 20, color: Colors.black),
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.only(
-                left: 10,
-                right: 10,
-              ),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: kTextLightColor.withOpacity(0.05),
-                boxShadow: [
-                  BoxShadow(
-                    blurRadius: 5,
-                    offset: Offset(0, 3), // changes position of shadow
-                    color: Color(0xFFB0CCE1).withOpacity(0.02),
-                  ),
-                ],
-              ),
-              child: ListView.builder(
-                shrinkWrap: true,
-                primary: false,
-                  itemCount: cartController.cartList.length,
-                  itemBuilder: (context, index) => Slidable(
-                        child: Container(
-                          padding: EdgeInsets.all(10),
-                          margin: EdgeInsets.only(
-                              top: 20, right: 0, bottom: 10, left: 0),
-                          decoration: BoxDecoration(
+            ],
+          ),
+          child: ListView.builder(
+            shrinkWrap: true,
+            primary: false,
+              itemCount: cartController.cartList.length,
+              itemBuilder: (context, index) => Slidable(
+                    child: Container(
+                      padding: EdgeInsets.all(10),
+                      margin: EdgeInsets.only(
+                          top: 20, right: 0, bottom: 10, left: 0),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            blurRadius: 5,
+                            offset: Offset(
+                                0, 3), // changes position of shadow
+                            color: Color(0xFFB0CCE1).withOpacity(0.32),
+                          ),
+                        ],
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          ClipRRect(
                             borderRadius: BorderRadius.circular(10),
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                blurRadius: 5,
-                                offset: Offset(
-                                    0, 3), // changes position of shadow
-                                color: Color(0xFFB0CCE1).withOpacity(0.32),
+                            child: CachedNetworkImage(
+                              placeholder: (context, url) => Image(
+                                  fit: BoxFit.cover,
+                                  image: AssetImage(
+                                    'assets/images/loading.gif',
+                                  )),
+                              errorWidget: (context, url, error) =>
+                                  Icon(Icons.error),
+                              fit: BoxFit.cover,
+                              height: 50,
+                              width: 50,
+                              imageUrl: PersistentHtpp.baseUrl +
+                                  cartController.cartList[index]['image'],
+                            ),
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                cartController.cartList[index]['name'],
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: kTextColor,
+                                  height: 1.5,
+                                ),
                               ),
                             ],
                           ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                          // Add and Remove Item
+                          Row(
                             children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: CachedNetworkImage(
-                                  placeholder: (context, url) => Image(
-                                      fit: BoxFit.cover,
-                                      image: AssetImage(
-                                        'assets/images/loading.gif',
-                                      )),
-                                  errorWidget: (context, url, error) =>
-                                      Icon(Icons.error),
-                                  fit: BoxFit.cover,
-                                  height: 50,
-                                  width: 50,
-                                  imageUrl: PersistentHtpp.baseUrl +
-                                      cartController.cartList[index]['image'],
+                              InkWell(
+                                onTap: () => cartController.removeFood(),
+                                child: Container(
+                                  padding: EdgeInsets.all(5),
+                                  decoration: BoxDecoration(
+                                      color: kPrimary.withOpacity(0.2),
+                                      borderRadius:
+                                          BorderRadius.circular(5)),
+                                  child: Image(
+                                    image: AssetImage(
+                                        'assets/images/minusBorder.png'),
+                                    height: 25,
+                                    width: 25,
+                                  ),
                                 ),
                               ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    cartController.cartList[index]['name'],
+                              Padding(
+                                padding: EdgeInsets.only(
+                                  left: 12,
+                                  right: 12,
+                                ),
+                                child: Obx(() => Text(cartController
+                                        .noOfItems.value
+                                        .toString()
+                                    //       .toString(),, // value is an instance of Controller.
+                                    )),
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  cartController.addFood();
+                                  cartController.updatePrice(
+                                      cartController.cartList[index]
+                                          ['price']);
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.all(5),
+                                  decoration: BoxDecoration(
+                                      color: kPrimary,
+                                      borderRadius:
+                                          BorderRadius.circular(5)),
+                                  child: Image(
+                                    image: AssetImage(
+                                        'assets/images/add.png'),
+                                    height: 25,
+                                    width: 25,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          GetBuilder<CartController>(
+                              // specify type as Controller
+                              init:
+                                  CartController(), // intialize with the Controller
+                              builder: (value) => Text(
+                                    (cartController.cartList[index]
+                                                ['price'] *
+                                            cartController
+                                                .foodQuantity.value)
+                                        .toString(),
                                     style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
                                       color: kTextColor,
                                       height: 1.5,
                                     ),
-                                  ),
-                                ],
+                                  )
+                              //       .toString(),, // value is an instance of Controller.
                               ),
-
-                              // Add and Remove Item
-                              Row(
-                                children: [
-                                  InkWell(
-                                    onTap: () => cartController.removeFood(),
-                                    child: Container(
-                                      padding: EdgeInsets.all(5),
-                                      decoration: BoxDecoration(
-                                          color: kPrimary.withOpacity(0.2),
-                                          borderRadius:
-                                              BorderRadius.circular(5)),
-                                      child: Image(
-                                        image: AssetImage(
-                                            'assets/images/minusBorder.png'),
-                                        height: 25,
-                                        width: 25,
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                      left: 12,
-                                      right: 12,
-                                    ),
-                                    child: Obx(() => Text(cartController
-                                            .noOfItems.value
-                                            .toString()
-                                        //       .toString(),, // value is an instance of Controller.
-                                        )),
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      cartController.addFood();
-                                      cartController.updatePrice(
-                                          cartController.cartList[index]
-                                              ['price']);
-                                    },
-                                    child: Container(
-                                      padding: EdgeInsets.all(5),
-                                      decoration: BoxDecoration(
-                                          color: kPrimary,
-                                          borderRadius:
-                                              BorderRadius.circular(5)),
-                                      child: Image(
-                                        image: AssetImage(
-                                            'assets/images/add.png'),
-                                        height: 25,
-                                        width: 25,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              GetBuilder<CartController>(
-                                  // specify type as Controller
-                                  init:
-                                      CartController(), // intialize with the Controller
-                                  builder: (value) => Text(
-                                        (cartController.cartList[index]
-                                                    ['price'] *
-                                                cartController
-                                                    .foodQuantity.value)
-                                            .toString(),
-                                        style: TextStyle(
-                                          color: kTextColor,
-                                          height: 1.5,
-                                        ),
-                                      )
-                                  //       .toString(),, // value is an instance of Controller.
-                                  ),
-                            ],
-                          ),
-                        ),
-                      )),
-            ),
-          ],
+                        ],
+                      ),
+                    ),
+                  )),
         ),
-      ),
+      ],
     );
   }
 }
