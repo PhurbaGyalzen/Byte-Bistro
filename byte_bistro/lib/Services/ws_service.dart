@@ -13,6 +13,7 @@ class WebSocketService {
   });
 
   static Future<bool> authenticate() async {
+    WebSocketService._connect();
     String? token = await Storage.get('token');
     if (token == null) {
       return false;
@@ -20,6 +21,14 @@ class WebSocketService {
     socket.emit('auth', [
       {'token': token}
     ]);
+    return true;
+  }
+
+  static bool _connect() {
+    if (socket.connected) {
+      return true;
+    }
+    socket.connect();
     return true;
   }
 }
