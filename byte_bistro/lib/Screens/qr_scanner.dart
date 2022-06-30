@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:byte_bistro/constants/colors.dart';
+import 'package:byte_bistro/controller/cart_controller.dart';
 import 'package:byte_bistro/main.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -18,6 +19,7 @@ class _QrScannerState extends State<QrScannerScreen> {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   Barcode? result;
   QRViewController? controller;
+  CartController cartController = Get.find();
 
   @override
   void reassemble() {
@@ -79,8 +81,9 @@ class _QrScannerState extends State<QrScannerScreen> {
           final table = data['tableNumber'].toString();
           // print('Table: $table');
           if (table != null) {
-            tableNo = int.parse(table);
-            Get.toNamed('/dataScreen', arguments: table);
+            cartController.tableNumber.value = int.parse(table);
+            Get.offAllNamed('/home');
+            // Get.toNamed('/home');
           }
         }
       });
