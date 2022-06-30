@@ -15,6 +15,8 @@ class PaymentSummary extends StatelessWidget {
   PaymentSummary({Key? key}) : super(key: key);
   CartController cartController = Get.find();
   var grandTotal = 0.0;
+  final LoggedUserInfoController userController = Get.find();
+  List items = [];
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +31,6 @@ class PaymentSummary extends StatelessWidget {
     };
 
     List cartList = cartController.cartList;
-    List items = [];
 
     var subTotal = 0;
     var tax = 0.13;
@@ -48,7 +49,6 @@ class PaymentSummary extends StatelessWidget {
     }
 
     grandTotal = (total * tax) + total;
-    final LoggedUserInfoController userController = Get.find();
 
     return Scaffold(
       appBar: AppBar(
@@ -449,8 +449,12 @@ class PaymentSummary extends StatelessWidget {
     try {
       if (cartController.tableNumber.value != 0) {
         final res = await _esewaPnp.initPayment(payment: _payment);
-        // print(_res);
         if (res.status == "COMPLETE") {
+          cartController.addCart({
+            "userId": userController.userInfo[0].id.toString(),
+            "items": items,
+            "tableId": cartController.tableNumber.toInt(),
+          });
           cartController.cartList.value = [];
           Get.snackbar(
             "Order Sucessfully Placed",

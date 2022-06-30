@@ -19,6 +19,6 @@ router.patch('/', addRemoveItem)
 router.put('/', updateCart)
 router.get('/user', userCart)
 router.delete('/:cartId', deleteCart)
-router.get('/:cartId', getCart)
+router.get('/user/:userId', userCart)
 
 export default router
