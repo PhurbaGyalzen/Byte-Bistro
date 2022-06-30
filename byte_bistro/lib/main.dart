@@ -66,9 +66,9 @@ Future<void> main() async {
   await dotenv.load(fileName: ".env");
   String? token = await Storage.get('token');
   print(token);
-  if (token != "") {
+  if (token != "" && token != null) {
     try {
-      String payload = token!.split('.')[1];
+      String payload = token.split('.')[1];
       tokenDecoded = jsonDecode(BaseSixtyFour.b64decode(payload));
     } catch (RangeError) {}
   }
@@ -189,7 +189,6 @@ class ByteBistro extends StatelessWidget {
         GetPage(name: '/onBoardingScreen', page: () => OnBoardingScreen()),
         GetPage(name: '/userProfilePage', page: () => UserProfilePage()),
         GetPage(name: '/updateFood', page: () => UpdateFood()),
-        GetPage(name: '/userFoodDetail', page: () => UserFoodDetail()),
         GetPage(name: '/userFoodDetail', page: () => UserFoodDetail()),
         GetPage(name: '/profileScreen', page: () => ProfileScreen()),
         GetPage(name: '/licenseSection', page: () => LicenseSection()),

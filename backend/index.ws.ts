@@ -98,7 +98,6 @@ const initWebSocket = (app: Express) => {
 			}
 		})
 
-		// emtted by admin
 		socket.on('order_status_change', async (data, callback) => {
 			console.log('admin: requested order status change')
 			if (!currUser) {
