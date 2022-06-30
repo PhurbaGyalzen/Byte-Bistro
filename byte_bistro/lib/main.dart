@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:byte_bistro/Screens/add_to_cart/add_to_cart.dart';
+import 'package:byte_bistro/Screens/add_to_cart/empty_cart.dart';
 import 'package:byte_bistro/Screens/admin/widgets/add_food.dart';
 import 'package:byte_bistro/Screens/admin/widgets/add_notification.dart';
 import 'package:byte_bistro/Screens/admin/widgets/admin_food_detail.dart';
@@ -178,6 +179,7 @@ class ByteBistro extends StatelessWidget {
         GetPage(name: '/dataScreen', page: () => QrDataScreen()),
         GetPage(name: '/swipeHome', page: () => SwipeHome()),
         GetPage(name: '/addToCart', page: () => AddToCart()),
+        GetPage(name: '/emptyCart', page: () => EmptyCart()),
         GetPage(name: '/notification', page: () => NotificationPage()),
         GetPage(name: '/addNotification', page: () => AddNotification()),
         GetPage(name: '/adminNotification', page: () => AdminNotification()),

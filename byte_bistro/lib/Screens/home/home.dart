@@ -175,7 +175,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       InkWell(
                         onTap: () {
-                          Get.offNamed('/addToCart');
+                          if (cartController.cartList.isEmpty) {
+                            Get.offNamed("/emptyCart");
+                          } else {
+                            Get.offNamed('/addToCart');
+                          }
                         },
                         child: Badge(
                           child: Icon(Icons.shopping_cart_outlined,
