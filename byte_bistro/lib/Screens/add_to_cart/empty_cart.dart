@@ -23,6 +23,15 @@ class EmptyCart extends StatelessWidget {
         backgroundColor: kPrimary,
         foregroundColor: kTextColor,
       ),
-      body: Center(child: Text('The cart is empty 😢')));
+      body: Center(child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children:const  [
+          Image(image: AssetImage('assets/images/trolley.png', ), height: 150,),
+          Padding(
+            padding: EdgeInsets.only(top: 8.0),
+            child: Text('Cart is empty. Please add some food.', style: TextStyle(fontSize: 20, letterSpacing: 0.2),),
+          ),
+        ],
+      )));
   }
 }
