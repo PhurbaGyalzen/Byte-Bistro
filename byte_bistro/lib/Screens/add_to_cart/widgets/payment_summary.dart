@@ -12,12 +12,14 @@ import '../../../Services/http_service.dart';
 import '../../../constants/colors.dart';
 
 class PaymentSummary extends StatelessWidget {
-  const PaymentSummary({Key? key}) : super(key: key);
+  PaymentSummary({Key? key}) : super(key: key);
+  CartController cartController = Get.find();
+  var grandTotal = 0.0;
 
   @override
   Widget build(BuildContext context) {
     var product = {
-      "cartId": "98023gjhfsdfn",
+      "cartId": "98023gjhfssadfdfnyff",
       "items": [
         {"foodId": "yqhediufhw", "qty": 7},
         {"foodId": "yqhediufhw", "qty": 7}
@@ -26,7 +28,6 @@ class PaymentSummary extends StatelessWidget {
       "promoCode": ""
     };
 
-    CartController cartController = Get.find();
     List cartList = cartController.cartList;
     List items = [];
 
@@ -46,7 +47,7 @@ class PaymentSummary extends StatelessWidget {
       items.add(item);
     }
 
-    double grandTotal = (total * tax) + total;
+    grandTotal = (total * tax) + total;
     final LoggedUserInfoController userController = Get.find();
 
     return Scaffold(
@@ -309,24 +310,38 @@ class PaymentSummary extends StatelessWidget {
                         )),
                     InkWell(
                       onTap: () {
-                        var response = cartController.addCart({
-                          "userId": userController.userInfo[0].id.toString(),
-                          "items": items,
-                          "tableId": 1,
-                        });
-                        cartController.cartList.value = [];
-                        Get.snackbar(
-                          "Order Sucessfully Placed",
-                          "Please wait for the order to be ready",
-                          icon: Icon(Icons.check, color: Colors.white),
-                          duration: Duration(seconds: 3),
-                          backgroundColor: Colors.green,
-                          colorText: Colors.white,
-                          animationDuration: Duration(seconds: 1),
-                          dismissDirection: DismissDirection.horizontal,
-                          snackPosition: SnackPosition.TOP,
-                        );
-                        Get.offNamed("/home");
+                        if (cartController.tableNumber.value != 0) {
+                          cartController.addCart({
+                            "userId": userController.userInfo[0].id.toString(),
+                            "items": items,
+                            "tableId": 1,
+                          });
+                          cartController.cartList.value = [];
+                          Get.snackbar(
+                            "Order Sucessfully Placed",
+                            "Please wait for the order to be ready",
+                            icon: Icon(Icons.check, color: Colors.white),
+                            duration: Duration(seconds: 3),
+                            backgroundColor: Colors.green,
+                            colorText: Colors.white,
+                            animationDuration: Duration(seconds: 3),
+                            dismissDirection: DismissDirection.horizontal,
+                            snackPosition: SnackPosition.TOP,
+                          );
+                          Get.offNamed("/home");
+                        } else {
+                          Get.snackbar(
+                            "Opps Table not Selected",
+                            "Please Scan the QR code",
+                            icon: Icon(Icons.error, color: Colors.white),
+                            duration: Duration(seconds: 3),
+                            backgroundColor: Colors.red,
+                            colorText: Colors.white,
+                            animationDuration: Duration(seconds: 1),
+                            dismissDirection: DismissDirection.horizontal,
+                            snackPosition: SnackPosition.TOP,
+                          );
+                        }
                       },
                       child: Container(
                         padding: EdgeInsets.only(
@@ -415,7 +430,7 @@ class PaymentSummary extends StatelessWidget {
     );
   }
 
-  _initPayment(Map<String, dynamic> product) {
+  _initPayment(Map<String, dynamic> product) async {
     // _initPayment(String product) {
     ESewaConfiguration esewaConfiguration = ESewaConfiguration(
         clientID: "JB0BBQ4aD0UqIThFJwAKBgAXEUkEGQUBBAwdOgABHD4DChwUAB0R",
@@ -425,15 +440,59 @@ class PaymentSummary extends StatelessWidget {
     ESewaPnp _esewaPnp = ESewaPnp(configuration: esewaConfiguration);
 
     ESewaPayment _payment = ESewaPayment(
-        amount: product['total'],
+        amount: grandTotal,
         productName: "table Number",
         productID: product['cartId'],
         callBackURL: "http://100.102.33.101:3000/cart/");
 
     try {
-      final _res = _esewaPnp.initPayment(payment: _payment);
-      // print(_res);
+      if (cartController.tableNumber.value != 0) {
+        final res = await _esewaPnp.initPayment(payment: _payment);
+        // print(_res);
+        if (res.status == "COMPLETE") {
+          cartController.cartList.value = [];
+          Get.snackbar(
+            "Order Sucessfully Placed",
+            "Please wait for the order to be ready",
+            icon: Icon(Icons.check, color: Colors.white),
+            duration: Duration(seconds: 3),
+            backgroundColor: Colors.green,
+            colorText: Colors.white,
+            animationDuration: Duration(seconds: 1),
+            dismissDirection: DismissDirection.horizontal,
+            snackPosition: SnackPosition.TOP,
+          );
+          Get.offNamed("/home");
+        } else {
+          Get.snackbar(
+            "Opps Something went wrong",
+            "Please try again",
+            icon: Icon(Icons.error, color: Colors.white),
+            duration: Duration(seconds: 3),
+            backgroundColor: Colors.red,
+            colorText: Colors.white,
+            animationDuration: Duration(seconds: 1),
+            dismissDirection: DismissDirection.horizontal,
+            snackPosition: SnackPosition.TOP,
+          );
+        }
+      } else {
+        Get.snackbar(
+          "Opps Table not Selected",
+          "Please Scan the QR code",
+          icon: Icon(Icons.error, color: Colors.white),
+          duration: Duration(seconds: 3),
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+          animationDuration: Duration(seconds: 1),
+          dismissDirection: DismissDirection.horizontal,
+          snackPosition: SnackPosition.TOP,
+        );
+        Get.offNamed('qrscan');
+      }
+
       // Handle success
+
     } on ESewaPaymentException catch (e) {
       // Handle error
       // print(e.message);

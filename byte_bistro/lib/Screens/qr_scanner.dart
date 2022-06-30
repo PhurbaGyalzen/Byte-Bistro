@@ -71,22 +71,34 @@ class _QrScannerState extends State<QrScannerScreen> {
   }
 
   void _onQRViewCreated(QRViewController controller) {
-    this.controller = controller;
+    setState(() {
+      this.controller = controller;
+    });
     controller.scannedDataStream.listen((scanData) {
       setState(() {
         result = scanData;
-        if (result != null) {
-          final data = json.decode(result!.code ?? '{}');
-          // print(data);
-          final table = data['tableNumber'].toString();
-          // print('Table: $table');
-          if (table != null) {
-            cartController.tableNumber.value = int.parse(table);
-            Get.offAllNamed('/home');
-            // Get.toNamed('/home');
-          }
-        }
       });
+      if (result != null) {
+        final data = json.decode(result!.code ?? '{}');
+        // print(data);
+        final table = data['tableNumber'].toString();
+        // print('Table: $table');
+
+        controller.dispose();
+        Get.offAllNamed('/home');
+        cartController.tableNumber.value = int.parse(table);
+        Get.snackbar(
+          "Table Scanned Sucessfully",
+          "Your Table Number is: $table",
+          icon: Icon(Icons.error, color: Colors.white),
+          duration: Duration(seconds: 3),
+          backgroundColor: Colors.green,
+          colorText: Colors.white,
+          animationDuration: Duration(seconds: 1),
+          dismissDirection: DismissDirection.horizontal,
+          snackPosition: SnackPosition.TOP,
+        );
+      }
     });
   }
 
