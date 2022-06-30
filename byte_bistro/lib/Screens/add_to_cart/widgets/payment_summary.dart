@@ -46,8 +46,6 @@ class PaymentSummary extends StatelessWidget {
       items.add(item);
     }
 
-    print(items);
-
     double grandTotal = (total * tax) + total;
     final LoggedUserInfoController userController = Get.find();
 
@@ -311,11 +309,24 @@ class PaymentSummary extends StatelessWidget {
                         )),
                     InkWell(
                       onTap: () {
-                        cartController.addCart({
-                          "userId": "${userController.userInfo[0].id}",
+                        var response = cartController.addCart({
+                          "userId": userController.userInfo[0].id.toString(),
                           "items": items,
                           "tableId": 1,
                         });
+                        cartController.cartList.value = [];
+                        Get.snackbar(
+                          "Order Sucessfully Placed",
+                          "Please wait for the order to be ready",
+                          icon: Icon(Icons.check, color: Colors.white),
+                          duration: Duration(seconds: 3),
+                          backgroundColor: Colors.green,
+                          colorText: Colors.white,
+                          animationDuration: Duration(seconds: 1),
+                          dismissDirection: DismissDirection.horizontal,
+                          snackPosition: SnackPosition.TOP,
+                        );
+                        Get.offNamed("/home");
                       },
                       child: Container(
                         padding: EdgeInsets.only(

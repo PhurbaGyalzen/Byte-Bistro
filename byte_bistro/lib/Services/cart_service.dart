@@ -66,7 +66,7 @@ class CartService {
       );
       if (response.statusCode == 200) {
         return 'success';
-      }
+      } 
     } catch (err) {
       return Future.error(' err');
     }
