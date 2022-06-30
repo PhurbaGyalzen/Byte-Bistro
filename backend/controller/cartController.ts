@@ -30,7 +30,7 @@ export const userCart = async (
 	next: NextFunction
 ) => {
 	try {
-		const cart = await Cart.findOne({ userId: req.params.userId }).populate({
+		const cart = await Cart.find({ userId: req.params.userId }).populate({
 			path: 'items.foodId',
 			select: 'name price image isAvailable',
 		})
