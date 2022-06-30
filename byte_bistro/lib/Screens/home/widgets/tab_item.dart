@@ -213,6 +213,7 @@ class _TabItemDetailState extends State<TabItemDetail> {
                                     onTap: () {
                                       var cartData = {
                                         "index": index,
+                                        "foodId": data[index].id,
                                         "name": data[index].name,
                                         "price": data[index].price,
                                         "description": data[index].description,

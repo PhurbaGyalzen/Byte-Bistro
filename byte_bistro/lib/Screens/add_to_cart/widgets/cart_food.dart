@@ -1,4 +1,6 @@
 // CartFood
+import 'dart:ui';
+
 import 'package:byte_bistro/Services/http_service.dart';
 import 'package:byte_bistro/controller/cart_controller.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -31,17 +33,6 @@ class CartFood extends StatelessWidget {
             style: TextStyle(fontSize: 20, color: Colors.black),
           ),
         ),
-        // OutlinedButton(
-        //     onPressed: () {
-        //       cartController.removeAllItemFromList();
-        //     },
-        //     child: Text(
-        //       'Remove All',
-        //       style: TextStyle(fontWeight: FontWeight.w300, letterSpacing: 0.5),
-        //     )),
-        // SizedBox(
-        //   height: 10,
-        // ),
         Container(
           padding: EdgeInsets.only(
             left: 10,
@@ -127,6 +118,13 @@ class CartFood extends StatelessWidget {
                                   height: 1.5,
                                 ),
                               ),
+                              Text(
+                                ("Rs ${cartController.cartList[index]['price'].toString()}"),
+                                style: TextStyle(
+                                  color: kTextColor,
+                                  height: 1.5,
+                                ),
+                              ),
                             ],
                           ),
 
@@ -155,11 +153,8 @@ class CartFood extends StatelessWidget {
                                   right: 12,
                                 ),
                                 child: Obx(() => Text(cartController
-                                        .cartList[index]['foodCount']
-                                        .toString()
-                                    // .toString() ,
-                                    //       .toString(),, // value is an instance of Controller.
-                                    )),
+                                    .cartList[index]['foodCount']
+                                    .toString())),
                               ),
                               InkWell(
                                 onTap: () {
@@ -182,21 +177,27 @@ class CartFood extends StatelessWidget {
                             ],
                           ),
                           // specify type as Controller
-                          Obx(
-                            () => Text(
-                              (cartController.cartList[index]['price']
-                                  .toString()),
-                              style: TextStyle(
-                                color: kTextColor,
-                                height: 1.5,
-                              ),
-                            ),
-                          )
+
                           //       .toString(),, // value is an instance of Controller.
                         ],
                       ),
                     ),
                   )),
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        ElevatedButton(
+          onPressed: () {
+            Get.toNamed('/paymentSummary');
+          },
+          child: Text(
+            'Proceed',
+            style: TextStyle(color: Colors.black),
+          ),
+          style: ElevatedButton.styleFrom(
+            primary: kPrimary,
+          ),
         ),
       ],
     );

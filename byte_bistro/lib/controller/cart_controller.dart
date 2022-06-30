@@ -79,14 +79,15 @@ class CartController extends GetxController {
     return response;
   }
 
+// to update food price
   updatePrice(int index) {
-  //   var foodPrice = cartList[index]['price'];
-  //   cartList[index]['price'] = foodPrice * cartList[index]['foodCount'];
-  //   cartList.refresh();
-
-  
-
-
+    var price = cartList[index]['price'];
+    cartList[index]['price'] =
+        cartList[index]['price'] * cartList[index]['foodCount'];
+    foodPrice.value = cartList[index]['price'];
+    cartList[index]['price'] = price;
+    print(foodPrice.value);
+    cartList.refresh();
   }
 
   getSingleCart(String cartId) async {

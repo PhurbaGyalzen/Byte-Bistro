@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:byte_bistro/Screens/add_to_cart/add_to_cart.dart';
 import 'package:byte_bistro/Screens/add_to_cart/empty_cart.dart';
+import 'package:byte_bistro/Screens/add_to_cart/widgets/payment_summary.dart';
 import 'package:byte_bistro/Screens/admin/widgets/add_food.dart';
 import 'package:byte_bistro/Screens/admin/widgets/add_notification.dart';
 import 'package:byte_bistro/Screens/admin/widgets/admin_food_detail.dart';
@@ -196,6 +197,7 @@ class ByteBistro extends StatelessWidget {
         GetPage(name: '/privacyPolicy', page: () => PrivacyPolicy()),
         GetPage(name: '/faq', page: () => Faq()),
         GetPage(name: '/contactUs', page: () => ContactUs()),
+        GetPage(name: '/paymentSummary', page: () => PaymentSummary()),
       ],
     );
   }
