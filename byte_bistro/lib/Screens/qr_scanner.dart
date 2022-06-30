@@ -85,8 +85,8 @@ class _QrScannerState extends State<QrScannerScreen> {
         // print('Table: $table');
 
         controller.dispose();
-        Get.offAllNamed('/home');
         cartController.tableNumber.value = int.parse(table);
+        cartController.cartList.isEmpty ? Get.offAllNamed('/home'): Get.toNamed("/paymentSummary");
         Get.snackbar(
           "Table Scanned Sucessfully",
           "Your Table Number is: $table",
