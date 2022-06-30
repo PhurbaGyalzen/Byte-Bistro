@@ -239,28 +239,11 @@ class PaymentSummary extends StatelessWidget {
                     SizedBox(
                       height: 10,
                     ),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //   children: [
-                    //     Text(
-                    //       'Sub Total',
-                    //       style: TextStyle(
-                    //         fontWeight: FontWeight.bold,
-                    //         color: kTextColor,
-                    //         height: 1.5,
-                    //       ),
-                    //     ),
-                    //     Text("Rs ${subTotal.toString()}"),
-                    //   ],
-                    // ),
-                    // SizedBox(
-                    //   height: 10,
-                    // ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: const [
                         Text(
-                          'Tax',
+                          'VAT',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: kTextColor,
