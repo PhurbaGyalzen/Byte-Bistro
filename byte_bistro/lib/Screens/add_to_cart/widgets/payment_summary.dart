@@ -38,7 +38,7 @@ class PaymentSummary extends StatelessWidget {
       total += subTotal;
     }
 
-    total = (total * tax) + total;
+    double grandTotal = (total * tax) + total;
 
     return Scaffold(
       appBar: AppBar(
@@ -277,7 +277,7 @@ class PaymentSummary extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Total',
+                          'Net Total',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: kTextColor,
@@ -285,6 +285,23 @@ class PaymentSummary extends StatelessWidget {
                           ),
                         ),
                         Text(total.toString()),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Grand Total',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: kTextColor,
+                            height: 1.5,
+                          ),
+                        ),
+                        Text(grandTotal.toString()),
                       ],
                     ),
                     SizedBox(
