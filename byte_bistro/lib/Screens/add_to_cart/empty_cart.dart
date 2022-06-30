@@ -10,6 +10,7 @@ class EmptyCart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold( 
+      backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0,
         title: Text(
@@ -26,10 +27,10 @@ class EmptyCart extends StatelessWidget {
       body: Center(child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children:const  [
-          Image(image: AssetImage('assets/images/trolley.png', ), height: 150,),
+          Image(image: AssetImage('assets/images/emptycart.gif', ), height: 350,),
           Padding(
-            padding: EdgeInsets.only(top: 8.0),
-            child: Text('Cart is empty. Please add some food.', style: TextStyle(fontSize: 20, letterSpacing: 0.2),),
+            padding: EdgeInsets.only(top: 20.0),
+            child: Text('Cart is empty. \n Please add some food.', textAlign: TextAlign.center, style: TextStyle(fontSize: 20, letterSpacing: 0.4, wordSpacing: 2, height: 1.5, fontWeight: FontWeight.w600,),),
           ),
         ],
       )));
