@@ -1,5 +1,6 @@
 import 'package:byte_bistro/Screens/notification/admin_notification_data.dart';
 import 'package:byte_bistro/constants/colors.dart';
+import 'package:byte_bistro/controller/logged_user_info_controller.dart';
 import 'package:byte_bistro/controller/notification_controller.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -15,13 +16,19 @@ class NotificationOffer extends StatefulWidget {
 
 class _NotificationOfferState extends State<NotificationOffer> {
   NotificationController notificationController = Get.find();
+  LoggedUserInfoController loggedUserInfoController = Get.find();
+  var loggedUserInfo;
+  @override
+  void initState() {
+    super.initState();
+    loggedUserInfo = loggedUserInfoController.userInfo.value;
+  }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: FutureBuilder(
-          future: notificationController
-              .getUserNotification("627fbfa1d464ffbeb80b985b"),
+          future: notificationController.getUserNotification(loggedUserInfo.id),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               List<Notificationl> notificationData =

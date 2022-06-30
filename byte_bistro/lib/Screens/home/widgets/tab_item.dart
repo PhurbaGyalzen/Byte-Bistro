@@ -42,7 +42,7 @@ class _TabItemDetailState extends State<TabItemDetail> {
 
   Future getFavourite() async {
     List<Favourite> response =
-        await favouriteController.getUserFavourites("627fbfa1d464ffbeb80b985b");
+        await favouriteController.getUserFavourites(loggedUser.id);
     setState(() {
       favouriteList = response[0].userId.favoriteFoods;
     });
