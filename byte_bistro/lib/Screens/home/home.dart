@@ -184,14 +184,18 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Badge(
                           child: Icon(Icons.shopping_cart_outlined,
                               size: 25, color: Colors.black87),
-                          position: BadgePosition.topEnd(top: -8, end: -15),
+                          position: cartController.cartList.length > 9 ? BadgePosition.topEnd(top: -8, end: -15): BadgePosition.topEnd(top: -8, end: -10),
                           badgeColor: kPrimary,
                           elevation: 0,
                           badgeContent: Obx(
-                            () => Text(cartController.cartList.length
+                            () => 
+                            cartController.cartList.length > 9 ?
+                            Text(cartController.cartList.length
                                 .toString()
-                                .padLeft(2, "0")),
-                          ),
+                                .padLeft(2, "0"))
+                          : Text(cartController.cartList.length
+                                .toString()
+                                .padLeft(1, "0")),)
                         ),
                       ),
                       SizedBox(

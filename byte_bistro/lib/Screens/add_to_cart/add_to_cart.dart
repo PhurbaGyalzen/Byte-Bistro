@@ -33,27 +33,27 @@ class _AddToCartState extends State<AddToCart> {
             icon: Icon(Icons.arrow_back),
             onPressed: () => Get.offNamed('/home'),
           ),
-          actions: [
-            Badge(
-              padding: EdgeInsets.all(6),
-              child: IconButton(
-                icon: Icon(Icons.shopping_cart_outlined, size: 30),
-                onPressed: () => Get.offNamed('/home'),
-              ),
-              position: BadgePosition.topEnd(top: 5, end: -5),
-              badgeColor: Colors.black,
-              elevation: 0,
-              badgeContent: Obx(
-                () => Text(
-                  cartController.cartList.length.toString().padLeft(2, "0"),
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-            ),
-            SizedBox(
-              width: 10,
-            )
-          ],
+          // actions: [
+          //   Badge(
+          //     padding: EdgeInsets.all(6),
+          //     child: IconButton(
+          //       icon: Icon(Icons.shopping_cart_outlined, size: 30),
+          //       onPressed: () => Get.offNamed('/home'),
+          //     ),
+          //     position: BadgePosition.topEnd(top: 5, end: -5),
+          //     badgeColor: Colors.black,
+          //     elevation: 0,
+          //     badgeContent: Obx(
+          //       () => Text(
+          //         cartController.cartList.length.toString().padLeft(2, "0"),
+          //         style: TextStyle(color: Colors.white),
+          //       ),
+          //     ),
+          //   ),
+          //   SizedBox(
+          //     width: 10,
+          //   )
+          // ],
           backgroundColor: kPrimary,
           foregroundColor: kTextColor,
         ),
