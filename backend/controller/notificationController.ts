@@ -97,9 +97,12 @@ export const putOfferNotification = async (
     res: Response,
     next: NextFunction
 ) => {
-    const { title, message,image  } = req.body
+    const { title, message  } = req.body
     const imageFileName = req.file?.filename;
+    console.log(imageFileName);
+    console.log(req.file?.path);
     const imageFileUrl = `images/${imageFileName}`;
+
     try {
 
         const notification = new Notification({

@@ -40,7 +40,7 @@ const NotificationSchemaFields: Record<keyof INotification, any> = {
     },
     image:{
         type: String,
-        required: false,
+        required: true,
     },
     createdAt: {
         type: Date,
