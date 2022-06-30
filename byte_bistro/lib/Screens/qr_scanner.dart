@@ -118,7 +118,7 @@ class _QrScannerState extends State<QrScannerScreen> {
                         color: snapshot.data! ? kPrimary : Colors.white,
                       );
                     } else {
-                      return Container();
+                      return Icon(Icons.flash_off, color: Colors.white);
                     }
                   },
                   future: controller?.getFlashStatus(),
@@ -136,7 +136,10 @@ class _QrScannerState extends State<QrScannerScreen> {
                         color: Colors.white,
                       );
                     } else {
-                      return Container();
+                      return Icon(
+                        Icons.switch_camera,
+                        color: Colors.white,
+                      );
                     }
                   },
                   future: controller?.getCameraInfo(),
