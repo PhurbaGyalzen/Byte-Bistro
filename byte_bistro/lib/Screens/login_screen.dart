@@ -55,14 +55,8 @@ class _LoginScreenState extends State<LoginScreen> {
       print(response);
       if (response != null) {
         await PersistentHtpp.storeAndSetHeader(token: response.token);
-        if (response.isAdmin == true) {
-          prefs.setString("token", response.token);
-          Get.offNamed('/adminScreen');
-        } else if (response.isAdmin == false) {
-          prefs.setString("token", response.token);
-          // Get.offNamed('/onBoardingScreen');
-          Get.offNamed('/home');
-        }
+        prefs.setString("token", response.token);
+        Get.offNamed('/home');
       } else {
         Get.snackbar(
           "Couldn't get response",

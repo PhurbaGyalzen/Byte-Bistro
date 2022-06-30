@@ -47,6 +47,7 @@ class _UpdateFoodState extends State<UpdateFood> {
 
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         title: Text(
           'Update Food',
           style: Theme.of(context).textTheme.headline1,
@@ -115,10 +116,7 @@ class _UpdateFoodState extends State<UpdateFood> {
                               print('the food is $foodId');
                               String response = await foodController.updateFood(
                                   foodId, dataInfo);
-                              final snackbarSucess = SnackBar(
-                                  content: Text('Food updated sucessfully'));
-                              final snackbarFail = SnackBar(
-                                  content: Text('Food updation failed'));
+                
 
                               if (response == "success") {
                                 Navigator.pushNamed(context, '/adminScreen')
@@ -129,14 +127,34 @@ class _UpdateFoodState extends State<UpdateFood> {
                                   });
                                 });
 
-                                snackbarSucess;
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(snackbarSucess);
+                                Get.snackbar(
+                                  "Success",
+                                  "Food Updated Successfully",
+                                  icon: Icon(Icons.check,
+                                      color: Colors.white),
+                                  duration: Duration(seconds: 3),
+                                  backgroundColor: Colors.green,
+                                  colorText: Colors.white,
+                                  animationDuration: Duration(seconds: 1),
+                                  dismissDirection: DismissDirection.horizontal,
+                                  snackPosition: SnackPosition.TOP,
+                                );
+                      
                                 foodController.getAllFood();
                               } else {
-                                snackbarFail;
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(snackbarSucess);
+                                Get.snackbar(
+                                  "Error",
+                                  "Food Update Failed",
+                                  icon: Icon(Icons.warning,
+                                      color: Colors.white),
+                                  duration: Duration(seconds: 3),
+                                  backgroundColor: Colors.red,
+                                  colorText: Colors.white,
+                                  animationDuration: Duration(seconds: 1),
+                                  dismissDirection: DismissDirection.horizontal,
+                                  snackPosition: SnackPosition.TOP,
+                                );
+                                
                               }
                             }
                           },

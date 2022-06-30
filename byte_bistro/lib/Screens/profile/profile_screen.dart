@@ -1,11 +1,14 @@
 import 'dart:convert';
 
+import 'package:byte_bistro/Screens/google_signin_api.dart';
+import 'package:byte_bistro/Screens/terms_and_conditions.dart';
 import 'package:byte_bistro/Services/http_service.dart';
 import 'package:byte_bistro/Services/storage_service.dart';
 import 'package:byte_bistro/controller/logged_user_info_controller.dart';
 import 'package:byte_bistro/models/loged_user_info.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../constants/colors.dart';
 
@@ -94,8 +97,8 @@ class ProfileNote extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     radius: 30,
-                    backgroundImage: NetworkImage( PersistentHtpp.baseUrl
-                      + data!.profile,
+                    backgroundImage: NetworkImage(
+                      PersistentHtpp.baseUrl + data!.profile,
                     ),
                   ),
                   SizedBox(
@@ -137,8 +140,19 @@ class ProfileNote extends StatelessWidget {
                 ],
               );
             } else {
-              return Center(
-                child: CircularProgressIndicator(),
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: const [
+                  Padding(
+                    padding: EdgeInsets.only(left: 10.0),
+                    child: Image(
+                        fit: BoxFit.cover,
+                        height: 60,
+                        image: AssetImage(
+                          'assets/images/profile_shimmer.gif',
+                        )),
+                  ),
+                ],
               );
             }
           },
@@ -192,15 +206,40 @@ class ProfileSystem extends StatelessWidget {
               text: 'Change Password',
               onClick: () => Get.toNamed('/changePassword'),
             ),
+            // ProfileListTile(
+            //   imageLeading: 'assets/images/help.png',
+            //   imageTrailing: 'assets/images/next.png',
+            //   text: 'Help',
+            // ),
             ProfileListTile(
-              imageLeading: 'assets/images/help.png',
-              imageTrailing: 'assets/images/next.png',
-              text: 'Help',
-            ),
-            ProfileListTile(
+              onClick: () => Get.toNamed('/termsAndConditions'),
               imageLeading: 'assets/images/accept.png',
               imageTrailing: 'assets/images/next.png',
               text: 'Terms & Conditions',
+            ),
+            ProfileListTile(
+              onClick: () => Get.toNamed('/licenseSection'),
+              imageLeading: 'assets/images/stamp.png',
+              imageTrailing: 'assets/images/next.png',
+              text: 'License',
+            ),
+            ProfileListTile(
+              onClick: () => Get.toNamed('/privacyPolicy'),
+              imageLeading: 'assets/images/privacy.png',
+              imageTrailing: 'assets/images/next.png',
+              text: 'Privacy Policy',
+            ),
+            ProfileListTile(
+              onClick: () => Get.toNamed('/faq'),
+              imageLeading: 'assets/images/help.png',
+              imageTrailing: 'assets/images/next.png',
+              text: 'FAQ',
+            ),
+            ProfileListTile(
+              onClick: () => Get.toNamed('/contactUs'),
+              imageLeading: 'assets/images/telephone.png',
+              imageTrailing: 'assets/images/next.png',
+              text: 'Contact Us',
             ),
             ProfileListTile(
                 imageLeading: 'assets/images/logout.png',
@@ -212,6 +251,9 @@ class ProfileSystem extends StatelessWidget {
                   // await Storage.setObject('token-val', {'value1': 1});
                   // print('token-val');
                   // print(await Storage.getObject('token-val'));
+
+                  GoogleSignInApi.logout();
+
                   await Storage.remove('token');
                   await PersistentHtpp.storeAndSetHeader(token: '');
                   Get.offAllNamed('/login');

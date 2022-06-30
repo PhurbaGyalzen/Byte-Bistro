@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:byte_bistro/Services/http_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:http/http.dart' as http;
 import '../models/change_password.dart';
 
 class ChangePasswordService {
@@ -31,5 +31,9 @@ class ChangePasswordService {
     }
   }
 
- 
+  static Future<Map<String, dynamic>> setNewPassword(String password) async {
+    http.Response response = await PersistentHtpp.post('auth/setNewPassword',
+        body: jsonEncode({'newPassword': password}));
+    return jsonDecode(response.body);
+  }
 }

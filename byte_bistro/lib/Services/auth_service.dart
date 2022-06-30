@@ -23,11 +23,39 @@ class AuthService {
     }
   }
 
+  static Future signup(
+      String username, String password, String email, String fullname) async {
+    String endpoint = PersistentHtpp.baseUrl + 'auth/signup';
+    var response = await PersistentHtpp.client.post(Uri.parse(endpoint), body: {
+      'username': username,
+      'password': password,
+      'email': email,
+      "fullname": fullname
+    });
+    if (response.statusCode == 201) {
+      var json = jsonDecode(response.body);
+      print(json);
+      return "User Registered Successfully";
+    } else {
+      return null;
+    }
+  }
+
   static Future<Map<String, dynamic>> resetPassword(String email) async {
-    http.Response response = await PersistentHtpp.post('auth/resetPassword');
+    http.Response response = await PersistentHtpp.post('auth/resetPassword',
+        body: jsonEncode({'email': email}));
     Map<String, dynamic> data = jsonDecode(response.body);
     return data;
-  } 
+  }
+
+  static Future<Map<String, dynamic>> verifyResetPassword(
+      String email, String otp) async {
+    http.Response response = await PersistentHtpp.post(
+        'auth/verifyResetPassword',
+        body: jsonEncode({'email': email, 'otp': otp}));
+    Map<String, dynamic> data = jsonDecode(response.body);
+    return data;
+  }
 
   static Future<LoginResponse?> googleAuth(
       String username, String googleId, String fullname, String email) async {

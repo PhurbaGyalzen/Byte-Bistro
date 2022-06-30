@@ -88,16 +88,15 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                   child: ElevatedButton(
                     onPressed: () async {
                       String email = emailController.text.trim();
-                      print('email is $email');
                       Map<String, dynamic> data =
                           await AuthService.resetPassword(email);
                       if (data['success']) {
-                        print(data);
                         // get snackbar
                         Get.toNamed('/verify_reset_password',
                             arguments: <String, dynamic>{
                               'email': email,
-                              'otpTimeout': data['otpTimeoutMins']
+                              'otpTimeout': data['otpTimeoutMins'],
+                              'otpLength': data['otpLength']
                             });
                       }
                     },

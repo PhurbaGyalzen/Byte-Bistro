@@ -26,7 +26,8 @@ class _AdminOrdersState extends State<AdminOrders> {
     // print('initstate');
     // print(WebSocketService.origin);
     // should connect again?
-    socket.connect();
+    // socket.connect();
+    WebSocketService.authenticate();
   }
 
   @override
@@ -181,6 +182,17 @@ class _AdminOrdersState extends State<AdminOrders> {
                                         'orderDurationMin': 6,
                                       }
                                     ]);
+                                    // socket.emitWithAck('order_status_change', [
+                                    //   {
+                                    //     'orderId': '123456',
+                                    //     'orderStatus': 'orderPrep',
+                                    //     'orderDurationMin': 6,
+                                    //   }
+                                    // ], ack: (data) {
+                                    //   print('ack $data');
+                                    //   Get.snackbar('title', data);
+                                    // });
+
                                     setState(() {
                                       orderStatusId = 1;
                                     });

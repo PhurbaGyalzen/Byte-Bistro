@@ -1,51 +1,42 @@
 import 'package:byte_bistro/constants/colors.dart';
+import 'package:byte_bistro/controller/cart_controller.dart';
+import 'package:byte_bistro/controller/category_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../Services/http_service.dart';
+import 'package:badges/badges.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class UserFoodDetail extends StatelessWidget {
   UserFoodDetail({Key? key}) : super(key: key);
 
   final data = Get.arguments;
 
+  final CartController cartController = Get.find();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+          elevation: 0,
+          leading: IconButton(
+              icon: Icon(Icons.arrow_back),
+              color: Colors.black,
+              onPressed: () => Get.offAllNamed('/home')),
+          title: Text(
+            'Food Details',
+            style: Theme.of(context).textTheme.headline1,
+          ),
+          backgroundColor: kPrimary),
       body: SafeArea(
           child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // navigation
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                IconButton(
-                  padding: EdgeInsets.only(left: 10),
-                  icon: Icon(
-                    Icons.arrow_back,
-                    size: 20,
-                  ),
-                  onPressed: () => Get.offNamed('/home'),
-                ),
-                SizedBox(width: 60),
-                GestureDetector(
-                  onTap: () {},
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 15),
-                    child: Image(
-                      image: AssetImage('assets/images/love_not_fill.png'),
-                      width: 20,
-                      height: 20,
-                    ),
-                  ),
-                )
-              ],
+            SizedBox(
+              height: 20,
             ),
-
-            SizedBox(height: 10),
-
 // food title
             Center(
               child: Text(
@@ -68,54 +59,60 @@ class UserFoodDetail extends StatelessWidget {
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                child: Image(
-                  image: NetworkImage(
-                    PersistentHtpp.baseUrl + data[4]['image'],
-                  ),
-                  fit: BoxFit.cover,
+                child: SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height * 0.3,
+                  child: CachedNetworkImage(
+                    fit: BoxFit.cover,
+                    imageUrl: PersistentHtpp.baseUrl + data[4]['image'],
+                    placeholder: (context, url) => Image(
+                        fit: BoxFit.cover,
+                        image: AssetImage(
+                          'assets/images/loading.gif',
+                        )),
+                    errorWidget: (context, url, error) => Icon(Icons.error),
+                  ),
                 ),
               ),
             ),
 
 // item add remove button
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  width: 35,
-                  height: 35,
-                  margin: EdgeInsets.only(right: 20),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(40), color: kPrimary),
-                  child: IconButton(
-                    icon: Icon(Icons.remove),
-                    iconSize: 18,
-                    onPressed: () {},
-                  ),
-                ),
-                Text(
-                  '2',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w300,
-                  ),
-                ),
-                Container(
-                  width: 35,
-                  height: 35,
-                  margin: EdgeInsets.only(left: 20),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(40), color: kPrimary),
-                  child: IconButton(
-                    icon: Icon(Icons.add),
-                    iconSize: 18,
-                    onPressed: () {},
-                  ),
-                ),
-              ],
-            ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: [
+            //     Container(
+            //       width: 35,
+            //       height: 35,
+            //       margin: EdgeInsets.only(right: 20),
+            //       decoration: BoxDecoration(
+            //           borderRadius: BorderRadius.circular(40), color: kPrimary),
+            //       child: IconButton(
+            //         icon: Icon(Icons.remove),
+            //         iconSize: 18,
+            //         onPressed: () {},
+            //       ),
+            //     ),
+            //     Text(
+            //       cartController.noOfItems.value.toString(),
+            //       style: TextStyle(
+            //         fontSize: 18,
+            //         fontWeight: FontWeight.w300,
+            //       ),
+            //     ),
+            //     Container(
+            //       width: 35,
+            //       height: 35,
+            //       margin: EdgeInsets.only(left: 20),
+            //       decoration: BoxDecoration(
+            //           borderRadius: BorderRadius.circular(40), color: kPrimary),
+            //       child: IconButton(
+            //         icon: Icon(Icons.add),
+            //         iconSize: 18,
+            //         onPressed: () {},
+            //       ),
+            //     ),
+            //   ],
+            // ),
 
             SizedBox(
               height: 25,

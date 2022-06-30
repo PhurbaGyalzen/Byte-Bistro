@@ -1,4 +1,5 @@
 import 'package:byte_bistro/Services/auth_service.dart';
+import 'package:byte_bistro/Services/http_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -9,7 +10,7 @@ class VerifyResetPassword extends StatefulWidget {
 
 class _VerifyResetPasswordState extends State<VerifyResetPassword> {
   TextEditingController otpController = TextEditingController();
-
+  var args = Get.arguments;
   @override
   void dispose() {
     otpController.dispose();
@@ -37,7 +38,7 @@ class _VerifyResetPasswordState extends State<VerifyResetPassword> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          Navigator.pushNamed(context, '/login');
+                          Get.back();
                         },
                         child: const Icon(
                           Icons.arrow_back_ios_rounded,
@@ -56,7 +57,7 @@ class _VerifyResetPasswordState extends State<VerifyResetPassword> {
                 ),
                 const Spacer(),
                 Text(
-                  "Enter the ${Get.arguments['optLength']} digit OTP sent to ${Get.arguments['email']}. The OTP will expire in T-${Get.arguments['otpTimeout']} minutes.",
+                  "Enter the ${args['otpLength']} digit OTP sent to ${args['email']}. The OTP will expire in T-${args['otpTimeout']} minutes.",
                   textAlign: TextAlign.center,
                 ),
                 const Spacer(),
@@ -68,6 +69,7 @@ class _VerifyResetPasswordState extends State<VerifyResetPassword> {
                     shape: StadiumBorder(),
                   ),
                   child: TextField(
+                    keyboardType: TextInputType.number,
                     controller: otpController,
                     decoration: InputDecoration(
                         border: InputBorder.none,
@@ -86,20 +88,44 @@ class _VerifyResetPasswordState extends State<VerifyResetPassword> {
                   height: 50,
                   child: ElevatedButton(
                     onPressed: () async {
-                      String email = otpController.text.trim();
-                      print('email is $email');
+                      String otp = otpController.text.trim();
                       Map<String, dynamic> data =
-                          await AuthService.resetPassword(email);
-                      if (data['success']) {
-                        // get snackbar
-                        Get.toNamed('/verify_reset_password');
+                          await AuthService.verifyResetPassword(
+                              Get.arguments['email'], otp);
+                      if (data['token'] != null) {
+                        PersistentHtpp.storeAndSetHeader(token: data['token']);
+                        Get.snackbar(
+                          "OTP correct",
+                          "",
+                          icon: Icon(Icons.lock, color: Colors.white),
+                          duration: Duration(seconds: 2),
+                          backgroundColor: Colors.green,
+                          colorText: Colors.white,
+                          animationDuration: Duration(seconds: 1),
+                          dismissDirection: DismissDirection.horizontal,
+                          snackPosition: SnackPosition.BOTTOM,
+                        );
+                        Get.toNamed('/set_new_password');
+                      } else {
+                        print(data);
+                        Get.snackbar(
+                          "OTP Error",
+                          data['message'],
+                          icon: Icon(Icons.lock, color: Colors.white),
+                          duration: Duration(seconds: 2),
+                          backgroundColor: Colors.red,
+                          colorText: Colors.white,
+                          animationDuration: Duration(seconds: 1),
+                          dismissDirection: DismissDirection.horizontal,
+                          snackPosition: SnackPosition.BOTTOM,
+                        );
                       }
                     },
                     style: ElevatedButton.styleFrom(
                       primary: Colors.orange,
                       shape: const StadiumBorder(),
                     ),
-                    child: const Text("Send"),
+                    child: const Text("Verify"),
                   ),
                 ),
                 const Spacer(

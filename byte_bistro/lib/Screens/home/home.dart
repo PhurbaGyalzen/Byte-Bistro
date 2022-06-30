@@ -1,3 +1,4 @@
+import 'package:badges/badges.dart';
 import 'package:byte_bistro/Screens/favourite/favourite.dart';
 import 'package:byte_bistro/Screens/home/widgets/tab_item.dart';
 import 'package:byte_bistro/Screens/home/widgets/top_of_day.dart';
@@ -5,6 +6,7 @@ import 'package:byte_bistro/Screens/license_section.dart';
 import 'package:byte_bistro/Screens/profile/profile_screen.dart';
 import 'package:byte_bistro/Screens/qr_scanner.dart';
 import 'package:byte_bistro/constants/colors.dart';
+import 'package:byte_bistro/controller/cart_controller.dart';
 import 'package:byte_bistro/controller/food_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:byte_bistro/Screens/home/widgets/app_bar.dart';
@@ -19,7 +21,7 @@ import '../favourite/favourite.dart';
 import '../profile/profile_screen.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -28,6 +30,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   var selectedIndex = 0;
   final ScrollController scrollController = ScrollController();
+
+  // print(tokenData.runtimeType);
 
   late final List<Widget> widgetOptions = <Widget>[
     HomeScreen(
@@ -86,7 +90,7 @@ class _HomePageState extends State<HomePage> {
               TabItem(
                 activeIcon: Icon(Icons.person),
                 icon: Icon(
-                  Icons.person_outlined,
+                  Icons.person_outline,
                   size: 25,
                 ),
               ),
@@ -115,6 +119,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   FoodController foodController = Get.put(FoodController());
+  final CartController cartController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -153,15 +158,50 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      Get.offNamed('/notification');
-                    },
-                    child: Image.asset(
-                      "assets/images/notification.png",
-                      height: 20,
-                      width: 20,
-                    ),
+                  Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Get.offNamed('/notification');
+                        },
+                        child: Icon(
+                          Icons.notifications_outlined,
+                          size: 28,
+                          color: Colors.black87,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          if (cartController.cartList.isEmpty) {
+                            Get.offNamed("/emptyCart");
+                          } else {
+                            Get.offNamed('/addToCart');
+                          }
+                        },
+                        child: Badge(
+                          child: Icon(Icons.shopping_cart_outlined,
+                              size: 25, color: Colors.black87),
+                          position: cartController.cartList.length > 9 ? BadgePosition.topEnd(top: -8, end: -15): BadgePosition.topEnd(top: -8, end: -10),
+                          badgeColor: kPrimary,
+                          elevation: 0,
+                          badgeContent: Obx(
+                            () => 
+                            cartController.cartList.length > 9 ?
+                            Text(cartController.cartList.length
+                                .toString()
+                                .padLeft(2, "0"))
+                          : Text(cartController.cartList.length
+                                .toString()
+                                .padLeft(1, "0")),)
+                        ),
+                      ),
+                      SizedBox(
+                        width: 5,
+                      ),
+                    ],
                   ),
                 ],
               ),

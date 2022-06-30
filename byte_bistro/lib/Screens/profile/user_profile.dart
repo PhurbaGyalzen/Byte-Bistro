@@ -28,6 +28,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         title: Text(
           'Profile Details',
           style: TextStyle(fontSize: 20, letterSpacing: 1, height: 1.5),

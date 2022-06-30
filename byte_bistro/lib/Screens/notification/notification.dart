@@ -51,7 +51,7 @@ class _NotificationPageState extends State<NotificationPage> {
               ),
             ),
           ]),
-          actions: [
+          actions: const[
             // Stack(children: [
             //   Padding(
             //     padding: EdgeInsets.only(right: 25, top: 5),

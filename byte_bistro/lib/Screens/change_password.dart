@@ -25,13 +25,15 @@ class _ChangePasswordState extends State<ChangePassword> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         title: Text(
           'Change Password',
           style: TextStyle(fontSize: 20, letterSpacing: 1, height: 1.5),
         ),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
-          onPressed: () => Get.offNamed('/profileScreen'),
+          // onPressed: () => Get.offNamed('/profileScreen'),
+          onPressed: () => Get.back(),
         ),
         backgroundColor: kPrimary,
         foregroundColor: kTextColor,

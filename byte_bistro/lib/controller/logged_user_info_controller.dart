@@ -22,7 +22,7 @@ class LoggedUserInfoController extends GetxController {
     return response;
   }
 
-  static  updateProfileInfo(Map<String, dynamic> data) async {
+  static updateProfileInfo(Map<String, dynamic> data) async {
     var response = LoggedUserInfoService.updateUserInfoService(data);
     return 'success';
   }

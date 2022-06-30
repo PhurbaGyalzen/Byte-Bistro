@@ -16,6 +16,7 @@ class FavouritePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          elevation: 0,
             leading: IconButton(
                 icon: Icon(Icons.arrow_back),
                 color: Colors.black,

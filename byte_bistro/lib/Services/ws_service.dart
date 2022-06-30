@@ -1,4 +1,4 @@
-
+import 'package:byte_bistro/Services/storage_service.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:byte_bistro/Services/http_service.dart';
 
@@ -11,4 +11,24 @@ class WebSocketService {
     'transports': ['websocket'],
     'autoConnect': false,
   });
+
+  static Future<bool> authenticate() async {
+    WebSocketService._connect();
+    String? token = await Storage.get('token');
+    if (token == null) {
+      return false;
+    }
+    socket.emit('auth', [
+      {'token': token}
+    ]);
+    return true;
+  }
+
+  static bool _connect() {
+    if (socket.connected) {
+      return true;
+    }
+    socket.connect();
+    return true;
+  }
 }
