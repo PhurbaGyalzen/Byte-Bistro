@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:byte_bistro/constants/colors.dart';
+import 'package:byte_bistro/controller/cart_controller.dart';
 import 'package:byte_bistro/main.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -18,6 +19,7 @@ class _QrScannerState extends State<QrScannerScreen> {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   Barcode? result;
   QRViewController? controller;
+  CartController cartController = Get.find();
 
   @override
   void reassemble() {
@@ -69,21 +71,34 @@ class _QrScannerState extends State<QrScannerScreen> {
   }
 
   void _onQRViewCreated(QRViewController controller) {
-    this.controller = controller;
+    setState(() {
+      this.controller = controller;
+    });
     controller.scannedDataStream.listen((scanData) {
       setState(() {
         result = scanData;
-        if (result != null) {
-          final data = json.decode(result!.code ?? '{}');
-          // print(data);
-          final table = data['tableNumber'].toString();
-          // print('Table: $table');
-          if (table != null) {
-            tableNo = int.parse(table);
-            Get.toNamed('/dataScreen', arguments: table);
-          }
-        }
       });
+      if (result != null) {
+        final data = json.decode(result!.code ?? '{}');
+        // print(data);
+        final table = data['tableNumber'].toString();
+        // print('Table: $table');
+
+        controller.dispose();
+        cartController.tableNumber.value = int.parse(table);
+        cartController.cartList.isEmpty ? Get.offAllNamed('/home'): Get.toNamed("/paymentSummary");
+        Get.snackbar(
+          "Table Scanned Sucessfully",
+          "Your Table Number is: $table",
+          icon: Icon(Icons.error, color: Colors.white),
+          duration: Duration(seconds: 3),
+          backgroundColor: Colors.green,
+          colorText: Colors.white,
+          animationDuration: Duration(seconds: 1),
+          dismissDirection: DismissDirection.horizontal,
+          snackPosition: SnackPosition.TOP,
+        );
+      }
     });
   }
 
@@ -118,7 +133,7 @@ class _QrScannerState extends State<QrScannerScreen> {
                         color: snapshot.data! ? kPrimary : Colors.white,
                       );
                     } else {
-                      return Container();
+                      return Icon(Icons.flash_off, color: Colors.white);
                     }
                   },
                   future: controller?.getFlashStatus(),
@@ -136,7 +151,10 @@ class _QrScannerState extends State<QrScannerScreen> {
                         color: Colors.white,
                       );
                     } else {
-                      return Container();
+                      return Icon(
+                        Icons.switch_camera,
+                        color: Colors.white,
+                      );
                     }
                   },
                   future: controller?.getCameraInfo(),

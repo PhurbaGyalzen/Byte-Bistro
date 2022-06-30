@@ -58,9 +58,8 @@ class ViewFood extends StatelessWidget {
                   Icons.search,
                   color: Colors.black26,
                 ),
-                onPressed: () {
-                  foodController.searchFood(searchController.text);
-                },
+                onPressed: () =>
+                    foodController.searchFood(searchController.text),
               ),
               errorBorder: InputBorder.none,
               focusedBorder: InputBorder.none,

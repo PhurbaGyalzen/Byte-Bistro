@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:byte_bistro/Screens/add_to_cart/add_to_cart.dart';
+import 'package:byte_bistro/Screens/add_to_cart/empty_cart.dart';
+import 'package:byte_bistro/Screens/add_to_cart/widgets/payment_summary.dart';
 import 'package:byte_bistro/Screens/admin/widgets/add_food.dart';
 import 'package:byte_bistro/Screens/admin/widgets/add_notification.dart';
 import 'package:byte_bistro/Screens/admin/widgets/admin_food_detail.dart';
@@ -23,11 +25,11 @@ import 'package:byte_bistro/Screens/change_password.dart';
 import 'package:byte_bistro/Screens/profile/profile_screen.dart';
 import 'package:byte_bistro/Screens/profile/user_profile.dart';
 import 'package:byte_bistro/Screens/favourite/favourite.dart';
-import 'package:byte_bistro/Screens/invoice_detail_page.dart';
+import 'package:byte_bistro/Screens/admin_invoice_detail_page.dart';
 import 'package:byte_bistro/Screens/notification/admin_notification.dart';
 import 'package:byte_bistro/Screens/notification/notification.dart';
 import 'package:byte_bistro/Screens/on_boarding_screen/on_boarding_screen.dart';
-import 'package:byte_bistro/Screens/order_history_list_admin.dart';
+import 'package:byte_bistro/Screens/admin_order_history_list.dart';
 import 'package:byte_bistro/Screens/order_sucess.dart';
 
 import 'package:byte_bistro/Screens/qr_data.dart';
@@ -37,6 +39,8 @@ import 'package:byte_bistro/Screens/signup_screen.dart';
 import 'package:byte_bistro/Screens/home/home.dart';
 import 'package:byte_bistro/Screens/home/widgets/food_detail_screen.dart';
 import 'package:byte_bistro/Screens/swipe_qr_home.dart';
+import 'package:byte_bistro/Screens/user_history_detail.dart';
+import 'package:byte_bistro/Screens/user_invoice_list.dart';
 import 'package:byte_bistro/Screens/terms_and_conditions.dart';
 import 'package:byte_bistro/Screens/user_order_history_list.dart';
 import 'package:byte_bistro/Screens/verify_reset_password.dart';
@@ -54,7 +58,7 @@ import 'Screens/login_screen.dart';
 import 'package:byte_bistro/Screens/Category_momo.dart';
 import 'package:flutter/services.dart';
 
-import 'Screens/user_history_detail.dart';
+import 'Screens/user_invoice_detail.dart';
 import 'constants/colors.dart';
 
 Map<String, dynamic> tokenDecoded = {};
@@ -64,7 +68,7 @@ Future<void> main() async {
   await dotenv.load(fileName: ".env");
   String? token = await Storage.get('token');
   print(token);
-  if (token != null) {
+  if (token != "" && token != null) {
     try {
       String payload = token.split('.')[1];
       tokenDecoded = jsonDecode(BaseSixtyFour.b64decode(payload));
@@ -87,7 +91,7 @@ class ByteBistro extends StatelessWidget {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
     ));
-    String initialRoute = '/addNotification';
+    String initialRoute = '/login';
     if (tokenDecoded['username'] != null) {
       initialRoute = '/home';
       if (tokenDecoded['isAdmin']) {
@@ -138,13 +142,23 @@ class ByteBistro extends StatelessWidget {
           ),
         ),
       ),
+      initialRoute: '/user_invoice_list',
+      // initialRoute: tokenDecoded['username'] != null ? '/home' : '/login',
       // initialRoute: '/adminScreen',
-      initialRoute: initialRoute,
+      
       debugShowCheckedModeBanner: false,
       title: 'Byte Bistro',
       getPages: [
         GetPage(name: '/login', page: () => LoginScreen()),
         // GetPage(name: '/tesing', page: () => TestingExpanded()),
+        GetPage(
+            name: '/orderHistory_user_list', page: () => OrderHistoryUser()),
+        GetPage(name: '/order_history_admin', page: () => OrderHistoryAdmin()),
+        GetPage(name: '/user_invoice_detail', page: () => UserInvoiceDetail()),
+        GetPage(name: '/user_invoice_list', page: () => UserInvoiceList()),
+        GetPage(name: '/invoice_detail', page: () => InvoiceDetail()),
+        GetPage(name: '/order_detail', page: () => OrderDetail()),
+        // GetPage(name: '/CategoryMoMo', page: () => MOMO()),
         GetPage(name: '/signup', page: () => SignUpScreen()),
         GetPage(name: '/reset_password', page: () => ForgetPasswordScreen()),
         GetPage(
@@ -178,6 +192,7 @@ class ByteBistro extends StatelessWidget {
         GetPage(name: '/dataScreen', page: () => QrDataScreen()),
         GetPage(name: '/swipeHome', page: () => SwipeHome()),
         GetPage(name: '/addToCart', page: () => AddToCart()),
+        GetPage(name: '/emptyCart', page: () => EmptyCart()),
         GetPage(name: '/notification', page: () => NotificationPage()),
         GetPage(name: '/addNotification', page: () => AddNotification()),
         GetPage(name: '/adminNotification', page: () => AdminNotification()),
@@ -187,13 +202,13 @@ class ByteBistro extends StatelessWidget {
         GetPage(name: '/userProfilePage', page: () => UserProfilePage()),
         GetPage(name: '/updateFood', page: () => UpdateFood()),
         GetPage(name: '/userFoodDetail', page: () => UserFoodDetail()),
-        GetPage(name: '/userFoodDetail', page: () => UserFoodDetail()),
         GetPage(name: '/profileScreen', page: () => ProfileScreen()),
         GetPage(name: '/licenseSection', page: () => LicenseSection()),
         GetPage(name: '/termsAndConditions', page: () => TermsAndCondition()),
         GetPage(name: '/privacyPolicy', page: () => PrivacyPolicy()),
         GetPage(name: '/faq', page: () => Faq()),
         GetPage(name: '/contactUs', page: () => ContactUs()),
+        GetPage(name: '/paymentSummary', page: () => PaymentSummary()),
       ],
     );
   }

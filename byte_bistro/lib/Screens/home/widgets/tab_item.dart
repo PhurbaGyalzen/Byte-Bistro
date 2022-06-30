@@ -1,10 +1,10 @@
 import 'package:byte_bistro/Screens/home/models/food_model.dart';
 import 'package:byte_bistro/Services/http_service.dart';
+import 'package:byte_bistro/controller/cart_controller.dart';
 import 'package:byte_bistro/controller/favourite_controller.dart';
 import 'package:byte_bistro/controller/food_controller.dart';
 import 'package:byte_bistro/controller/logged_user_info_controller.dart';
 import 'package:byte_bistro/models/favourite.dart';
-import 'package:byte_bistro/models/loged_user_info.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -27,11 +27,8 @@ class _TabItemDetailState extends State<TabItemDetail> {
   List favouriteList = [];
   var loggedUser;
 
-  bool _hasBeenPressed = false;
-
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getFavourite();
   }
@@ -46,7 +43,6 @@ class _TabItemDetailState extends State<TabItemDetail> {
   Future getFavourite() async {
     List<Favourite> response =
         await favouriteController.getUserFavourites("627fbfa1d464ffbeb80b985b");
-    print(response);
     setState(() {
       favouriteList = response[0].userId.favoriteFoods;
     });
@@ -54,9 +50,9 @@ class _TabItemDetailState extends State<TabItemDetail> {
 
   @override
   Widget build(BuildContext context) {
-    List<dynamic> cartList = [];
+    final CartController cartController = Get.find();
     return SizedBox(
-      height: 280.0,
+      height: 290.0,
       child: FutureBuilder(
         future: foodController.getAllFood(),
         builder: (context, snapshot) {
@@ -67,7 +63,7 @@ class _TabItemDetailState extends State<TabItemDetail> {
                 child: CarouselSlider.builder(
                     options: CarouselOptions(
                       height: 300.0,
-                      autoPlay: true,
+                      autoPlay: false,
                     ),
                     itemCount: data.length,
                     itemBuilder: (context, index, realIndex) {
@@ -184,11 +180,6 @@ class _TabItemDetailState extends State<TabItemDetail> {
                                                   ScaffoldMessenger.of(context)
                                                       .showSnackBar(
                                                           snackbarSucess);
-                                                  // setState(
-                                                  //   () {
-                                                  //     exists = true;
-                                                  //   },
-                                                  // );
                                                 } else {
                                                   snackbarFail;
                                                   ScaffoldMessenger.of(context)
@@ -222,20 +213,47 @@ class _TabItemDetailState extends State<TabItemDetail> {
                                     onTap: () {
                                       var cartData = {
                                         "index": index,
+                                        "foodId": data[index].id,
                                         "name": data[index].name,
                                         "price": data[index].price,
                                         "description": data[index].description,
                                         "image": data[index].image,
+                                        "foodCount": 1
                                       };
-                                      cartList.add(cartData);
-                                      Get.toNamed('/addToCart',
-                                          arguments: cartList);
+                                      bool response = cartController
+                                          .addFoodInCart(cartData);
+                                      if (response == false) {
+                                        Get.snackbar(
+                                          "Food",
+                                          "Food already added to cart",
+                                          icon: Icon(Icons.no_meals,
+                                              color: Colors.white),
+                                          duration: Duration(seconds: 3),
+                                          backgroundColor: Colors.black,
+                                          colorText: Colors.white,
+                                          animationDuration:
+                                              Duration(seconds: 1),
+                                          dismissDirection:
+                                              DismissDirection.horizontal,
+                                          snackPosition: SnackPosition.TOP,
+                                        );
+                                      } else {
+                                        Get.toNamed('/addToCart',
+                                            arguments: cartController.cartList);
+                                      }
                                     },
-                                    child: Image(
-                                        image: AssetImage(
-                                            'assets/images/shoppingCart.png'),
-                                        height: 20,
-                                        width: 20),
+                                    child: Container(
+                                      padding: EdgeInsets.all(5),
+                                      decoration: BoxDecoration(
+                                          border: Border.all(width: 2),
+                                          borderRadius:
+                                              BorderRadius.circular(20)),
+                                      child: Image(
+                                          image: AssetImage(
+                                              'assets/images/cartShop.png'),
+                                          height: 20,
+                                          width: 20),
+                                    ),
                                   )
                                 ],
                               ),
