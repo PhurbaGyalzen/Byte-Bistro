@@ -68,18 +68,6 @@ class CartFood extends StatelessWidget {
                       motion: const ScrollMotion(),
                       dismissible: DismissiblePane(onDismissed: () {
                         cartController.removeFoodFromList(index);
-
-                        Get.snackbar(
-                          "Deleted",
-                          "Food removed from the cart",
-                          icon: Icon(Icons.no_meals, color: Colors.white),
-                          duration: Duration(seconds: 3),
-                          backgroundColor: Colors.black,
-                          colorText: Colors.white,
-                          animationDuration: Duration(seconds: 1),
-                          dismissDirection: DismissDirection.horizontal,
-                          snackPosition: SnackPosition.TOP,
-                        );
                       }),
                       children: [
                         // A SlidableAction can have an icon and/or a label.
