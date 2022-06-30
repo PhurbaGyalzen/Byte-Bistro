@@ -45,11 +45,13 @@ class CartController extends GetxController {
   // controller to remove food from cartList
   void removeFoodFromList(int index) {
     cartList.removeAt(index);
+    cartList.refresh();
   }
 
   // controller to remove all item from cartList
   void removeAllItemFromList() {
     cartList.clear();
+    cartList.refresh();
   }
 
 // controller to add food in cart
@@ -77,9 +79,14 @@ class CartController extends GetxController {
     return response;
   }
 
-  updatePrice(int price) {
-    foodPrice.value = price * foodQuantity.value;
-    update();
+  updatePrice(int index) {
+  //   var foodPrice = cartList[index]['price'];
+  //   cartList[index]['price'] = foodPrice * cartList[index]['foodCount'];
+  //   cartList.refresh();
+
+  
+
+
   }
 
   getSingleCart(String cartId) async {

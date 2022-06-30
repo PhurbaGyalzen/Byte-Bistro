@@ -33,8 +33,7 @@ class CartFood extends StatelessWidget {
         ),
         // OutlinedButton(
         //     onPressed: () {
-        //       cartController.cartList.clear();
-        //       setState() {}
+        //       cartController.removeAllItemFromList();
         //     },
         //     child: Text(
         //       'Remove All',
@@ -147,7 +146,8 @@ class CartFood extends StatelessWidget {
                           Row(
                             children: [
                               InkWell(
-                                onTap: () => cartController.removeFoodCount(index),
+                                onTap: () =>
+                                    cartController.removeFoodCount(index),
                                 child: Container(
                                   padding: EdgeInsets.all(5),
                                   decoration: BoxDecoration(
@@ -166,18 +166,18 @@ class CartFood extends StatelessWidget {
                                   left: 12,
                                   right: 12,
                                 ),
-                                child: Obx(() => Text(
-                                      cartController.cartList[index]
-                                              ['foodCount']
-                                          .toString(),
-                                      //       .toString(),, // value is an instance of Controller.
+                                child: Obx(() => Text(cartController
+                                        .cartList[index]['foodCount']
+                                        .toString()
+                                    // .toString() ,
+                                    //       .toString(),, // value is an instance of Controller.
                                     )),
                               ),
                               InkWell(
                                 onTap: () {
                                   cartController.addFoodCount(index);
-                                  cartController.updatePrice(
-                                      cartController.cartList[index]['price']);
+                                  cartController.updatePrice(index);
+                                  // cartController.cartList[index]['price'] = 0;
                                 },
                                 child: Container(
                                   padding: EdgeInsets.all(5),
@@ -193,21 +193,18 @@ class CartFood extends StatelessWidget {
                               ),
                             ],
                           ),
-                          GetBuilder<CartController>(
-                              // specify type as Controller
-                              init:
-                                  CartController(), // intialize with the Controller
-                              builder: (value) => Text(
-                                    (cartController.cartList[index]['price'] *
-                                            cartController.foodQuantity.value)
-                                        .toString(),
-                                    style: TextStyle(
-                                      color: kTextColor,
-                                      height: 1.5,
-                                    ),
-                                  )
-                              //       .toString(),, // value is an instance of Controller.
+                          // specify type as Controller
+                          Obx(
+                            () => Text(
+                              (cartController.cartList[index]['price']
+                                  .toString()),
+                              style: TextStyle(
+                                color: kTextColor,
+                                height: 1.5,
                               ),
+                            ),
+                          )
+                          //       .toString(),, // value is an instance of Controller.
                         ],
                       ),
                     ),
