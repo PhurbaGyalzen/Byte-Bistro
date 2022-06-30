@@ -97,6 +97,7 @@ class CartController extends GetxController {
   }
 
   addCart(Map<String, dynamic> data) async {
+    print(data);
     var response = await cartService.addCart(data);
     return response;
   }

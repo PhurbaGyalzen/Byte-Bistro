@@ -1,5 +1,6 @@
 //PaymentSummary
 import 'package:byte_bistro/controller/cart_controller.dart';
+import 'package:byte_bistro/controller/logged_user_info_controller.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:esewa_pnp/esewa.dart';
 import 'package:esewa_pnp/esewa_pnp.dart';
@@ -27,6 +28,7 @@ class PaymentSummary extends StatelessWidget {
 
     CartController cartController = Get.find();
     List cartList = cartController.cartList;
+    List items = [];
 
     var subTotal = 0;
     var tax = 0.13;
@@ -36,9 +38,18 @@ class PaymentSummary extends StatelessWidget {
       subTotal = cartList[i]['price'] * cartList[i]['foodCount'];
       cartList[i]["subTotal"] = subTotal;
       total += subTotal;
+      var item = {
+        "foodId": "${cartList[i]['foodId']}",
+        "qty": cartList[i]['foodCount']
+      };
+
+      items.add(item);
     }
 
+    print(items);
+
     double grandTotal = (total * tax) + total;
+    final LoggedUserInfoController userController = Get.find();
 
     return Scaffold(
       appBar: AppBar(
@@ -299,7 +310,13 @@ class PaymentSummary extends StatelessWidget {
                           style: Theme.of(context).textTheme.headline1,
                         )),
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        cartController.addCart({
+                          "userId": "${userController.userInfo[0].id}",
+                          "items": items,
+                          "tableId": 1,
+                        });
+                      },
                       child: Container(
                         padding: EdgeInsets.only(
                             top: 10, bottom: 10, left: 15, right: 15),
