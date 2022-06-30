@@ -13,7 +13,7 @@ class ChangePasswordService {
     final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
     final SharedPreferences prefs = await _prefs;
     var token = prefs.getString("token");
-    String endpoint = PersistentHtpp.baseUrl + 'auth/changepassword';
+    String endpoint = PersistentHtpp.baseUrl + 'auth/changepassword/';
 
     try {
       final response = await PersistentHtpp.client
