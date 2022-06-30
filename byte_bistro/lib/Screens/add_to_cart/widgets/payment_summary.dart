@@ -314,7 +314,7 @@ class PaymentSummary extends StatelessWidget {
                           cartController.addCart({
                             "userId": userController.userInfo[0].id.toString(),
                             "items": items,
-                            "tableId": 1,
+                            "tableId": cartController.tableNumber.toInt(),
                           });
                           cartController.cartList.value = [];
                           Get.snackbar(
@@ -341,6 +341,7 @@ class PaymentSummary extends StatelessWidget {
                             dismissDirection: DismissDirection.horizontal,
                             snackPosition: SnackPosition.TOP,
                           );
+                          Get.offNamed('qrscan');
                         }
                       },
                       child: Container(
