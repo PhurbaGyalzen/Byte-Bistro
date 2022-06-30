@@ -175,23 +175,16 @@ class _AdminOrdersState extends State<AdminOrders> {
                                     //     'orderStatus': 'orderRcvd',
                                     //   }
                                     // ]);
-                                    socket.emit('order_status_change', [
+                                    socket.emitWithAck('order_status_change', [
                                       {
                                         'orderId': '123456',
                                         'orderStatus': 'orderPrep',
                                         'orderDurationMin': 6,
                                       }
-                                    ]);
-                                    // socket.emitWithAck('order_status_change', [
-                                    //   {
-                                    //     'orderId': '123456',
-                                    //     'orderStatus': 'orderPrep',
-                                    //     'orderDurationMin': 6,
-                                    //   }
-                                    // ], ack: (data) {
-                                    //   print('ack $data');
-                                    //   Get.snackbar('title', data);
-                                    // });
+                                    ], ack: (data) {
+                                      Get.snackbar(
+                                          'Status Changed', data['message']);
+                                    });
 
                                     setState(() {
                                       orderStatusId = 1;
@@ -217,12 +210,15 @@ class _AdminOrdersState extends State<AdminOrders> {
                             onPressed: orderStatusId > 1
                                 ? null
                                 : () {
-                                    socket.emit('order_status_change', [
+                                    socket.emitWithAck('order_status_change', [
                                       {
                                         'orderId': '123456',
                                         'orderStatus': 'orderReady',
                                       }
-                                    ]);
+                                    ], ack: (data) {
+                                      Get.snackbar(
+                                          'Status Changed', data['message']);
+                                    });
                                     setState(() {
                                       orderStatusId = 2;
                                     });
@@ -250,15 +246,20 @@ class _AdminOrdersState extends State<AdminOrders> {
                                     Future.delayed(Duration(seconds: 2), () {
                                       // print('orderChecked');
                                       // should be sent by admin.
-                                      socket.emit('order_status_change', [
+                                      socket
+                                          .emitWithAck('order_status_change', [
                                         {
                                           'orderId': '123456',
                                           'orderStatus': 'orderChecked',
                                         }
-                                      ]);
-                                    });
-                                    setState(() {
-                                      orderStatusId = 3;
+                                      ], ack: (data) {
+                                        Get.snackbar(
+                                            'Status Changed', data['message']);
+                                      });
+
+                                      setState(() {
+                                        orderStatusId = 3;
+                                      });
                                     });
                                   },
                             child: Text(
