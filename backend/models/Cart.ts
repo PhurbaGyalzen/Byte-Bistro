@@ -4,7 +4,7 @@ import { IMenuItem } from './Food'
 export interface ICart {
 	userId: Types.ObjectId
 	items: {
-		foodId: IMenuItem
+		foodId: Types.ObjectId
 		qty: number
 	}[]
 	tableId: number

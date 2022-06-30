@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 
 import { Cart } from '@models/Cart'
+import { errorMonitor } from 'events'
 
 export const getCart = async (
 	req: Request,
@@ -54,7 +55,7 @@ export const viewCart = async (
 		})
 		res.status(200).json(carts)
 	} catch (err) {
-		res.status(400).json({ message: err })
+		res.status(400).send(err)
 	}
 }
 
@@ -65,7 +66,7 @@ export const createCart = async (
 ) => {
 	try {
 		const cart = new Cart({
-			userId: req.user!.id,
+			userId: req.body.userId,
 			items: req.body.items,
 			tableId: req.body.tableId,
 		})
