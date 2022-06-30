@@ -85,7 +85,7 @@ class CartFood extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(50),
                                   child: Image(
                                     image: NetworkImage(PersistentHtpp.baseUrl +
-                                      cartList[index]['image']),
+                                        cartList[index]['image']),
                                     height: 80,
                                     width: 80,
                                   ),
