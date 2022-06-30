@@ -25,11 +25,11 @@ import 'package:byte_bistro/Screens/change_password.dart';
 import 'package:byte_bistro/Screens/profile/profile_screen.dart';
 import 'package:byte_bistro/Screens/profile/user_profile.dart';
 import 'package:byte_bistro/Screens/favourite/favourite.dart';
-import 'package:byte_bistro/Screens/invoice_detail_page.dart';
+import 'package:byte_bistro/Screens/admin_invoice_detail_page.dart';
 import 'package:byte_bistro/Screens/notification/admin_notification.dart';
 import 'package:byte_bistro/Screens/notification/notification.dart';
 import 'package:byte_bistro/Screens/on_boarding_screen/on_boarding_screen.dart';
-import 'package:byte_bistro/Screens/order_history_list_admin.dart';
+import 'package:byte_bistro/Screens/admin_order_history_list.dart';
 import 'package:byte_bistro/Screens/order_sucess.dart';
 
 import 'package:byte_bistro/Screens/qr_data.dart';
@@ -39,6 +39,8 @@ import 'package:byte_bistro/Screens/signup_screen.dart';
 import 'package:byte_bistro/Screens/home/home.dart';
 import 'package:byte_bistro/Screens/home/widgets/food_detail_screen.dart';
 import 'package:byte_bistro/Screens/swipe_qr_home.dart';
+import 'package:byte_bistro/Screens/user_history_detail.dart';
+import 'package:byte_bistro/Screens/user_invoice_list.dart';
 import 'package:byte_bistro/Screens/terms_and_conditions.dart';
 import 'package:byte_bistro/Screens/user_order_history_list.dart';
 import 'package:byte_bistro/Screens/verify_reset_password.dart';
@@ -56,7 +58,7 @@ import 'Screens/login_screen.dart';
 import 'package:byte_bistro/Screens/Category_momo.dart';
 import 'package:flutter/services.dart';
 
-import 'Screens/user_history_detail.dart';
+import 'Screens/user_invoice_detail.dart';
 import 'constants/colors.dart';
 
 Map<String, dynamic> tokenDecoded = {};
@@ -140,13 +142,23 @@ class ByteBistro extends StatelessWidget {
           ),
         ),
       ),
+      initialRoute: '/user_invoice_list',
+      // initialRoute: tokenDecoded['username'] != null ? '/home' : '/login',
       // initialRoute: '/adminScreen',
-      initialRoute: initialRoute,
+      
       debugShowCheckedModeBanner: false,
       title: 'Byte Bistro',
       getPages: [
         GetPage(name: '/login', page: () => LoginScreen()),
         // GetPage(name: '/tesing', page: () => TestingExpanded()),
+        GetPage(
+            name: '/orderHistory_user_list', page: () => OrderHistoryUser()),
+        GetPage(name: '/order_history_admin', page: () => OrderHistoryAdmin()),
+        GetPage(name: '/user_invoice_detail', page: () => UserInvoiceDetail()),
+        GetPage(name: '/user_invoice_list', page: () => UserInvoiceList()),
+        GetPage(name: '/invoice_detail', page: () => InvoiceDetail()),
+        GetPage(name: '/order_detail', page: () => OrderDetail()),
+        // GetPage(name: '/CategoryMoMo', page: () => MOMO()),
         GetPage(name: '/signup', page: () => SignUpScreen()),
         GetPage(name: '/reset_password', page: () => ForgetPasswordScreen()),
         GetPage(

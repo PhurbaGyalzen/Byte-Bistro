@@ -67,6 +67,7 @@ class ProfileScreen extends StatelessWidget {
 class ProfileNote extends StatelessWidget {
   ProfileNote({Key? key}) : super(key: key);
   final LoggedUserInfoController userController = Get.find();
+  // String id = userController.getLoggedUserInfo()[0].id
 
   @override
   Widget build(BuildContext context) {
