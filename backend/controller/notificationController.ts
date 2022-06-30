@@ -98,12 +98,14 @@ export const putOfferNotification = async (
     next: NextFunction
 ) => {
     const { title, message,image  } = req.body
+    const imageFileName = req.file?.filename;
+    const imageFileUrl = `images/${imageFileName}`;
     try {
 
         const notification = new Notification({
             title: title,
             message: message,
-            image: image,
+            image: imageFileUrl,
             isOffer: true,
         })
         await notification.save()

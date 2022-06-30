@@ -1,5 +1,5 @@
 import { Router } from 'express'
-
+import { uploadImage } from 'middlewares/file'
 
 import {
     getNotification,
@@ -19,7 +19,7 @@ const router = Router()
 
 router.get('/', getAllNotification)
 router.post('/', putNotification)
-router.post('/offer', putOfferNotification)
+router.post('/offer', uploadImage.single("image"),putOfferNotification)
 router.get('/offer', getOfferNotification);
 router.get('/:notificationId', getNotification)
 router.get('/user/:userId', getNotificationByUser)
