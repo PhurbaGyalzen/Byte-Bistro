@@ -6,14 +6,12 @@ import 'package:get/get.dart';
 class FavouriteController extends GetxController {
   var favouriteList = [].obs;
   FavouriteService favouriteService = Get.put(FavouriteService());
-  final LoggedUserInfoController loggedUserInfoController =
-      Get.put(LoggedUserInfoController());
-  var loggedUserInfo;
+  final LoggedUserInfoController loggedUserInfoController = Get.find();
+  // var loggedUserInfo;
 
   @override
   void onInit() {
-    loggedUserInfo = loggedUserInfoController.userInfo.value;
-    getUserFavourites(loggedUserInfo.id);
+    getUserFavourites(loggedUserInfoController.userInfo[0].id.toString());
     super.onInit();
   }
 
@@ -30,21 +28,24 @@ class FavouriteController extends GetxController {
   }
 
   getUserFavourites(String userId) async {
-    var response = await favouriteService.getUserFavourites(userId);
+    var response = await favouriteService
+        .getUserFavourites(loggedUserInfoController.userInfo[0].id.toString());
     favouriteList.value = response as List;
     return response;
   }
 
   addFavourite(Map<String, dynamic> data) async {
     var response = await favouriteService.addFavourite(data);
-    var result = getUserFavourites('627fbfa1d464ffbeb80b985b');
+    var result =
+        getUserFavourites(loggedUserInfoController.userInfo[0].id.toString());
     favouriteList.value = result as List;
     return response;
   }
 
   removeFavorite(String favouriteId) async {
     var response = await favouriteService.removeFavourite(favouriteId);
-    var data = getUserFavourites('627fbfa1d464ffbeb80b985b');
+    var data =
+        getUserFavourites(loggedUserInfoController.userInfo[0].id.toString());
     favouriteList.value = data as List;
     return response;
   }

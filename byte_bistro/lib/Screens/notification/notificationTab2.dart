@@ -17,18 +17,18 @@ class NotificationOffer extends StatefulWidget {
 class _NotificationOfferState extends State<NotificationOffer> {
   NotificationController notificationController = Get.find();
   LoggedUserInfoController loggedUserInfoController = Get.find();
-  var loggedUserInfo;
+
   @override
   void initState() {
     super.initState();
-    loggedUserInfo = loggedUserInfoController.userInfo.value;
   }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: FutureBuilder(
-          future: notificationController.getUserNotification(loggedUserInfo.id),
+          future: notificationController.getUserNotification(
+              loggedUserInfoController.userInfo[0].id.toString()),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               List<Notificationl> notificationData =
