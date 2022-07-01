@@ -1,14 +1,19 @@
 import 'package:byte_bistro/Services/favourite_service.dart';
+import 'package:byte_bistro/controller/logged_user_info_controller.dart';
 import 'package:byte_bistro/models/favourite.dart';
 import 'package:get/get.dart';
 
 class FavouriteController extends GetxController {
   var favouriteList = [].obs;
   FavouriteService favouriteService = Get.put(FavouriteService());
+  final LoggedUserInfoController loggedUserInfoController =
+      Get.put(LoggedUserInfoController());
+  var loggedUserInfo;
 
   @override
   void onInit() {
-    getUserFavourites('627fbfa1d464ffbeb80b985b');
+    loggedUserInfo = loggedUserInfoController.userInfo.value;
+    getUserFavourites(loggedUserInfo.id);
     super.onInit();
   }
 

@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:byte_bistro/Services/auth_service.dart';
 import 'package:byte_bistro/Services/http_service.dart';
 import 'package:byte_bistro/constants/colors.dart';
-import 'package:byte_bistro/controller/notification_controller.dart';
 import 'package:byte_bistro/models/loged_user_info.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
@@ -31,8 +30,24 @@ class _AddNotificationState extends State<AddNotification> {
       TextEditingController(text: widget.description);
   // final TextEditingController phoneController = TextEditingController(text: phone1);
   final formkey = GlobalKey<FormState>();
-  NotificationController notificationController =
-      Get.put(NotificationController());
+  final LoggedUserInfoController userController = Get.find();
+  var imageName = "";
+  late File? pickedImage;
+
+  Future<void> pickImage(ImageSource imageType) async {
+    try {
+      final photo = await ImagePicker().pickImage(source: imageType);
+      if (photo == null) return;
+      final tempImage = File(photo.path);
+      setState(() {
+        pickedImage = tempImage;
+        imageName = tempImage.path.split("/").last;
+      });
+      Get.back();
+    } catch (error) {
+      debugPrint(error.toString());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +73,113 @@ class _AddNotificationState extends State<AddNotification> {
             key: formkey,
             child: Column(
               children: [
+                Center(
+                    child: Stack(
+                  children: [
+                    ClipRRect(
+                        borderRadius: BorderRadius.circular(15.0), //or 15.0
+                        child: Container(
+                          height: 140.0,
+                          width: 190.0,
+                          color: Color(0xffFF0E58),
+                          child: Image.network(
+                            'https://i.pravatar.cc/300',
+                            fit: BoxFit.cover,
+                          ),
+                        )),
+                    Positioned(
+                      bottom: 0,
+                      right: 0,
+                      child: Container(
+                        height: 50,
+                        width: 50,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            width: 4,
+                            color: Theme.of(context).scaffoldBackgroundColor,
+                          ),
+                          color: Color(0xFFFFC61F),
+                        ),
+                        child: IconButton(
+                          icon: Icon(Icons.edit, color: Colors.white),
+                          onPressed: () {
+                            Get.bottomSheet(
+                              SingleChildScrollView(
+                                child: ClipRRect(
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(10.0),
+                                    topRight: Radius.circular(10.0),
+                                  ),
+                                  child: Container(
+                                    color: Colors.black,
+                                    height: 250,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.stretch,
+                                        children: [
+                                          const Text(
+                                            "Upload Offer Image From",
+                                            style: TextStyle(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                          ElevatedButton.icon(
+                                            style: ElevatedButton.styleFrom(
+                                              primary:
+                                                  kPrimary, // Background color
+                                            ),
+                                            onPressed: () {
+                                              pickImage(ImageSource.camera);
+                                            },
+                                            icon: const Icon(Icons.camera),
+                                            label: const Text("CAMERA"),
+                                          ),
+                                          ElevatedButton.icon(
+                                            style: ElevatedButton.styleFrom(
+                                              primary:
+                                                  kPrimary, // Background color
+                                            ),
+                                            onPressed: () {
+                                              pickImage(ImageSource.gallery);
+                                            },
+                                            icon: const Icon(Icons.image),
+                                            label: const Text("GALLERY"),
+                                          ),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                          ElevatedButton.icon(
+                                            style: ElevatedButton.styleFrom(
+                                              primary:
+                                                  kPrimary, // Background color
+                                            ),
+                                            onPressed: () {
+                                              Get.back();
+                                            },
+                                            icon: const Icon(Icons.close),
+                                            label: const Text("CANCEL"),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
+                )),
                 SizedBox(
                   height: 60,
                 ),
@@ -67,7 +189,7 @@ class _AddNotificationState extends State<AddNotification> {
                   minLines: 2,
                   maxLines: 2,
                   // initialValue:
-                  //     data.title,
+                  //     data.fullname,
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.only(bottom: 3),
                     floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -117,34 +239,42 @@ class _AddNotificationState extends State<AddNotification> {
                           Map<String, dynamic> data = {
                             "title": titleController.text,
                             "message": descriptionController.text,
+                            "image": pickedImage,
+                            // "phones":
+                            //     [phoneController
+                            //         .text],
                           };
+                          // String response =
+                          //     await LoggedUserInfoController.updateProfileInfo(
+                          //         data);
 
-                          String response = await notificationController
-                              .addOfferNotification(data);
+                          // if (response ==
+                          //     'success') {
+                          //   Get.back();
+                          //   Get.snackbar(
+                          //       'Sucess',
+                          //       'Profile Updated Successfully');
+                          // }
 
-                          if (response == 'success') {
-                            Get.back();
-                            Get.snackbar('Sucess', 'Added Offer successfully');
-                          }
+                          // final snackbarSucess = SnackBar(
+                          //     content: Text('Profile updated sucessfully'));
+                          // final snackbarFail = SnackBar(
+                          //     content: Text('Profile updation failed'));
 
-                          final snackbarSucess = SnackBar(
-                              content: Text('Offer added successfully'));
-                          final snackbarFail =
-                              SnackBar(content: Text('Failed to add Offer'));
+                          // if (response == "success") {
+                          //   Get.toNamed("/adminProfile");
 
-                          if (response == "success") {
-                            Get.toNamed("/adminProfile");
-
-                            // snackbarSucess;
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(snackbarSucess);
-                            // foodController
-                            //     .getAllFood();
-                          } else {
-                            snackbarFail;
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(snackbarFail);
-                          }
+                          //   // snackbarSucess;
+                          //   // ScaffoldMessenger.of(context)
+                          //   //     .showSnackBar(snackbarSucess);
+                          //   // foodController
+                          //   //     .getAllFood();
+                          // }
+                          //  else {
+                          //   snackbarFail;
+                          //   ScaffoldMessenger.of(context)
+                          //       .showSnackBar(snackbarSucess);
+                          // }
                         }
                       },
                       style: ElevatedButton.styleFrom(

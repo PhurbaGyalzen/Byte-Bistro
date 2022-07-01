@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:byte_bistro/Services/http_service.dart';
 
 import '../models/notification.dart';
+import 'package:dio/dio.dart' as dio;
 
 class NotificationService {
   Future<List<Notificationl>> getAllnotification() async {
@@ -52,15 +53,48 @@ class NotificationService {
     }
   }
 
+  Future<String> addFood(Map<String, dynamic> data) async {
+    String endpoint = PersistentHtpp.baseUrl + 'food';
+    var http = dio.Dio();
+    var imageFileName = data['image'].path;
+    var formData = dio.FormData.fromMap({
+      'name': data['name'],
+      'price': data['price'],
+      'image': await dio.MultipartFile.fromFile(data['image'].path,
+          filename: imageFileName),
+      'description': data['description'],
+      'categories': data['categories'],
+    });
+    try {
+      final response = await http.post(
+        endpoint,
+        data: formData,
+      );
+      if (response.statusCode == 200) {
+        return 'success';
+      } else {
+        return Future.error('err');
+      }
+    } catch (err) {
+      return Future.error(' err');
+    }
+  }
+
   Future<String> addOfferNotification(Map<String, dynamic> data) async {
     String endpoint = PersistentHtpp.baseUrl + 'notification/offer';
+
+    var http = dio.Dio();
+    var imageFileName = data['image'].path;
+    var formData = dio.FormData.fromMap({
+      'title': data['title'],
+      'message': data['message'],
+      'image': await dio.MultipartFile.fromFile(data['image'].path,
+          filename: imageFileName),
+    });
     try {
-      final response = await PersistentHtpp.client.post(
-        Uri.parse(endpoint),
-        body: jsonEncode(data),
-        headers: {
-          "Content-Type": "application/json; charset=UTF-8",
-        },
+      final response = await http.post(
+        endpoint,
+        data: formData,
       );
       if (response.statusCode == 200) {
         return 'success';

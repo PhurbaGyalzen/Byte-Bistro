@@ -1,14 +1,18 @@
 import 'package:byte_bistro/Services/http_service.dart';
 import 'package:byte_bistro/constants/colors.dart';
 import 'package:byte_bistro/controller/favourite_controller.dart';
+import 'package:byte_bistro/controller/logged_user_info_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class FavouritePage extends StatelessWidget {
-  FavouritePage({
-    Key? key,
-  }) : super(key: key);
+class FavouritePage extends StatefulWidget {
+  const FavouritePage({Key? key}) : super(key: key);
 
+  @override
+  State<FavouritePage> createState() => _FavouritePageState();
+}
+
+class _FavouritePageState extends State<FavouritePage> {
   final FavouriteController favouriteController =
       Get.put(FavouriteController());
 
@@ -16,7 +20,7 @@ class FavouritePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          elevation: 0,
+            elevation: 0,
             leading: IconButton(
                 icon: Icon(Icons.arrow_back),
                 color: Colors.black,
@@ -152,29 +156,3 @@ class FavouritePage extends StatelessWidget {
     // ));
   }
 }
-
-
-
-// import 'package:byte_bistro/constants/colors.dart';
-
-// class FavouritePage extends StatefulWidget {
-//   const FavouritePage({Key? key}) : super(key: key);
-//   @override
-//   _FavouritePageState createState() => _FavouritePageState();
-// }
-
-// class _FavouritePageState extends State<FavouritePage> {
-//   FavouriteController favouriteController = Get.put(FavouriteController());
-//   @override
-//   Widget build(BuildContext context) {
-  
-//     List<Favourite> favouriteData = favouriteController.getUserFavourites("627fbfa1d464ffbeb80b985b");
-//     // print(response);
-//     return Scaffold(
-      
-//       body: Container(
-//         child: Text("Favourite Page"),
-        
-//         ),);
-//   }
-// }
