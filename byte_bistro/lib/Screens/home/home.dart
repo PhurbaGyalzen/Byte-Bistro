@@ -175,17 +175,31 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       InkWell(
                         onTap: () {
-                          Get.offNamed('/profileScreen');
+                          if (cartController.cartList.isEmpty) {
+                            Get.offNamed("/emptyCart");
+                          } else {
+                            Get.offNamed('/addToCart');
+                          }
                         },
                         child: Badge(
                           child: Icon(Icons.shopping_cart_outlined,
                               size: 25, color: Colors.black87),
-                          position: BadgePosition.topEnd(top: -8, end: -8),
+                          position: cartController.cartList.length > 9 ? BadgePosition.topEnd(top: -8, end: -15): BadgePosition.topEnd(top: -8, end: -10),
                           badgeColor: kPrimary,
                           elevation: 0,
-                          badgeContent:
-                              Text(cartController.cartList.length.toString()),
+                          badgeContent: Obx(
+                            () => 
+                            cartController.cartList.length > 9 ?
+                            Text(cartController.cartList.length
+                                .toString()
+                                .padLeft(2, "0"))
+                          : Text(cartController.cartList.length
+                                .toString()
+                                .padLeft(1, "0")),)
                         ),
+                      ),
+                      SizedBox(
+                        width: 5,
                       ),
                     ],
                   ),

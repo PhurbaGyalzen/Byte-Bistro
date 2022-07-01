@@ -362,30 +362,30 @@ class _InvoiceDetailState extends State<InvoiceDetail> {
   Widget _buildActionButton(BuildContext context) {
     return Row(
       children: [
+        // Expanded(
+        //   flex: 2,
+        //   child: TextButton.icon(
+        //     onPressed: () {},
+        //     icon: Icon(
+        //       Icons.edit,
+        //       color: defaultColor,
+        //     ),
+        //     label: Text(
+        //       "Download",
+        //       style: TextStyle(
+        //         color: defaultColor,
+        //       ),
+        //     ),
+        //   ),
+        // ),
         Expanded(
-          flex: 2,
-          child: TextButton.icon(
-            onPressed: () {},
-            icon: Icon(
-              Icons.edit,
-              color: defaultColor,
-            ),
-            label: Text(
-              "Edit",
-              style: TextStyle(
-                color: defaultColor,
-              ),
-            ),
-          ),
-        ),
-        Expanded(
-          flex: 3,
+          // flex: 3,
           child: Container(
             color: Colors.orangeAccent,
             child: TextButton(
               onPressed: () {},
               child: Text(
-                "Send Invoice",
+                "Download",
                 style: TextStyle(
                   color: defaultColor,
                 ),

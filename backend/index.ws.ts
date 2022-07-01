@@ -3,12 +3,14 @@ import { Server } from 'socket.io'
 import { Express } from 'express'
 import { Cart, ICart } from '@models/Cart'
 import { User } from '@models/Users'
-import { jwtSigner, jwtVerify } from 'middlewares/jwt-auth'
+import { jwtVerify } from 'middlewares/jwt-auth'
 import { IAuthenticatedUser } from '@mytypes/Auth'
+import { ClientToServerEvents, InterServerEvents, ServerToClientEvents, SocketData } from 'typings/socketio'
 
 const initWebSocket = (app: Express) => {
 	const httpServer = createServer(app)
-	const io = new Server(httpServer, {
+	const io = new Server<ClientToServerEvents, ServerToClientEvents, InterServerEvents, SocketData>(httpServer, {
+	// const io = new Server(httpServer, {
 		cors: {
 			origin: '*',
 		},
@@ -98,7 +100,6 @@ const initWebSocket = (app: Express) => {
 			}
 		})
 
-		// emtted by admin
 		socket.on('order_status_change', async (data, callback) => {
 			console.log('admin: requested order status change')
 			if (!currUser) {
@@ -122,6 +123,7 @@ const initWebSocket = (app: Express) => {
 				orderStatus: data.orderStatus,
 				orderDurationMin: data.orderDurationMin,
 			})
+			console.log(callback)
 			callback({
 				success: true,
 				message: 'Order status changed'
@@ -130,7 +132,6 @@ const initWebSocket = (app: Express) => {
 		})
 	})
 
-	io.emit('order_confirmed', { order_id: '34hg3434j' })
 
 	return httpServer
 }

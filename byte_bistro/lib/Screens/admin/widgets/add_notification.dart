@@ -11,16 +11,10 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AddNotification extends StatefulWidget {
-  final String bio;
-  final String fullName;
-  final String email;
-  final String address;
-  const AddNotification(
-      {Key? key,
-      this.bio = '',
-      this.fullName = '',
-      this.address = '',
-      this.email = ''})
+  final String title;
+  final String description;
+
+  const AddNotification({Key? key, this.title = '', this.description = ''})
       : super(key: key);
 
   @override
@@ -30,15 +24,11 @@ class AddNotification extends StatefulWidget {
 class _AddNotificationState extends State<AddNotification> {
   // editing controller
 
-  late TextEditingController fullnameController =
-      TextEditingController(text: widget.fullName);
-  late final TextEditingController emailController =
-      TextEditingController(text: widget.email);
+  late TextEditingController titleController =
+      TextEditingController(text: widget.title);
+  late final TextEditingController descriptionController =
+      TextEditingController(text: widget.description);
   // final TextEditingController phoneController = TextEditingController(text: phone1);
-  late final TextEditingController addressController =
-      TextEditingController(text: widget.address);
-  late final TextEditingController bioController =
-      TextEditingController(text: widget.bio);
   final formkey = GlobalKey<FormState>();
   final LoggedUserInfoController userController = Get.find();
   var imageName = "";
@@ -49,7 +39,6 @@ class _AddNotificationState extends State<AddNotification> {
       final photo = await ImagePicker().pickImage(source: imageType);
       if (photo == null) return;
       final tempImage = File(photo.path);
-      var res = await AuthService.updateProfile(tempImage);
       setState(() {
         pickedImage = tempImage;
         imageName = tempImage.path.split("/").last;
@@ -66,7 +55,7 @@ class _AddNotificationState extends State<AddNotification> {
       appBar: AppBar(
         elevation: 0,
         title: Text(
-          'Add Notification',
+          'Add Offer',
           style: TextStyle(fontSize: 20, letterSpacing: 1, height: 1.5),
         ),
         leading: IconButton(
@@ -87,11 +76,17 @@ class _AddNotificationState extends State<AddNotification> {
                 Center(
                     child: Stack(
                   children: [
-                    CircleAvatar(
-                      backgroundImage:
-                          NetworkImage('https://i.pravatar.cc/300'),
-                      radius: 70,
-                    ),
+                    ClipRRect(
+                        borderRadius: BorderRadius.circular(15.0), //or 15.0
+                        child: Container(
+                          height: 140.0,
+                          width: 190.0,
+                          color: Color(0xffFF0E58),
+                          child: Image.network(
+                            'https://i.pravatar.cc/300',
+                            fit: BoxFit.cover,
+                          ),
+                        )),
                     Positioned(
                       bottom: 0,
                       right: 0,
@@ -190,7 +185,7 @@ class _AddNotificationState extends State<AddNotification> {
                 ),
                 TextFormField(
                   validator: RequiredValidator(errorText: '*required'),
-                  controller: fullnameController,
+                  controller: titleController,
                   minLines: 2,
                   maxLines: 2,
                   // initialValue:
@@ -219,7 +214,7 @@ class _AddNotificationState extends State<AddNotification> {
                       ),
                     ],
                   ),
-                  controller: emailController,
+                  controller: descriptionController,
                   minLines: 8,
                   maxLines: 10,
                   decoration: InputDecoration(
@@ -242,8 +237,9 @@ class _AddNotificationState extends State<AddNotification> {
                       onPressed: () async {
                         if (formkey.currentState!.validate()) {
                           Map<String, dynamic> data = {
-                            "fullname": fullnameController.text,
-                            "email": emailController.text,
+                            "title": titleController.text,
+                            "message": descriptionController.text,
+                            "image": pickedImage,
                             // "phones":
                             //     [phoneController
                             //         .text],

@@ -36,8 +36,12 @@ class _AdminDashboardState extends State<AdminDashboard> {
                     width: 25,
                     height: 25,
                   ),
+                  onTap: (){
+                   Get.offNamed('/changePassword');
+                },
                 ),
                 value: 'Change Password',
+                
               ),
               PopupMenuItem(
                 child: ListTile(

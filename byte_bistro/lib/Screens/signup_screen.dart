@@ -193,7 +193,7 @@ class _SignUpState extends State<SignUpScreen> {
                       TextFormField(
                         controller: passwordController,
                         validator: RequiredValidator(errorText: '*required'),
-                        obscureText: true,
+                        obscureText: _isObscure,
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
                             borderSide: const BorderSide(

@@ -18,65 +18,25 @@ class UserFoodDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+          elevation: 0,
+          leading: IconButton(
+              icon: Icon(Icons.arrow_back),
+              color: Colors.black,
+              onPressed: () => Get.offAllNamed('/home')),
+          title: Text(
+            'Food Details',
+            style: Theme.of(context).textTheme.headline1,
+          ),
+          backgroundColor: kPrimary),
       body: SafeArea(
           child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // navigation
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                IconButton(
-                  padding: EdgeInsets.only(left: 10),
-                  icon: Icon(
-                    Icons.arrow_back,
-                    size: 20,
-                  ),
-                  onPressed: () => Get.offNamed('/home'),
-                ),
-                SizedBox(width: 60),
-                Row(
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        print('hello');
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 15),
-                        child: Image(
-                          image: AssetImage('assets/images/love_not_fill.png'),
-                          width: 20,
-                          height: 20,
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 10),
-                    Badge(
-                      position: BadgePosition.topEnd(top: -8, end: 3),
-                      badgeColor: kPrimary,
-                      elevation: 0,
-                      badgeContent: Text('3'),
-                      child: GestureDetector(
-                        onTap: () {},
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 15),
-                          child: Image(
-                            image: AssetImage('assets/images/flatCart.png'),
-                            width: 20,
-                            height: 20,
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 10),
-                  ],
-                )
-              ],
+            SizedBox(
+              height: 20,
             ),
-
-            SizedBox(height: 10),
-
 // food title
             Center(
               child: Text(
