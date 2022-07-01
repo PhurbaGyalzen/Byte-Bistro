@@ -16,6 +16,7 @@ export interface ICart {
 	}[]
 	tableId: number
   status: CartStatus
+  duration: number
 }
 
 interface ICartDoc extends ICart, Document {}
@@ -52,6 +53,12 @@ const CartSchemaFields: Record<keyof ICart, any> = {
     default: CartStatus.Pending,
     min: CartStatus.Pending,
     max: CartStatus.Completed,
+  },
+  duration: {
+    type: Number,
+    required: false,
+    min: 0,
+    default: 25
   }
 };
 
