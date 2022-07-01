@@ -49,7 +49,9 @@ const CartSchemaFields: Record<keyof ICart, any> = {
   status: {
     type: Number,
     required: true,
-    default: CartStatus.Pending
+    default: CartStatus.Pending,
+    min: CartStatus.Pending,
+    max: CartStatus.Completed,
   }
 };
 
