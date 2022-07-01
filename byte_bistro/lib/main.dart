@@ -142,10 +142,10 @@ class ByteBistro extends StatelessWidget {
           ),
         ),
       ),
-      initialRoute: '/user_invoice_list',
-      // initialRoute: tokenDecoded['username'] != null ? '/home' : '/login',
+      // initialRoute: '/addNotification',
+      initialRoute: tokenDecoded['username'] != null ? '/home' : '/login',
       // initialRoute: '/adminScreen',
-      
+
       debugShowCheckedModeBanner: false,
       title: 'Byte Bistro',
       getPages: [
