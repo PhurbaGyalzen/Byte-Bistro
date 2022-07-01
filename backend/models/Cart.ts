@@ -1,7 +1,7 @@
 import mongoose, { Document, Schema, Types } from 'mongoose';
 import { IMenuItem } from './Food';
 
-enum Status {
+export enum CartStatus {
   Pending = 0,
   Preping = 1,
   CheckingOut = 2,
@@ -15,7 +15,7 @@ export interface ICart {
 		qty: number
 	}[]
 	tableId: number
-  status: Status
+  status: CartStatus
 }
 
 interface ICartDoc extends ICart, Document {}
@@ -49,7 +49,7 @@ const CartSchemaFields: Record<keyof ICart, any> = {
   status: {
     type: Number,
     required: true,
-    default: Status.Pending
+    default: CartStatus.Pending
   }
 };
 
