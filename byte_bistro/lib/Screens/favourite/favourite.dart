@@ -65,7 +65,9 @@ class _FavouritePageState extends State<FavouritePage> {
                             favouriteController.removeFavorite(
                               favouriteController.favouriteList[index].id,
                             );
-
+                            setState(() {
+                              favouriteController.favouriteList.removeAt(index);
+                            });
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(content: Text('Removed from Favourite')),
                             );

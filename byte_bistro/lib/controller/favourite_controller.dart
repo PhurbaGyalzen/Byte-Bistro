@@ -13,14 +13,8 @@ class FavouriteController extends GetxController {
   void onInit() {
     super.onInit();
     loggedUserInfoController.getLoggedUserInfo().then((value) {
-      print("In fav controller");
-      print(value);
       getUserFavourites(value.id);
     });
-    // getUserFavourites2();
-    // print(loggedUserInfoController.userInfo[0].id.toString());
-    // getUserFavourites();
-    // print(favouriteList.value);
   }
 
   getAllFavourites() async {

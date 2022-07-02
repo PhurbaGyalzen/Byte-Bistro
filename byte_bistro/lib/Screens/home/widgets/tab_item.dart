@@ -34,8 +34,6 @@ class _TabItemDetailState extends State<TabItemDetail> {
 
   Future getFavourite() async {
     loggedUserInfo = await loggedUserInfoController.getLoggedUserInfo();
-    print("tab item logged user info");
-    print(loggedUserInfo);
     List<Favourite> response = await favouriteController
         .getUserFavourites(loggedUserInfo.id.toString());
     setState(() {
@@ -158,6 +156,7 @@ class _TabItemDetailState extends State<TabItemDetail> {
                                                 // print("Error");
                                                 // print(dataD);
                                                 // print(data[index].id);
+
                                                 var response =
                                                     favouriteController
                                                         .addFavourite(dataD);
@@ -165,7 +164,7 @@ class _TabItemDetailState extends State<TabItemDetail> {
                                                 final snackbarSucess = SnackBar(
                                                     content: Text(
                                                         'Added to favourites'));
-                                                setState(() {});
+                                                getFavourite();
                                                 final snackbarFail = SnackBar(
                                                     content: Text(
                                                         'The item is already added to favourites'));

@@ -63,7 +63,8 @@ class _AddNotificationState extends State<AddNotification> {
         ),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
-          onPressed: () {},
+          onPressed: () => Get.offNamed('/adminScreen'),
+
           // onPressed: () => Get.offNamed('/userProfilePage'),
         ),
         backgroundColor: kPrimary,
