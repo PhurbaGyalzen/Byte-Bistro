@@ -1,6 +1,7 @@
 import 'package:byte_bistro/Screens/home/models/food_model.dart';
 import 'package:byte_bistro/Services/http_service.dart';
 import 'package:byte_bistro/constants/colors.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import '../controller/food_controller.dart';
 import 'package:get/get.dart';
@@ -21,6 +22,19 @@ class _MOMOState extends State<MOMO> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        title: Text(
+          widget.catName,
+          style: TextStyle(fontSize: 20, letterSpacing: 1, height: 1.5),
+        ),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Get.offNamed('/home'),
+        ),
+        backgroundColor: kPrimary,
+        foregroundColor: kTextColor,
+      ),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Container(
@@ -28,36 +42,8 @@ class _MOMOState extends State<MOMO> {
           margin: EdgeInsets.only(left: 17, right: 17, top: 12),
           child: Column(
             children: [
-              Row(
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Icon(
-                      Icons.arrow_back_ios_rounded,
-                      color: kTextColor,
-                    ),
-                  ),
-                  Expanded(
-                    child: Center(
-                      child: Text(
-                        widget.catName,
-                        style: TextStyle(
-                          fontSize: 19,
-                          fontWeight: FontWeight.normal,
-                          color: Theme.of(context).primaryColor,
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                ],
-              ),
               SizedBox(
-                height: 30,
+                height: 10,
               ),
               Expanded(
                 child: FutureBuilder(
@@ -85,7 +71,7 @@ class _MOMOState extends State<MOMO> {
                                 FoodList.add(data[index1]);
                                 return Container(
                                   padding: EdgeInsets.only(left: 10, bottom: 0),
-                                  height: 200,
+                                  height: 180,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10.0),
                                     color: Colors.white,
@@ -105,23 +91,34 @@ class _MOMOState extends State<MOMO> {
                                   child: Row(
                                     children: [
                                       ClipRRect(
-                                        borderRadius: BorderRadius.circular(
-                                          50,
-                                        ), // Image border
-                                        child: Image(
-                                          image: NetworkImage(
-                                            PersistentHtpp.baseUrl +
+                                          borderRadius: BorderRadius.circular(
+                                            10,
+                                          ), // Image border
+
+                                          child: CachedNetworkImage(
+                                            width: 120,
+                                            height: 120,
+                                            imageUrl: PersistentHtpp.baseUrl +
                                                 data[index1].image,
-                                          ),
-                                          width: 120,
-                                          height: 120,
-                                          fit: BoxFit.fill,
-                                        ),
+                                            fit: BoxFit.cover,
+                                            placeholder: (context, url) =>
+                                                Image(
+                                                    fit: BoxFit.cover,
+                                                    image: AssetImage(
+                                                      'assets/images/loading.gif',
+                                                    )),
+                                            errorWidget:
+                                                (context, url, error) =>
+                                                    Icon(Icons.error),
+                                          )),
+                                      SizedBox(
+                                        width: 30,
                                       ),
                                       Expanded(
                                         child: Container(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 15, vertical: 5),
+                                          padding: EdgeInsets.only(
+                                            top: 5,
+                                          ),
                                           child: Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
@@ -163,11 +160,11 @@ class _MOMOState extends State<MOMO> {
                                                 ),
                                               ),
                                               SizedBox(
-                                                height: 15,
+                                                height: 20,
                                               ),
                                               Row(
                                                 mainAxisAlignment:
-                                                    MainAxisAlignment.end,
+                                                    MainAxisAlignment.start,
                                                 children: [
                                                   Image.asset(
                                                     'assets/images/heart.png',
@@ -212,7 +209,6 @@ class _MOMOState extends State<MOMO> {
                               } else {
                                 return SizedBox();
                               }
-
 
                               // if (index > 0) {
                               //   return SizedBox(
