@@ -25,10 +25,12 @@ class _NotificationOfferState extends State<NotificationOffer> {
       child: FutureBuilder(
           future: notificationController.getOfferNotification(),
           builder: (context, snapshot) {
-            if (snapshot.hasData) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasData) {
               List<NotificationO> notificationData =
                   snapshot.data as List<NotificationO>;
-              print(notificationData);
+              // print(notificationData);
               return Container(
                 padding: EdgeInsets.all(8.0),
                 child: ListView.builder(

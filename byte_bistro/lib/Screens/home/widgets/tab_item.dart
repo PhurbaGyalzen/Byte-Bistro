@@ -155,8 +155,8 @@ class _TabItemDetailState extends State<TabItemDetail> {
                                                   "userId": loggedUserInfo.id
                                                       .toString(),
                                                 };
-                                                print("Error");
-                                                print(dataD);
+                                                // print("Error");
+                                                // print(dataD);
                                                 // print(data[index].id);
                                                 var response =
                                                     favouriteController
@@ -165,10 +165,7 @@ class _TabItemDetailState extends State<TabItemDetail> {
                                                 final snackbarSucess = SnackBar(
                                                     content: Text(
                                                         'Added to favourites'));
-                                                setState(() {
-                                                  favouriteList
-                                                      .add(data[index].id);
-                                                });
+                                                setState(() {});
                                                 final snackbarFail = SnackBar(
                                                     content: Text(
                                                         'The item is already added to favourites'));
