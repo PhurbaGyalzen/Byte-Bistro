@@ -27,15 +27,11 @@ class _PendingOrdersState extends State<PendingOrders> {
   @override
   Widget build(BuildContext context) {
     if (widget.orderStatusId >= CartStatus.Completed.index) {
+      // if (false) {
       return Container();
     } else {
       return Container(
-        padding: EdgeInsets.only(
-          left: 20,
-          top: 15,
-          bottom: 15,
-          right: 20,
-        ),
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 3),
         margin: EdgeInsets.only(top: 20, bottom: 5, left: 5, right: 5),
         decoration: BoxDecoration(
           color: Colors.white,
@@ -87,11 +83,16 @@ class _PendingOrdersState extends State<PendingOrders> {
                   width: 80,
                 ),
                 GestureDetector(
-                  onTap: () => Get.bottomSheet(
-                    NotificationDetail(order: widget.cart),
-                    isDismissible: false,
-                    elevation: 20,
-                  ),
+                  onTap: () {
+                    // Get.bottomSheet(
+                    //   NotificationDetail(order: widget.cart),
+                    //   isDismissible: true,
+                    //   isScrollControlled: true,
+                    //   ignoreSafeArea: false,
+                    //   elevation: 20,
+                    // )
+                    Get.to(NotificationDetail(order: widget.cart));
+                  },
                   child: Image(
                     height: 20,
                     width: 20,
@@ -116,15 +117,16 @@ class _PendingOrdersState extends State<PendingOrders> {
                                 'orderStatus': CartStatus.Preping.index,
                               }
                             ], ack: (data) {
-                              Get.snackbar(
-                                  data['success']
-                                      ? 'Status Changed Successfully'
-                                      : 'Failed to change status',
-                                  data['message']);
-                            });
-
-                            setState(() {
-                              widget.orderStatusId = 1;
+                              String title = 'Status Changed Successfully';
+                              if (data['success']) {
+                                setState(() {
+                                  widget.orderStatusId =
+                                      CartStatus.Preping.index;
+                                });
+                              } else {
+                                title = 'Failed to change status';
+                              }
+                              Get.snackbar(title, data['message']);
                             });
                           },
                     child: Text(
@@ -153,14 +155,15 @@ class _PendingOrdersState extends State<PendingOrders> {
                                 'orderStatus': CartStatus.Ready.index,
                               }
                             ], ack: (data) {
-                              Get.snackbar(
-                                  data['success']
-                                      ? 'Status Changed Successfully'
-                                      : 'Failed to change status',
-                                  data['message']);
-                            });
-                            setState(() {
-                              widget.orderStatusId = 2;
+                              String title = 'Status Changed Successfully';
+                              if (data['success']) {
+                                setState(() {
+                                  widget.orderStatusId = CartStatus.Ready.index;
+                                });
+                              } else {
+                                title = 'Failed to change status';
+                              }
+                              Get.snackbar(title, data['message']);
                             });
                           },
                     child: Text(
@@ -190,15 +193,16 @@ class _PendingOrdersState extends State<PendingOrders> {
                                   'orderStatus': CartStatus.Completed.index,
                                 }
                               ], ack: (data) {
-                                Get.snackbar(
-                                    data['success']
-                                        ? 'Status Changed Successfully'
-                                        : 'Failed to change status',
-                                    data['message']);
-                              });
-
-                              setState(() {
-                                widget.orderStatusId = 3;
+                                String title = 'Status Changed Successfully';
+                                if (data['success']) {
+                                  setState(() {
+                                    widget.orderStatusId =
+                                        CartStatus.Completed.index;
+                                  });
+                                } else {
+                                  title = 'Failed to change status';
+                                }
+                                Get.snackbar(title, data['message']);
                               });
                             });
                           },
