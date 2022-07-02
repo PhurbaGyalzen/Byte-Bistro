@@ -86,7 +86,7 @@ class _AdminOrdersState extends State<AdminOrders> {
                   future: cartController.getPendingOrders(),
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) {
-                      return CircularProgressIndicator();
+                      return Center(child: CircularProgressIndicator());
                     }
                     List<Cart> data = snapshot.data as List<Cart>;
                     return ListView.builder(
