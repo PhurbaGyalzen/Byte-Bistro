@@ -283,7 +283,7 @@ class _AddNotificationState extends State<AddNotification> {
                         shape: const StadiumBorder(),
                       ),
                       child: Text(
-                        "Add Notification",
+                        "Add Offer",
                         style: TextStyle(
                             fontSize: 14,
                             letterSpacing: 2.2,
