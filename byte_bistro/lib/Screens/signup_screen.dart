@@ -263,6 +263,9 @@ class _SignUpState extends State<SignUpScreen> {
                           ),
                         ),
                       ),
+                      const SizedBox(
+                        height: 15,
+                      ),
                       TextFormField(
                         controller: confirmpasswordController,
                         validator: (value) {
@@ -362,7 +365,7 @@ class _SignUpState extends State<SignUpScreen> {
                               } else {
                                 Get.snackbar(
                                   "User failed to be registered",
-                                  "Please try again/ Can be duplicate email entry",
+                                  "Please try again/ Can be duplicate username or email entry",
                                   icon: Icon(Icons.person_rounded,
                                       color: Colors.white),
                                   duration: Duration(seconds: 3),
