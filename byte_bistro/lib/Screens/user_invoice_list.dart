@@ -90,100 +90,112 @@ class _UserInvoiceListState extends State<UserInvoiceList> {
 
                         Row(
                           children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: const [
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                    left: 20.0,
-                                  ),
-                                  child: Text("Order No."),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                    left: 20.0,
-                                  ),
-                                  child: Text("Date"),
-                                )
-                              ],
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                    left: 10.0,
-                                  ),
-                                  child: SizedBox(
-                                      width: 120,
-                                      child: Text(
-                                        data[index].id.toString(),
-                                        overflow: TextOverflow.ellipsis,
-                                      )),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                    left: 10.0,
-                                  ),
-                                  child: SizedBox(
-                                    width: 120,
-                                    child: Text(
-                                      data[index].createdAt.toString(),
-                                      overflow: TextOverflow.ellipsis,
+                            Expanded(
+                              flex: 3,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: const [
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                      left: 20.0,
                                     ),
+                                    child: Text("Order No."),
                                   ),
-                                )
-                              ],
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                      left: 20.0,
+                                    ),
+                                    child: Text("Date"),
+                                  )
+                                ],
+                              ),
                             ),
                             Expanded(
-                              child: SizedBox(),
+                              flex: 4,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                      left: 10.0,
+                                    ),
+                                    child: SizedBox(
+                                        width: 120,
+                                        child: Text(
+                                          data[index].id.toString(),
+                                          overflow: TextOverflow.ellipsis,
+                                        )),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                      left: 10.0,
+                                    ),
+                                    child: SizedBox(
+                                      width: 120,
+                                      child: Text(
+                                        data[index].createdAt.toString(),
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: const [
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                    left: 20.0,
+                            // Expanded(
+                            //   child: SizedBox(),
+                            // ),
+                            Expanded(
+                              flex: 2,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: const [
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                      left: 20.0,
+                                    ),
+                                    child: Text("Total"),
                                   ),
-                                  child: Text("Total"),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                    left: 20.0,
-                                  ),
-                                  child: Text("Status"),
-                                )
-                              ],
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                      left: 20.0,
+                                    ),
+                                    child: Text("Status"),
+                                  )
+                                ],
+                              ),
                             ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                    left: 10.0,
-                                    right: 20,
+                            Expanded(
+                              flex: 4,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                      left: 10.0,
+                                      right: 20,
+                                    ),
+                                    child: SizedBox(
+                                      width: 100,
+                                      child: Text(
+                                        "Rs. ${totalPrice.toString()}",
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
                                   ),
-                                  child: SizedBox(
-                                    width: 100,
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                      left: 10.0,
+                                      right: 20,
+                                    ),
                                     child: Text(
-                                      "Rs. ${totalPrice.toString()}",
-                                      overflow: TextOverflow.ellipsis,
+                                      "Complete",
+                                      style: TextStyle(
+                                        color: Colors.green,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                    left: 10.0,
-                                    right: 20,
-                                  ),
-                                  child: Text(
-                                    "Complete",
-                                    style: TextStyle(
-                                      color: Colors.green,
-                                    ),
-                                  ),
-                                ),
-                              ],
+                                ],
+                              ),
                             )
                           ],
                         ),
@@ -205,9 +217,10 @@ class _UserInvoiceListState extends State<UserInvoiceList> {
                 );
               },
             );
-          } else {
+          } 
+          else {
             return Center(
-              child: Text("Empty"),
+              child: CircularProgressIndicator(),
             );
           }
         },

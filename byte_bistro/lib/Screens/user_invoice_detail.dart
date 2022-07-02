@@ -354,8 +354,8 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
             child: Container(
               padding: EdgeInsets.only(
                 top: 10,
-                left: 27,
-                right: 27,
+                left: 15,
+                right: 15,
                 bottom: 10,
               ),
               child: Column(
