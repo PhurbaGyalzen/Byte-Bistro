@@ -1,8 +1,10 @@
 import 'package:byte_bistro/Services/ws_service.dart';
+import 'package:byte_bistro/controller/cart_controller.dart';
 import 'package:byte_bistro/models/cart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:jiffy/jiffy.dart';   
+import 'package:jiffy/jiffy.dart';
+import 'package:duration_picker/duration_picker.dart';
 
 import '../../constants/colors.dart';
 
@@ -11,23 +13,17 @@ class NotificationDetail extends StatefulWidget {
   const NotificationDetail({Key? key, required this.order}) : super(key: key);
 
   @override
-  State<NotificationDetail> createState() =>
-      _NotificationDetailState(order: order);
+  State<NotificationDetail> createState() => _NotificationDetailState();
 }
 
 class _NotificationDetailState extends State<NotificationDetail> {
-  final Cart order;
-
-  _NotificationDetailState({required this.order});
-
-  var socket = WebSocketService.socket;
+  final CartController cartController = Get.find();
+  late Duration _duration;
 
   @override
   void initState() {
-    if (socket.disconnected) {
-      socket.connect();
-    }
     super.initState();
+    _duration = Duration(hours: 0, minutes: widget.order.duration);
   }
 
   @override
@@ -66,7 +62,7 @@ class _NotificationDetailState extends State<NotificationDetail> {
                             ),
                             children: [
                               TextSpan(
-                                text: order.id,
+                                text: widget.order.id,
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w500,
@@ -87,7 +83,8 @@ class _NotificationDetailState extends State<NotificationDetail> {
                               ),
                               children: [
                                 TextSpan(
-                                  text: "Pending..",
+                                  text: CartStatus
+                                      .values[widget.order.status].name,
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w500,
@@ -109,7 +106,8 @@ class _NotificationDetailState extends State<NotificationDetail> {
                               ),
                               children: [
                                 TextSpan(
-                                  text: Jiffy(order.createdAt).yMMMMEEEEdjm,
+                                  text: Jiffy(widget.order.createdAt)
+                                      .yMMMMEEEEdjm,
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w500,
@@ -168,11 +166,11 @@ class _NotificationDetailState extends State<NotificationDetail> {
                           ),
                           height: 200,
                           child: ListView.builder(
-                            itemCount: order.items.length,
+                            itemCount: widget.order.items.length,
                             itemBuilder: (context, index) {
                               totalCartPrice +=
-                                  order.items[index].foodId.price *
-                                      order.items[index].qty;
+                                  widget.order.items[index].foodId.price *
+                                      widget.order.items[index].qty;
                               return Container(
                                 decoration: BoxDecoration(
                                   color: kTextLightColor.withOpacity(0.2),
@@ -180,11 +178,11 @@ class _NotificationDetailState extends State<NotificationDetail> {
                                 child: ListTile(
                                   style: ListTileStyle.list,
                                   title: Text(
-                                    order.items[index].foodId.name,
+                                    widget.order.items[index].foodId.name,
                                     style: TextStyle(height: 1.5),
                                   ),
                                   subtitle: Text(
-                                    '${order.items[index].qty} x ${order.items[index].foodId.price} = ${order.items[index].foodId.price * order.items[index].qty}',
+                                    '${widget.order.items[index].qty} x ${widget.order.items[index].foodId.price} = ${widget.order.items[index].foodId.price * widget.order.items[index].qty}',
                                   ),
                                 ),
                               );
@@ -194,8 +192,32 @@ class _NotificationDetailState extends State<NotificationDetail> {
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
                               primary: Theme.of(context).primaryColor),
+                          onPressed: () async {
+                            Duration? resultingDuration =
+                                await showDurationPicker(
+                              context: context,
+                              initialTime: _duration,
+                            );
+                            if (resultingDuration == null) {
+                              return;
+                            }
+                            cartController.updateDuration(
+                                widget.order.id, resultingDuration.inMinutes);
+                            setState(() {
+                              _duration = resultingDuration;
+                            });
+                          },
+                          child: Text(
+                            'Set Food Prep Duration',
+                            style: Theme.of(context).textTheme.headline1,
+                          ),
+                        ),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              primary: Theme.of(context).primaryColor),
                           onPressed: () {
-                            Get.back();
+                            // Get.back();
+                            Get.offNamed('/adminOrders');
                           },
                           child: Text(
                             'Back',
