@@ -1,7 +1,7 @@
 import { createServer } from 'http'
 import { Server } from 'socket.io'
 import { Express } from 'express'
-import { Cart, ICart } from '@models/Cart'
+import { Cart, ICart, CartStatus } from '@models/Cart'
 import { User } from '@models/Users'
 import { jwtVerify } from 'middlewares/jwt-auth'
 import { IAuthenticatedUser } from '@mytypes/Auth'
@@ -118,16 +118,29 @@ const initWebSocket = (app: Express) => {
 				})
 				return
 			}
-			io.to(currUser.username).emit('order_status_change', {
-				orderId: data.orderId,
-				orderStatus: data.orderStatus,
-				orderDurationMin: data.orderDurationMin,
-			})
-			console.log(callback)
-			callback({
-				success: true,
-				message: 'Order status changed'
-			})
+			try {
+				const cart = await Cart.findByIdAndUpdate(data.orderId, {
+					$set: {
+						'status': data.orderStatus
+					}
+				})
+				io.to(currUser.username).emit('order_status_change', {
+					orderId: data.orderId,
+					orderStatus: data.orderStatus,
+					orderDurationMin: cart?.duration || 0
+				})
+				// console.log(callback)
+				callback({
+					success: true,
+					message: 'Order status changed'
+				})
+			} catch (e: any) {
+				callback({
+					success: false,
+					message: e.message
+				})
+			}
+
 			// console.log((await io.fetchSockets())[0].id)
 		})
 	})
