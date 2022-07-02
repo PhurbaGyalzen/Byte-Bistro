@@ -1,5 +1,13 @@
 import 'dart:convert';
 
+enum CartStatus {
+  Pending,
+  Preping,
+  CheckingOut,
+  Completed,
+}
+
+
 Cart cartFromJson(String str) => Cart.fromJson(json.decode(str));
 
 String cartToJson(Cart data) => json.encode(data.toJson());
