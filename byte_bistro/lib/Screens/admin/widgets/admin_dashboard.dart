@@ -36,12 +36,11 @@ class _AdminDashboardState extends State<AdminDashboard> {
                     width: 25,
                     height: 25,
                   ),
-                  onTap: (){
-                   Get.offNamed('/changePassword');
-                },
+                  onTap: () {
+                    Get.offNamed('/changePassword');
+                  },
                 ),
                 value: 'Change Password',
-                
               ),
               PopupMenuItem(
                 child: ListTile(
@@ -149,6 +148,15 @@ class _AdminDashboardState extends State<AdminDashboard> {
                         onPressed: () => Get.toNamed('/adminOrders'),
                         child: Text(
                           'Orders',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          primary: kPrimary.withOpacity(0.8),
+                        )),
+                    ElevatedButton(
+                        onPressed: () => Get.toNamed('/addNotification'),
+                        child: Text(
+                          'Offers',
                           style: TextStyle(color: Colors.black),
                         ),
                         style: ElevatedButton.styleFrom(

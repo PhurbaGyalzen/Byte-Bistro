@@ -33,6 +33,8 @@ class _TabItemDetailState extends State<TabItemDetail> {
 
   Future getFavourite() async {
     loggedUserInfo = await loggedUserInfoController.getLoggedUserInfo();
+    print("tab item logged user info");
+    print(loggedUserInfo);
     List<Favourite> response = await favouriteController
         .getUserFavourites(loggedUserInfo.id.toString());
     setState(() {

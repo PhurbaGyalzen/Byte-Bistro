@@ -14,6 +14,8 @@ class FavouriteController extends GetxController {
   void onInit() {
     super.onInit();
     loggedUserInfoController.getLoggedUserInfo().then((value) {
+      print("In fav controller");
+      print(value);
       getUserFavourites(value.id);
     });
     // getUserFavourites2();

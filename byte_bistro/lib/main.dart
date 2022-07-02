@@ -143,8 +143,8 @@ class ByteBistro extends StatelessWidget {
         ),
       ),
       // initialRoute: '/addNotification',
-      initialRoute: tokenDecoded['username'] != null ? '/home' : '/login',
-      // initialRoute: '/adminScreen',
+      // initialRoute: tokenDecoded['username'] != null ? '/home' : '/login',
+      initialRoute: '/adminScreen',
 
       debugShowCheckedModeBanner: false,
       title: 'Byte Bistro',
