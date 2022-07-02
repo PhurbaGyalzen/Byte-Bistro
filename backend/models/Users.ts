@@ -61,8 +61,9 @@ const UserSchemaFields: Record<keyof IUser, any> = {
 	},
 	address: {
 		type: String,
-		minlength: 1,
+		minlength: 0,
 		maxLength: 150,
+		default: '',
 	},
 	avatar: {
 		type: String,
