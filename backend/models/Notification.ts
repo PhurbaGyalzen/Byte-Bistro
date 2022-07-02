@@ -22,6 +22,7 @@ const NotificationSchemaFields: Record<keyof INotification, any> = {
     userId: {
         type: Schema.Types.ObjectId,
         required: false,
+        default: null,
         ref: 'User',
     },
     message: {
