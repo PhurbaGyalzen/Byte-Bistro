@@ -1,4 +1,6 @@
+
 import 'package:byte_bistro/Services/cart_service.dart';
+import 'package:byte_bistro/models/cart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -10,12 +12,6 @@ class CartController extends GetxController {
   var noOfItems = 1.obs;
   var noOfCartItems = 0.obs;
   var tableNumber = 0.obs;
-
-  @override
-  void onInit() {
-    // getSingleCart();
-    super.onInit();
-  }
 
 // add food count
   addFoodCount(int index) {
@@ -78,6 +74,14 @@ class CartController extends GetxController {
     var response = await cartService.getAllCart();
     cartList.value = response;
     return response;
+  }
+
+  Future<List<Cart>> getPendingOrders() async {
+    List<Cart> response = await cartService.getAllCart();
+    List<Cart> orders =
+        response.where((e) => e.status < CartStatus.Completed.index).toList();
+    cartList.value = orders;
+    return orders;
   }
 
 // to update food price

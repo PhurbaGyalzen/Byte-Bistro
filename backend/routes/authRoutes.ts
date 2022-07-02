@@ -43,6 +43,18 @@ router.get(
     }
   }
 );
+
+router.get(
+  '/user/:id',
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const user = await User.findById(req.params.id);
+      res.status(200).json(user);
+    } catch (err) {
+      res.status(400).json({ message: err });
+    }
+  }
+)
 router.get(
   '/one_user',
   verifyUser,

@@ -18,6 +18,8 @@ class _SignUpState extends State<SignUpScreen> {
 
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmpasswordController =
+      TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController fullnameController = TextEditingController();
 
@@ -95,7 +97,10 @@ class _SignUpState extends State<SignUpScreen> {
                       //userName start
                       TextFormField(
                         controller: usernameController,
-                        validator: RequiredValidator(errorText: '*required'),
+                        validator: MultiValidator([
+                          RequiredValidator(errorText: '*required'),
+                          MinLengthValidator(5, errorText: '*min length is 5'),
+                        ]),
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
                             borderSide: const BorderSide(
@@ -147,6 +152,10 @@ class _SignUpState extends State<SignUpScreen> {
                           RequiredValidator(
                             errorText: '*required',
                           ),
+                          MinLengthValidator(
+                            6,
+                            errorText: 'minimum length is 6',
+                          ),
                         ]),
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
@@ -192,7 +201,19 @@ class _SignUpState extends State<SignUpScreen> {
                       ),
                       TextFormField(
                         controller: passwordController,
-                        validator: RequiredValidator(errorText: '*required'),
+                        validator: MultiValidator([
+                          RequiredValidator(
+                            errorText: '*required',
+                          ),
+                          MinLengthValidator(
+                            6,
+                            errorText: 'minimum length is 6',
+                          ),
+                          MaxLengthValidator(
+                            20,
+                            errorText: 'maximum length is 20',
+                          ),
+                        ]),
                         obscureText: _isObscure,
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
@@ -220,6 +241,69 @@ class _SignUpState extends State<SignUpScreen> {
                           fillColor: const Color(0xFFF2F2F2),
                           border: InputBorder.none,
                           hintText: "Password",
+                          hintStyle: Theme.of(context).textTheme.bodyText2,
+                          prefixIcon: const Icon(Icons.lock),
+                          suffixIcon: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                _isObscure = !_isObscure;
+                              });
+                            },
+                            icon: Icon(
+                              _isObscure
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                            ),
+                          ),
+                          contentPadding: const EdgeInsets.fromLTRB(
+                            20.0,
+                            15.0,
+                            20.0,
+                            15.0,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      TextFormField(
+                        controller: confirmpasswordController,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "*required";
+                          }
+                          if (value != passwordController.text) {
+                            return "password does not match";
+                          }
+                          return null;
+                        },
+                        obscureText: _isObscure,
+                        decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              color: Color(0xFFF2F2F2),
+                              width: 2.0,
+                            ),
+                            borderRadius: BorderRadius.circular(25.0),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              color: Color(0xFFF2F2F2),
+                              width: 2.0,
+                            ),
+                            borderRadius: BorderRadius.circular(25.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              color: Color(0xFFF2F2F2),
+                              width: 2.0,
+                            ),
+                            borderRadius: BorderRadius.circular(25.0),
+                          ),
+                          filled: true,
+                          fillColor: const Color(0xFFF2F2F2),
+                          border: InputBorder.none,
+                          hintText: "Confirm Password",
                           hintStyle: Theme.of(context).textTheme.bodyText2,
                           prefixIcon: const Icon(Icons.lock),
                           suffixIcon: IconButton(
@@ -281,7 +365,7 @@ class _SignUpState extends State<SignUpScreen> {
                               } else {
                                 Get.snackbar(
                                   "User failed to be registered",
-                                  "Please try again/ Can be duplicate email entry",
+                                  "Please try again/ Can be duplicate username or email entry",
                                   icon: Icon(Icons.person_rounded,
                                       color: Colors.white),
                                   duration: Duration(seconds: 3),
