@@ -1,4 +1,3 @@
-
 import 'package:byte_bistro/Services/cart_service.dart';
 import 'package:byte_bistro/models/cart.dart';
 import 'package:flutter/material.dart';
@@ -93,6 +92,10 @@ class CartController extends GetxController {
     cartList[index]['price'] = price;
     print(foodPrice.value);
     cartList.refresh();
+  }
+
+  updateDuration(String cartId, int newDurationInMins) async {
+    await cartService.updateCart(cartId, {'duration': newDurationInMins});
   }
 
   getSingleCart(String cartId) async {
