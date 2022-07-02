@@ -15,7 +15,6 @@ import 'package:byte_bistro/Screens/faq.dart';
 import 'package:byte_bistro/Screens/license_section.dart';
 import 'package:byte_bistro/Screens/privacy_policy.dart';
 import 'package:byte_bistro/Screens/reset_password.dart';
-
 import 'package:byte_bistro/Screens/admin/widgets/admin_dashboard.dart';
 import 'package:byte_bistro/Screens/profile/admin_profile.dart';
 import 'package:byte_bistro/Screens/profile/admin_profile_update.dart';
@@ -25,7 +24,7 @@ import 'package:byte_bistro/Screens/change_password.dart';
 import 'package:byte_bistro/Screens/profile/profile_screen.dart';
 import 'package:byte_bistro/Screens/profile/user_profile.dart';
 import 'package:byte_bistro/Screens/favourite/favourite.dart';
-import 'package:byte_bistro/Screens/admin_invoice_detail_page.dart';
+
 import 'package:byte_bistro/Screens/notification/admin_notification.dart';
 import 'package:byte_bistro/Screens/notification/notification.dart';
 import 'package:byte_bistro/Screens/on_boarding_screen/on_boarding_screen.dart';
@@ -39,13 +38,14 @@ import 'package:byte_bistro/Screens/signup_screen.dart';
 import 'package:byte_bistro/Screens/home/home.dart';
 import 'package:byte_bistro/Screens/home/widgets/food_detail_screen.dart';
 import 'package:byte_bistro/Screens/swipe_qr_home.dart';
-import 'package:byte_bistro/Screens/user_history_detail.dart';
+
 import 'package:byte_bistro/Screens/user_invoice_list.dart';
 import 'package:byte_bistro/Screens/terms_and_conditions.dart';
 import 'package:byte_bistro/Screens/user_order_history_list.dart';
 import 'package:byte_bistro/Screens/verify_reset_password.dart';
 import 'package:byte_bistro/Services/http_service.dart';
 import 'package:byte_bistro/Services/storage_service.dart';
+import 'package:byte_bistro/controller/category_controller.dart';
 import 'package:byte_bistro/controller/logged_user_info_controller.dart';
 import 'package:byte_bistro/controller/cart_controller.dart';
 import 'package:byte_bistro/utils/str_decoder.dart';
@@ -85,6 +85,7 @@ class ByteBistro extends StatelessWidget {
       Get.put(LoggedUserInfoController());
 
   final CartController cartController = Get.put(CartController());
+  final CategoryController controller = Get.put(CategoryController());
 
   @override
   Widget build(BuildContext context) {
@@ -143,7 +144,7 @@ class ByteBistro extends StatelessWidget {
         ),
       ),
       // initialRoute: '/addNotification',
-      initialRoute: tokenDecoded['username'] != null ? '/home' : '/login',
+      initialRoute: dotenv.env['INITIAL_ROUTE'] ?? initialRoute,
       // initialRoute: '/adminScreen',
 
       debugShowCheckedModeBanner: false,
@@ -154,12 +155,13 @@ class ByteBistro extends StatelessWidget {
         GetPage(
             name: '/orderHistory_user_list', page: () => OrderHistoryUser()),
         GetPage(name: '/order_history_admin', page: () => OrderHistoryAdmin()),
-        GetPage(name: '/user_invoice_detail', page: () => UserInvoiceDetail()),
+
         GetPage(name: '/user_invoice_list', page: () => UserInvoiceList()),
-        GetPage(name: '/invoice_detail', page: () => InvoiceDetail()),
-        GetPage(name: '/order_detail', page: () => OrderDetail()),
+
         // GetPage(name: '/CategoryMoMo', page: () => MOMO()),
         GetPage(name: '/signup', page: () => SignUpScreen()),
+        GetPage(name: '/profile_screen', page: () => ProfileScreen()),
+
         GetPage(name: '/reset_password', page: () => ForgetPasswordScreen()),
         GetPage(
             name: '/verify_reset_password', page: () => VerifyResetPassword()),
@@ -173,10 +175,10 @@ class ByteBistro extends StatelessWidget {
         GetPage(name: '/adminOrders', page: () => AdminOrders()),
         GetPage(name: '/adminFoodDetail', page: () => AdminFoodDetail()),
         GetPage(name: '/adminOrderDetail', page: () => AdminOrderDetail()),
-        GetPage(name: '/invoice_detail', page: () => InvoiceDetail()),
+
         GetPage(
             name: '/orderHistory_user_list', page: () => OrderHistoryUser()),
-        GetPage(name: '/order_detail', page: () => OrderDetail()),
+
         // GetPage(name: '/CategoryMoMo', page: () => MOMO()),
         GetPage(name: '/detail_page_dish', page: () => IndividualItemScreen()),
         GetPage(name: '/home', page: () => HomePage()),

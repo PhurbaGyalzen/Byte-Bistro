@@ -1,5 +1,12 @@
 import 'dart:convert';
 
+enum CartStatus {
+  Pending,
+  Preping,
+  Ready,
+  Completed,
+}
+
 Cart cartFromJson(String str) => Cart.fromJson(json.decode(str));
 
 String cartToJson(Cart data) => json.encode(data.toJson());
@@ -13,6 +20,8 @@ class Cart {
     required this.createdAt,
     required this.updatedAt,
     required this.v,
+    required this.status,
+    required this.duration,
   });
 
   String id;
@@ -22,6 +31,8 @@ class Cart {
   DateTime createdAt;
   DateTime updatedAt;
   int v;
+  int status;
+  int duration;
 
   factory Cart.fromJson(Map<String, dynamic> json) => Cart(
         id: json["_id"],
@@ -30,6 +41,8 @@ class Cart {
         tableId: json["tableId"],
         createdAt: DateTime.parse(json["createdAt"]),
         updatedAt: DateTime.parse(json["updatedAt"]),
+        status: json['status'],
+        duration: json['duration'],
         v: json["__v"],
       );
 
@@ -40,6 +53,8 @@ class Cart {
         "tableId": tableId,
         "createdAt": createdAt.toIso8601String(),
         "updatedAt": updatedAt.toIso8601String(),
+        'status': status,
+        'duration': duration,
         "__v": v,
       };
 }
@@ -122,26 +137,31 @@ class UserId {
 
 String indCart = '''
 {
-  "_id": "628cc6fb620fe24d3929b7d2",
-  "userId": {"_id":"627fbfa1d464ffbeb80b985b", "fullname": "limbu"},
-  "items": [
-    {
-      "foodId": {
-        "_id": "628bb15477df225b15e71a6f",
-        "name": "Pizza",
-        "price": 700,
-        "image": "https://www.tasteofhome.com/wp-content/uploads/2018/01/exps14079_SD14079D12_18_2bC_RMS-1-696x696.jpg",
-        "isAvailable": true
-      },
-      "qty": 2,
-      "_id": "628cc6fb620fe24d3929b7d3"
+        "status": 0,
+        "duration": 25,
+        "_id": "62bd77e292a41fc8ce5428a4",
+        "userId": {
+            "_id": "627fbfa1d464ffbeb80b985b",
+            "fullname": "Sanjib Limbu Updated"
+        },
+        "items": [
+            {
+                "foodId": {
+                    "_id": "62b608c2cc64bcda1bbfc313",
+                    "name": "Chowmein",
+                    "price": 120,
+                    "image": "images/1656096958618-image_picker1125605492.jpg",
+                    "isAvailable": true
+                },
+                "qty": 2,
+                "_id": "62bd77e292a41fc8ce5428a5"
+            }
+        ],
+        "tableId": 9,
+        "createdAt": "2022-06-30T10:16:02.200Z",
+        "updatedAt": "2022-06-30T10:16:02.200Z",
+        "__v": 0
     }
-  ],
-  "tableId": 7,
-  "createdAt": "2022-05-24T11:52:27.585Z",
-  "updatedAt": "2022-05-24T13:15:37.268Z",
-  "__v": 0
-}
 ''';
 // String lCarts = '[' + indCart + ']';
 

@@ -10,19 +10,12 @@ class AfterOrderScreen extends StatefulWidget {
   _AfterOrderScreenState createState() => _AfterOrderScreenState();
 }
 
-Map<String, int> ORDER_STATUS = {
-  'orderRcvd': 0,
-  'orderPrep': 1,
-  'orderReady': 2,
-  'orderChecked': 3
-};
-
 class _AfterOrderScreenState extends State<AfterOrderScreen> {
   String orderId = '123456';
   String orderedTime = '9:33 PM';
   String itemCount = '2';
   String totalPrice = '500.00';
-  String? orderStatus;
+  int? orderStatus;
   int? orderDurationMin;
   late TextEditingController orderDurationTimeController;
 
@@ -30,28 +23,28 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
 
   @override
   void initState() {
+    super.initState();
     orderDurationTimeController = TextEditingController(text: 'NA');
-    // print('initstate');
-    // print(WebSocketService.origin);
-    socket.connect();
+    WebSocketService.authenticate();
     socket.on('connect', (_) {
-      // print('connected');
-      _sendUserId();
-      _mocker();
-
       socket.on('order_status_change', (message) {
         setState(() {
           orderStatus = message['orderStatus'];
           // print('recvd $orderStatus');
+          // only set one time.
           if (message['orderDurationMin'] != null) {
-            orderDurationMin = message['orderDurationMin'];
-            orderDurationTimeController.text = orderDurationMin!.toString();
+            // only update duration if it has not been set, or admin sends new duration.
+            if (orderDurationMin != message['orderDurationMin']) {
+              orderDurationMin = message['orderDurationMin']!;
+              orderDurationTimeController.text = orderDurationMin.toString();
 
-            // just for emulating time faster
-            for (var i = 1; i < 6; i++) {
-              Future.delayed(Duration(seconds: i * 2), () {
-                orderDurationTimeController.text = (5 - i).toString();
-              });
+              // just for emulating time faster
+              int m = 6;
+              for (var i = 1; i < m; i++) {
+                Future.delayed(Duration(seconds: i), () {
+                  orderDurationTimeController.text = (m - i).toString();
+                });
+              }
             }
           }
         });
@@ -60,7 +53,6 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
     socket.on('disconnect', (_) {
       // print('disconnected');
     });
-    super.initState();
   }
 
   @override
@@ -68,60 +60,6 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
     // socket.disconnect();
     orderDurationTimeController.dispose();
     super.dispose();
-  }
-
-  void _sendUserId() {
-    socket.emit('set_user_id', [
-      {'userId': 'sanjib'}
-    ]);
-  }
-
-  void _mocker() {
-    // int diff = 5;
-    // Future.delayed(Duration(seconds: diff * 1), () {
-    //   // should be sent by admin.
-    //   print('orderRcvd');
-    //   socket.emit('order_status_change', [
-    //     {
-    //       'orderId': '123456',
-    //       'orderStatus': 'orderRcvd',
-    //     }
-    //   ]);
-    // });
-
-    // Future.delayed(Duration(seconds: diff * 2), () {
-    //   print('orderPrep');
-    //   // should be sent by admin.
-    //   socket.emit('order_status_change', [
-    //     {
-    //       'orderId': '123456',
-    //       'orderStatus': 'orderPrep',
-    //       'orderDurationMin': 6,
-    //     }
-    //   ]);
-    // });
-
-    // Future.delayed(Duration(seconds: diff * 3), () {
-    //   print('orderReady');
-    //   // should be sent by admin.
-    //   socket.emit('order_status_change', [
-    //     {
-    //       'orderId': '123456',
-    //       'orderStatus': 'orderReady',
-    //     }
-    //   ]);
-    // });
-
-    // Future.delayed(Duration(seconds: diff * 5), () {
-    //   print('orderChecked');
-    //   // should be sent by admin.
-    //   socket.emit('order_status_change', [
-    //     {
-    //       'orderId': '123456',
-    //       'orderStatus': 'orderChecked',
-    //     }
-    //   ]);
-    // });
   }
 
   Widget build(BuildContext context) {
@@ -237,8 +175,8 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
   }
 }
 
-TextWithColor _getOrderStatus(String? orderStatus, int currIndex) {
-  int statusIndex = ORDER_STATUS[orderStatus] ?? -1;
+TextWithColor _getOrderStatus(int? orderStatus, int currIndex) {
+  int statusIndex = orderStatus ?? -1;
   if (currIndex > statusIndex) {
     return TextWithColor('Later', Color.fromARGB(255, 204, 188, 46));
   } else if (currIndex < statusIndex) {
@@ -263,7 +201,7 @@ class Item {
 
 class OrderStatusItems extends StatelessWidget {
   final List<Item> items;
-  final String? orderStatus;
+  final int? orderStatus;
   const OrderStatusItems(
       {Key? key, required this.orderStatus, required this.items})
       : super(key: key);
@@ -273,11 +211,10 @@ class OrderStatusItems extends StatelessWidget {
     List<Widget> children = [];
     for (int i = 0; i < items.length; i++) {
       TextWithColor currStatus = _getOrderStatus(orderStatus, i);
-      bool isCurrent = i == (ORDER_STATUS[orderStatus] ?? -1);
+      bool isCurrent = i == (orderStatus ?? -1);
 
       // add border to all
-      if (i == items.length - 1) {
-      }
+      if (i == items.length - 1) {}
       children.add(
         Expanded(
           child: Container(
