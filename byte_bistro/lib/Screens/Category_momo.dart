@@ -71,7 +71,7 @@ class _MOMOState extends State<MOMO> {
                                 FoodList.add(data[index1]);
                                 return Container(
                                   padding: EdgeInsets.only(left: 10, bottom: 0),
-                                  height: 200,
+                                  height: 180,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10.0),
                                     color: Colors.white,
@@ -92,7 +92,7 @@ class _MOMOState extends State<MOMO> {
                                     children: [
                                       ClipRRect(
                                           borderRadius: BorderRadius.circular(
-                                            50,
+                                            10,
                                           ), // Image border
 
                                           child: CachedNetworkImage(
@@ -100,7 +100,7 @@ class _MOMOState extends State<MOMO> {
                                             height: 120,
                                             imageUrl: PersistentHtpp.baseUrl +
                                                 data[index1].image,
-                                            fit: BoxFit.fill,
+                                            fit: BoxFit.cover,
                                             placeholder: (context, url) =>
                                                 Image(
                                                     fit: BoxFit.cover,
@@ -111,10 +111,14 @@ class _MOMOState extends State<MOMO> {
                                                 (context, url, error) =>
                                                     Icon(Icons.error),
                                           )),
+                                      SizedBox(
+                                        width: 30,
+                                      ),
                                       Expanded(
                                         child: Container(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 15, vertical: 5),
+                                          padding: EdgeInsets.only(
+                                            top: 5,
+                                          ),
                                           child: Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
