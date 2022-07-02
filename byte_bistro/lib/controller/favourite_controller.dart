@@ -6,22 +6,15 @@ import 'package:get/get.dart';
 class FavouriteController extends GetxController {
   var favouriteList = [].obs;
   FavouriteService favouriteService = Get.put(FavouriteService());
-  final LoggedUserInfoController loggedUserInfoController =
-      Get.put(LoggedUserInfoController());
+  final LoggedUserInfoController loggedUserInfoController = Get.find();
   // var loggedUserInfo;
 
   @override
   void onInit() {
     super.onInit();
     loggedUserInfoController.getLoggedUserInfo().then((value) {
-      print("In fav controller");
-      print(value);
       getUserFavourites(value.id);
     });
-    // getUserFavourites2();
-    // print(loggedUserInfoController.userInfo[0].id.toString());
-    // getUserFavourites();
-    // print(favouriteList.value);
   }
 
   getAllFavourites() async {
