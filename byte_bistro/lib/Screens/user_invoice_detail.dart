@@ -277,7 +277,6 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
                         child: pw.Text('G. TOTAL'),
                       ),
                     ),
-                    
                     pw.Container(
                       color: PdfColors.grey,
                       child: pw.Padding(
@@ -362,10 +361,8 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
             },
           ),
         ],
-        title: const Text(
-          "Invoice Detail",
-          style: TextStyle(color: kTextColor)
-        ),
+        title:
+            const Text("Invoice Detail", style: TextStyle(color: kTextColor)),
       ),
       body: SizedBox(
         height: MediaQuery.of(context).size.height,

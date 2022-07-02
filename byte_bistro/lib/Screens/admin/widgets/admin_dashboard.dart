@@ -139,6 +139,9 @@ class _AdminDashboardState extends State<AdminDashboard> {
                   ),
                   Text('Categories',
                       style: Theme.of(context).textTheme.bodyText2),
+                  SizedBox(
+                    height: 5,
+                  ),
                   CategoryScreen(),
                   SizedBox(
                     height: 20,
@@ -154,7 +157,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                           primary: kPrimary.withOpacity(0.8),
                         )),
                     SizedBox(
-                      width: 10,
+                      width: 30,
                     ),
                     ElevatedButton(
                         onPressed: () => Get.toNamed('/addNotification'),

@@ -147,30 +147,31 @@ class _TabItemDetailState extends State<TabItemDetail> {
                                         ),
                                         onPressed: exists
                                             ? null
-                                            : () {
+                                            : () async {
                                                 Map<String, dynamic> dataD = {
                                                   "foodId": data[index].id,
                                                   "userId": loggedUserInfo.id
                                                       .toString(),
                                                 };
-                                                // print("Error");
-                                                // print(dataD);
-                                                // print(data[index].id);
 
                                                 var response =
                                                     favouriteController
                                                         .addFavourite(dataD);
-                                                // print(response);
+
                                                 final snackbarSucess = SnackBar(
                                                     content: Text(
                                                         'Added to favourites'));
-                                                getFavourite();
+
                                                 final snackbarFail = SnackBar(
                                                     content: Text(
                                                         'The item is already added to favourites'));
 
                                                 if (response == "success") {
                                                   snackbarSucess;
+                                                  setState(() {
+                                                    exists = true;
+                                                  });
+                                                  await getFavourite();
                                                   ScaffoldMessenger.of(context)
                                                       .showSnackBar(
                                                           snackbarSucess);

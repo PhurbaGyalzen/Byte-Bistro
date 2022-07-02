@@ -13,8 +13,16 @@ class FavouritePage extends StatefulWidget {
 }
 
 class _FavouritePageState extends State<FavouritePage> {
+  final LoggedUserInfoController loggedUserInfoController = Get.find();
   final FavouriteController favouriteController =
       Get.put(FavouriteController());
+
+  @override
+  void initState() {
+    super.initState();
+    favouriteController
+        .getUserFavourites(loggedUserInfoController.userInfo[0].id);
+  }
 
   @override
   Widget build(BuildContext context) {

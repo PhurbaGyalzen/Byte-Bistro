@@ -76,25 +76,25 @@ class _AddNotificationState extends State<AddNotification> {
           child: Form(
             key: formkey,
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
-                  height: 60,
-                ),
                 TextFormField(
+                  style: TextStyle(height: 1.5),
                   validator: RequiredValidator(errorText: '*required'),
                   controller: titleController,
                   minLines: 2,
                   maxLines: 2,
+
                   // initialValue:
                   //     data.fullname,
                   decoration: InputDecoration(
-                    contentPadding: EdgeInsets.only(bottom: 3),
+                    contentPadding: EdgeInsets.all(5),
                     floatingLabelBehavior: FloatingLabelBehavior.always,
-                    labelText: 'Title',
+                    hintText: 'Title',
                     hintStyle: TextStyle(
-                      fontSize: 16,
+                      fontSize: 20,
                       fontWeight: FontWeight.normal,
-                      color: Colors.black,
+                      color: Colors.black45,
                       height: 1.5,
                       letterSpacing: 1,
                     ),
@@ -112,16 +112,17 @@ class _AddNotificationState extends State<AddNotification> {
                     ],
                   ),
                   controller: descriptionController,
-                  minLines: 8,
+                  minLines: 5,
                   maxLines: 10,
                   decoration: InputDecoration(
+                    // hintText: ,
                     contentPadding: EdgeInsets.only(bottom: 3),
                     floatingLabelBehavior: FloatingLabelBehavior.always,
-                    labelText: 'Description',
+                    hintText: 'Description',
                     hintStyle: TextStyle(
-                      fontSize: 16,
+                      fontSize: 20,
                       fontWeight: FontWeight.normal,
-                      color: Colors.black,
+                      color: Colors.black45,
                       height: 1.5,
                       letterSpacing: 1,
                     ),
@@ -135,10 +136,25 @@ class _AddNotificationState extends State<AddNotification> {
                   style: Theme.of(context).textTheme.headline2,
                   textAlign: TextAlign.center,
                 ),
-                ElevatedButton(
-                    style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(kPrimary)),
+                SizedBox(height: 15),
+                Center(
+                  child: OutlinedButton.icon(
+                    icon: Icon(
+                      Icons.person,
+                      color: Colors.black,
+                    ),
+                    label: Text(
+                      'Pick a Image',
+                      style: TextStyle(
+                        color: Colors.black,
+                        letterSpacing: 1,
+                        height: 1.5,
+                        fontSize: 16,
+                      ),
+                    ),
+                    style: OutlinedButton.styleFrom(
+                        minimumSize: Size(100, 50),
+                        primary: Colors.white.withOpacity(0.6)),
                     onPressed: () {
                       Get.bottomSheet(
                         SingleChildScrollView(
@@ -208,13 +224,13 @@ class _AddNotificationState extends State<AddNotification> {
                         ),
                       );
                     },
-                    child: Text(
-                      'Pick a Image',
-                      style: Theme.of(context).textTheme.headline2,
-                      textAlign: TextAlign.center,
-                    )),
+                  ),
+                ),
+                SizedBox(
+                  height: 40,
+                ),
                 Row(
-                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ElevatedButton(
                       onPressed: () async {
@@ -249,14 +265,15 @@ class _AddNotificationState extends State<AddNotification> {
                         }
                       },
                       style: ElevatedButton.styleFrom(
+                        minimumSize: Size(170, 50),
                         // primary: Colors.orange,
                         primary: Color(0xFFFFC61F),
-                        shape: const StadiumBorder(),
+                        // shape: const StadiumBorder(),
                       ),
                       child: Text(
                         "Add Offer",
                         style: TextStyle(
-                            fontSize: 14,
+                            fontSize: 16,
                             letterSpacing: 2.2,
                             color: Colors.black),
                       ),
