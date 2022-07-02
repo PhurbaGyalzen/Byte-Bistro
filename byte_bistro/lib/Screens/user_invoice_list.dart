@@ -1,4 +1,5 @@
 import 'package:byte_bistro/Screens/user_invoice_detail.dart';
+import 'package:byte_bistro/constants/colors.dart';
 import 'package:byte_bistro/controller/user_invoice_controller.dart';
 import 'package:byte_bistro/models/user_invoice_model.dart';
 import 'package:flutter/material.dart';
@@ -23,9 +24,13 @@ class _UserInvoiceListState extends State<UserInvoiceList> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).primaryColor,
         leading: BackButton(
+          color: kTextColor,
           onPressed: () => Get.toNamed('/profile_screen'),
         ),
-        title: const Text("Invoice History"),
+        title: Text(
+          "Invoice History",
+          style: TextStyle(color: kTextColor),
+        ),
       ),
       body: FutureBuilder(
         future: userInvoiceController.getUserInvoiceControllerInfo(),
@@ -44,6 +49,9 @@ class _UserInvoiceListState extends State<UserInvoiceList> {
                 int indexTotaL = data[index].items.length;
                 late UserInvoiceModel dataIndex = data[index];
                 late num totalPrice = 0;
+                String date1 = data[index].createdAt.toString();
+                date1 = date1.split(" ")[0];
+
                 // print("data[index] ${data[index]}");
 
                 for (int i = 0; i < indexTotaL; i++) {
@@ -98,14 +106,19 @@ class _UserInvoiceListState extends State<UserInvoiceList> {
                                   Padding(
                                     padding: EdgeInsets.only(
                                       left: 20.0,
+                                      bottom: 10,
                                     ),
-                                    child: Text("Order No."),
+                                    child: Text("Order No:",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold)),
                                   ),
                                   Padding(
                                     padding: EdgeInsets.only(
                                       left: 20.0,
                                     ),
-                                    child: Text("Date"),
+                                    child: Text("Date:",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold)),
                                   )
                                 ],
                               ),
@@ -117,23 +130,26 @@ class _UserInvoiceListState extends State<UserInvoiceList> {
                                 children: [
                                   Padding(
                                     padding: EdgeInsets.only(
-                                      left: 10.0,
-                                    ),
+                                        // left: 10.0,
+                                        bottom: 10),
                                     child: SizedBox(
                                         width: 120,
                                         child: Text(
-                                          data[index].id.toString(),
+                                          data[index]
+                                              .id
+                                              .toString()
+                                              .substring(10),
                                           overflow: TextOverflow.ellipsis,
                                         )),
                                   ),
                                   Padding(
                                     padding: EdgeInsets.only(
-                                      left: 10.0,
-                                    ),
+                                        // left: 10.0,
+                                        ),
                                     child: SizedBox(
                                       width: 120,
                                       child: Text(
-                                        data[index].createdAt.toString(),
+                                        date1,
                                         overflow: TextOverflow.ellipsis,
                                       ),
                                     ),
@@ -145,21 +161,26 @@ class _UserInvoiceListState extends State<UserInvoiceList> {
                             //   child: SizedBox(),
                             // ),
                             Expanded(
-                              flex: 2,
+                              flex: 3,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: const [
                                   Padding(
-                                    padding: EdgeInsets.only(
-                                      left: 20.0,
-                                    ),
-                                    child: Text("Total"),
+                                    padding:
+                                        EdgeInsets.only(left: 20.0, bottom: 10),
+                                    child: Text("Total:",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold)),
                                   ),
                                   Padding(
                                     padding: EdgeInsets.only(
                                       left: 20.0,
                                     ),
-                                    child: Text("Status"),
+                                    child: Text(
+                                      "Status:",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
                                   )
                                 ],
                               ),
@@ -171,9 +192,9 @@ class _UserInvoiceListState extends State<UserInvoiceList> {
                                 children: [
                                   Padding(
                                     padding: EdgeInsets.only(
-                                      left: 10.0,
-                                      right: 20,
-                                    ),
+                                        left: 2.0,
+                                        // right: 20,
+                                        bottom: 10),
                                     child: SizedBox(
                                       width: 100,
                                       child: Text(
@@ -184,7 +205,7 @@ class _UserInvoiceListState extends State<UserInvoiceList> {
                                   ),
                                   Padding(
                                     padding: EdgeInsets.only(
-                                      left: 10.0,
+                                      left: 2.0,
                                       right: 20,
                                     ),
                                     child: Text(
@@ -217,8 +238,7 @@ class _UserInvoiceListState extends State<UserInvoiceList> {
                 );
               },
             );
-          } 
-          else {
+          } else {
             return Center(
               child: CircularProgressIndicator(),
             );
