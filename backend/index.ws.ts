@@ -124,7 +124,17 @@ const initWebSocket = (app: Express) => {
 						'status': data.orderStatus
 					}
 				})
-				io.to(currUser.username).emit('order_status_change', {
+				if (!cart?.userId) {
+					console.log('no cart found')
+					return callback({
+						success: false,
+						message: 'No cart found.'
+					})
+				}
+				console.log('sending to room: ' + cart?.userId)
+				// io.to(currUser.username).emit('order_status_change', {
+				// io.to(cart!.userId.toString()).emit('order_status_change', {
+				io.emit('order_status_change', {
 					orderId: data.orderId,
 					orderStatus: data.orderStatus,
 					orderDurationMin: cart?.duration || 0

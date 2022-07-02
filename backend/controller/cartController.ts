@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 
-import { Cart } from '@models/Cart'
+import { Cart, CartStatus } from '@models/Cart'
 import { errorMonitor } from 'events'
 
 export const getCart = async (
@@ -39,6 +39,29 @@ export const userCart = async (
 		res.status(400).json({ message: err })
 	}
 }
+
+export const userIncompleteCart = async (
+	req: Request,
+	res: Response,
+	next: NextFunction
+) => {
+	try {
+		const cart = await Cart.findOne({ userId: req.user?.id, $lt: {
+			status: CartStatus.Completed
+		}}).populate({
+			path: 'items.foodId',
+			select: 'name price image isAvailable',
+		}).populate({
+			path: 'userId',
+			select: 'fullname',
+		})
+		res.status(200).json(cart)
+	} catch (err) {
+		res.status(400).json({ message: err })
+	}
+}
+
+
 
 export const viewCart = async (
 	req: Request,

@@ -91,7 +91,7 @@ class _PendingOrdersState extends State<PendingOrders> {
                     //   ignoreSafeArea: false,
                     //   elevation: 20,
                     // )
-                    Get.to(NotificationDetail(order: widget.cart));
+                    Get.off(NotificationDetail(order: widget.cart));
                   },
                   child: Image(
                     height: 20,
