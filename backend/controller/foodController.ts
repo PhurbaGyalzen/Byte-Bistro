@@ -21,7 +21,7 @@ export const viewFood = async (
   next: NextFunction
 ) => {
   try {
-    const foods = await Food.find().populate('categories');
+    const foods = await Food.find({isAvailable:true}).populate('categories');
     res.status(200).json(foods);
   } catch (err) {
     res.status(400).json({ message: err });
@@ -88,7 +88,16 @@ export const deleteFood = async (
   next: NextFunction
 ) => {
   try {
-    const food = await Food.remove({ _id: req.params.foodId });
+    const food = await Food.updateOne(
+      { _id: req.params.foodId },
+      {
+        $set: {
+        isAvailable: false
+          // image:req.body.image
+        },
+      }
+    );
+    
     res.status(200).json(food);
   } catch (err) {
     res.status(400).json({ message: err });

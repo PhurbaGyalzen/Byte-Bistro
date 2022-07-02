@@ -1,9 +1,17 @@
 import 'package:byte_bistro/controller/category_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:byte_bistro/Screens/Category_momo.dart';
 import 'package:get/get.dart';
 
-class FoodTab extends StatelessWidget {
+class FoodTab extends StatefulWidget {
   FoodTab({Key? key}) : super(key: key);
+
+  @override
+  State<FoodTab> createState() => _FoodTabState();
+}
+
+class _FoodTabState extends State<FoodTab> {
+  var catName;
   final CategoryController categoryController = Get.find();
 
   @override
@@ -22,7 +30,22 @@ class FoodTab extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               itemCount: categoryController.categoryList.length,
               itemBuilder: ((context, index) => GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      setState(
+                        () {
+                          catName = categoryController.categoryList[index].name;
+                        },
+                      );
+
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MOMO(
+                            catName: catName,
+                          ),
+                        ),
+                      );
+                    },
                     child: Container(
                       padding: EdgeInsets.only(top: 15),
                       width: 115,

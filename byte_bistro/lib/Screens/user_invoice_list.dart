@@ -36,12 +36,13 @@ class _UserInvoiceListState extends State<UserInvoiceList> {
           if (snapshot.hasData) {
             List<UserInvoiceModel> data =
                 snapshot.data as List<UserInvoiceModel>;
+            print("snapshot.data ${snapshot.data}");
 
             return ListView.builder(
               itemCount: data.length,
               itemBuilder: (context, index) {
                 int indexTotaL = data[index].items.length;
-                late UserInvoiceModel dataIndex=data[index];
+                late UserInvoiceModel dataIndex = data[index];
                 late num totalPrice = 0;
                 // print("data[index] ${data[index]}");
 
