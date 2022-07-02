@@ -64,7 +64,7 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
                   ),
                 ),
                 pw.Padding(
-                  padding: pw.EdgeInsets.only(bottom:20 ),
+                  padding: pw.EdgeInsets.only(bottom: 20),
                   child: pw.Center(
                     child: pw.Text(
                       "INVOICE",
@@ -207,26 +207,6 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
                       ),
                     ],
                   ),
-                // pw.TableRow(
-                //   children: [
-                //     pw.SizedBox(),
-                //     pw.SizedBox(),
-                //     pw.Expanded(
-                //       flex: 2,
-                //       child: pw.Padding(
-                //         padding: pw.EdgeInsets.all(5),
-                //         child: pw.Text('GRAND TOTAL'),
-                //       ),
-                //     ),
-                //     pw.Expanded(
-                //       flex: 2,
-                //       child: pw.Padding(
-                //         padding: pw.EdgeInsets.all(5),
-                //         child: pw.Text('Rs. ${widget.totalPrice}'),
-                //       ),
-                //     ),
-                //   ],
-                // ),
                 pw.TableRow(
                   children: [
                     pw.SizedBox(),
@@ -307,6 +287,41 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
                 ),
               ],
             ),
+            pw.Padding(
+              padding: pw.EdgeInsets.only(top: 70, bottom: 15),
+              child: pw.Center(
+                child: pw.Text(
+                  "Thank you for visting Byte Bistro.",
+                  style: pw.TextStyle(
+                    fontSize: 16,
+                  ),
+                ),
+              ),
+            ),
+            pw.Padding(
+              padding: pw.EdgeInsets.only(top: 0),
+              child: pw.Center(
+                child: pw.Text(
+                  "Corporate Office, Trade Tower Nepal, Thapathali, Kathmandu",
+                  style: pw.TextStyle(
+                    fontSize: 16,
+                  ),
+                ),
+              ),
+            ),
+            pw.Padding(
+              padding: pw.EdgeInsets.only(top: 10),
+              child: pw.Center(
+                child: pw.Text(
+                  "@Byte Bistro",
+                  style: pw.TextStyle(
+                    fontSize: 15,
+                    fontWeight: pw.FontWeight.bold,
+                    
+                  ),
+                ),
+              ),
+            )
           ]; // Center
         },
       ),
@@ -361,23 +376,6 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //   crossAxisAlignment: CrossAxisAlignment.end,
-                  //   children: [
-                  //     Text(
-                  //       "Invoice",
-                  //       style: Theme.of(context).textTheme.headline1,
-                  //     ),
-                  //     Image.asset(
-                  //       "assets/images/splash.png",
-                  //       height: 60,
-                  //       width: 60,
-                  //       fit: BoxFit.fill,
-                  //     )
-                  //   ],
-                  // ),
-
                   Padding(
                     padding: const EdgeInsets.only(bottom: 8.0),
                     child: Text(
@@ -406,7 +404,6 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
                           Text(widget.data.createdAt.toString())
                         ],
                       )),
-
                   Container(
                     color: Colors.grey,
                     margin: EdgeInsets.only(top: 10),
@@ -521,43 +518,8 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
                       );
                     },
                   ),
-
                   Column(
                     children: [
-                      // const Divider(
-                      //   thickness: 2,
-                      //   color: Colors.grey,
-                      // ),
-                      // Container(
-                      //   padding:
-                      //       EdgeInsets.symmetric(vertical: 1, horizontal: 10),
-                      //   child: Row(
-                      //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      //     crossAxisAlignment: CrossAxisAlignment.start,
-                      //     children: [
-                      //       // Expanded(
-                      //       //   flex: 9,
-                      //       //   child: Text(
-                      //       //     "TOTAL",
-                      //       //     style: TextStyle(
-                      //       //       color: Colors.black,
-                      //       //       fontWeight: FontWeight.w400,
-                      //       //     ),
-                      //       //   ),
-                      //       // ),
-                      //       // Expanded(
-                      //       //   flex: 2,
-                      //       //   child: Text(
-                      //       //     "Rs. ${widget.totalPrice}",
-                      //       //     style: TextStyle(
-                      //       //       color: Colors.black,
-                      //       //       fontWeight: FontWeight.w400,
-                      //       //     ),
-                      //       //   ),
-                      //       // ),
-                      //     ],
-                      //   ),
-                      // ),
                       const Divider(
                         thickness: 2,
                         color: Colors.grey,
@@ -711,15 +673,6 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
               ),
             )),
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {
-      //     getPdf();
-
-      //     print("Download button pressed");
-      //   },
-      //   backgroundColor: Colors.green,
-      //   child: const Icon(Icons.download),
-      // )
     );
   }
 }
