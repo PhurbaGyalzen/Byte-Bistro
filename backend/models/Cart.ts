@@ -1,10 +1,9 @@
 import mongoose, { Document, Schema, Types } from 'mongoose';
-import { IMenuItem } from './Food';
 
 export enum CartStatus {
   Pending = 0,
   Preping = 1,
-  CheckingOut = 2,
+  Ready = 2,
   Completed = 3,
 }
 
