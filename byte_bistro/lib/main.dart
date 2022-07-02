@@ -142,7 +142,7 @@ class ByteBistro extends StatelessWidget {
         ),
       ),
       // initialRoute: '/addNotification',
-      initialRoute: tokenDecoded['username'] != null ? '/home' : '/login',
+      initialRoute: dotenv.env['INITIAL_ROUTE'] ?? initialRoute,
       // initialRoute: '/adminScreen',
 
       debugShowCheckedModeBanner: false,
