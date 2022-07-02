@@ -18,6 +18,7 @@ class _OrderHistoryUserState extends State<OrderHistoryUser> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         backgroundColor: Theme.of(context).primaryColor,
         leading: BackButton(
           onPressed: () {},
@@ -39,10 +40,7 @@ class _OrderHistoryUserState extends State<OrderHistoryUser> {
                 // print("data[index]");
                 // print(data[index].userId.id);
                 return GestureDetector(
-                  onTap: ()=>{
-                    Navigator.pushNamed(context, 'order_detail')
-                  },
-
+                  onTap: () => {Navigator.pushNamed(context, 'order_detail')},
                   child: Container(
                     padding: EdgeInsets.symmetric(vertical: 8),
                     margin: EdgeInsets.only(top: 5),
@@ -145,7 +143,7 @@ class _OrderHistoryUserState extends State<OrderHistoryUser> {
                             ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: const[
+                              children: const [
                                 Padding(
                                   padding: EdgeInsets.only(
                                     left: 10.0,
