@@ -1,11 +1,10 @@
 import 'package:byte_bistro/Screens/notification/notification_detail.dart';
-import 'package:byte_bistro/Services/cart_service.dart';
 import 'package:byte_bistro/Services/ws_service.dart';
 import 'package:byte_bistro/controller/cart_admin_contoller.dart';
+import 'package:byte_bistro/controller/cart_controller.dart';
 import 'package:byte_bistro/models/cart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:byte_bistro/Screens/notification/admin_notification_data.dart';
 
 import '../../../constants/colors.dart';
 // import 'admin_order_detail.dart';
@@ -20,7 +19,7 @@ class _AdminOrdersState extends State<AdminOrders> {
   var socket = WebSocketService.socket;
   var btnColor = Color.fromARGB(255, 238, 215, 169);
   var disableColor = Color.fromARGB(255, 203, 203, 203);
-  CartAdminController cartAdminController = Get.put(CartAdminController());
+  CartController cartController = Get.put(CartController());
 
   @override
   void initState() {
@@ -86,7 +85,7 @@ class _AdminOrdersState extends State<AdminOrders> {
         child: Container(
           padding: EdgeInsets.all(8.0),
           child: FutureBuilder(
-              future: cartAdminController.getAllCart(),
+              future: cartController.getAllCart(),
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
                   return CircularProgressIndicator();
