@@ -15,7 +15,7 @@ const router = Router()
 
 router.get('/', viewCart)
 router.post('/', createCart)
-router.patch('/', addRemoveItem)
+router.patch('/:cartId', updateCart)
 router.put('/', updateCart)
 // router.get('/user', userCart)
 router.delete('/:cartId', deleteCart)
