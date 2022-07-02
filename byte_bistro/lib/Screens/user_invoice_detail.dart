@@ -1,5 +1,6 @@
 // import 'package:byte_bistro/Screens/folder_clipper_invoice.dart';
 // import 'package:byte_bistro/Screens/invoice_clipper.dart';
+import 'package:byte_bistro/constants/colors.dart';
 import 'package:byte_bistro/models/user_invoice_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -347,6 +348,7 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
         elevation: 0,
         backgroundColor: Theme.of(context).primaryColor,
         leading: BackButton(
+          color: kTextColor,
           onPressed: () {
             Navigator.pop(context);
           },
@@ -362,6 +364,7 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
         ],
         title: const Text(
           "Invoice Detail",
+          style: TextStyle(color: kTextColor)
         ),
       ),
       body: SizedBox(
