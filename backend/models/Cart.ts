@@ -1,6 +1,13 @@
 import mongoose, { Document, Schema, Types } from 'mongoose';
 import { IMenuItem } from './Food';
 
+enum Status {
+  Pending = 0,
+  Preping = 1,
+  CheckingOut = 2,
+  Completed = 3,
+}
+
 export interface ICart {
 	userId: Types.ObjectId
 	items: {
@@ -8,6 +15,7 @@ export interface ICart {
 		qty: number
 	}[]
 	tableId: number
+  status: Status
 }
 
 interface ICartDoc extends ICart, Document {}
@@ -38,6 +46,11 @@ const CartSchemaFields: Record<keyof ICart, any> = {
     type: Number,
     required: true,
   },
+  status: {
+    type: Number,
+    required: true,
+    default: Status.Pending
+  }
 };
 
 const CartSchema = new mongoose.Schema<ICartDoc>(CartSchemaFields, {

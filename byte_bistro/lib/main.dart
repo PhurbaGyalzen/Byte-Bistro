@@ -141,10 +141,10 @@ class ByteBistro extends StatelessWidget {
           ),
         ),
       ),
-      
+      // initialRoute: '/addNotification',
       initialRoute: tokenDecoded['username'] != null ? '/home' : '/login',
-      
-      
+      // initialRoute: '/adminScreen',
+
       debugShowCheckedModeBanner: false,
       title: 'Byte Bistro',
       getPages: [
@@ -167,8 +167,7 @@ class ByteBistro extends StatelessWidget {
         GetPage(name: '/adminScreen', page: () => AdminDashboard()),
         GetPage(name: '/order_history_admin', page: () => OrderHistoryAdmin()),
         GetPage(
-            name: '/adminProfileUpdateForm',
-            page: () => AdminProfileUpdateForm()),
+            name: '/adminProfileUpdateForm',page: () => AdminProfileUpdateForm()),
         GetPage(name: '/adminProfile', page: () => AdminProfilePage()),
         GetPage(name: '/adminNotification', page: () => AdminNotification()),
         GetPage(name: '/adminOrders', page: () => AdminOrders()),

@@ -19,13 +19,11 @@ class TabItemDetail extends StatefulWidget {
 
 class _TabItemDetailState extends State<TabItemDetail> {
   FoodController foodController = Get.find();
-  LoggedUserInfoController loggedUserInfoController =
-      Get.put(LoggedUserInfoController());
+  LoggedUserInfoController loggedUserInfoController = Get.find();
   FavouriteController favouriteController = Get.put(FavouriteController());
-
+  var loggedUserInfo;
   // print(loggedUserInfoController);
   List favouriteList = [];
-  var loggedUser;
 
   @override
   void initState() {
@@ -33,19 +31,15 @@ class _TabItemDetailState extends State<TabItemDetail> {
     getFavourite();
   }
 
-  Future getUser() async {
-    var user = await loggedUserInfoController.getLoggedUserInfo();
-    setState(() {
-      loggedUser = user;
-    });
-  }
-
   Future getFavourite() async {
-    List<Favourite> response =
-        await favouriteController.getUserFavourites("627fbfa1d464ffbeb80b985b");
+    loggedUserInfo = await loggedUserInfoController.getLoggedUserInfo();
+    List<Favourite> response = await favouriteController
+        .getUserFavourites(loggedUserInfo.id.toString());
     setState(() {
       favouriteList = response[0].userId.favoriteFoods;
     });
+    // print("favourite list");
+    // print(favouriteList);
   }
 
   @override
@@ -155,10 +149,11 @@ class _TabItemDetailState extends State<TabItemDetail> {
                                             : () {
                                                 Map<String, dynamic> dataD = {
                                                   "foodId": data[index].id,
-                                                  "userId":
-                                                      "627fbfa1d464ffbeb80b985b"
+                                                  "userId": loggedUserInfo.id
+                                                      .toString(),
                                                 };
                                                 print("Error");
+                                                print(dataD);
                                                 // print(data[index].id);
                                                 var response =
                                                     favouriteController
