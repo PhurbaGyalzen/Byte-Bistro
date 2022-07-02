@@ -21,7 +21,7 @@ export const viewFood = async (
   next: NextFunction
 ) => {
   try {
-    const foods = await Food.find({isAvailable:true}).populate('categories');
+    const foods = await Food.find({isAvailable:{ $eq: true }}).populate('categories');
     res.status(200).json(foods);
   } catch (err) {
     res.status(400).json({ message: err });
