@@ -52,14 +52,14 @@ android {
         multiDexEnabled true
     }
 
-    signingConfigs{
-        debug {
-            keyAlias 'upload'
-            keyPassword 'andriod'
-            storeFile file('upload-keystore.jks')
-            storePassword 'andriod'
-        }
-    }
+    // signingConfigs{
+    //     debug {
+    //         keyAlias 'upload'
+    //         keyPassword 'andriod'
+    //         storeFile file('upload-keystore.jks')
+    //         storePassword 'andriod'
+    //     }
+    // }
 
     buildTypes {
         debug {

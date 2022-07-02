@@ -202,6 +202,12 @@ class ProfileSystem extends StatelessWidget {
         child: Column(
           children: [
             ProfileListTile(
+              imageLeading: 'assets/images/invoice.png',
+              imageTrailing: 'assets/images/next.png',
+              text: 'Invoice History',
+              onClick: () => Get.toNamed('/user_invoice_list'),
+            ),
+            ProfileListTile(
               imageLeading: 'assets/images/padlock.png',
               imageTrailing: 'assets/images/next.png',
               text: 'Change Password',

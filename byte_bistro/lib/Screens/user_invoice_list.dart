@@ -1,7 +1,7 @@
-import 'package:byte_bistro/controller/cart_admin_contoller.dart';
-import 'package:byte_bistro/models/cart_admin.dart';
+import 'package:byte_bistro/Screens/user_invoice_detail.dart';
+import 'package:byte_bistro/controller/user_invoice_controller.dart';
+import 'package:byte_bistro/models/user_invoice_model.dart';
 import 'package:flutter/material.dart';
-
 
 import 'package:get/get.dart';
 
@@ -13,37 +13,58 @@ class UserInvoiceList extends StatefulWidget {
 }
 
 class _UserInvoiceListState extends State<UserInvoiceList> {
-  CartAdminController cartAdminController = Get.put(CartAdminController());
-  
+  num totalPricePass = 0;
+  UserInvoiceController userInvoiceController =
+      Get.put(UserInvoiceController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).primaryColor,
         leading: BackButton(
-          onPressed: () {},
+          onPressed: () => Get.toNamed('/profile_screen'),
         ),
         title: const Text("Invoice History"),
       ),
       body: FutureBuilder(
-        future: cartAdminController.getAllCart(),
+        future: userInvoiceController.getUserInvoiceControllerInfo(),
         builder: (context, snapshot) {
-          
+          // print("snapshot ${snapshot}");
+          // print("snapshot.data ${snapshot.data}");
 
-         
           if (snapshot.hasData) {
-            List<CartAdmin> data = snapshot.data as List<CartAdmin>;
+            List<UserInvoiceModel> data =
+                snapshot.data as List<UserInvoiceModel>;
 
             return ListView.builder(
               itemCount: data.length,
               itemBuilder: (context, index) {
+                int indexTotaL = data[index].items.length;
+                late UserInvoiceModel dataIndex=data[index];
+                late num totalPrice = 0;
+                // print("data[index] ${data[index]}");
+
+                for (int i = 0; i < indexTotaL; i++) {
+                  totalPrice += (data[index].items[i].qty *
+                      data[index].items[i].foodId.price);
+                }
+
                 // print("data[index]");
                 // print(data[index].userId.id);
                 return GestureDetector(
-                  onTap: ()=>{
-                    Navigator.pushNamed(context, 'user_invoice_detail')
+                  onTap: () {
+                    setState(() {
+                      totalPricePass = totalPrice;
+                    });
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => UserInvoiceDetail(
+                              totalPrice: totalPricePass, data: dataIndex)),
+                    );
+                    // Navigator.pushNamed(context, 'user_invoice_detail');
                   },
-
                   child: Container(
                     padding: EdgeInsets.symmetric(vertical: 8),
                     margin: EdgeInsets.only(top: 5),
@@ -65,7 +86,7 @@ class _UserInvoiceListState extends State<UserInvoiceList> {
                         //   padding: EdgeInsets.only(left: 20.0),
                         //   child: Text(data[index].userId.id.toString()),
                         // ),
-                        
+
                         Row(
                           children: [
                             Column(
@@ -135,7 +156,7 @@ class _UserInvoiceListState extends State<UserInvoiceList> {
                             ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: const[
+                              children: [
                                 Padding(
                                   padding: EdgeInsets.only(
                                     left: 10.0,
@@ -144,7 +165,7 @@ class _UserInvoiceListState extends State<UserInvoiceList> {
                                   child: SizedBox(
                                     width: 100,
                                     child: Text(
-                                      "Rs. 827",
+                                      "Rs. ${totalPrice.toString()}",
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                   ),
@@ -161,7 +182,6 @@ class _UserInvoiceListState extends State<UserInvoiceList> {
                                     ),
                                   ),
                                 ),
-                                
                               ],
                             )
                           ],

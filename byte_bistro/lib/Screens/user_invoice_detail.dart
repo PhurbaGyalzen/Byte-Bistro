@@ -1,43 +1,50 @@
 // import 'package:byte_bistro/Screens/folder_clipper_invoice.dart';
 // import 'package:byte_bistro/Screens/invoice_clipper.dart';
+import 'package:byte_bistro/models/user_invoice_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart ' as pw;
-import 'package:screenshot/screenshot.dart';
+
 import 'package:path_provider/path_provider.dart';
 import 'package:open_file/open_file.dart';
+
+import '../controller/logged_user_info_controller.dart';
 
 Color defaultColor = Color(0XFF835454);
 
 class UserInvoiceDetail extends StatefulWidget {
-  const UserInvoiceDetail({Key? key}) : super(key: key);
+  final num totalPrice;
+  final UserInvoiceModel data;
+  const UserInvoiceDetail(
+      {Key? key, required this.totalPrice, required this.data})
+      : super(key: key);
 
   @override
   State<UserInvoiceDetail> createState() => _UserInvoiceDetail();
 }
 
 class _UserInvoiceDetail extends State<UserInvoiceDetail> {
-  // late Uint8List _imageFile;
+  LoggedUserInfoController userLoggedController =
+      Get.put(LoggedUserInfoController());
 
-  // ScreenshotController screenshotController = ScreenshotController();
-  List data = [
-    {"name": "Sanjib Limbu"}
-  ];
+  late int length = widget.data.items.length;
+  late int tax = (widget.totalPrice * (13 / 100)).toInt();
 
   Future getPdf() async {
-    // await screenshotController.capture().then((Uint8List? image) {
-    //   //Capture Done
-    //   setState(() {
-    //     _imageFile = image!;
-    //   });
-    // }).catchError((onError) {
-    //   print(onError);
-    // });
-
     pw.Document pdf = pw.Document();
+    // final image = pw.MemoryImage(
+    //   File('assets/images/splashimage.png').readAsBytesSync(),
+    // );
+    final image2 = pw.MemoryImage(
+      (await rootBundle.load('assets/images/logopdf3.png'))
+          .buffer
+          .asUint8List(),
+    );
     pdf.addPage(
       pw.MultiPage(
         pageFormat: PdfPageFormat.a4,
@@ -48,33 +55,69 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
               mainAxisAlignment: pw.MainAxisAlignment.start,
               crossAxisAlignment: pw.CrossAxisAlignment.start,
               children: [
-                pw.Text(
-                  data[0]["name"],
-                  style: pw.TextStyle(
-                    fontSize: 14,
-                    fontWeight: pw.FontWeight.normal,
-                    height: 1.5,
-                    color: PdfColors.black,
+                pw.Center(
+                  child: pw.Image(
+                    image2,
+                    height: 150,
+                    width: 300,
+                    fit: pw.BoxFit.fill,
                   ),
                 ),
-                pw.Text(
-                  "Invoice Id 31234567890",
-                  style: pw.TextStyle(
-                    fontSize: 14,
-                    fontWeight: pw.FontWeight.normal,
-                    height: 1.5,
-                    color: PdfColors.black,
+                pw.Padding(
+                  padding: pw.EdgeInsets.only(bottom:20 ),
+                  child: pw.Center(
+                    child: pw.Text(
+                      "INVOICE",
+                      style: pw.TextStyle(
+                          fontWeight: pw.FontWeight.bold, fontSize: 20),
+                    ),
                   ),
                 ),
-                pw.Text(
-                  "Invoice Date 2022-3-23",
-                  style: pw.TextStyle(
-                    fontSize: 14,
-                    fontWeight: pw.FontWeight.normal,
-                    height: 1.5,
-                    color: PdfColors.black,
+                pw.Center(
+                  child: pw.Padding(
+                    padding: pw.EdgeInsets.only(top: 10),
+                    child: pw.Text(
+                      "CUSTOMER NAME: ${userLoggedController.userInfo[0].username.toString().toUpperCase()}",
+                      style: pw.TextStyle(
+                        fontSize: 14,
+                        fontWeight: pw.FontWeight.normal,
+                        height: 1.5,
+                        color: PdfColors.black,
+                      ),
+                    ),
                   ),
                 ),
+                pw.Center(
+                  child: pw.Padding(
+                    padding: pw.EdgeInsets.only(top: 10),
+                    child: pw.Text(
+                      "INVOICE NO.: ${widget.data.id}",
+                      style: pw.TextStyle(
+                        fontSize: 14,
+                        fontWeight: pw.FontWeight.normal,
+                        height: 1.5,
+                        color: PdfColors.black,
+                      ),
+                    ),
+                  ),
+                ),
+                pw.Center(
+                  child: pw.Padding(
+                    padding: pw.EdgeInsets.only(
+                      top: 10,
+                      bottom: 20,
+                    ),
+                    child: pw.Text(
+                      "INVOICE DATE: ${widget.data.createdAt}",
+                      style: pw.TextStyle(
+                        fontSize: 14,
+                        fontWeight: pw.FontWeight.normal,
+                        height: 1.5,
+                        color: PdfColors.black,
+                      ),
+                    ),
+                  ),
+                )
               ],
             ),
             //header ended
@@ -127,39 +170,63 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
                     ),
                   ],
                 ),
-                for (var i = 0; i < 5; i++)
+                for (var i = 0; i < length; i++)
                   pw.TableRow(
                     children: [
                       pw.Expanded(
                         flex: 6,
                         child: pw.Padding(
                           padding: pw.EdgeInsets.all(5),
-                          child: pw.Text('CHiekcn MOMO'),
+                          child: pw.Text(widget.data.items[i].foodId.name
+                              .toString()
+                              .substring(5)),
                         ),
                       ),
                       pw.Expanded(
                         flex: 2,
                         child: pw.Padding(
                           padding: pw.EdgeInsets.all(5),
-                          child: pw.Text('Rs. 160'),
+                          child: pw.Text(
+                              'Rs. ${widget.data.items[i].foodId.price}'),
                         ),
                       ),
                       pw.Expanded(
                         flex: 2,
                         child: pw.Padding(
                           padding: pw.EdgeInsets.all(5),
-                          child: pw.Text('2'),
+                          child: pw.Text('${widget.data.items[i].qty}'),
                         ),
                       ),
                       pw.Expanded(
                         flex: 2,
                         child: pw.Padding(
                           padding: pw.EdgeInsets.all(5),
-                          child: pw.Text('Rs. 320'),
+                          child: pw.Text(
+                              'Rs. ${widget.data.items[i].foodId.price * widget.data.items[i].qty}'),
                         ),
                       ),
                     ],
                   ),
+                // pw.TableRow(
+                //   children: [
+                //     pw.SizedBox(),
+                //     pw.SizedBox(),
+                //     pw.Expanded(
+                //       flex: 2,
+                //       child: pw.Padding(
+                //         padding: pw.EdgeInsets.all(5),
+                //         child: pw.Text('GRAND TOTAL'),
+                //       ),
+                //     ),
+                //     pw.Expanded(
+                //       flex: 2,
+                //       child: pw.Padding(
+                //         padding: pw.EdgeInsets.all(5),
+                //         child: pw.Text('Rs. ${widget.totalPrice}'),
+                //       ),
+                //     ),
+                //   ],
+                // ),
                 pw.TableRow(
                   children: [
                     pw.SizedBox(),
@@ -168,14 +235,14 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
                       flex: 2,
                       child: pw.Padding(
                         padding: pw.EdgeInsets.all(5),
-                        child: pw.Text('TOTAL'),
+                        child: pw.Text('NET TOTAL'),
                       ),
                     ),
                     pw.Expanded(
                       flex: 2,
                       child: pw.Padding(
                         padding: pw.EdgeInsets.all(5),
-                        child: pw.Text('Rs. 320'),
+                        child: pw.Text('Rs. ${widget.totalPrice}'),
                       ),
                     ),
                   ],
@@ -188,14 +255,14 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
                       flex: 2,
                       child: pw.Padding(
                         padding: pw.EdgeInsets.all(5),
-                        child: pw.Text('SUBTOTAL'),
+                        child: pw.Text('VAT(13%)'),
                       ),
                     ),
                     pw.Expanded(
                       flex: 2,
                       child: pw.Padding(
                         padding: pw.EdgeInsets.all(5),
-                        child: pw.Text('Rs. 320'),
+                        child: pw.Text('Rs. $tax'),
                       ),
                     ),
                   ],
@@ -205,37 +272,15 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
                     pw.SizedBox(),
                     pw.SizedBox(),
                     pw.Expanded(
-                      flex: 2,
-                      child: pw.Padding(
-                        padding: pw.EdgeInsets.all(5),
-                        child: pw.Text('TAX@13%'),
-                      ),
-                    ),
-                    pw.Expanded(
-                      flex: 2,
-                      child: pw.Padding(
-                        padding: pw.EdgeInsets.all(5),
-                        child: pw.Text('Rs. 50'),
-                      ),
-                    ),
-                  ],
-                ),
-                pw.TableRow(
-                  children: [
-                    pw.SizedBox(),
-                    pw.SizedBox(),
-                    pw.Expanded(
-                      flex: 2,
                       child: pw.Padding(
                         padding: pw.EdgeInsets.all(5),
                         child: pw.Text('DISCOUNT'),
                       ),
                     ),
                     pw.Expanded(
-                      flex: 2,
                       child: pw.Padding(
                         padding: pw.EdgeInsets.all(5),
-                        child: pw.Text('Rs. 50'),
+                        child: pw.Text('Rs. 0'),
                       ),
                     ),
                   ],
@@ -244,18 +289,18 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
                   children: [
                     pw.SizedBox(),
                     pw.SizedBox(),
-                    pw.Expanded(
-                      flex: 2,
+                    pw.Container(
+                      color: PdfColors.grey,
                       child: pw.Padding(
                         padding: pw.EdgeInsets.all(5),
                         child: pw.Text('TOTAL'),
                       ),
                     ),
-                    pw.Expanded(
-                      flex: 2,
+                    pw.Container(
+                      color: PdfColors.grey,
                       child: pw.Padding(
                         padding: pw.EdgeInsets.all(5),
-                        child: pw.Text('Rs. 500'),
+                        child: pw.Text('Rs. ${widget.totalPrice + tax}'),
                       ),
                     ),
                   ],
@@ -267,7 +312,6 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
       ),
     );
 
-    // On Flutter, use the [path_provider](https://pub.dev/packages/path_provider) library:
     final output = await getExternalStorageDirectory();
     final filePath = "${output?.path}/invoice.pdf";
     final file = File(filePath);
@@ -278,6 +322,9 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
 
   @override
   Widget build(BuildContext context) {
+    print("widget.data ${widget.data}");
+    print("widget.totalPrice ${widget.totalPrice}");
+    var tax = (widget.totalPrice * (13 / 100)).toInt();
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -331,12 +378,34 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
                   //   ],
                   // ),
 
-                  Text(
-                    "Sanjib Limbu",
-                    style: Theme.of(context).textTheme.bodyText1,
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 8.0),
+                    child: Text(
+                      userLoggedController.userInfo[0].username
+                          .toString()
+                          .toUpperCase(),
+                      style: TextStyle(
+                          letterSpacing: 1.2, fontWeight: FontWeight.bold),
+                    ),
                   ),
-                  Text("Invoice Id 31234567890"),
-                  Text("Invoice Date 2022-3-23"),
+                  Padding(
+                      padding: const EdgeInsets.only(bottom: 5.0),
+                      child: Row(
+                        children: [
+                          Text("Invoice Id: ",
+                              style: Theme.of(context).textTheme.headline2),
+                          Text(widget.data.id)
+                        ],
+                      )),
+                  Padding(
+                      padding: const EdgeInsets.only(bottom: 5.0),
+                      child: Row(
+                        children: [
+                          Text("Invoice Date: ",
+                              style: Theme.of(context).textTheme.headline2),
+                          Text(widget.data.createdAt.toString())
+                        ],
+                      )),
 
                   Container(
                     color: Colors.grey,
@@ -392,7 +461,7 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
                     shrinkWrap: true,
                     primary: false,
                     // physics: NeverScrollableScrollPhysics(),
-                    itemCount: 4,
+                    itemCount: widget.data.items.length,
                     itemBuilder: (context, index) {
                       return Container(
                         margin: EdgeInsets.only(top: 10),
@@ -401,13 +470,15 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
+                          children: [
                             Expanded(
                               flex: 5,
                               child: Padding(
                                 padding: EdgeInsets.only(right: 5),
                                 child: Text(
-                                  "Chicken MOMO Chicken MOMO",
+                                  widget.data.items[index].foodId.name
+                                      .toString()
+                                      .substring(5),
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.w400,
@@ -418,7 +489,7 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
                             Expanded(
                               flex: 2,
                               child: Text(
-                                "Rs. 160",
+                                "Rs. ${widget.data.items[index].foodId.price.toString()}",
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.w400,
@@ -428,7 +499,7 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
                             Expanded(
                               flex: 2,
                               child: Text(
-                                "2",
+                                widget.data.items[index].qty.toString(),
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.w400,
@@ -438,7 +509,7 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
                             Expanded(
                               flex: 2,
                               child: Text(
-                                "Rs. 320",
+                                "Rs. ${widget.data.items[index].foodId.price * widget.data.items[index].qty}",
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.w400,
@@ -453,40 +524,40 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
 
                   Column(
                     children: [
-                      const Divider(
-                        thickness: 2,
-                        color: Colors.grey,
-                      ),
-                      Container(
-                        padding:
-                            EdgeInsets.symmetric(vertical: 1, horizontal: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
-                            Expanded(
-                              flex: 9,
-                              child: Text(
-                                "TOTAL",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 2,
-                              child: Text(
-                                "Rs. 320",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                      // const Divider(
+                      //   thickness: 2,
+                      //   color: Colors.grey,
+                      // ),
+                      // Container(
+                      //   padding:
+                      //       EdgeInsets.symmetric(vertical: 1, horizontal: 10),
+                      //   child: Row(
+                      //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //     crossAxisAlignment: CrossAxisAlignment.start,
+                      //     children: [
+                      //       // Expanded(
+                      //       //   flex: 9,
+                      //       //   child: Text(
+                      //       //     "TOTAL",
+                      //       //     style: TextStyle(
+                      //       //       color: Colors.black,
+                      //       //       fontWeight: FontWeight.w400,
+                      //       //     ),
+                      //       //   ),
+                      //       // ),
+                      //       // Expanded(
+                      //       //   flex: 2,
+                      //       //   child: Text(
+                      //       //     "Rs. ${widget.totalPrice}",
+                      //       //     style: TextStyle(
+                      //       //       color: Colors.black,
+                      //       //       fontWeight: FontWeight.w400,
+                      //       //     ),
+                      //       //   ),
+                      //       // ),
+                      //     ],
+                      //   ),
+                      // ),
                       const Divider(
                         thickness: 2,
                         color: Colors.grey,
@@ -499,7 +570,7 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
+                          children: [
                             Spacer(flex: 5),
                             // Expanded(
                             //   flex: 7,
@@ -507,7 +578,7 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
                             Expanded(
                               flex: 3,
                               child: Text(
-                                "SUBTOTAL",
+                                "NET TOTAL",
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.w400,
@@ -517,7 +588,7 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
                             Expanded(
                               flex: 2,
                               child: Text(
-                                "Rs. 320",
+                                "Rs. ${widget.totalPrice}",
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.w400,
@@ -532,7 +603,7 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
+                          children: [
                             Spacer(flex: 5),
                             // Expanded(
                             //   flex: 7,
@@ -540,7 +611,7 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
                             Expanded(
                               flex: 3,
                               child: Text(
-                                "TAX@13%",
+                                "VAT(13%)",
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.w400,
@@ -550,7 +621,7 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
                             Expanded(
                               flex: 2,
                               child: Text(
-                                "Rs. 50 ",
+                                "Rs. $tax",
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.w400,
@@ -560,39 +631,39 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
                           ],
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 5),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
-                            Spacer(flex: 5),
-                            // Expanded(
-                            //   flex: 7,
-                            //   child: SizedBox(),),
-                            Expanded(
-                              flex: 3,
-                              child: Text(
-                                "DISCOUNT",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 2,
-                              child: Text(
-                                "Rs. 50",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                      // Padding(
+                      //   padding: const EdgeInsets.only(bottom: 5),
+                      //   child: Row(
+                      //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //     crossAxisAlignment: CrossAxisAlignment.start,
+                      //     children: const [
+                      //       Spacer(flex: 5),
+                      //       // Expanded(
+                      //       //   flex: 7,
+                      //       //   child: SizedBox(),),
+                      //       Expanded(
+                      //         flex: 3,
+                      //         child: Text(
+                      //           "DISCOUNT",
+                      //           style: TextStyle(
+                      //             color: Colors.black,
+                      //             fontWeight: FontWeight.w400,
+                      //           ),
+                      //         ),
+                      //       ),
+                      //       Expanded(
+                      //         flex: 2,
+                      //         child: Text(
+                      //           "Rs. 0",
+                      //           style: TextStyle(
+                      //             color: Colors.black,
+                      //             fontWeight: FontWeight.w400,
+                      //           ),
+                      //         ),
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
                       Container(
                         color: Colors.grey,
                         margin: EdgeInsets.only(top: 10),
@@ -602,14 +673,15 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
+                          children: [
                             Spacer(
                               flex: 5,
                             ),
+
                             Expanded(
                               flex: 3,
                               child: Text(
-                                "TOTAL",
+                                "GRAND TOTAL",
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.w400,
@@ -620,7 +692,7 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
                             Expanded(
                               flex: 2,
                               child: Text(
-                                "Rs. 500",
+                                "Rs. ${widget.totalPrice + tax}",
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.w400,
