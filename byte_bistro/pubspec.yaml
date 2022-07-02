@@ -69,6 +69,7 @@ dependencies:
   jwt_decode: ^0.3.1
   cached_network_image: ^3.2.0
   badges: ^2.0.3
+  duration_picker: ^1.1.0+1
 
 dev_dependencies:
   flutter_test:
