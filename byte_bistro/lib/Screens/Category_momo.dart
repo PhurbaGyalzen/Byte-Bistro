@@ -160,7 +160,7 @@ class _MOMOState extends State<MOMO> {
                                                 ),
                                               ),
                                               SizedBox(
-                                                height: 15,
+                                                height: 20,
                                               ),
                                               Row(
                                                 mainAxisAlignment:
