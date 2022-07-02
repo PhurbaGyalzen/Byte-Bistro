@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:byte_bistro/Services/http_service.dart';
+import 'package:byte_bistro/models/notificationO.dart';
 
 import '../models/notification.dart';
 import 'package:dio/dio.dart' as dio;
@@ -121,13 +122,13 @@ class NotificationService {
     }
   }
 
-  Future<List<Notificationl>> getOfferNotification() async {
+  Future<List<NotificationO>> getOfferNotification() async {
     String endpoint = PersistentHtpp.baseUrl + 'notification/offer';
     try {
       final response = await PersistentHtpp.client.get(Uri.parse(endpoint));
       final jsonResponse = response.body;
       if (response.statusCode == 200) {
-        return notificationlFromJson(jsonResponse);
+        return notificationOFromJson(jsonResponse);
       } else {
         return Future.error('Internal Server Error');
       }

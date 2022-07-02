@@ -44,8 +44,6 @@ class FavouriteController extends GetxController {
 
   getUserFavourites2() async {
     var data = await loggedUserInfoController.getLoggedUserInfo();
-    print("data is ");
-    print(data);
     var response = await favouriteService.getUserFavourites(data.id.toString());
     favouriteList.value = response as List;
     return response;

@@ -7,7 +7,7 @@ class NotificationController extends GetxController {
 
   @override
   void onInit() {
-    // getAllNotification();
+    getAllNotification();
     super.onInit();
   }
 

@@ -1,22 +1,22 @@
 // To parse this JSON data, do
 //
-//     final notificationl = notificationlFromJson(jsonString);
+//     final notificationO = notificationOFromJson(jsonString);
 
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
-List<Notificationl> notificationlFromJson(String str) =>
-    List<Notificationl>.from(
-        json.decode(str).map((x) => Notificationl.fromJson(x)));
+List<NotificationO> notificationOFromJson(String str) =>
+    List<NotificationO>.from(
+        json.decode(str).map((x) => NotificationO.fromJson(x)));
 
-String notificationlToJson(List<Notificationl> data) =>
+String notificationOToJson(List<NotificationO> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class Notificationl {
-  Notificationl({
+class NotificationO {
+  NotificationO({
+    required this.userId,
     required this.id,
     required this.title,
-    required this.userId,
     required this.message,
     required this.read,
     required this.isOffer,
@@ -26,9 +26,9 @@ class Notificationl {
     required this.v,
   });
 
+  dynamic userId;
   String id;
   String title;
-  UserId userId;
   String message;
   bool read;
   bool isOffer;
@@ -37,10 +37,10 @@ class Notificationl {
   DateTime updatedAt;
   int v;
 
-  factory Notificationl.fromJson(Map<String, dynamic> json) => Notificationl(
+  factory NotificationO.fromJson(Map<String, dynamic> json) => NotificationO(
+        userId: json["userId"],
         id: json["_id"],
         title: json["title"],
-        userId: UserId.fromJson(json["userId"]),
         message: json["message"],
         read: json["read"],
         isOffer: json["isOffer"],
@@ -51,9 +51,9 @@ class Notificationl {
       );
 
   Map<String, dynamic> toJson() => {
+        "userId": userId,
         "_id": id,
         "title": title,
-        "userId": userId.toJson(),
         "message": message,
         "read": read,
         "isOffer": isOffer,
@@ -61,25 +61,5 @@ class Notificationl {
         "createdAt": createdAt.toIso8601String(),
         "updatedAt": updatedAt.toIso8601String(),
         "__v": v,
-      };
-}
-
-class UserId {
-  UserId({
-    required this.id,
-    required this.fullname,
-  });
-
-  String id;
-  String fullname;
-
-  factory UserId.fromJson(Map<String, dynamic> json) => UserId(
-        id: json["_id"],
-        fullname: json["fullname"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "_id": id,
-        "fullname": fullname,
       };
 }

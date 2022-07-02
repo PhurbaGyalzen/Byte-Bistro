@@ -153,10 +153,13 @@ class _AdminDashboardState extends State<AdminDashboard> {
                         style: ElevatedButton.styleFrom(
                           primary: kPrimary.withOpacity(0.8),
                         )),
+                    SizedBox(
+                      width: 10,
+                    ),
                     ElevatedButton(
                         onPressed: () => Get.toNamed('/addNotification'),
                         child: Text(
-                          'Offers',
+                          'Add Offer',
                           style: TextStyle(color: Colors.black),
                         ),
                         style: ElevatedButton.styleFrom(

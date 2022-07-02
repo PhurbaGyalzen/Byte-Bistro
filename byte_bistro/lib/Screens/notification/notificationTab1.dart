@@ -1,31 +1,34 @@
 // import 'package:byte_bistro/Screens/notification/notification_data.dart';
+import 'package:byte_bistro/Services/http_service.dart';
 import 'package:byte_bistro/constants/colors.dart';
 import 'package:byte_bistro/controller/notification_controller.dart';
+import 'package:byte_bistro/models/notificationO.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../models/notification.dart';
 
-class NotificationNormal extends StatefulWidget {
-  const NotificationNormal({Key? key}) : super(key: key);
+class NotificationOffer extends StatefulWidget {
+  const NotificationOffer({Key? key}) : super(key: key);
   @override
-  _NotificationNormalState createState() => _NotificationNormalState();
+  _NotificationOfferState createState() => _NotificationOfferState();
 }
 
-class _NotificationNormalState extends State<NotificationNormal> {
-  NotificationController data = Get.find();
+class _NotificationOfferState extends State<NotificationOffer> {
+  NotificationController notificationController =
+      Get.put(NotificationController());
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: FutureBuilder(
-          future: data.getOfferNotification(),
+          future: notificationController.getOfferNotification(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              List<Notificationl> notificationData =
-                  snapshot.data! as List<Notificationl>;
-              // print(notificationData);
+              List<NotificationO> notificationData =
+                  snapshot.data as List<NotificationO>;
+              print(notificationData);
               return Container(
                 padding: EdgeInsets.all(8.0),
                 child: ListView.builder(
@@ -78,19 +81,21 @@ class _NotificationNormalState extends State<NotificationNormal> {
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(10),
                                 child: SizedBox(
-                                      height: 190,
+                                  height: 190,
                                   width: MediaQuery.of(context).size.width,
-                                      child: CachedNetworkImage(
+                                  child: CachedNetworkImage(
+                                    fit: BoxFit.cover,
+                                    imageUrl: PersistentHtpp.baseUrl +
+                                        notificationData[index].image,
+                                    placeholder: (context, url) => Image(
                                         fit: BoxFit.cover,
-                                        imageUrl:
-                                                notificationData[index].image,
-                                        placeholder: (context, url) =>
-                                            Image(fit: BoxFit.cover, image: 
-                                                AssetImage('assets/images/loading.gif',)),
-                                        errorWidget: (context, url, error) =>
-                                            Icon(Icons.error),
-                                      ),
-                                    ),
+                                        image: AssetImage(
+                                          'assets/images/loading.gif',
+                                        )),
+                                    errorWidget: (context, url, error) =>
+                                        Icon(Icons.error),
+                                  ),
+                                ),
                               ),
                             ),
                             // Row(
