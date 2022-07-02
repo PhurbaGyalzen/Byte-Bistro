@@ -211,6 +211,7 @@ class ByteBistro extends StatelessWidget {
         GetPage(name: '/faq', page: () => Faq()),
         GetPage(name: '/contactUs', page: () => ContactUs()),
         GetPage(name: '/paymentSummary', page: () => PaymentSummary()),
+        GetPage(name: '/pendingOrder', page: () => PaymentSummary()),
       ],
     );
   }

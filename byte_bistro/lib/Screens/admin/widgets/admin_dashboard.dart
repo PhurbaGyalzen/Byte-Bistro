@@ -1,9 +1,11 @@
+import 'package:badges/badges.dart';
 import 'package:byte_bistro/Screens/admin/widgets/add_food.dart';
 import 'package:byte_bistro/Screens/admin/widgets/view_food.dart';
 import 'package:byte_bistro/Screens/category/category_screen.dart';
 import 'package:byte_bistro/Services/http_service.dart';
 import 'package:byte_bistro/Services/storage_service.dart';
 import 'package:byte_bistro/constants/colors.dart';
+import 'package:byte_bistro/controller/cart_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:get/get.dart';
@@ -18,6 +20,7 @@ class AdminDashboard extends StatefulWidget {
 class _AdminDashboardState extends State<AdminDashboard> {
   @override
   Widget build(BuildContext context) {
+    CartController cartController = Get.find();
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -26,6 +29,26 @@ class _AdminDashboardState extends State<AdminDashboard> {
           style: TextStyle(fontSize: 20, letterSpacing: 1, height: 1.5),
         ),
         actions: [
+          InkWell(
+            onTap: () => Get.toNamed('/adminOrders'),
+            child: Badge(
+              child: Icon(Icons.notifications_outlined,
+                  size: 28, color: Colors.black87),
+              badgeColor: Colors.black,
+              elevation: 0,
+              position: BadgePosition.topEnd(top: 8, end: -2),
+              badgeContent: Text(
+                cartController.cartList.length.toString(),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 14,
+                ),
+              ),
+            ),
+          ),
+          SizedBox(
+            width: 10,
+          ),
           PopupMenuButton(itemBuilder: (context) {
             return [
               PopupMenuItem(
@@ -85,6 +108,9 @@ class _AdminDashboardState extends State<AdminDashboard> {
               ),
             ];
           }),
+          SizedBox(
+            width: 5,
+          ),
         ],
         leading: IconButton(
           icon: Icon(Icons.person),
@@ -147,18 +173,6 @@ class _AdminDashboardState extends State<AdminDashboard> {
                     height: 20,
                   ),
                   Row(children: [
-                    ElevatedButton(
-                        onPressed: () => Get.toNamed('/adminOrders'),
-                        child: Text(
-                          'Orders',
-                          style: TextStyle(color: Colors.black),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          primary: kPrimary.withOpacity(0.8),
-                        )),
-                    SizedBox(
-                      width: 30,
-                    ),
                     ElevatedButton(
                         onPressed: () => Get.toNamed('/addNotification'),
                         child: Text(
