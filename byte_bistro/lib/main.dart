@@ -45,6 +45,7 @@ import 'package:byte_bistro/Screens/user_order_history_list.dart';
 import 'package:byte_bistro/Screens/verify_reset_password.dart';
 import 'package:byte_bistro/Services/http_service.dart';
 import 'package:byte_bistro/Services/storage_service.dart';
+import 'package:byte_bistro/controller/category_controller.dart';
 import 'package:byte_bistro/controller/logged_user_info_controller.dart';
 import 'package:byte_bistro/controller/cart_controller.dart';
 import 'package:byte_bistro/utils/str_decoder.dart';
@@ -84,6 +85,7 @@ class ByteBistro extends StatelessWidget {
       Get.put(LoggedUserInfoController());
 
   final CartController cartController = Get.put(CartController());
+  final CategoryController controller = Get.put(CategoryController());
 
   @override
   Widget build(BuildContext context) {
@@ -153,27 +155,27 @@ class ByteBistro extends StatelessWidget {
         GetPage(
             name: '/orderHistory_user_list', page: () => OrderHistoryUser()),
         GetPage(name: '/order_history_admin', page: () => OrderHistoryAdmin()),
-        
+
         GetPage(name: '/user_invoice_list', page: () => UserInvoiceList()),
-        
-        
+
         // GetPage(name: '/CategoryMoMo', page: () => MOMO()),
         GetPage(name: '/signup', page: () => SignUpScreen()),
-        GetPage(name: '/profile_screen', page: () =>ProfileScreen()),
-        
+        GetPage(name: '/profile_screen', page: () => ProfileScreen()),
+
         GetPage(name: '/reset_password', page: () => ForgetPasswordScreen()),
         GetPage(
             name: '/verify_reset_password', page: () => VerifyResetPassword()),
         GetPage(name: '/adminScreen', page: () => AdminDashboard()),
         GetPage(name: '/order_history_admin', page: () => OrderHistoryAdmin()),
         GetPage(
-            name: '/adminProfileUpdateForm',page: () => AdminProfileUpdateForm()),
+            name: '/adminProfileUpdateForm',
+            page: () => AdminProfileUpdateForm()),
         GetPage(name: '/adminProfile', page: () => AdminProfilePage()),
         GetPage(name: '/adminNotification', page: () => AdminNotification()),
         GetPage(name: '/adminOrders', page: () => AdminOrders()),
         GetPage(name: '/adminFoodDetail', page: () => AdminFoodDetail()),
         GetPage(name: '/adminOrderDetail', page: () => AdminOrderDetail()),
-        
+
         GetPage(
             name: '/orderHistory_user_list', page: () => OrderHistoryUser()),
 

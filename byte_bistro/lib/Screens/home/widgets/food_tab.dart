@@ -1,41 +1,10 @@
-import 'package:byte_bistro/Screens/Category_momo.dart';
+import 'package:byte_bistro/controller/category_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class FoodTab extends StatelessWidget {
   FoodTab({Key? key}) : super(key: key);
-
-  var catName;
-
-  final tabItems = [
-    {
-      "tabName": "Momo",
-      "tabIcon": "assets/images/momo.png",
-    },
-    {
-      "tabName": "Noodles",
-      "tabIcon": "assets/images/noodles.png",
-    },
-    {
-      "tabName": "Burger",
-      "tabIcon": "assets/images/hamburger.png",
-    },
-    {
-      "tabName": "Pizza",
-      "tabIcon": "assets/images/flatpizza.png",
-    },
-    {
-      "tabName": "Coffee",
-      "tabIcon": "assets/images/coffee.png",
-    },
-    {
-      "tabName": "Beer",
-      "tabIcon": "assets/images/beer.png",
-    },
-    {
-      "tabName": "All",
-      "tabIcon": "assets/images/view.png",
-    },
-  ];
+  final CategoryController categoryController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -51,28 +20,12 @@ class FoodTab extends StatelessWidget {
             height: 70,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: tabItems.length,
+              itemCount: categoryController.categoryList.length,
               itemBuilder: ((context, index) => GestureDetector(
-                    // onTap: () {
-                    //   setState(
-                    //     () {
-                    //       catName = tabText[index];
-                    //     },
-                    //   );
-
-                    //   Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //       builder: (context) => MOMO(
-                    //         catName: catName,
-                    //       ),
-                    //     ),
-                    //   );
-                    // },
                     onTap: () {},
                     child: Container(
+                      padding: EdgeInsets.only(top: 15),
                       width: 115,
-                      padding: EdgeInsets.fromLTRB(0, 10, 10, 10),
                       margin: EdgeInsets.only(
                         right: 16,
                         bottom: 5,
@@ -89,24 +42,10 @@ class FoodTab extends StatelessWidget {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            child: Image(
-                              image: AssetImage(
-                                  tabItems[index]["tabIcon"].toString()),
-                              height: 30,
-                              width: 30,
-                            ),
-                          ),
-                          Text(
-                            tabItems[index]["tabName"].toString(),
-                            style: Theme.of(context).textTheme.bodyText1,
-                          ),
-                          SizedBox(width: 8),
-                        ],
+                      child: Text(
+                        categoryController.categoryList[index].name,
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.bodyText1,
                       ),
                     ),
                   )),
