@@ -62,7 +62,7 @@ export const getOfferNotification = async (
         }).populate({
             path: 'userId',
             select: 'fullname',
-        })
+        }).limit(10).sort({ createdAt: -1 })
         res.status(200).json(notification)
     }   
     catch (err) {

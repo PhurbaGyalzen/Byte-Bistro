@@ -2,33 +2,38 @@ import 'package:byte_bistro/Screens/notification/admin_notification_data.dart';
 import 'package:byte_bistro/constants/colors.dart';
 import 'package:byte_bistro/controller/logged_user_info_controller.dart';
 import 'package:byte_bistro/controller/notification_controller.dart';
+import 'package:byte_bistro/models/loged_user_info.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../models/notification.dart';
 
-class NotificationOffer extends StatefulWidget {
-  const NotificationOffer({Key? key}) : super(key: key);
+class NotificationNormal extends StatefulWidget {
+  const NotificationNormal({Key? key}) : super(key: key);
 
   @override
-  _NotificationOfferState createState() => _NotificationOfferState();
+  _NotificationNormalState createState() => _NotificationNormalState();
 }
 
-class _NotificationOfferState extends State<NotificationOffer> {
+class _NotificationNormalState extends State<NotificationNormal> {
   NotificationController notificationController = Get.find();
   LoggedUserInfoController loggedUserInfoController = Get.find();
-
+  var loggedUser;
   @override
   void initState() {
+    getLoggedUser();
     super.initState();
+  }
+
+  void getLoggedUser() async {
+    loggedUser = await loggedUserInfoController.getLoggedUserInfo();
   }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: FutureBuilder(
-          future: notificationController.getUserNotification(
-              loggedUserInfoController.userInfo[0].id.toString()),
+          future: notificationController.getUserNotification(loggedUser.id),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               List<Notificationl> notificationData =

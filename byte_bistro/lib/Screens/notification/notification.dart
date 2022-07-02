@@ -18,7 +18,7 @@ class _NotificationPageState extends State<NotificationPage> {
 
   @override
   Widget build(BuildContext context) {
-    final response = notificationController.getAllNotification();
+    // final response = notificationController.getAllNotification();
     // print(response);
     return DefaultTabController(
       length: 2,
@@ -51,7 +51,7 @@ class _NotificationPageState extends State<NotificationPage> {
               ),
             ),
           ]),
-          actions: const[
+          actions: const [
             // Stack(children: [
             //   Padding(
             //     padding: EdgeInsets.only(right: 25, top: 5),
@@ -86,15 +86,15 @@ class _NotificationPageState extends State<NotificationPage> {
             // ]),
           ],
         ),
-        body: TabBarView(children: const [
+        body: TabBarView(children: [
           // Container(
           //   child: Text('All'),
           // ),
           // Container(
           //   child: Text('All'),
           // )
-          NotificationNormal(),
           NotificationOffer(),
+          NotificationNormal(),
         ]),
       ),
     );

@@ -4,44 +4,45 @@
 
 import 'dart:convert';
 
-LoggedUserInfo loggedUserInfoFromJson(String str) => LoggedUserInfo.fromJson(json.decode(str));
+LoggedUserInfo loggedUserInfoFromJson(String str) =>
+    LoggedUserInfo.fromJson(json.decode(str));
 
 String loggedUserInfoToJson(LoggedUserInfo data) => json.encode(data.toJson());
 
 class LoggedUserInfo {
-    LoggedUserInfo({
-        required this.profile,
-        required this.id,
-        required this.username,
-        required this.passwordHash,
-        required this.email,
-        required this.fullname,
-        required this.phones,
-        required this.bio,
-        required this.isAdmin,
-        required this.createdAt,
-        required this.updatedAt,
-        required this.v,
-        required this.address,
-        required this.favoriteFoods,
-    });
+  LoggedUserInfo({
+    required this.profile,
+    required this.id,
+    required this.username,
+    required this.passwordHash,
+    required this.email,
+    required this.fullname,
+    required this.phones,
+    required this.bio,
+    required this.isAdmin,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.v,
+    required this.address,
+    required this.favoriteFoods,
+  });
 
-    String profile;
-    String id;
-    String username;
-    String passwordHash;
-    String email;
-    String fullname;
-    List<dynamic> phones;
-    String bio;
-    bool isAdmin;
-    DateTime createdAt;
-    DateTime updatedAt;
-    int v;
-    String address;
-    List<String> favoriteFoods;
+  String profile;
+  String id;
+  String username;
+  String passwordHash;
+  String email;
+  String fullname;
+  List<dynamic> phones;
+  String bio;
+  bool isAdmin;
+  DateTime createdAt;
+  DateTime updatedAt;
+  int v;
+  String address;
+  List<String> favoriteFoods;
 
-    factory LoggedUserInfo.fromJson(Map<String, dynamic> json) => LoggedUserInfo(
+  factory LoggedUserInfo.fromJson(Map<String, dynamic> json) => LoggedUserInfo(
         profile: json["profile"],
         id: json["_id"],
         username: json["username"],
@@ -56,9 +57,9 @@ class LoggedUserInfo {
         v: json["__v"],
         address: json["address"],
         favoriteFoods: List<String>.from(json["favoriteFoods"].map((x) => x)),
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "profile": profile,
         "_id": id,
         "username": username,
@@ -73,5 +74,5 @@ class LoggedUserInfo {
         "__v": v,
         "address": address,
         "favoriteFoods": List<dynamic>.from(favoriteFoods.map((x) => x)),
-    };
+      };
 }

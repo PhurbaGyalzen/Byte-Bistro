@@ -44,6 +44,7 @@ const UserSchemaFields: Record<keyof IUser, any> = {
 	googleId: {
 		type: String,
 		required: false,
+		default: '',
 		minlength: 1,
 		maxlength: 255,
 		unique: true,
