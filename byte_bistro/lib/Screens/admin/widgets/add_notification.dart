@@ -174,7 +174,7 @@ class _AddNotificationState extends State<AddNotification> {
                                       CrossAxisAlignment.stretch,
                                   children: [
                                     const Text(
-                                      "Upload food Image from:",
+                                      "Upload Offer Image from:",
                                       style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.bold,

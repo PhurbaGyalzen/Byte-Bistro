@@ -136,6 +136,31 @@ class ViewFood extends StatelessWidget {
                         trailing: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
+                            Switch(
+                              value: foodController.foodList[index].isAvailable,
+                              onChanged: (value) {
+                                if (value) {
+                                  foodController.setFoodAvailable(
+                                      foodController.foodList[index].id);
+                                  value = true;
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                        content: Text('Food Set Available')),
+                                  );
+                                } else {
+                                  foodController.setFoodUnavailable(
+                                      foodController.foodList[index].id);
+                                  value = false;
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                        content: Text('Food Set Unavailable')),
+                                  );
+                                }
+                              },
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
                             GestureDetector(
                               onTap: () => showDialog(
                                   barrierDismissible: false,
