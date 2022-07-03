@@ -140,20 +140,20 @@ class ViewFood extends StatelessWidget {
                               value: foodController.foodList[index].isAvailable,
                               onChanged: (value) {
                                 if (value) {
+                                  foodController.setFoodUnavailable(
+                                      foodController.foodList[index].id);
+                                  value = false;
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                        content: Text('Food Set food Unavailable')),
+                                  );
+                                } else {
                                   foodController.setFoodAvailable(
                                       foodController.foodList[index].id);
                                   value = true;
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                         content: Text('Food Set Available')),
-                                  );
-                                } else {
-                                  foodController.setFoodUnavailable(
-                                      foodController.foodList[index].id);
-                                  value = false;
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                        content: Text('Food Set Unavailable')),
                                   );
                                 }
                               },
