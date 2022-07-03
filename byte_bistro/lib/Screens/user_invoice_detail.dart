@@ -7,7 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import 'dart:io';
-import 'dart:typed_data';
+
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart ' as pw;
 
@@ -38,9 +38,6 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
 
   Future getPdf() async {
     pw.Document pdf = pw.Document();
-    // final image = pw.MemoryImage(
-    //   File('assets/images/splashimage.png').readAsBytesSync(),
-    // );
     final image2 = pw.MemoryImage(
       (await rootBundle.load('assets/images/logopdf3.png'))
           .buffer
@@ -329,20 +326,20 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
     );
 
     final output = await getExternalStorageDirectory();
-    final filePath = "${output?.path}/invoice.pdf";
+    final filePath = "${output?.path}/invoice${widget.data.createdAt.toString()}.pdf";
     final file = File(filePath);
-    print("file printed hehehe");
+    
     await file.writeAsBytes(await pdf.save());
     await OpenFile.open(filePath);
   }
 
   @override
   Widget build(BuildContext context) {
-    print("widget.data ${widget.data}");
-    print("widget.totalPrice ${widget.totalPrice}");
+   
     var tax = (widget.totalPrice * (13 / 100)).toInt();
     String date1 = widget.data.createdAt.toString();
     date1 = date1.split(" ")[0];
+    
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -356,7 +353,10 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
         actions: [
           // action button
           IconButton(
-            icon: Icon(Icons.picture_as_pdf),
+            icon: Icon(
+              Icons.picture_as_pdf,
+              color: kTextColor,
+            ),
             onPressed: () {
               getPdf();
             },
@@ -381,6 +381,7 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                 
                   Padding(
                     padding: const EdgeInsets.only(bottom: 8.0),
                     child: Row(
