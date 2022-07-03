@@ -46,7 +46,7 @@ export const userIncompleteCart = async (
 	next: NextFunction
 ) => {
 	try {
-		const cart = await Cart.findOne({ userId: req.user?.id, $lt: {
+		const cart = await Cart.find({ userId: req.user?.id, $lt: {
 			status: CartStatus.Completed
 		}}).populate({
 			path: 'items.foodId',
@@ -54,8 +54,8 @@ export const userIncompleteCart = async (
 		}).populate({
 			path: 'userId',
 			select: 'fullname',
-		})
-		res.status(200).json(cart)
+		}).limit(1).sort( {createdAt: -1})
+		res.status(200).json(cart[0])
 	} catch (err) {
 		res.status(400).json({ message: err })
 	}
