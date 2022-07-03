@@ -16,7 +16,7 @@ class AfterOrderScreen extends StatefulWidget {
 
 class _AfterOrderScreenState extends State<AfterOrderScreen> {
   CartController cartController = Get.find();
-  
+
   int? orderStatus;
   int? orderDurationMin;
   late TextEditingController orderDurationTimeController;
@@ -33,11 +33,14 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
       socket.on('order_status_change', (message) {
         setState(() {
           orderStatus = message['orderStatus'];
-          // print('recvd $orderStatus');
+          print('recvd $orderStatus');
           // only set one time.
           if (message['orderDurationMin'] != null) {
+            print('duration received from backend.');
             // only update duration if it has not been set, or admin sends new duration.
             if (orderDurationMin != message['orderDurationMin']) {
+              print('new duration received, updating controller.');
+              print(message['orderDurationMin'].runtimeType);
               orderDurationMin = message['orderDurationMin']!;
               orderDurationTimeController.text = orderDurationMin.toString();
 
@@ -54,13 +57,13 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
       });
     });
     socket.on('disconnect', (_) {
-      // print('disconnected');
+      print('socket disconnected...');
     });
   }
 
   @override
   void dispose() {
-    // socket.disconnect();
+    socket.disconnect();
     orderDurationTimeController.dispose();
     super.dispose();
   }
@@ -78,7 +81,6 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
                   return Center(child: CircularProgressIndicator());
                 }
                 Cart cart = snapshot.data as Cart;
-                // String orderedTime = '9:33 PM';
                 String orderedTime = Jiffy(cart.createdAt).Hms;
                 int itemCount = cart.items.length;
                 int totalPrice =
@@ -99,7 +101,6 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
                       children: [
                         Text(
                           'Your order will be ready approx. in ',
-                          // '',
                           style: secStyle,
                         ),
                         SizedBox(
@@ -148,7 +149,7 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
                                 icon: Icon(Icons.close),
                                 color: Colors.black,
                                 iconSize: 25,
-                                onPressed: () => Get.back(),
+                                onPressed: () => Get.offAllNamed('/home'),
                               ),
                             ),
                             Column(
