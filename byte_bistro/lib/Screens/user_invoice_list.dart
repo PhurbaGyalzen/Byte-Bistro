@@ -42,7 +42,6 @@ class _UserInvoiceListState extends State<UserInvoiceList> {
           if (snapshot.hasData) {
             List<UserInvoiceModel> data =
                 snapshot.data as List<UserInvoiceModel>;
-            print("snapshot.data ${snapshot.data}");
 
             return ListView.builder(
               itemCount: data.length,
@@ -59,6 +58,7 @@ class _UserInvoiceListState extends State<UserInvoiceList> {
                   totalPrice += (data[index].items[i].qty *
                       data[index].items[i].foodId.price);
                 }
+                late num totalPrice2 = totalPrice + totalPrice * 13 ~/ 100;
 
                 // print("data[index]");
                 // print(data[index].userId.id);
@@ -203,7 +203,7 @@ class _UserInvoiceListState extends State<UserInvoiceList> {
                                     child: SizedBox(
                                       width: 100,
                                       child: Text(
-                                        "Rs. ${totalPrice.toString()}",
+                                        "Rs. ${totalPrice2.toString()}",
                                         overflow: TextOverflow.ellipsis,
                                       ),
                                     ),

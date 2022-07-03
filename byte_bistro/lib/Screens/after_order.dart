@@ -1,7 +1,11 @@
 import 'package:byte_bistro/Services/ws_service.dart';
 import 'package:byte_bistro/constants/colors.dart';
+import 'package:byte_bistro/controller/cart_controller.dart';
+import 'package:byte_bistro/models/cart.dart';
 import 'package:flutter/material.dart';
+import 'package:byte_bistro/utils/utils.dart' as utils;
 import 'package:get/get.dart';
+import 'package:jiffy/jiffy.dart';
 
 class AfterOrderScreen extends StatefulWidget {
   const AfterOrderScreen({Key? key}) : super(key: key);
@@ -11,10 +15,8 @@ class AfterOrderScreen extends StatefulWidget {
 }
 
 class _AfterOrderScreenState extends State<AfterOrderScreen> {
-  String orderId = '123456';
-  String orderedTime = '9:33 PM';
-  String itemCount = '2';
-  String totalPrice = '500.00';
+  CartController cartController = Get.find();
+  
   int? orderStatus;
   int? orderDurationMin;
   late TextEditingController orderDurationTimeController;
@@ -24,6 +26,7 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
   @override
   void initState() {
     super.initState();
+
     orderDurationTimeController = TextEditingController(text: 'NA');
     WebSocketService.authenticate();
     socket.on('connect', (_) {
@@ -39,8 +42,8 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
               orderDurationTimeController.text = orderDurationMin.toString();
 
               // just for emulating time faster
-              int m = 6;
-              for (var i = 1; i < m; i++) {
+              int m = 10;
+              for (var i = 1; i <= m; i++) {
                 Future.delayed(Duration(seconds: i), () {
                   orderDurationTimeController.text = (m - i).toString();
                 });
@@ -64,111 +67,126 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
 
   Widget build(BuildContext context) {
     TextStyle secStyle = TextStyle(fontSize: 16, color: Colors.grey);
-    List<Item> items = [
-      Item(
-        primaryText: 'Order Received',
-        secondaryText: Text(
-          'Order received at ' + orderedTime,
-          style: secStyle,
-        ),
-        icon: 'assets/images/order_recv.png',
-      ),
-      Item(
-        primaryText: 'Food is being prepared',
-        secondaryText: Wrap(
-          crossAxisAlignment: WrapCrossAlignment.center,
-          children: [
-            Text(
-              'Your order will be ready approx. in ',
-              // '',
-              style: secStyle,
-            ),
-            SizedBox(
-              width: 20,
-              child: TextFormField(
-                controller: orderDurationTimeController,
-                readOnly: true,
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                ),
-              ),
-            ),
-            Text(
-              ' minutes',
-              style: secStyle,
-            ),
-          ],
-        ),
-        icon: 'assets/images/order_prep.png',
-      ),
-      Item(
-        primaryText: 'Order Checkout.',
-        secondaryText: Text(
-          'Please collect your order from the kitchen. Have a great meal.',
-          style: secStyle,
-        ),
-        icon: 'assets/images/order_checkout.png',
-      ),
-    ];
+
     return Scaffold(
       body: SizedBox(
         child: Center(
-          child: Column(children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(
-                top: 50,
-                left: 20,
-                right: 20,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Container(
-                    decoration: BoxDecoration(
-                        color: kPrimary.withOpacity(0.8),
-                        borderRadius: BorderRadius.circular(50)),
-                    child: IconButton(
-                      icon: Icon(Icons.close),
-                      color: Colors.black,
-                      iconSize: 25,
-                      onPressed: () => Get.back(),
+          child: FutureBuilder(
+              future: cartController.getCurrUserCart(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData || snapshot.data == null) {
+                  return Center(child: CircularProgressIndicator());
+                }
+                Cart cart = snapshot.data as Cart;
+                // String orderedTime = '9:33 PM';
+                String orderedTime = Jiffy(cart.createdAt).Hms;
+                int itemCount = cart.items.length;
+                int totalPrice =
+                    cart.items.fold(0, (t, e) => t + (e.foodId.price * e.qty));
+                List<Item> items = [
+                  Item(
+                    primaryText: 'Order Received',
+                    secondaryText: Text(
+                      'Order received at ' + orderedTime,
+                      style: secStyle,
                     ),
+                    icon: 'assets/images/order_recv.png',
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Order #' + orderId,
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      Text(
-                        orderedTime +
-                            ' | ' +
-                            itemCount +
-                            ' item' +
-                            ', Rs. ' +
-                            totalPrice,
-                      ),
-                    ],
+                  Item(
+                    primaryText: 'Food is being prepared',
+                    secondaryText: Wrap(
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      children: [
+                        Text(
+                          'Your order will be ready approx. in ',
+                          // '',
+                          style: secStyle,
+                        ),
+                        SizedBox(
+                          width: 20,
+                          child: TextFormField(
+                            controller: orderDurationTimeController,
+                            readOnly: true,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                            ),
+                          ),
+                        ),
+                        Text(
+                          ' minutes',
+                          style: secStyle,
+                        ),
+                      ],
+                    ),
+                    icon: 'assets/images/order_prep.png',
                   ),
-                  Image(
-                    image: AssetImage('assets/images/moreInfo.png'),
-                    height: 20,
-                    width: 20,
-                  )
-                ],
-              ),
-            ),
-            Expanded(
-              child: Padding(
-                  padding: EdgeInsets.only(
-                    top: 40,
-                    bottom: 0,
+                  Item(
+                    primaryText: 'Order Checkout.',
+                    secondaryText: Text(
+                      'Please collect your order from the kitchen. Have a great meal.',
+                      style: secStyle,
+                    ),
+                    icon: 'assets/images/order_checkout.png',
                   ),
-                  child:
-                      OrderStatusItems(orderStatus: orderStatus, items: items)),
-            ),
-          ]),
+                ];
+                return Column(
+                  children: <Widget>[
+                    Padding(
+                        padding: const EdgeInsets.only(
+                          top: 50,
+                          left: 20,
+                          right: 20,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: kPrimary.withOpacity(0.8),
+                                  borderRadius: BorderRadius.circular(50)),
+                              child: IconButton(
+                                icon: Icon(Icons.close),
+                                color: Colors.black,
+                                iconSize: 25,
+                                onPressed: () => Get.back(),
+                              ),
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Order #' + utils.shortId(cart.id),
+                                  style: TextStyle(fontSize: 20),
+                                ),
+                                Text(
+                                  orderedTime +
+                                      ' | ' +
+                                      itemCount.toString() +
+                                      ' item' +
+                                      ', Rs. ' +
+                                      totalPrice.toString(),
+                                ),
+                              ],
+                            ),
+                            Image(
+                              image: AssetImage('assets/images/moreInfo.png'),
+                              height: 20,
+                              width: 20,
+                            )
+                          ],
+                        )),
+                    Expanded(
+                      child: Padding(
+                          padding: EdgeInsets.only(
+                            top: 40,
+                            bottom: 0,
+                          ),
+                          child: OrderStatusItems(
+                              orderStatus: orderStatus, items: items)),
+                    )
+                  ],
+                );
+              }),
         ),
       ),
     );

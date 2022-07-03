@@ -169,9 +169,11 @@ class _TabItemDetailState extends State<TabItemDetail> {
                                                 if (response == "success") {
                                                   snackbarSucess;
                                                   setState(() {
-                                                    exists = true;
+                                                    favouriteList
+                                                        .add(data[index].id);
                                                   });
-                                                  await getFavourite();
+
+                                                  // await getFavourite();
                                                   ScaffoldMessenger.of(context)
                                                       .showSnackBar(
                                                           snackbarSucess);

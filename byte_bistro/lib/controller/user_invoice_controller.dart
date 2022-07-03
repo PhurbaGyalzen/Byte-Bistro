@@ -16,7 +16,8 @@ class UserInvoiceController extends GetxController {
   // get user
   Future getUserInvoiceControllerInfo() async {
     // print("response 1");
-    List<UserInvoiceModel> response = await UserInvoiceService.getUserInvoiceService();
+    // List<UserInvoiceModel> response = await userInvoiceService.getUserInvoiceService();
+     List<UserInvoiceModel> response = await UserInvoiceService.getUserInvoiceService();
     // print("response ${response}");
 
     return response;
