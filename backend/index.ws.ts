@@ -17,9 +17,9 @@ const initWebSocket = (app: Express) => {
 	})
 
 	io.on('connection', async (socket) => {
-		let currUser: IAuthenticatedUser | null
+		let currClient: IAuthenticatedUser | null
 		console.log('a user connected')
-		// maybe nesting events inside `auth` event would prevent checking null on `currUser`
+		// maybe nesting events inside `auth` event would prevent checking null on `currClient`
 		socket.on('auth', (data) => {
 			console.log('/auth')
 			console.log(data)
@@ -28,13 +28,17 @@ const initWebSocket = (app: Express) => {
 				userInfo = jwtVerify(data.token)
 			} catch (e) {}
 			if (userInfo) {
-				currUser = userInfo
+				if (!userInfo.isAdmin) {
+					currClient = userInfo
+					// socket.join(currClient.id.toString())
+					console.log(`joining room: ${currClient.id.toString()}. user's username=${currClient.username}`)
+				}
 			}
 		})
 		socket.on('set_user_id', (data) => {
 			console.log(data)
-			currUser!.id = data.userId
-			socket.join(currUser!.username)
+			currClient!.id = data.userId
+			socket.join(currClient!.username)
 			// socket.send({
 			// 	socketId: socket.id,
 			// })
@@ -102,22 +106,23 @@ const initWebSocket = (app: Express) => {
 
 		socket.on('order_status_change', async (data, callback) => {
 			console.log('admin: requested order status change')
-			if (!currUser) {
-				console.log('user not found')
-				callback({
-					success: false,
-					message: 'user not found'
-				})
-				return
-			}
-			if (!currUser.isAdmin) {
-				console.log('user is not admin. No events will be emitted.')
-				callback({
-					success: false,
-					message: 'user is not admin'
-				})
-				return
-			}
+			console.log(`client=${currClient}`)
+			// if (!currClient) {
+			// 	console.log('user not found')
+			// 	callback({
+			// 		success: false,
+			// 		message: 'user not found'
+			// 	})
+			// 	return
+			// }
+			// if (!currClient.isAdmin) {
+			// 	console.log('user is not admin. No events will be emitted.')
+			// 	callback({
+			// 		success: false,
+			// 		message: 'user is not admin'
+			// 	})
+			// 	return
+			// }
 			try {
 				const cart = await Cart.findByIdAndUpdate(data.orderId, {
 					$set: {
@@ -131,10 +136,10 @@ const initWebSocket = (app: Express) => {
 						message: 'No cart found.'
 					})
 				}
+				socket.join(cart!.userId.toString())
 				console.log('sending to room: ' + cart?.userId)
-				// io.to(currUser.username).emit('order_status_change', {
-				// io.to(cart!.userId.toString()).emit('order_status_change', {
-				io.emit('order_status_change', {
+				io.to(cart!.userId.toString()).emit('order_status_change', {
+				// io.emit('order_status_change', {
 					orderId: data.orderId,
 					orderStatus: data.orderStatus,
 					orderDurationMin: cart?.duration || 0

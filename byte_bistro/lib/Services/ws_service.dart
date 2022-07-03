@@ -26,8 +26,10 @@ class WebSocketService {
 
   static bool _connect() {
     if (socket.connected) {
+      print('socket is already connected.');
       return true;
     }
+    print('socket is connecting first time.');
     socket.connect();
     return true;
   }
