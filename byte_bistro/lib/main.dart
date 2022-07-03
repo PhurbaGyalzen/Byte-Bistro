@@ -46,6 +46,7 @@ import 'package:byte_bistro/Screens/verify_reset_password.dart';
 import 'package:byte_bistro/Services/http_service.dart';
 import 'package:byte_bistro/Services/storage_service.dart';
 import 'package:byte_bistro/controller/category_controller.dart';
+import 'package:byte_bistro/controller/food_controller.dart';
 import 'package:byte_bistro/controller/logged_user_info_controller.dart';
 import 'package:byte_bistro/controller/cart_controller.dart';
 import 'package:byte_bistro/utils/str_decoder.dart';
@@ -81,11 +82,12 @@ Future<void> main() async {
 
 class ByteBistro extends StatelessWidget {
   ByteBistro({Key? key}) : super(key: key);
-  LoggedUserInfoController loggedUserInfoController =
+  final LoggedUserInfoController loggedUserInfoController =
       Get.put(LoggedUserInfoController());
 
   final CartController cartController = Get.put(CartController());
   final CategoryController controller = Get.put(CategoryController());
+  final FoodController foodController = Get.put(FoodController());
 
   @override
   Widget build(BuildContext context) {
