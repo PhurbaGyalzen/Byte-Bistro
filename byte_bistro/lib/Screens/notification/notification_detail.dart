@@ -31,6 +31,19 @@ class _NotificationDetailState extends State<NotificationDetail> {
     int totalCartPrice = 0;
     // if ()
     return Scaffold(
+        appBar: AppBar(
+          elevation: 0,
+          title: Text(
+            'Order Details',
+            style: TextStyle(fontSize: 20, letterSpacing: 1, height: 1.5),
+          ),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () => Get.offNamed('/adminOrders'),
+          ),
+          backgroundColor: kPrimary,
+          foregroundColor: kTextColor,
+        ),
         body: SafeArea(
             child: Container(
                 padding: EdgeInsets.all(10.0),
@@ -40,17 +53,8 @@ class _NotificationDetailState extends State<NotificationDetail> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          'ORDER DETAILS',
-                          style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: 0.5,
-                              height: 1.5,
-                              color: Colors.orange),
-                        ),
                         SizedBox(
-                          height: 20,
+                          height: 10,
                         ),
                         Text.rich(TextSpan(
                             text: 'Order ID:  ',
@@ -209,18 +213,6 @@ class _NotificationDetailState extends State<NotificationDetail> {
                           },
                           child: Text(
                             'Set Food Prep Duration',
-                            style: Theme.of(context).textTheme.headline1,
-                          ),
-                        ),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              primary: Theme.of(context).primaryColor),
-                          onPressed: () {
-                            // Get.back();
-                            Get.offNamed('/adminOrders');
-                          },
-                          child: Text(
-                            'Back',
                             style: Theme.of(context).textTheme.headline1,
                           ),
                         ),
