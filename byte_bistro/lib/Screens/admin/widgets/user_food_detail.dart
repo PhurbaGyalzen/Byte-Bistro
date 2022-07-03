@@ -19,6 +19,16 @@ class UserFoodDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+          actions: const [
+            Icon(
+              Icons.favorite_border_outlined,
+              color: Colors.black,
+              size: 25,
+            ),
+            SizedBox(
+              width: 20,
+            )
+          ],
           elevation: 0,
           leading: IconButton(
               icon: Icon(Icons.arrow_back),
