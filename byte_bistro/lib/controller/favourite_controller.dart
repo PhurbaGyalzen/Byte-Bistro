@@ -6,7 +6,9 @@ import 'package:get/get.dart';
 class FavouriteController extends GetxController {
   var favouriteList = [].obs;
   FavouriteService favouriteService = Get.put(FavouriteService());
-  final LoggedUserInfoController loggedUserInfoController = Get.find();
+  final LoggedUserInfoController loggedUserInfoController =
+      Get.put(LoggedUserInfoController());
+
   // var loggedUserInfo;
 
   @override
@@ -14,6 +16,7 @@ class FavouriteController extends GetxController {
     super.onInit();
     loggedUserInfoController.getLoggedUserInfo().then((value) {
       getUserFavourites(value.id);
+      print(loggedUserInfoController.userInfo);
     });
   }
 

@@ -7,12 +7,18 @@ import 'package:get/get.dart';
 import '../../../constants/colors.dart';
 import '../../../controller/food_controller.dart';
 
-class ViewFood extends StatelessWidget {
+class ViewFood extends StatefulWidget {
   const ViewFood({Key? key}) : super(key: key);
 
   @override
+  State<ViewFood> createState() => _ViewFoodState();
+}
+
+class _ViewFoodState extends State<ViewFood> {
+  FoodController foodController = Get.put(FoodController());
+
+  @override
   Widget build(BuildContext context) {
-    FoodController foodController = Get.put(FoodController());
     TextEditingController searchController = TextEditingController();
 
     return Column(
@@ -72,203 +78,211 @@ class ViewFood extends StatelessWidget {
         // food list
         SizedBox(
           height: 400,
-          child: Obx(
-            () => ListView.builder(
-              itemCount: foodController.foodList.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Container(
-                    width: 355,
-                    margin: EdgeInsets.only(
-                      top: 20,
-                      left: 5,
-                      right: 5,
-                      bottom: 8,
-                    ),
-                    padding: EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          blurRadius: 5,
-                          offset: Offset(0, 3), // changes position of shadow
-                          color: Color(0xFFB0CCE1).withOpacity(0.32),
+          child: ListView.builder(
+            itemCount: foodController.foodList.length,
+            itemBuilder: (BuildContext context, int index) {
+              // var foodLits = foodController.foodList;
+              bool switchValue = foodController.foodList[index].isAvailable;
+             
+              return Container(
+                  width: 355,
+                  margin: EdgeInsets.only(
+                    top: 20,
+                    left: 5,
+                    right: 5,
+                    bottom: 8,
+                  ),
+                  padding: EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 5,
+                        offset: Offset(0, 3), // changes position of shadow
+                        color: Color(0xFFB0CCE1).withOpacity(0.32),
+                      ),
+                    ],
+                    borderRadius: BorderRadius.circular(16),
+                    color: Colors.white,
+                  ),
+                  child: Slidable(
+                    // Specify a key if the Slidable is dismissible.
+                    key: UniqueKey(),
+                    startActionPane: ActionPane(
+                      // A motion is a widget used to control how the pane animates.
+                      motion: const ScrollMotion(),
+
+                      // A pane can dismiss the Slidable.
+                      // dismissible: DismissiblePane(onDismissed: () {}),
+                      dismissible: DismissiblePane(onDismissed: () {
+                        // foodController.deleteFood(data[index].id);
+                        foodController.setFoodUnavailable(
+                            foodController.foodList[index].id);
+                        Get.offNamed('/adminScreen');
+
+                        // setState(() {});
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Food Set Unavailable')),
+                        );
+                      }),
+
+                      // All actions are defined in the children parameter.
+                      children: [
+                        // A SlidableAction can have an icon and/or a label.
+                        SlidableAction(
+                          onPressed: (value) {
+                            foodController.foodList.removeAt(index);
+                            // setState(() {});
+                          },
+                          backgroundColor: Color(0xFFFE4A49),
+                          foregroundColor: Colors.white,
+                          icon: Icons.edit_outlined,
+                          label: 'Set Unavailable',
                         ),
                       ],
-                      borderRadius: BorderRadius.circular(16),
-                      color: Colors.white,
                     ),
-                    child: Slidable(
-                      // Specify a key if the Slidable is dismissible.
-                      key: UniqueKey(),
-                      startActionPane: ActionPane(
-                        // A motion is a widget used to control how the pane animates.
-                        motion: const ScrollMotion(),
-
-                        // A pane can dismiss the Slidable.
-                        // dismissible: DismissiblePane(onDismissed: () {}),
-                        dismissible: DismissiblePane(onDismissed: () {
-                          // foodController.deleteFood(data[index].id);
-                          foodController.setFoodUnavailable(
-                              foodController.foodList[index].id);
-                          Get.offNamed('/adminScreen');
-
-                          // setState(() {});
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('Food Set Unavailable')),
-                          );
-                        }),
-
-                        // All actions are defined in the children parameter.
+                    child: ListTile(
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
                         children: [
-                          // A SlidableAction can have an icon and/or a label.
-                          SlidableAction(
-                            onPressed: (value) {
-                              foodController.foodList.removeAt(index);
-                              // setState(() {});
+                          Switch(
+                            value: switchValue,
+                            onChanged: (value) {
+                              print("Is Available");
+                              print(value);
+
+                              if (value) {
+                                foodController.setFoodUnavailable(
+                                    foodController.foodList[index].id);
+
+                                setState(() {});
+
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text('Food Set food Available')),
+                                );
+                              } else {
+                                foodController.setFoodAvailable(
+                                    foodController.foodList[index].id);
+                                setState(() {
+                                  ;
+                                });
+
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text('Food Set Unavailable')),
+                                );
+                              }
                             },
-                            backgroundColor: Color(0xFFFE4A49),
-                            foregroundColor: Colors.white,
-                            icon: Icons.edit_outlined,
-                            label: 'Set Unavailable',
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          GestureDetector(
+                            onTap: () => showDialog(
+                                barrierDismissible: false,
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title: Text('Confirm'),
+                                    content: Text(
+                                        'Are you sure you want to delete this item ?'),
+                                    actions: [
+                                      TextButton(
+                                          onPressed: () {
+                                            Get.back();
+                                          },
+                                          child: Text('Cancel')),
+                                      TextButton(
+                                        onPressed: () {
+                                          foodController.deleteFood(
+                                              foodController
+                                                  .foodList[index].id);
+
+                                          Get.offAllNamed('/adminScreen');
+                                        },
+                                        child: Text(
+                                          'Ok',
+                                          style: TextStyle(color: Colors.red),
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                }),
+                            child: Image(
+                              image: AssetImage('assets/images/delete.png'),
+                              width: 25,
+                              height: 25,
+                              color: Colors.red,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 15,
+                          ),
+                          GestureDetector(
+                            onTap: () => Get.toNamed('/updateFood', arguments: [
+                              {"id": foodController.foodList[index].id},
+                              {"name": foodController.foodList[index].name},
+                              {"price": foodController.foodList[index].price},
+                              {
+                                "description":
+                                    foodController.foodList[index].description
+                              },
+                              {"image": foodController.foodList[index].image},
+                            ]),
+                            child: Image(
+                              image: AssetImage('assets/images/edit.png'),
+                              width: 25,
+                              height: 25,
+                              color: Colors.green,
+                            ),
                           ),
                         ],
                       ),
-                      child: ListTile(
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Switch(
-                              value: foodController.foodList[index].isAvailable,
-                              onChanged: (value) {
-                                if (value) {
-                                  foodController.setFoodUnavailable(
-                                      foodController.foodList[index].id);
-                                  value = false;
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                        content: Text('Food Set food Unavailable')),
-                                  );
-                                } else {
-                                  foodController.setFoodAvailable(
-                                      foodController.foodList[index].id);
-                                  value = true;
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                        content: Text('Food Set Available')),
-                                  );
-                                }
-                              },
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            GestureDetector(
-                              onTap: () => showDialog(
-                                  barrierDismissible: false,
-                                  context: context,
-                                  builder: (context) {
-                                    return AlertDialog(
-                                      title: Text('Confirm'),
-                                      content: Text(
-                                          'Are you sure you want to delete this item ?'),
-                                      actions: [
-                                        TextButton(
-                                            onPressed: () {
-                                              Get.back();
-                                            },
-                                            child: Text('Cancel')),
-                                        TextButton(
-                                          onPressed: () {
-                                            foodController.deleteFood(
-                                                foodController
-                                                    .foodList[index].id);
-
-                                            Get.offAllNamed('/adminScreen');
-                                          },
-                                          child: Text(
-                                            'Ok',
-                                            style: TextStyle(color: Colors.red),
-                                          ),
-                                        ),
-                                      ],
-                                    );
-                                  }),
-                              child: Image(
-                                image: AssetImage('assets/images/delete.png'),
-                                width: 25,
-                                height: 25,
-                                color: Colors.red,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 15,
-                            ),
-                            GestureDetector(
-                              onTap: () =>
-                                  Get.toNamed('/updateFood', arguments: [
-                                {"id": foodController.foodList[index].id},
-                                {"name": foodController.foodList[index].name},
-                                {"price": foodController.foodList[index].price},
-                                {
-                                  "description":
-                                      foodController.foodList[index].description
-                                },
-                                {"image": foodController.foodList[index].image},
-                              ]),
-                              child: Image(
-                                image: AssetImage('assets/images/edit.png'),
-                                width: 25,
-                                height: 25,
-                                color: Colors.green,
-                              ),
-                            ),
-                          ],
-                        ),
-                        leading: GestureDetector(
-                          behavior: HitTestBehavior.translucent,
-                          onTap: () =>
-                              Get.toNamed('/adminFoodDetail', arguments: [
-                            {"id": foodController.foodList[index].id},
-                            {"name": foodController.foodList[index].name},
-                            {"price": foodController.foodList[index].price},
-                            {
-                              "description":
-                                  foodController.foodList[index].description
-                            },
-                            {"image": foodController.foodList[index].image},
-                          ]),
-                          child: Container(
-                            width: 48,
-                            height: 48,
-                            padding: const EdgeInsets.symmetric(vertical: 4.0),
-                            alignment: Alignment.center,
-                            child: CircleAvatar(
-                              radius: 200.0,
-                              child: SizedBox(
-                                height: 120,
-                                child: CachedNetworkImage(
-                                  fit: BoxFit.cover,
-                                  imageUrl: PersistentHtpp.baseUrl +
-                                      foodController.foodList[index].image,
-                                  placeholder: (context, url) => Image(
-                                      fit: BoxFit.cover,
-                                      image: AssetImage(
-                                        'assets/images/loading.gif',
-                                      )),
-                                  errorWidget: (context, url, error) =>
-                                      Icon(Icons.error),
-                                ),
+                      leading: GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        onTap: () =>
+                            Get.toNamed('/adminFoodDetail', arguments: [
+                          {"id": foodController.foodList[index].id},
+                          {"name": foodController.foodList[index].name},
+                          {"price": foodController.foodList[index].price},
+                          {
+                            "description":
+                                foodController.foodList[index].description
+                          },
+                          {"image": foodController.foodList[index].image},
+                        ]),
+                        child: Container(
+                          width: 48,
+                          height: 48,
+                          padding: const EdgeInsets.symmetric(vertical: 4.0),
+                          alignment: Alignment.center,
+                          child: CircleAvatar(
+                            radius: 200.0,
+                            child: SizedBox(
+                              height: 120,
+                              child: CachedNetworkImage(
+                                fit: BoxFit.cover,
+                                imageUrl: PersistentHtpp.baseUrl +
+                                    foodController.foodList[index].image,
+                                placeholder: (context, url) => Image(
+                                    fit: BoxFit.cover,
+                                    image: AssetImage(
+                                      'assets/images/loading.gif',
+                                    )),
+                                errorWidget: (context, url, error) =>
+                                    Icon(Icons.error),
                               ),
                             ),
                           ),
                         ),
-                        title: Text(foodController.foodList[index].name),
-                        subtitle: Text('Rs : ' +
-                            foodController.foodList[index].price.toString()),
-                        dense: false,
                       ),
-                    ));
-              },
-            ),
+                      title: Text(foodController.foodList[index].name),
+                      subtitle: Text('Rs : ' +
+                          foodController.foodList[index].price.toString()),
+                      dense: false,
+                    ),
+                  ));
+            },
           ),
         ),
       ],

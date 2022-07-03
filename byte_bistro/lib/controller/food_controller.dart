@@ -6,6 +6,7 @@ import '../models/food.dart';
 class FoodController extends GetxController {
   var foodList = [].obs;
   var foundFood = [].obs;
+  bool isAvailable = false;
 
   @override
   void onInit() {
@@ -53,16 +54,25 @@ class FoodController extends GetxController {
   //set food Available
   setFoodAvailable(String foodId) async {
     var response = foodService.setFoodAvailable(foodId);
+    getAllFood();
+    // if (response == 'success') {
+    //   var data = foodService.getAllFood();
+    //   foodList.value = data as List;
+    //   // foodList.refresh();
+    // }
     return response;
   }
 
   //set food Unavailable
   setFoodUnavailable(String foodId) async {
     var response = foodService.setFoodUnavailable(foodId);
-    if (response == 'success') {
-      var data = foodService.getAllFood();
-      foodList.value = data as List;
-    }
+    // if (response == 'success') {
+    //   var data = foodService.getAllFood();
+    //   foodList.value = data as List;
+    //   // foodList.refresh();
+    // }
+    getAllFood();
+    return response;
   }
 
   //search and filter food
