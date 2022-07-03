@@ -163,32 +163,14 @@ String indCart = '''
         "__v": 0
     }
 ''';
-// String lCarts = '[' + indCart + ']';
+String lCarts = '[' + indCart + ']';
 
-String lCarts = '''
-[
-  {
-    "_id":"628d04284aeaa390fb4d0013",
-    "userId": {
-      "_id":"627fbfa1d464ffbeb80b985b",
-      "fullname": "limbu"
-    },
-    "items":[
-      {"foodId":"628b791788b361630f91205f","qty":3,"_id":"628d04284aeaa390fb4d0014"}
-    ],
-    "tableId":7,
-    "createdAt":"2022-05-24T16:13:28.124Z",
-    "updatedAt":"2022-05-24T16:13:28.124Z",
-    "__v":0
-  }
-]
-''';
 
 String ind =
     '{"_id":"628d04284aeaa390fb4d0013","userId": {"_id":"627fbfa1d464ffbeb80b985b", "fullname": "limbu"},"items":[{"foodId":"628b791788b361630f91205f","qty":3,"_id":"628d04284aeaa390fb4d0014"}],"tableId":7,"createdAt":"2022-05-24T16:13:28.124Z","updatedAt":"2022-05-24T16:13:28.124Z","__v":0}';
 
 void main() {
-  // Cart cart = cartFromJson(indCart);
+  Cart cart = cartFromJson(indCart);
   // for (int i=0; i<)
   // var carts = json.decode(lCarts).map((x) {
   //   // print(x.runtimeType);
@@ -206,5 +188,5 @@ void main() {
   //   print(Cart.fromJson(x));
   // }));
   // print(List<Cart>.from(json.decode(lCarts).map((x) => Cart.fromJson(x))));
-  // print(carts);
+  print(cart);
 }

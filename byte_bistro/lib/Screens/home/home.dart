@@ -162,6 +162,19 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       GestureDetector(
                         onTap: () {
+                          Get.offNamed('/after-order');
+                        },
+                        child: Icon(
+                          Icons.timelapse,
+                          size: 28,
+                          color: Colors.black87,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      GestureDetector(
+                        onTap: () {
                           Get.offNamed('/notification');
                         },
                         child: Icon(
@@ -170,6 +183,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           color: Colors.black87,
                         ),
                       ),
+                      
                       SizedBox(
                         width: 20,
                       ),

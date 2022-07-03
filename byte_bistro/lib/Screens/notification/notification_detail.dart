@@ -28,7 +28,9 @@ class _NotificationDetailState extends State<NotificationDetail> {
 
   @override
   Widget build(BuildContext context) {
-    int totalCartPrice = 0;
+    int totalCartPrice =
+        widget.order.items.fold(0, (t, e) => t + (e.foodId.price * e.qty));
+    ;
     // if ()
     return Scaffold(
         appBar: AppBar(
@@ -175,6 +177,7 @@ class _NotificationDetailState extends State<NotificationDetail> {
                               totalCartPrice +=
                                   widget.order.items[index].foodId.price *
                                       widget.order.items[index].qty;
+                                
                               return Container(
                                 decoration: BoxDecoration(
                                   color: kTextLightColor.withOpacity(0.2),
