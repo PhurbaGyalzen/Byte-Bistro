@@ -22,6 +22,7 @@ class _UserInvoiceListState extends State<UserInvoiceList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         backgroundColor: Theme.of(context).primaryColor,
         leading: BackButton(
           color: kTextColor,
@@ -95,6 +96,10 @@ class _UserInvoiceListState extends State<UserInvoiceList> {
                         //   padding: EdgeInsets.only(left: 20.0),
                         //   child: Text(data[index].userId.id.toString()),
                         // ),
+
+                        SizedBox(
+                          height: 10,
+                        ),
 
                         Row(
                           children: [

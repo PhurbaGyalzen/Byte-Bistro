@@ -33,9 +33,16 @@ class _NotificationNormalState extends State<NotificationNormal> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: FutureBuilder(
-          future: notificationController.getUserNotification(loggedUser.id),
+          future: notificationController.getUserNotification(
+              loggedUserInfoController.userInfo[0].id.toString()),
           builder: (context, snapshot) {
-            if (snapshot.hasData) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.data == null) {
+              return Center(
+                child: Text("No Notification"),
+              );
+            } else if (snapshot.hasData) {
               List<Notificationl> notificationData =
                   snapshot.data! as List<Notificationl>;
               // print(notificationData);
@@ -105,22 +112,6 @@ class _NotificationNormalState extends State<NotificationNormal> {
                                 ),
                               ),
                             ),
-                            // Row(
-                            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            //   children: [
-                            //     Text(
-                            //       'Price ${notificationData[index]['totalPrice']}'
-                            //           .toString(),
-                            //       style: TextStyle(
-                            //           color: kTextColor,
-                            //           fontWeight: FontWeight.w200),
-                            //     ),
-                            //     Text(
-                            //       '${notificationData[index]['time']} hrs ago',
-                            //       style: TextStyle(color: kTextLightColor),
-                            //     ),
-                            //   ],
-                            // ),
                           ],
                         ),
                       )),

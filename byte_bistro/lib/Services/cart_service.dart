@@ -2,6 +2,7 @@ import 'package:byte_bistro/models/cart.dart';
 import 'dart:convert';
 
 import 'package:byte_bistro/Services/http_service.dart';
+import "package:http/http.dart" as http;
 
 class CartService {
   // Future<List<Cart>> getAllCart() async {
@@ -66,7 +67,7 @@ class CartService {
       );
       if (response.statusCode == 200) {
         return 'success';
-      } 
+      }
     } catch (err) {
       return Future.error(' err');
     }
@@ -113,5 +114,14 @@ class CartService {
     } catch (err) {
       return Future.error(' err');
     }
+  }
+
+  Future<Cart?> currUserCart() async {
+    http.Response response = await PersistentHtpp.get('cart/user/incomplete');
+    if (response.statusCode > 299) {
+      return null;
+    }
+    Cart cart = cartFromJson(response.body);
+    return cart;
   }
 }

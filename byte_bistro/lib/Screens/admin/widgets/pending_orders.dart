@@ -27,196 +27,207 @@ class _PendingOrdersState extends State<PendingOrders> {
   @override
   Widget build(BuildContext context) {
     if (widget.orderStatusId >= CartStatus.Completed.index) {
+      // if (false) {
       return Container();
     } else {
-      return Container(
-        padding: EdgeInsets.only(
-          left: 20,
-          top: 15,
-          bottom: 15,
-          right: 20,
-        ),
-        margin: EdgeInsets.only(top: 20, bottom: 5, left: 5, right: 5),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              blurRadius: 5,
-              offset: Offset(0, 3), // changes position of shadow
-              color: Color(0xFFB0CCE1).withOpacity(0.1),
-            ),
-          ],
-        ),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Container(
-                  margin: EdgeInsets.only(top: 10, bottom: 10),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(50),
+      return InkWell(
+        onTap: () {
+          Get.offAll(NotificationDetail(order: widget.cart));
+        },
+        child: Container(
+          padding: EdgeInsets.symmetric(vertical: 5, horizontal: 3),
+          margin: EdgeInsets.only(top: 20, bottom: 5, left: 5, right: 5),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                blurRadius: 5,
+                offset: Offset(0, 3), // changes position of shadow
+                color: Color(0xFFB0CCE1).withOpacity(0.1),
+              ),
+            ],
+          ),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(top: 10, bottom: 10),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(50),
+                      child: Image(
+                        image: utils.RelativeNetworkImage(
+                          widget.cart.items[0].foodId.image,
+                        ),
+                        width: 50,
+                        height: 50,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Order #${utils.shortId(widget.cart.id)}"),
+                      Text("from ${widget.cart.userId.fullname}"),
+                      Text(
+                        '${widget.cart.items.length} item' +
+                            (widget.cart.items.length > 1 ? 's' : ''),
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: kTextColor.withOpacity(0.8),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    width: 80,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      // Get.bottomSheet(
+                      //   NotificationDetail(order: widget.cart),
+                      //   isDismissible: true,
+                      //   isScrollControlled: true,
+                      //   ignoreSafeArea: false,
+                      //   elevation: 20,
+                      // )
+                      Get.to(NotificationDetail(order: widget.cart));
+                    },
                     child: Image(
-                      image: utils.RelativeNetworkImage(
-                        widget.cart.items[0].foodId.image,
-                      ),
-                      width: 50,
-                      height: 50,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("Order #${utils.shortId(widget.cart.id)}"),
-                    Text("from ${widget.cart.userId.fullname}"),
-                    Text(
-                      '${widget.cart.items.length} item' +
-                          (widget.cart.items.length > 1 ? 's' : ''),
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: kTextColor.withOpacity(0.8),
+                      height: 20,
+                      width: 20,
+                      image: AssetImage(
+                        'assets/images/next.png',
                       ),
                     ),
-                  ],
-                ),
-                SizedBox(
-                  width: 80,
-                ),
-                GestureDetector(
-                  onTap: () => Get.bottomSheet(
-                    NotificationDetail(order: widget.cart),
-                    isDismissible: false,
-                    elevation: 20,
                   ),
-                  child: Image(
-                    height: 20,
-                    width: 20,
-                    image: AssetImage(
-                      'assets/images/next.png',
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: widget.orderStatusId > 0
-                        ? null
-                        : () {
-                            widget.socket.emitWithAck('order_status_change', [
-                              {
-                                'orderId': widget.cart.id,
-                                'orderStatus': CartStatus.Preping.index,
-                              }
-                            ], ack: (data) {
-                              Get.snackbar(
-                                  data['success']
-                                      ? 'Status Changed Successfully'
-                                      : 'Failed to change status',
-                                  data['message']);
-                            });
-
-                            setState(() {
-                              widget.orderStatusId = 1;
-                            });
-                          },
-                    child: Text(
-                      'Accept',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 14,
-                        height: 1.3,
-                      ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                        maximumSize: Size(80, 80), primary: btnColor),
-                  ),
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: widget.orderStatusId > 1
-                        ? null
-                        : () {
-                            widget.socket.emitWithAck('order_status_change', [
-                              {
-                                'orderId': widget.cart.id,
-                                'orderStatus': CartStatus.Ready.index,
-                              }
-                            ], ack: (data) {
-                              Get.snackbar(
-                                  data['success']
-                                      ? 'Status Changed Successfully'
-                                      : 'Failed to change status',
-                                  data['message']);
-                            });
-                            setState(() {
-                              widget.orderStatusId = 2;
-                            });
-                          },
-                    child: Text(
-                      'Ready',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 14,
-                        height: 1.3,
-                      ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                        maximumSize: Size(100, 100), primary: btnColor),
-                  ),
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: widget.orderStatusId > 2
-                        ? null
-                        : () {
-                            Future.delayed(Duration(seconds: 2), () {
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: widget.orderStatusId > 0
+                          ? null
+                          : () {
                               widget.socket.emitWithAck('order_status_change', [
                                 {
                                   'orderId': widget.cart.id,
-                                  'orderStatus': CartStatus.Completed.index,
+                                  'orderStatus': CartStatus.Preping.index,
                                 }
                               ], ack: (data) {
-                                Get.snackbar(
-                                    data['success']
-                                        ? 'Status Changed Successfully'
-                                        : 'Failed to change status',
-                                    data['message']);
+                                String title = 'Status Changed Successfully';
+                                if (data['success']) {
+                                  setState(() {
+                                    widget.orderStatusId =
+                                        CartStatus.Preping.index;
+                                  });
+                                } else {
+                                  title = 'Failed to change status';
+                                }
+                                Get.snackbar(title, data['message']);
                               });
-
-                              setState(() {
-                                widget.orderStatusId = 3;
-                              });
-                            });
-                          },
-                    child: Text(
-                      'Complete',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 14,
-                        height: 1.3,
+                            },
+                      child: Text(
+                        'Accept',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 14,
+                          height: 1.3,
+                        ),
                       ),
+                      style: ElevatedButton.styleFrom(
+                          maximumSize: Size(80, 80), primary: btnColor),
                     ),
-                    style: ElevatedButton.styleFrom(
-                        maximumSize: Size(70, 100), primary: btnColor),
                   ),
-                ),
-              ],
-            )
-          ],
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: widget.orderStatusId > 1
+                          ? null
+                          : () {
+                              widget.socket.emitWithAck('order_status_change', [
+                                {
+                                  'orderId': widget.cart.id,
+                                  'orderStatus': CartStatus.Ready.index,
+                                }
+                              ], ack: (data) {
+                                String title = 'Status Changed Successfully';
+                                if (data['success']) {
+                                  setState(() {
+                                    widget.orderStatusId =
+                                        CartStatus.Ready.index;
+                                  });
+                                } else {
+                                  title = 'Failed to change status';
+                                }
+                                Get.snackbar(title, data['message']);
+                              });
+                            },
+                      child: Text(
+                        'Ready',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 14,
+                          height: 1.3,
+                        ),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                          maximumSize: Size(100, 100), primary: btnColor),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: widget.orderStatusId > 2
+                          ? null
+                          : () {
+                              Future.delayed(Duration(seconds: 2), () {
+                                widget.socket
+                                    .emitWithAck('order_status_change', [
+                                  {
+                                    'orderId': widget.cart.id,
+                                    'orderStatus': CartStatus.Completed.index,
+                                  }
+                                ], ack: (data) {
+                                  String title = 'Status Changed Successfully';
+                                  if (data['success']) {
+                                    setState(() {
+                                      widget.orderStatusId =
+                                          CartStatus.Completed.index;
+                                    });
+                                  } else {
+                                    title = 'Failed to change status';
+                                  }
+                                  Get.snackbar(title, data['message']);
+                                });
+                              });
+                            },
+                      child: Text(
+                        'Complete',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 14,
+                          height: 1.3,
+                        ),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                          maximumSize: Size(70, 100), primary: btnColor),
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
         ),
       );
     }
