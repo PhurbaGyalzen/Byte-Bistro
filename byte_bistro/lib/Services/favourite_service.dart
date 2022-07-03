@@ -57,8 +57,8 @@ class FavouriteService {
       );
       if (response.statusCode == 200) {
         return 'success';
-      } else {
-        return Future.error('err');
+      } else if (response.statusCode == 400) {
+        return 'isFavourite';
       }
     } catch (err) {
       return Future.error(' err');

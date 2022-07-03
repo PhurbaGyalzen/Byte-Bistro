@@ -47,10 +47,11 @@ class FavouriteController extends GetxController {
 
   addFavourite(Map<String, dynamic> data) async {
     var response = await favouriteService.addFavourite(data);
-    var result =
-        getUserFavourites(loggedUserInfoController.userInfo.toString());
-    favouriteList.value = result as List;
-    return response;
+
+    // var result =
+    //     getUserFavourites(loggedUserInfoController.userInfo.toString());
+    // favouriteList.value = result as List;
+    return 'success';
   }
 
   removeFavorite(String favouriteId) async {

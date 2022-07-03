@@ -68,7 +68,10 @@ class _FavouritePageState extends State<FavouritePage> {
                       ),
                       child: ListTile(
                         trailing: IconButton(
-                          icon: Icon(Icons.delete),
+                          icon: Icon(
+                            Icons.delete,
+                            color: Colors.red.withOpacity(0.8),
+                          ),
                           onPressed: () {
                             favouriteController.removeFavorite(
                               favouriteController.favouriteList[index].id,
@@ -76,8 +79,16 @@ class _FavouritePageState extends State<FavouritePage> {
                             setState(() {
                               favouriteController.favouriteList.removeAt(index);
                             });
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text('Removed from Favourite')),
+                            Get.snackbar(
+                              "Item",
+                              "Food removed from favourite ",
+                              icon: Icon(Icons.no_meals, color: Colors.white),
+                              duration: Duration(seconds: 3),
+                              backgroundColor: Colors.red,
+                              colorText: Colors.white,
+                              animationDuration: Duration(seconds: 1),
+                              dismissDirection: DismissDirection.horizontal,
+                              snackPosition: SnackPosition.TOP,
                             );
                           },
                         ),

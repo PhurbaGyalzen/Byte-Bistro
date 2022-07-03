@@ -1,6 +1,8 @@
 import 'package:byte_bistro/constants/colors.dart';
 import 'package:byte_bistro/controller/cart_controller.dart';
 import 'package:byte_bistro/controller/category_controller.dart';
+import 'package:byte_bistro/controller/favourite_controller.dart';
+import 'package:byte_bistro/controller/logged_user_info_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,17 +16,55 @@ class UserFoodDetail extends StatelessWidget {
   final data = Get.arguments;
 
   final CartController cartController = Get.find();
+  final FavouriteController favouriteController = Get.find();
+  final LoggedUserInfoController loggedUserInfoController = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          actions: const [
-            Icon(
-              Icons.favorite_border_outlined,
-              color: Colors.black,
-              size: 25,
-            ),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  Map<String, dynamic> favData = {
+                    "foodId": data[0]["foodId"],
+                    "userId": loggedUserInfoController.userInfo[0].id,
+                  };
+
+                  var response = favouriteController.addFavourite(favData);
+                  print(response);
+                  print(response.runtimeType);
+                  if (response == 'success') {
+                    Get.snackbar(
+                      "Food",
+                      "Food added to favourite",
+                      icon: Icon(Icons.no_meals, color: Colors.white),
+                      duration: Duration(seconds: 3),
+                      backgroundColor: Colors.green,
+                      colorText: Colors.white,
+                      animationDuration: Duration(seconds: 1),
+                      dismissDirection: DismissDirection.horizontal,
+                      snackPosition: SnackPosition.TOP,
+                    );
+                  } else {
+                    Get.snackbar(
+                      "Food",
+                      "Food already added to favourite",
+                      icon: Icon(Icons.no_meals, color: Colors.white),
+                      duration: Duration(seconds: 3),
+                      backgroundColor: Colors.red,
+                      colorText: Colors.white,
+                      animationDuration: Duration(seconds: 1),
+                      dismissDirection: DismissDirection.horizontal,
+                      snackPosition: SnackPosition.TOP,
+                    );
+                  }
+                },
+                icon: Icon(
+                  Icons.favorite_border_outlined,
+                  color: Colors.black,
+                  size: 25,
+                )),
             SizedBox(
               width: 20,
             )
