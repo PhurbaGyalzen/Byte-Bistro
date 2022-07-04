@@ -25,16 +25,15 @@ class UserFoodDetail extends StatelessWidget {
       appBar: AppBar(
           actions: [
             IconButton(
-                onPressed: () {
+                onPressed: () async {
                   Map<String, dynamic> favData = {
                     "foodId": data[0]["foodId"],
                     "userId": loggedUserInfoController.userInfo[0].id,
                   };
 
-                  var response = favouriteController.addFavourite(favData);
-                  print(response);
-                  print(response.runtimeType);
-                  if (response == 'success') {
+                  var response =
+                      await favouriteController.addFavourite(favData);
+                  if (response == "success") {
                     Get.snackbar(
                       "Food",
                       "Food added to favourite",
@@ -46,10 +45,22 @@ class UserFoodDetail extends StatelessWidget {
                       dismissDirection: DismissDirection.horizontal,
                       snackPosition: SnackPosition.TOP,
                     );
-                  } else {
+                  } else if (response == 'already') {
                     Get.snackbar(
                       "Food",
                       "Food already added to favourite",
+                      icon: Icon(Icons.no_meals, color: Colors.white),
+                      duration: Duration(seconds: 3),
+                      backgroundColor: Colors.red,
+                      colorText: Colors.white,
+                      animationDuration: Duration(seconds: 1),
+                      dismissDirection: DismissDirection.horizontal,
+                      snackPosition: SnackPosition.TOP,
+                    );
+                  } else {
+                    Get.snackbar(
+                      "Error",
+                      "Check Your connection",
                       icon: Icon(Icons.no_meals, color: Colors.white),
                       duration: Duration(seconds: 3),
                       backgroundColor: Colors.red,
