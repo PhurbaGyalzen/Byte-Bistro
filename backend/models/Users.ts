@@ -46,7 +46,7 @@ const UserSchemaFields: Record<keyof IUser, any> = {
 		type: String,
 		required: false,
 		default: '',
-		minlength: 1,
+		minlength: 0,
 		maxlength: 255,
 		unique: true,
 	},

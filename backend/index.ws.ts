@@ -10,7 +10,6 @@ import { ClientToServerEvents, InterServerEvents, ServerToClientEvents, SocketDa
 const initWebSocket = (app: Express) => {
 	const httpServer = createServer(app)
 	const io = new Server<ClientToServerEvents, ServerToClientEvents, InterServerEvents, SocketData>(httpServer, {
-	// const io = new Server(httpServer, {
 		cors: {
 			origin: '*',
 		},
@@ -27,21 +26,19 @@ const initWebSocket = (app: Express) => {
 			try {
 				userInfo = jwtVerify(data.token)
 			} catch (e) {}
-			if (userInfo) {
-				if (!userInfo.isAdmin) {
-					currClient = userInfo
-					// socket.join(currClient.id.toString())
-					console.log(`joining room: ${currClient.id.toString()}. user's username=${currClient.username}`)
-				}
-			}
+			// if (userInfo) {
+			// 	if (!userInfo.isAdmin) {
+					// currClient = userInfo
+					// console.log(`joining room: ${currClient.id.toString()}. user's username=${currClient.username}`)
+			// 	}
+			// }
 		})
-		socket.on('set_user_id', (data) => {
-			console.log(data)
-			currClient!.id = data.userId
-			socket.join(currClient!.username)
-			// socket.send({
-			// 	socketId: socket.id,
-			// })
+
+		socket.on('create', (room) => {
+			console.log('creating/joining room ' +  room)
+			socket.join(room)
+			// this socket.id has differnet id compared to socket.on('order_staus_changed' ....)
+			// socket.join(socket.id.toString())
 		})
 
 		socket.on('chat_message', (data) => {
@@ -106,7 +103,6 @@ const initWebSocket = (app: Express) => {
 
 		socket.on('order_status_change', async (data, callback) => {
 			console.log('admin: requested order status change')
-			console.log(`client=${currClient}`)
 			// if (!currClient) {
 			// 	console.log('user not found')
 			// 	callback({
@@ -126,7 +122,8 @@ const initWebSocket = (app: Express) => {
 			try {
 				const cart = await Cart.findByIdAndUpdate(data.orderId, {
 					$set: {
-						'status': data.orderStatus
+						'status': data.orderStatus,
+						'updatedAt': new Date()
 					}
 				})
 				if (!cart?.userId) {
@@ -136,13 +133,12 @@ const initWebSocket = (app: Express) => {
 						message: 'No cart found.'
 					})
 				}
-				socket.join(cart!.userId.toString())
-				console.log('sending to room: ' + cart?.userId)
-				io.to(cart!.userId.toString()).emit('order_status_change', {
-				// io.emit('order_status_change', {
+				console.log('sending to room: ' + data.room)
+				io.to(data.room).emit('order_status_change', {
 					orderId: data.orderId,
 					orderStatus: data.orderStatus,
-					orderDurationMin: cart?.duration || 0
+					updatedAtTs: Math.floor(cart.updatedAt.getTime()/1000),
+					orderDurationMin: cart.duration
 				})
 				// console.log(callback)
 				callback({
@@ -150,6 +146,7 @@ const initWebSocket = (app: Express) => {
 					message: 'Order status changed'
 				})
 			} catch (e: any) {
+				console.log('ERR Caught: ' + e.message)
 				callback({
 					success: false,
 					message: e.message

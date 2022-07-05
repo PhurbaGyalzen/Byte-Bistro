@@ -7,7 +7,6 @@
 use('myFirstDatabase');
 
 db.carts.updateMany({
-  
 }, {
   $set: {
     "status": 0
