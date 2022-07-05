@@ -4,6 +4,8 @@ import 'package:byte_bistro/controller/cart_controller.dart';
 import 'package:byte_bistro/models/cart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'dart:math';
+
 
 import '../../../constants/colors.dart';
 // import 'admin_order_detail.dart';
@@ -16,7 +18,7 @@ class AdminOrders extends StatefulWidget {
 
 class _AdminOrdersState extends State<AdminOrders> {
   var socket = WebSocketService.socket;
-
+  // final int randomRoom = new Random().nextInt(999999999) + 600000;
   CartController cartController = Get.put(CartController());
 
   @override
@@ -61,6 +63,7 @@ class _AdminOrdersState extends State<AdminOrders> {
                         Cart cart = data[index];
                         return PendingOrders(
                             socket: socket,
+                            // randomRoom: randomRoom,
                             cart: cart,
                             orderStatusId: cart.status);
                       }),

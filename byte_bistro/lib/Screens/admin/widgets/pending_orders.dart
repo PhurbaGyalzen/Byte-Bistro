@@ -9,9 +9,11 @@ class PendingOrders extends StatefulWidget {
   final Cart cart;
   int orderStatusId = 0;
   final socket;
+  // final randomRoom;
   PendingOrders(
       {Key? key,
       required this.socket,
+      // required this.randomRoom,
       required this.cart,
       required this.orderStatusId})
       : super(key: key);
@@ -117,6 +119,7 @@ class _PendingOrdersState extends State<PendingOrders> {
                           : () {
                               widget.socket.emitWithAck('order_status_change', [
                                 {
+                                  'room': widget.cart.id,
                                   'orderId': widget.cart.id,
                                   'orderStatus': CartStatus.Preping.index,
                                 }
@@ -155,6 +158,7 @@ class _PendingOrdersState extends State<PendingOrders> {
                           : () {
                               widget.socket.emitWithAck('order_status_change', [
                                 {
+                                  'room': widget.cart.id,
                                   'orderId': widget.cart.id,
                                   'orderStatus': CartStatus.Ready.index,
                                 }
@@ -195,6 +199,7 @@ class _PendingOrdersState extends State<PendingOrders> {
                                 widget.socket
                                     .emitWithAck('order_status_change', [
                                   {
+                                    'room': widget.cart.id,
                                     'orderId': widget.cart.id,
                                     'orderStatus': CartStatus.Completed.index,
                                   }

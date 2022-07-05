@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:byte_bistro/Services/ws_service.dart';
 import 'package:byte_bistro/constants/colors.dart';
 import 'package:byte_bistro/controller/cart_controller.dart';
@@ -16,10 +18,11 @@ class AfterOrderScreen extends StatefulWidget {
 
 class _AfterOrderScreenState extends State<AfterOrderScreen> {
   CartController cartController = Get.find();
-  
+
   int? orderStatus;
   int? orderDurationMin;
   late TextEditingController orderDurationTimeController;
+  bool roomJoined = false;
 
   var socket = WebSocketService.socket;
 
@@ -30,39 +33,61 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
     orderDurationTimeController = TextEditingController(text: 'NA');
     WebSocketService.authenticate();
     socket.on('connect', (_) {
+      print('connected to websocket');
       socket.on('order_status_change', (message) {
-        setState(() {
-          orderStatus = message['orderStatus'];
-          // print('recvd $orderStatus');
-          // only set one time.
-          if (message['orderDurationMin'] != null) {
-            // only update duration if it has not been set, or admin sends new duration.
-            if (orderDurationMin != message['orderDurationMin']) {
-              orderDurationMin = message['orderDurationMin']!;
-              orderDurationTimeController.text = orderDurationMin.toString();
-
-              // just for emulating time faster
-              int m = 10;
-              for (var i = 1; i <= m; i++) {
-                Future.delayed(Duration(seconds: i), () {
-                  orderDurationTimeController.text = (m - i).toString();
-                });
-              }
+        print(message['updatedAt']);
+        print(message['updatedAt'].runtimeType);
+        if (mounted) {
+          setState(() {
+            orderStatus = message['orderStatus'];
+            print('recvd $message');
+            if (message['orderDurationMin'] != null) {
+              print('new duration received, updating controller.');
+              setDurationField(message['orderDurationMin']!);
+              setTimer(message['orderStatus'], message['updatedAtTs']);
             }
-          }
-        });
+          });
+        }
       });
     });
     socket.on('disconnect', (_) {
-      // print('disconnected');
+      print('socket disconnected...');
     });
   }
 
   @override
   void dispose() {
-    // socket.disconnect();
+    socket.disconnect();
     orderDurationTimeController.dispose();
     super.dispose();
+  }
+
+  bool setDurationField(int duration) {
+    // only update duration if it has not been set, or admin sends new duration.
+    if (orderDurationMin == duration) {
+      return false;
+    }
+    orderDurationMin = duration;
+    if (mounted) {
+      orderDurationTimeController.text = duration.toString();
+    } else {
+      print('cannot set duration. widget is not mounted');
+    }
+    return true;
+  }
+
+  void setTimer(int currStatus, int updatedAt) {
+    // only countdown timer if food is preparing.
+    if (CartStatus.Preping.index == currStatus) {
+      int secs = orderDurationMin! * 60 -
+          ((DateTime.now().millisecondsSinceEpoch ~/ 1000) - updatedAt);
+      int mins = secs ~/ 60;
+      for (var i = 0; i <= mins; i++) {
+        Timer t = Timer(Duration(minutes: i), () {
+          setDurationField(mins - i);
+        });
+      }
+    }
   }
 
   Widget build(BuildContext context) {
@@ -78,7 +103,17 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
                   return Center(child: CircularProgressIndicator());
                 }
                 Cart cart = snapshot.data as Cart;
-                // String orderedTime = '9:33 PM';
+                orderStatus = cart.status;
+
+                setDurationField(cart.duration);
+                setTimer(
+                    cart.status, cart.updatedAt.millisecondsSinceEpoch ~/ 1000);
+                if (!roomJoined) {
+                  print('emitting room creation');
+                  socket.emit('create', [cart.id]);
+                  roomJoined = true;
+                }
+
                 String orderedTime = Jiffy(cart.createdAt).Hms;
                 int itemCount = cart.items.length;
                 int totalPrice =
@@ -99,7 +134,6 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
                       children: [
                         Text(
                           'Your order will be ready approx. in ',
-                          // '',
                           style: secStyle,
                         ),
                         SizedBox(
@@ -148,7 +182,7 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
                                 icon: Icon(Icons.close),
                                 color: Colors.black,
                                 iconSize: 25,
-                                onPressed: () => Get.back(),
+                                onPressed: () => Get.offAllNamed('/home'),
                               ),
                             ),
                             Column(

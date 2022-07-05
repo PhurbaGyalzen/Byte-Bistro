@@ -10,16 +10,15 @@ import { ClientToServerEvents, InterServerEvents, ServerToClientEvents, SocketDa
 const initWebSocket = (app: Express) => {
 	const httpServer = createServer(app)
 	const io = new Server<ClientToServerEvents, ServerToClientEvents, InterServerEvents, SocketData>(httpServer, {
-	// const io = new Server(httpServer, {
 		cors: {
 			origin: '*',
 		},
 	})
 
 	io.on('connection', async (socket) => {
-		let currUser: IAuthenticatedUser | null
+		let currClient: IAuthenticatedUser | null
 		console.log('a user connected')
-		// maybe nesting events inside `auth` event would prevent checking null on `currUser`
+		// maybe nesting events inside `auth` event would prevent checking null on `currClient`
 		socket.on('auth', (data) => {
 			console.log('/auth')
 			console.log(data)
@@ -27,17 +26,19 @@ const initWebSocket = (app: Express) => {
 			try {
 				userInfo = jwtVerify(data.token)
 			} catch (e) {}
-			if (userInfo) {
-				currUser = userInfo
-			}
+			// if (userInfo) {
+			// 	if (!userInfo.isAdmin) {
+					// currClient = userInfo
+					// console.log(`joining room: ${currClient.id.toString()}. user's username=${currClient.username}`)
+			// 	}
+			// }
 		})
-		socket.on('set_user_id', (data) => {
-			console.log(data)
-			currUser!.id = data.userId
-			socket.join(currUser!.username)
-			// socket.send({
-			// 	socketId: socket.id,
-			// })
+
+		socket.on('create', (room) => {
+			console.log('creating/joining room ' +  room)
+			socket.join(room)
+			// this socket.id has differnet id compared to socket.on('order_staus_changed' ....)
+			// socket.join(socket.id.toString())
 		})
 
 		socket.on('chat_message', (data) => {
@@ -102,26 +103,27 @@ const initWebSocket = (app: Express) => {
 
 		socket.on('order_status_change', async (data, callback) => {
 			console.log('admin: requested order status change')
-			if (!currUser) {
-				console.log('user not found')
-				callback({
-					success: false,
-					message: 'user not found'
-				})
-				return
-			}
-			if (!currUser.isAdmin) {
-				console.log('user is not admin. No events will be emitted.')
-				callback({
-					success: false,
-					message: 'user is not admin'
-				})
-				return
-			}
+			// if (!currClient) {
+			// 	console.log('user not found')
+			// 	callback({
+			// 		success: false,
+			// 		message: 'user not found'
+			// 	})
+			// 	return
+			// }
+			// if (!currClient.isAdmin) {
+			// 	console.log('user is not admin. No events will be emitted.')
+			// 	callback({
+			// 		success: false,
+			// 		message: 'user is not admin'
+			// 	})
+			// 	return
+			// }
 			try {
 				const cart = await Cart.findByIdAndUpdate(data.orderId, {
 					$set: {
-						'status': data.orderStatus
+						'status': data.orderStatus,
+						'updatedAt': new Date()
 					}
 				})
 				if (!cart?.userId) {
@@ -131,13 +133,12 @@ const initWebSocket = (app: Express) => {
 						message: 'No cart found.'
 					})
 				}
-				console.log('sending to room: ' + cart?.userId)
-				// io.to(currUser.username).emit('order_status_change', {
-				// io.to(cart!.userId.toString()).emit('order_status_change', {
-				io.emit('order_status_change', {
+				console.log('sending to room: ' + data.room)
+				io.to(data.room).emit('order_status_change', {
 					orderId: data.orderId,
 					orderStatus: data.orderStatus,
-					orderDurationMin: cart?.duration || 0
+					updatedAtTs: Math.floor(cart.updatedAt.getTime()/1000),
+					orderDurationMin: cart.duration
 				})
 				// console.log(callback)
 				callback({
@@ -145,6 +146,7 @@ const initWebSocket = (app: Express) => {
 					message: 'Order status changed'
 				})
 			} catch (e: any) {
+				console.log('ERR Caught: ' + e.message)
 				callback({
 					success: false,
 					message: e.message
