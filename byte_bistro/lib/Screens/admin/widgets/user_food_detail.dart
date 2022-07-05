@@ -299,9 +299,40 @@ class UserFoodDetail extends StatelessWidget {
                 bottom: 5,
                 right: 20,
               ),
-              child: ElevatedButton(
-                onPressed: () {},
-                child: Text(
+              child: ElevatedButton.icon(
+                icon: Icon(
+                  Icons.shopping_cart_outlined,
+                  color: Colors.black,
+                ),
+                onPressed: () {
+                  var cartData = {
+                    "index": data[5]['index'],
+                    "foodId": data[0]['foodId'].toString(),
+                    "name": data[1]['name'].toString(),
+                    "price": data[2]['price'],
+                    "description": data[3]['description'].toString(),
+                    "image": data[4]['image'].toString(),
+                    "foodCount": data[6]['foodCount']
+                  };
+                  bool response = cartController.addFoodInCart(cartData);
+                  if (response == false) {
+                    Get.snackbar(
+                      "Food",
+                      "Food already added to cart",
+                      icon: Icon(Icons.no_meals, color: Colors.white),
+                      duration: Duration(seconds: 3),
+                      backgroundColor: Colors.black,
+                      colorText: Colors.white,
+                      animationDuration: Duration(seconds: 1),
+                      dismissDirection: DismissDirection.horizontal,
+                      snackPosition: SnackPosition.TOP,
+                    );
+                  } else {
+                    Get.toNamed('/addToCart',
+                        arguments: cartController.cartList);
+                  }
+                },
+                label: Text(
                   'Add to cart',
                   style: Theme.of(context).textTheme.headline1,
                 ),

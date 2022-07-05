@@ -71,6 +71,8 @@ class _TabItemDetailState extends State<TabItemDetail> {
                                 foodController.foodList[index].description
                           },
                           {"image": foodController.foodList[index].image},
+                          {"index": index},
+                          {"foodCount": 1},
                         ]),
                         child: Container(
                           width: 265,
