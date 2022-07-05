@@ -16,6 +16,7 @@ class CategoryController extends GetxController {
   List<dynamic> selectedCategory = [];
   var selectedCategoryValue = ''.obs;
   CategoryService service = Get.put(CategoryService());
+
   // controller to get all category
   getAllCategory() async {
     categoryList.clear();
@@ -34,6 +35,7 @@ class CategoryController extends GetxController {
     return data;
   }
 
+  // add new category
   addNewCategory(Map<String, String> data) async {
     var response = await service.addNewCategory(data);
     if (response == 'success') {
@@ -42,5 +44,12 @@ class CategoryController extends GetxController {
       update();
       return response;
     }
+  }
+
+  // delete category
+  // delete single food
+  deleteCategory(String categoryId) async {
+    service.deleteCategory(categoryId);
+    getAllCategory();
   }
 }

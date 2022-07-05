@@ -36,20 +36,53 @@ class CategoryScreen extends StatelessWidget {
               builder: (controller) => ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemBuilder: ((context, index) {
-                    return Container(
-                      padding: EdgeInsets.only(
-                          left: 15, top: 5, right: 15, bottom: 5),
-                      margin: EdgeInsets.all(10),
-                      child: Text(controller.categoryList[index].name,
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                            height: 1.4,
-                            letterSpacing: 0.1,
-                          )),
-                      decoration: BoxDecoration(
-                          border: Border.all(width: 1, color: Colors.grey),
-                          borderRadius: BorderRadius.circular(50)),
+                    return GestureDetector(
+                      onTap: () => showDialog(
+                        barrierDismissible: false,
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: Text('Delete'),
+                            content: Text(
+                              'Are you sure you want to delete \n${controller.categoryList[index].name} ',
+                              style: Theme.of(context).textTheme.bodyText1,
+                            ),
+                            actions: [
+                              TextButton(
+                                  onPressed: () {
+                                    Get.back();
+                                  },
+                                  child: Text('Cancel')),
+                              TextButton(
+                                onPressed: () {
+                                  controller.deleteCategory(
+                                      controller.categoryList[index].id);
+                                  Get.offAllNamed('/adminScreen');
+                                },
+                                child: Text(
+                                  'Delete',
+                                  style: TextStyle(color: Colors.red),
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      ),
+                      child: Container(
+                        padding: EdgeInsets.only(
+                            left: 15, top: 5, right: 15, bottom: 5),
+                        margin: EdgeInsets.all(10),
+                        child: Text(controller.categoryList[index].name,
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              height: 1.4,
+                              letterSpacing: 0.1,
+                            )),
+                        decoration: BoxDecoration(
+                            border: Border.all(width: 1, color: Colors.grey),
+                            borderRadius: BorderRadius.circular(50)),
+                      ),
                     );
                   }),
                   itemCount: controller.categoryList.length),

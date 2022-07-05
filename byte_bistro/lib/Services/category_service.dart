@@ -35,4 +35,21 @@ class CategoryService {
       return Future.error('Error fetching data $err');
     }
   }
+
+  deleteCategory(String categoryId) async {
+    String endpoint = PersistentHtpp.baseUrl + 'category/$categoryId';
+    try {
+      final response = await PersistentHtpp.client.delete(
+        Uri.parse(endpoint),
+        headers: {
+          "Content-Type": "application/json; charset=UTF-8",
+        },
+      );
+      if (response.statusCode == 200) {
+        return 'success';
+      }
+    } catch (err) {
+      return Future.error(' err');
+    }
+  }
 }
