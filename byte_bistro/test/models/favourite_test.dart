@@ -2,15 +2,15 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:byte_bistro/models/Favourite.dart';
 
 void main() {
-  group("Categories Model", () {
+  group("Favourites Model", () {
     test(
-        'Giving Categories Favourite json when calling fromJson gives Song object',
+        'Giving Favourites Favourite json when calling fromJson gives Song object',
         () async {
       // ignore: todo
       // TODO: Implement
 
       // Arrange
-      List<Map<String, dynamic>> categories = [
+      List<Map<String, dynamic>> favourites = [
         {
           "_id": "62c44b4569185754cbb0b494",
           "userId": {
@@ -83,7 +83,7 @@ void main() {
 
       // Act
       List<Favourite> favouriteObjects =
-          categories.map((favourite) => Favourite.fromJson(favourite)).toList();
+          favourites.map((favourite) => Favourite.fromJson(favourite)).toList();
 
       // Assert
       expect(favouriteObjects.length, 2);
@@ -95,11 +95,11 @@ void main() {
       // TODO: Implement
 
       // Arrange
-      List<Map<String, dynamic>> categories = [];
+      List<Map<String, dynamic>> favourites = [];
 
       // Act
       List<Favourite> favouriteObjects =
-          categories.map((favourite) => Favourite.fromJson(favourite)).toList();
+          favourites.map((favourite) => Favourite.fromJson(favourite)).toList();
 
       // Assert
       expect(favouriteObjects.length, 0);
