@@ -184,10 +184,13 @@ class _MOMOState extends State<MOMO> {
                                                           BorderRadius.circular(
                                                               50),
                                                     ),
-                                                    child: Image.asset(
-                                                      'assets/images/addCart.png',
-                                                      height: 20,
-                                                      width: 20,
+                                                    child: InkWell(
+                                                      onTap: () {},
+                                                      child: Image.asset(
+                                                        'assets/images/addCart.png',
+                                                        height: 20,
+                                                        width: 20,
+                                                      ),
                                                     ),
                                                   ),
                                                 ],
