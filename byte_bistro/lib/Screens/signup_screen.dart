@@ -346,8 +346,6 @@ class _SignUpState extends State<SignUpScreen> {
                                 emailController.text.trim(),
                                 fullnameController.text.trim(),
                               );
-                              print(usernameController.text.trim());
-                              print(response);
 
                               if (response != null) {
                                 Get.snackbar(
