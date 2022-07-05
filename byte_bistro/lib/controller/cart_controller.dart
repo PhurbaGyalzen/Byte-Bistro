@@ -51,7 +51,7 @@ class CartController extends GetxController {
   }
 
 // controller to add food in cart
-  addFoodInCart(Map<String, Object> food) {
+  addFoodInCart(Map<String, dynamic> food) {
     if (cartList.isEmpty) {
       cartList.add(food);
       return true;
