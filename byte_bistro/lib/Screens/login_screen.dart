@@ -100,6 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                       ///username start
                       TextFormField(
+                        key: const ValueKey('username'),
                         controller: usernameController,
                         validator: RequiredValidator(errorText: 'required*'),
                         decoration: InputDecoration(
@@ -146,6 +147,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                       ///password start
                       TextFormField(
+                        key: const ValueKey('password'),
                         controller: passwordController,
                         validator: RequiredValidator(errorText: 'required*'),
 
@@ -179,6 +181,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           hintText: "Password",
                           prefixIcon: const Icon(Icons.lock),
                           suffixIcon: IconButton(
+                            key: ValueKey('show_hide'),
                             onPressed: () {
                               setState(() {
                                 _isObscure = !_isObscure;
@@ -229,6 +232,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 50,
                         width: double.infinity,
                         child: ElevatedButton(
+                          key: const ValueKey('loginButton'),
                           onPressed: () async {
                             if (_formkey.currentState!.validate()) {
                               // print(usernameController.text);
