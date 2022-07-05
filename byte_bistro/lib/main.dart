@@ -10,6 +10,7 @@ import 'package:byte_bistro/Screens/admin/widgets/admin_order_detail.dart';
 import 'package:byte_bistro/Screens/admin/widgets/admin_orders.dart';
 import 'package:byte_bistro/Screens/admin/widgets/update_food.dart';
 import 'package:byte_bistro/Screens/admin/widgets/view_food.dart';
+import 'package:byte_bistro/Screens/admin_order_history_detail.dart';
 import 'package:byte_bistro/Screens/contact_us.dart';
 import 'package:byte_bistro/Screens/faq.dart';
 import 'package:byte_bistro/Screens/license_section.dart';
@@ -41,7 +42,7 @@ import 'package:byte_bistro/Screens/swipe_qr_home.dart';
 
 import 'package:byte_bistro/Screens/user_invoice_list.dart';
 import 'package:byte_bistro/Screens/terms_and_conditions.dart';
-import 'package:byte_bistro/Screens/user_order_history_list.dart';
+
 import 'package:byte_bistro/Screens/verify_reset_password.dart';
 import 'package:byte_bistro/Services/http_service.dart';
 import 'package:byte_bistro/Services/storage_service.dart';
@@ -157,11 +158,12 @@ class ByteBistro extends StatelessWidget {
       getPages: [
         GetPage(name: '/login', page: () => LoginScreen()),
         // GetPage(name: '/tesing', page: () => TestingExpanded()),
-        GetPage(
-            name: '/orderHistory_user_list', page: () => OrderHistoryUser()),
-        GetPage(name: '/order_history_admin', page: () => OrderHistoryAdmin()),
+      
+     
 
         GetPage(name: '/user_invoice_list', page: () => UserInvoiceList()),
+        GetPage(name: '/admin_order_history_list', page: () => AdminOrderHistoryList()),
+         
 
         // GetPage(name: '/CategoryMoMo', page: () => MOMO()),
         GetPage(name: '/signup', page: () => SignUpScreen()),
@@ -171,7 +173,7 @@ class ByteBistro extends StatelessWidget {
         GetPage(
             name: '/verify_reset_password', page: () => VerifyResetPassword()),
         GetPage(name: '/adminScreen', page: () => AdminDashboard()),
-        GetPage(name: '/order_history_admin', page: () => OrderHistoryAdmin()),
+        
         GetPage(
             name: '/adminProfileUpdateForm',
             page: () => AdminProfileUpdateForm()),
@@ -181,8 +183,7 @@ class ByteBistro extends StatelessWidget {
         GetPage(name: '/adminFoodDetail', page: () => AdminFoodDetail()),
         GetPage(name: '/adminOrderDetail', page: () => AdminOrderDetail()),
 
-        GetPage(
-            name: '/orderHistory_user_list', page: () => OrderHistoryUser()),
+        
 
         // GetPage(name: '/CategoryMoMo', page: () => MOMO()),
         GetPage(name: '/detail_page_dish', page: () => IndividualItemScreen()),
