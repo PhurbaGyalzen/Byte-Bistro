@@ -59,6 +59,17 @@ class AddCategory extends StatelessWidget {
 
                   categoryController.addNewCategory(data);
                   Get.back();
+                  Get.snackbar(
+                    "Add",
+                    "Categories added successfully",
+                    icon: Icon(Icons.no_meals, color: Colors.white),
+                    duration: Duration(seconds: 3),
+                    backgroundColor: Colors.green,
+                    colorText: Colors.white,
+                    animationDuration: Duration(seconds: 1),
+                    dismissDirection: DismissDirection.horizontal,
+                    snackPosition: SnackPosition.TOP,
+                  );
                 }
               },
               child: Text('ADD', style: Theme.of(context).textTheme.headline2),

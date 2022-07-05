@@ -29,7 +29,7 @@ class CartController extends GetxController {
         "Must choose at least 1 food ",
         icon: Icon(Icons.no_meals, color: Colors.white),
         duration: Duration(seconds: 3),
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.red,
         colorText: Colors.white,
         animationDuration: Duration(seconds: 1),
         dismissDirection: DismissDirection.horizontal,
