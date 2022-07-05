@@ -265,10 +265,6 @@ class _AddFoodState extends State<AddFood> {
                         };
 
                         String response = await foodController.addFood(data);
-                        final snackbarSucess =
-                            SnackBar(content: Text('Food added sucessfully'));
-                        final snackbarFail =
-                            SnackBar(content: Text('Food addition failed'));
 
                         if (response == "success") {
                           categoryController.selectedCategory = [];
@@ -281,15 +277,19 @@ class _AddFoodState extends State<AddFood> {
                             });
                           });
 
-                          snackbarSucess;
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(snackbarSucess);
+                          Get.snackbar(
+                            "Add",
+                            "Food added successfully",
+                            icon: Icon(Icons.no_meals, color: Colors.white),
+                            duration: Duration(seconds: 3),
+                            backgroundColor: Colors.green,
+                            colorText: Colors.white,
+                            animationDuration: Duration(seconds: 1),
+                            dismissDirection: DismissDirection.horizontal,
+                            snackPosition: SnackPosition.TOP,
+                          );
                           foodController.getAllFood();
-                        } else {
-                          snackbarFail;
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(snackbarSucess);
-                        }
+                        } 
                       }
                     },
                     child: Text(

@@ -224,12 +224,12 @@ class ProfileSystem extends StatelessWidget {
               imageTrailing: 'assets/images/next.png',
               text: 'Terms & Conditions',
             ),
-            ProfileListTile(
-              onClick: () => Get.toNamed('/licenseSection'),
-              imageLeading: 'assets/images/stamp.png',
-              imageTrailing: 'assets/images/next.png',
-              text: 'License',
-            ),
+            // ProfileListTile(
+            //   onClick: () => Get.toNamed('/licenseSection'),
+            //   imageLeading: 'assets/images/stamp.png',
+            //   imageTrailing: 'assets/images/next.png',
+            //   text: 'License',
+            // ),
             ProfileListTile(
               onClick: () => Get.toNamed('/privacyPolicy'),
               imageLeading: 'assets/images/privacy.png',
@@ -242,12 +242,12 @@ class ProfileSystem extends StatelessWidget {
               imageTrailing: 'assets/images/next.png',
               text: 'FAQ',
             ),
-            ProfileListTile(
-              onClick: () => Get.toNamed('/contactUs'),
-              imageLeading: 'assets/images/telephone.png',
-              imageTrailing: 'assets/images/next.png',
-              text: 'Contact Us',
-            ),
+            // ProfileListTile(
+            //   onClick: () => Get.toNamed('/contactUs'),
+            //   imageLeading: 'assets/images/telephone.png',
+            //   imageTrailing: 'assets/images/next.png',
+            //   text: 'Contact Us',
+            // ),
             ProfileListTile(
                 imageLeading: 'assets/images/logout.png',
                 imageTrailing: 'assets/images/next.png',

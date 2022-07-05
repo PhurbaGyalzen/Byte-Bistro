@@ -18,7 +18,10 @@ export interface ICart {
   duration: number
 }
 
-interface ICartDoc extends ICart, Document {}
+interface ICartDoc extends ICart, Document {
+  createdAt: Date
+  updatedAt: Date
+}
 
 const CartSchemaFields: Record<keyof ICart, any> = {
   userId: {
