@@ -177,9 +177,8 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
                         flex: 6,
                         child: pw.Padding(
                           padding: pw.EdgeInsets.all(5),
-                          child: pw.Text(widget.data.items[i].foodId.name
-                              .toString()
-                              .substring(5)),
+                          child: pw.Text(
+                              widget.data.items[i].foodId.name.toString()),
                         ),
                       ),
                       pw.Expanded(
@@ -327,20 +326,20 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
     );
 
     final output = await getExternalStorageDirectory();
-    final filePath = "${output?.path}/invoice${widget.data.createdAt.toString()}.pdf";
+    final filePath =
+        "${output?.path}/invoice${widget.data.createdAt.toString()}.pdf";
     final file = File(filePath);
-    
+
     await file.writeAsBytes(await pdf.save());
     await OpenFile.open(filePath);
   }
 
   @override
   Widget build(BuildContext context) {
-   
     var tax = (widget.totalPrice * (13 / 100)).toInt();
     String date1 = widget.data.createdAt.toString();
     date1 = date1.split(" ")[0];
-    
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -380,7 +379,6 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                 
                   Padding(
                     padding: const EdgeInsets.only(bottom: 8.0),
                     child: Row(
@@ -486,8 +484,7 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
                                 padding: EdgeInsets.only(right: 5),
                                 child: Text(
                                   widget.data.items[index].foodId.name
-                                      .toString()
-                                      .substring(5),
+                                      .toString(),
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.w400,
