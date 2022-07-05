@@ -137,129 +137,33 @@ class UserFoodDetail extends StatelessWidget {
               ),
             ),
 
-// item add remove button
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: [
-            //     Container(
-            //       width: 35,
-            //       height: 35,
-            //       margin: EdgeInsets.only(right: 20),
-            //       decoration: BoxDecoration(
-            //           borderRadius: BorderRadius.circular(40), color: kPrimary),
-            //       child: IconButton(
-            //         icon: Icon(Icons.remove),
-            //         iconSize: 18,
-            //         onPressed: () {},
-            //       ),
-            //     ),
-            //     Text(
-            //       cartController.noOfItems.value.toString(),
-            //       style: TextStyle(
-            //         fontSize: 18,
-            //         fontWeight: FontWeight.w300,
-            //       ),
-            //     ),
-            //     Container(
-            //       width: 35,
-            //       height: 35,
-            //       margin: EdgeInsets.only(left: 20),
-            //       decoration: BoxDecoration(
-            //           borderRadius: BorderRadius.circular(40), color: kPrimary),
-            //       child: IconButton(
-            //         icon: Icon(Icons.add),
-            //         iconSize: 18,
-            //         onPressed: () {},
-            //       ),
-            //     ),
-            //   ],
-            // ),
-
             SizedBox(
               height: 25,
             ),
 
             //food tab
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Container(
-                  padding: EdgeInsets.only(right: 30),
-                  decoration: BoxDecoration(
-                    border: Border(
-                      right: BorderSide(
-                          width: 2.0, color: kTextLightColor.withOpacity(0.5)),
-                    ),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Text('Size',
-                          style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w300,
-                              height: 1.5)),
-                      Text('Medium',
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                              height: 1.5,
-                              letterSpacing: 0.4)),
-                    ],
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.only(right: 30),
-                  decoration: BoxDecoration(
-                    border: Border(
-                      right: BorderSide(
-                          width: 2.0, color: kTextLightColor.withOpacity(0.5)),
-                    ),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Text('Weight',
-                          style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w300,
-                              height: 1.5)),
-                      Text('400gm',
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                              height: 1.5,
-                              letterSpacing: 0.4)),
-                    ],
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.only(right: 30),
-                  decoration: BoxDecoration(
-                    border: Border(
-                      right: BorderSide(
-                          width: 2.0, color: kTextLightColor.withOpacity(0.5)),
-                    ),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Price',
-                          style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w300,
-                              height: 1.5)),
-                      Text(data[2]['price'].toString(),
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w400,
-                            height: 1.5,
-                            letterSpacing: 0.4,
-                          )),
-                    ],
-                  ),
-                ),
-              ],
+
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 20,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Price',
+                      style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w300,
+                          height: 1.5)),
+                  Text(data[2]['price'].toString(),
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                        height: 1.5,
+                        letterSpacing: 0.4,
+                      )),
+                ],
+              ),
             ),
 
             // food description
