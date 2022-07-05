@@ -1,5 +1,6 @@
 import 'package:byte_bistro/Screens/home/models/food_model.dart';
 import 'package:byte_bistro/Services/http_service.dart';
+import 'package:byte_bistro/constants/colors.dart';
 import 'package:byte_bistro/controller/cart_controller.dart';
 import 'package:byte_bistro/controller/category_controller.dart';
 import 'package:byte_bistro/controller/favourite_controller.dart';
@@ -21,9 +22,8 @@ class TabItemDetail extends StatefulWidget {
 class _TabItemDetailState extends State<TabItemDetail> {
   FoodController foodController = Get.find();
   LoggedUserInfoController loggedUserInfoController = Get.find();
-  FavouriteController favouriteController = Get.put(FavouriteController());
+  FavouriteController favouriteController = Get.find();
   var loggedUserInfo;
-  // print(loggedUserInfoController);
   List favouriteList = [];
 
   @override
@@ -39,8 +39,6 @@ class _TabItemDetailState extends State<TabItemDetail> {
     setState(() {
       favouriteList = response[0].userId.favoriteFoods;
     });
-    // print("favourite list");
-    // print(favouriteList);
   }
 
   @override
@@ -65,7 +63,7 @@ class _TabItemDetailState extends State<TabItemDetail> {
                       bool exists = favouriteList.contains(data[index].id);
                       return GestureDetector(
                         onTap: () => Get.toNamed('/userFoodDetail', arguments: [
-                          {"id": foodController.foodList[index].id},
+                          {"foodId": foodController.foodList[index].id},
                           {"name": foodController.foodList[index].name},
                           {"price": foodController.foodList[index].price},
                           {
@@ -73,6 +71,8 @@ class _TabItemDetailState extends State<TabItemDetail> {
                                 foodController.foodList[index].description
                           },
                           {"image": foodController.foodList[index].image},
+                          {"index": index},
+                          {"foodCount": 1},
                         ]),
                         child: Container(
                           width: 265,
@@ -126,67 +126,6 @@ class _TabItemDetailState extends State<TabItemDetail> {
                                       ),
                                     ),
                                   ),
-                                  Positioned(
-                                    top: -20,
-                                    right: -20,
-                                    child: Container(
-                                      height: 40,
-                                      width: 40,
-                                      decoration: BoxDecoration(
-                                        color: Theme.of(context).primaryColor,
-                                        shape: BoxShape.circle,
-                                      ),
-                                      child: IconButton(
-                                        icon: Icon(
-                                          exists
-                                              ? Icons.favorite
-                                              : Icons.favorite_border,
-                                          color: exists
-                                              ? Colors.red
-                                              : Colors.white,
-                                        ),
-                                        onPressed: exists
-                                            ? null
-                                            : () async {
-                                                Map<String, dynamic> dataD = {
-                                                  "foodId": data[index].id,
-                                                  "userId": loggedUserInfo.id
-                                                      .toString(),
-                                                };
-
-                                                var response =
-                                                    favouriteController
-                                                        .addFavourite(dataD);
-
-                                                final snackbarSucess = SnackBar(
-                                                    content: Text(
-                                                        'Added to favourites'));
-
-                                                final snackbarFail = SnackBar(
-                                                    content: Text(
-                                                        'The item is already added to favourites'));
-
-                                                if (response == "success") {
-                                                  snackbarSucess;
-                                                  setState(() {
-                                                    favouriteList
-                                                        .add(data[index].id);
-                                                  });
-
-                                                  // await getFavourite();
-                                                  ScaffoldMessenger.of(context)
-                                                      .showSnackBar(
-                                                          snackbarSucess);
-                                                } else {
-                                                  snackbarFail;
-                                                  ScaffoldMessenger.of(context)
-                                                      .showSnackBar(
-                                                          snackbarSucess);
-                                                }
-                                              },
-                                      ),
-                                    ),
-                                  ),
                                 ],
                               ),
                               SizedBox(
@@ -198,6 +137,7 @@ class _TabItemDetailState extends State<TabItemDetail> {
                               ),
                               SizedBox(height: 10),
                               Row(
+                                mainAxisSize: MainAxisSize.min,
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
@@ -205,6 +145,27 @@ class _TabItemDetailState extends State<TabItemDetail> {
                                     'Rs ' + data[index].price.toString(),
                                     style:
                                         Theme.of(context).textTheme.bodyText2,
+                                  ),
+                                  SizedBox(
+                                    width: 100,
+                                  ),
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        color: kPrimary,
+                                        borderRadius:
+                                            BorderRadius.circular(20)),
+                                    height: 30,
+                                    width: 30,
+                                    child: Icon(
+                                      exists
+                                          ? Icons.favorite
+                                          : Icons.favorite_border,
+                                      color: exists ? Colors.red : Colors.white,
+                                      size: 20,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 20,
                                   ),
                                   GestureDetector(
                                     onTap: () {
@@ -226,7 +187,7 @@ class _TabItemDetailState extends State<TabItemDetail> {
                                           icon: Icon(Icons.no_meals,
                                               color: Colors.white),
                                           duration: Duration(seconds: 3),
-                                          backgroundColor: Colors.black,
+                                          backgroundColor: Colors.red,
                                           colorText: Colors.white,
                                           animationDuration:
                                               Duration(seconds: 1),

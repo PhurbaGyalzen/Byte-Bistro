@@ -15,6 +15,7 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpState extends State<SignUpScreen> {
   final _formkey = GlobalKey<FormState>();
   bool _isObscure = true;
+  bool _isObscure2 = true;
 
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -277,7 +278,7 @@ class _SignUpState extends State<SignUpScreen> {
                           }
                           return null;
                         },
-                        obscureText: _isObscure,
+                        obscureText: _isObscure2,
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
                             borderSide: const BorderSide(
@@ -309,11 +310,11 @@ class _SignUpState extends State<SignUpScreen> {
                           suffixIcon: IconButton(
                             onPressed: () {
                               setState(() {
-                                _isObscure = !_isObscure;
+                                _isObscure2 = !_isObscure2;
                               });
                             },
                             icon: Icon(
-                              _isObscure
+                              _isObscure2
                                   ? Icons.visibility
                                   : Icons.visibility_off,
                             ),
@@ -345,8 +346,6 @@ class _SignUpState extends State<SignUpScreen> {
                                 emailController.text.trim(),
                                 fullnameController.text.trim(),
                               );
-                              print(usernameController.text.trim());
-                              print(response);
 
                               if (response != null) {
                                 Get.snackbar(

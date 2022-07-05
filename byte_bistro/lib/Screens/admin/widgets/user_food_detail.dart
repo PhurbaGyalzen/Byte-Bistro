@@ -1,6 +1,8 @@
 import 'package:byte_bistro/constants/colors.dart';
 import 'package:byte_bistro/controller/cart_controller.dart';
 import 'package:byte_bistro/controller/category_controller.dart';
+import 'package:byte_bistro/controller/favourite_controller.dart';
+import 'package:byte_bistro/controller/logged_user_info_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,17 +16,66 @@ class UserFoodDetail extends StatelessWidget {
   final data = Get.arguments;
 
   final CartController cartController = Get.find();
+  final FavouriteController favouriteController = Get.find();
+  final LoggedUserInfoController loggedUserInfoController = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          actions: const [
-            Icon(
-              Icons.favorite_border_outlined,
-              color: Colors.black,
-              size: 25,
-            ),
+          actions: [
+            IconButton(
+                onPressed: () async {
+                  Map<String, dynamic> favData = {
+                    "foodId": data[0]["foodId"],
+                    "userId": loggedUserInfoController.userInfo[0].id,
+                  };
+
+                  var response =
+                      await favouriteController.addFavourite(favData);
+                  if (response == "success") {
+                    Get.snackbar(
+                      "Food",
+                      "Food added to favourite",
+                      icon: Icon(Icons.no_meals, color: Colors.white),
+                      duration: Duration(seconds: 3),
+                      backgroundColor: Colors.green,
+                      colorText: Colors.white,
+                      animationDuration: Duration(seconds: 1),
+                      dismissDirection: DismissDirection.horizontal,
+                      snackPosition: SnackPosition.TOP,
+                    );
+                  } else if (response == 'already') {
+                    Get.snackbar(
+                      "Food",
+                      "Food already added to favourite",
+                      icon: Icon(Icons.no_meals, color: Colors.white),
+                      duration: Duration(seconds: 3),
+                      backgroundColor: Colors.red,
+                      colorText: Colors.white,
+                      animationDuration: Duration(seconds: 1),
+                      dismissDirection: DismissDirection.horizontal,
+                      snackPosition: SnackPosition.TOP,
+                    );
+                  } else {
+                    Get.snackbar(
+                      "Error",
+                      "Check Your connection",
+                      icon: Icon(Icons.no_meals, color: Colors.white),
+                      duration: Duration(seconds: 3),
+                      backgroundColor: Colors.red,
+                      colorText: Colors.white,
+                      animationDuration: Duration(seconds: 1),
+                      dismissDirection: DismissDirection.horizontal,
+                      snackPosition: SnackPosition.TOP,
+                    );
+                  }
+                },
+                icon: Icon(
+                  Icons.favorite_border_outlined,
+                  color: Colors.black,
+                  size: 25,
+                )),
             SizedBox(
               width: 20,
             )
@@ -86,129 +137,33 @@ class UserFoodDetail extends StatelessWidget {
               ),
             ),
 
-// item add remove button
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: [
-            //     Container(
-            //       width: 35,
-            //       height: 35,
-            //       margin: EdgeInsets.only(right: 20),
-            //       decoration: BoxDecoration(
-            //           borderRadius: BorderRadius.circular(40), color: kPrimary),
-            //       child: IconButton(
-            //         icon: Icon(Icons.remove),
-            //         iconSize: 18,
-            //         onPressed: () {},
-            //       ),
-            //     ),
-            //     Text(
-            //       cartController.noOfItems.value.toString(),
-            //       style: TextStyle(
-            //         fontSize: 18,
-            //         fontWeight: FontWeight.w300,
-            //       ),
-            //     ),
-            //     Container(
-            //       width: 35,
-            //       height: 35,
-            //       margin: EdgeInsets.only(left: 20),
-            //       decoration: BoxDecoration(
-            //           borderRadius: BorderRadius.circular(40), color: kPrimary),
-            //       child: IconButton(
-            //         icon: Icon(Icons.add),
-            //         iconSize: 18,
-            //         onPressed: () {},
-            //       ),
-            //     ),
-            //   ],
-            // ),
-
             SizedBox(
               height: 25,
             ),
 
             //food tab
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Container(
-                  padding: EdgeInsets.only(right: 30),
-                  decoration: BoxDecoration(
-                    border: Border(
-                      right: BorderSide(
-                          width: 2.0, color: kTextLightColor.withOpacity(0.5)),
-                    ),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Text('Size',
-                          style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w300,
-                              height: 1.5)),
-                      Text('Medium',
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                              height: 1.5,
-                              letterSpacing: 0.4)),
-                    ],
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.only(right: 30),
-                  decoration: BoxDecoration(
-                    border: Border(
-                      right: BorderSide(
-                          width: 2.0, color: kTextLightColor.withOpacity(0.5)),
-                    ),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Text('Weight',
-                          style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w300,
-                              height: 1.5)),
-                      Text('400gm',
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                              height: 1.5,
-                              letterSpacing: 0.4)),
-                    ],
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.only(right: 30),
-                  decoration: BoxDecoration(
-                    border: Border(
-                      right: BorderSide(
-                          width: 2.0, color: kTextLightColor.withOpacity(0.5)),
-                    ),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Price',
-                          style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w300,
-                              height: 1.5)),
-                      Text(data[2]['price'].toString(),
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w400,
-                            height: 1.5,
-                            letterSpacing: 0.4,
-                          )),
-                    ],
-                  ),
-                ),
-              ],
+
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 20,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Price',
+                      style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w300,
+                          height: 1.5)),
+                  Text(data[2]['price'].toString(),
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                        height: 1.5,
+                        letterSpacing: 0.4,
+                      )),
+                ],
+              ),
             ),
 
             // food description
@@ -248,9 +203,40 @@ class UserFoodDetail extends StatelessWidget {
                 bottom: 5,
                 right: 20,
               ),
-              child: ElevatedButton(
-                onPressed: () {},
-                child: Text(
+              child: ElevatedButton.icon(
+                icon: Icon(
+                  Icons.shopping_cart_outlined,
+                  color: Colors.black,
+                ),
+                onPressed: () {
+                  var cartData = {
+                    "index": data[5]['index'],
+                    "foodId": data[0]['foodId'].toString(),
+                    "name": data[1]['name'].toString(),
+                    "price": data[2]['price'],
+                    "description": data[3]['description'].toString(),
+                    "image": data[4]['image'].toString(),
+                    "foodCount": data[6]['foodCount']
+                  };
+                  bool response = cartController.addFoodInCart(cartData);
+                  if (response == false) {
+                    Get.snackbar(
+                      "Food",
+                      "Food already added to cart",
+                      icon: Icon(Icons.no_meals, color: Colors.white),
+                      duration: Duration(seconds: 3),
+                      backgroundColor: Colors.black,
+                      colorText: Colors.white,
+                      animationDuration: Duration(seconds: 1),
+                      dismissDirection: DismissDirection.horizontal,
+                      snackPosition: SnackPosition.TOP,
+                    );
+                  } else {
+                    Get.toNamed('/addToCart',
+                        arguments: cartController.cartList);
+                  }
+                },
+                label: Text(
                   'Add to cart',
                   style: Theme.of(context).textTheme.headline1,
                 ),

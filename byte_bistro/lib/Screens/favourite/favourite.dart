@@ -2,6 +2,7 @@ import 'package:byte_bistro/Services/http_service.dart';
 import 'package:byte_bistro/constants/colors.dart';
 import 'package:byte_bistro/controller/favourite_controller.dart';
 import 'package:byte_bistro/controller/logged_user_info_controller.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -68,7 +69,10 @@ class _FavouritePageState extends State<FavouritePage> {
                       ),
                       child: ListTile(
                         trailing: IconButton(
-                          icon: Icon(Icons.delete),
+                          icon: Icon(
+                            Icons.delete,
+                            color: Colors.red.withOpacity(0.8),
+                          ),
                           onPressed: () {
                             favouriteController.removeFavorite(
                               favouriteController.favouriteList[index].id,
@@ -76,8 +80,16 @@ class _FavouritePageState extends State<FavouritePage> {
                             setState(() {
                               favouriteController.favouriteList.removeAt(index);
                             });
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text('Removed from Favourite')),
+                            Get.snackbar(
+                              "Item",
+                              "Food removed from favourite ",
+                              icon: Icon(Icons.no_meals, color: Colors.white),
+                              duration: Duration(seconds: 3),
+                              backgroundColor: Colors.red,
+                              colorText: Colors.white,
+                              animationDuration: Duration(seconds: 1),
+                              dismissDirection: DismissDirection.horizontal,
+                              snackPosition: SnackPosition.TOP,
                             );
                           },
                         ),
@@ -92,15 +104,21 @@ class _FavouritePageState extends State<FavouritePage> {
                                 alignment: Alignment.center,
                                 child: CircleAvatar(
                                   radius: 200.0,
-                                  child: Image(
-                                      height: 120,
-                                      fit: BoxFit.cover,
-                                      image: NetworkImage(
-                                          PersistentHtpp.baseUrl +
+                                  child: CachedNetworkImage(
+                                fit: BoxFit.cover,
+                                imageUrl: PersistentHtpp.baseUrl +
                                               favouriteController
                                                   .favouriteList[index]
                                                   .foodId
-                                                  .image)),
+                                                  .image,
+                                placeholder: (context, url) => Image(
+                                    fit: BoxFit.cover,
+                                    image: AssetImage(
+                                      'assets/images/loading.gif',
+                                    )),
+                                errorWidget: (context, url, error) =>
+                                    Icon(Icons.error),
+                              ),
                                 ))),
                         title: Text(favouriteController
                             .favouriteList[index].foodId.name),

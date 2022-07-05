@@ -40,7 +40,7 @@ export const addFavourite = async (
         const { userId, foodId } = req.body
         const findFavorite = await Favourite.findOne({ userId, foodId })
         if (findFavorite) {
-            res.status(400).json({ message: "Already in favourite" })
+            res.status(409).json({ message: "Already in favourite" })
         } else {
             const favourite = new Favourite({ userId: userId, foodId: foodId })
             await favourite.save()
@@ -68,6 +68,7 @@ export const getUserFavourites = async (
         res.status(400).json({ message: err })
     }
 }
+
 
 export const removeFavourite = async (
     req: Request,

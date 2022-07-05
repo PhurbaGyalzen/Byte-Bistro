@@ -9,7 +9,7 @@ class ForgetPasswordScreen extends StatefulWidget {
 
 class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
   TextEditingController emailController =
-      TextEditingController(text: Get.arguments['email']);
+      TextEditingController();
 
   @override
   void dispose() {
@@ -69,6 +69,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                     shape: StadiumBorder(),
                   ),
                   child: TextField(
+                    key: ValueKey('otp_email'),
                     controller: emailController,
                     decoration: InputDecoration(
                         border: InputBorder.none,

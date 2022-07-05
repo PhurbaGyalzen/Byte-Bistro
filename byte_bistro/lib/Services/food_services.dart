@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:byte_bistro/Services/http_service.dart';
 
 import '../Screens/home/models/food_model.dart';
+import '../Screens/home/models/search_model.dart';
 import 'package:dio/dio.dart' as dio;
 
 class FoodService {
@@ -149,18 +150,18 @@ class FoodService {
   }
 
   //search and filter food
-  static Future<List<Food>> searchFood(String search) async {
+  static Future<List<FoodSearch>> searchFood(String search) async {
     if (search == '') {
-      return FoodService().getAllFood();
+      return foodSearchFromJson('[]');
     } else {
       String endpoint = PersistentHtpp.baseUrl + 'food/search/$search';
       try {
         final response = await PersistentHtpp.client.get(Uri.parse(endpoint));
         final stringData = response.body;
         if (response.statusCode == 200) {
-          return foodFromJson(stringData);
+          return foodSearchFromJson(stringData);
         } else {
-          return foodFromJson('[]');
+          return foodSearchFromJson('[]');
         }
       } catch (err) {
         return Future.error(' Error fetching data $err');

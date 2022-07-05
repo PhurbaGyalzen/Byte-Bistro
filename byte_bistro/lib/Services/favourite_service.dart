@@ -45,7 +45,7 @@ class FavouriteService {
     }
   }
 
-  Future addFavourite(Map<String, dynamic> data) async {
+  Future<String> addFavourite(Map<String, dynamic> data) async {
     String endpoint = PersistentHtpp.baseUrl + 'favourite';
     try {
       final response = await PersistentHtpp.client.post(
@@ -57,6 +57,8 @@ class FavouriteService {
       );
       if (response.statusCode == 200) {
         return 'success';
+      } else if (response.statusCode == 409) {
+        return 'already';
       } else {
         return Future.error('err');
       }

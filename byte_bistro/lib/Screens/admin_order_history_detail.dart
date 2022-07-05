@@ -1,7 +1,8 @@
 // import 'package:byte_bistro/Screens/folder_clipper_invoice.dart';
 // import 'package:byte_bistro/Screens/invoice_clipper.dart';
 import 'package:byte_bistro/constants/colors.dart';
-import 'package:byte_bistro/models/user_invoice_model.dart';
+import 'package:byte_bistro/models/admin_order_history.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -14,25 +15,20 @@ import 'package:pdf/widgets.dart ' as pw;
 import 'package:path_provider/path_provider.dart';
 import 'package:open_file/open_file.dart';
 
-import '../controller/logged_user_info_controller.dart';
-
 Color defaultColor = Color(0XFF835454);
 
-class UserInvoiceDetail extends StatefulWidget {
+class AdminOrderHistoryDetail extends StatefulWidget {
   final num totalPrice;
-  final UserInvoiceModel data;
-  const UserInvoiceDetail(
+  final AdminOrderHistory data;
+  const AdminOrderHistoryDetail(
       {Key? key, required this.totalPrice, required this.data})
       : super(key: key);
 
   @override
-  State<UserInvoiceDetail> createState() => _UserInvoiceDetail();
+  State<AdminOrderHistoryDetail> createState() => _AdminOrderHistoryDetail();
 }
 
-class _UserInvoiceDetail extends State<UserInvoiceDetail> {
-  LoggedUserInfoController userLoggedController =
-      Get.put(LoggedUserInfoController());
-
+class _AdminOrderHistoryDetail extends State<AdminOrderHistoryDetail> {
   late int length = widget.data.items.length;
   late int tax = (widget.totalPrice * (13 / 100)).toInt();
   late String date1 = widget.data.createdAt.toString();
@@ -77,7 +73,7 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
                   child: pw.Padding(
                     padding: pw.EdgeInsets.only(top: 10),
                     child: pw.Text(
-                      "CUSTOMER NAME: ${userLoggedController.userInfo[0].username.toString().toUpperCase()}",
+                      "CUSTOMER NAME: ${widget.data.userId.fullname}",
                       style: pw.TextStyle(
                         fontSize: 14,
                         fontWeight: pw.FontWeight.normal,
@@ -177,9 +173,8 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
                         flex: 6,
                         child: pw.Padding(
                           padding: pw.EdgeInsets.all(5),
-                          child: pw.Text(widget.data.items[i].foodId.name
-                              .toString()
-                              .substring(5)),
+                          child: pw.Text(
+                              widget.data.items[i].foodId.name.toString()),
                         ),
                       ),
                       pw.Expanded(
@@ -327,20 +322,20 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
     );
 
     final output = await getExternalStorageDirectory();
-    final filePath = "${output?.path}/invoice${widget.data.createdAt.toString()}.pdf";
+    final filePath =
+        "${output?.path}/invoice${widget.data.createdAt.toString()}.pdf";
     final file = File(filePath);
-    
+
     await file.writeAsBytes(await pdf.save());
     await OpenFile.open(filePath);
   }
 
   @override
   Widget build(BuildContext context) {
-   
     var tax = (widget.totalPrice * (13 / 100)).toInt();
     String date1 = widget.data.createdAt.toString();
     date1 = date1.split(" ")[0];
-    
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -364,7 +359,7 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
           ),
         ],
         title:
-            const Text("Invoice Detail", style: TextStyle(color: kTextColor)),
+            const Text("Order Detail", style: TextStyle(color: kTextColor)),
       ),
       body: SizedBox(
         height: MediaQuery.of(context).size.height,
@@ -380,7 +375,6 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                 
                   Padding(
                     padding: const EdgeInsets.only(bottom: 8.0),
                     child: Row(
@@ -390,11 +384,7 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
                           "CUSTOMER NAME: ",
                           style: TextStyle(fontWeight: FontWeight.w500),
                         ),
-                        Text(
-                          userLoggedController.userInfo[0].username
-                              .toString()
-                              .toUpperCase(),
-                        ),
+                        Text(widget.data.userId.fullname),
                       ],
                     ),
                   ),
@@ -486,8 +476,7 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
                                 padding: EdgeInsets.only(right: 5),
                                 child: Text(
                                   widget.data.items[index].foodId.name
-                                      .toString()
-                                      .substring(5),
+                                      .toString(),
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.w400,

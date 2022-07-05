@@ -162,36 +162,6 @@ class _MOMOState extends State<MOMO> {
                                               SizedBox(
                                                 height: 20,
                                               ),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                children: [
-                                                  Image.asset(
-                                                    'assets/images/heart.png',
-                                                    height: 20,
-                                                    width: 20,
-                                                    color: Colors.red
-                                                        .withOpacity(0.5),
-                                                  ),
-                                                  SizedBox(
-                                                    width: 15,
-                                                  ),
-                                                  Container(
-                                                    padding: EdgeInsets.all(7),
-                                                    decoration: BoxDecoration(
-                                                      color: kPrimary,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              50),
-                                                    ),
-                                                    child: Image.asset(
-                                                      'assets/images/addCart.png',
-                                                      height: 20,
-                                                      width: 20,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
                                             ],
                                           ),
                                         ),
@@ -209,16 +179,6 @@ class _MOMOState extends State<MOMO> {
                               } else {
                                 return SizedBox();
                               }
-
-                              // if (index > 0) {
-                              //   return SizedBox(
-                              //     child: Text("indexCat $index"),
-                              //   );
-                              // } else {
-                              //   return SizedBox(
-                              //     child: Text("1<0"),
-                              //   );
-                              // }
                             },
                           );
                         },

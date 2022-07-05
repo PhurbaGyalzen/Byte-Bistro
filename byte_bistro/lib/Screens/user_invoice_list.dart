@@ -36,8 +36,7 @@ class _UserInvoiceListState extends State<UserInvoiceList> {
       body: FutureBuilder(
         future: userInvoiceController.getUserInvoiceControllerInfo(),
         builder: (context, snapshot) {
-          // print("snapshot ${snapshot}");
-          // print("snapshot.data ${snapshot.data}");
+    
 
           if (snapshot.hasData) {
             List<UserInvoiceModel> data =
@@ -82,21 +81,7 @@ class _UserInvoiceListState extends State<UserInvoiceList> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Padding(
-                        //   padding: EdgeInsets.only(left: 20),
-                        //   child: Text(
-                        //     data[index].userId.fullname,
-                        //     style: TextStyle(
-                        //       fontSize: 16,
-                        //       fontWeight: FontWeight.w400,
-                        //     ),
-                        //   ),
-                        // ),
-                        // Padding(
-                        //   padding: EdgeInsets.only(left: 20.0),
-                        //   child: Text(data[index].userId.id.toString()),
-                        // ),
-
+                        
                         SizedBox(
                           height: 10,
                         ),

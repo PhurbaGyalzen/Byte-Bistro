@@ -53,6 +53,20 @@ class _AdminDashboardState extends State<AdminDashboard> {
             return [
               PopupMenuItem(
                 child: ListTile(
+                  title: Text('Order History'),
+                  leading: Image(
+                    image: AssetImage('assets/images/invoice.png'),
+                    width: 25,
+                    height: 25,
+                  ),
+                  onTap: () {
+                    Get.offNamed('/admin_order_history_list');
+                  },
+                ),
+                value: 'Order History',
+              ),
+              PopupMenuItem(
+                child: ListTile(
                   title: Text('Change Password'),
                   leading: Image(
                     image: AssetImage('assets/images/padlock.png'),
