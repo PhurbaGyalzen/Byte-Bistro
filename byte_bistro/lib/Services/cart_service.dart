@@ -124,4 +124,12 @@ class CartService {
     Cart cart = cartFromJson(response.body);
     return cart;
   }
+
+  Future<Cart> changeDuration(String cartId, int duration,
+      {String type = 'overwrite'}) async {
+    http.Response response = await PersistentHtpp.post(
+        'cart/duration/' + cartId,
+        body: json.encode({'opType': type, 'value': duration}));
+    return cartFromJson(response.body);
+  }
 }

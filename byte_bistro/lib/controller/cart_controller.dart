@@ -111,6 +111,21 @@ class CartController extends GetxController {
     return curr;
   }
 
+  Future<bool> increaseDuration(String id, int duration) async {
+    await cartService.changeDuration(id, duration, type: 'inc');
+    return true;
+  }
+
+  Future<bool> decreaseDuration(String id, int duration) async {
+    await cartService.changeDuration(id, duration, type: 'dec');
+    return true;
+  }
+
+  Future<bool> changeDuration(String id, int duration) async {
+    await cartService.changeDuration(id, duration);
+    return true;
+  }
+
   addCart(Map<String, dynamic> data) async {
     var response = await cartService.addCart(data);
     return response;
