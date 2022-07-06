@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:byte_bistro/Screens/add_to_cart/add_to_cart.dart';
 import 'package:byte_bistro/Screens/add_to_cart/empty_cart.dart';
 import 'package:byte_bistro/Screens/add_to_cart/widgets/payment_summary.dart';
@@ -68,6 +68,21 @@ Map<String, dynamic> tokenDecoded = {};
 int tableNo = 0;
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  AwesomeNotifications().initialize('resource://drawable/res_app_icon', // icon for your app notification
+      [
+        NotificationChannel(
+            channelKey: 'key1',
+            channelName: 'Byte Bistro',
+            channelDescription: "Your Order is Ready",
+            defaultColor: const Color(0XFF9050DD),
+            ledColor: Colors.white,
+            playSound: true,
+            enableLights: true,
+            importance: NotificationImportance.High,
+            enableVibration: true)
+      ]);
   await dotenv.load(fileName: ".env");
   String? token = await Storage.get('token');
   print(token);
