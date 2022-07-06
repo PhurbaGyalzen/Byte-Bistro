@@ -1,5 +1,6 @@
 import 'package:byte_bistro/Services/cart_service.dart';
 import 'package:byte_bistro/models/cart.dart';
+import 'package:byte_bistro/models/general_response.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -104,7 +105,7 @@ class CartController extends GetxController {
     return response;
   }
 
-  Future<Cart?> getCurrUserCart() async {
+  Future<Cart> getCurrUserCart() async {
     var curr = await cartService.currUserCart();
     return curr;
   }

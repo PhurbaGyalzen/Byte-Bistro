@@ -6,9 +6,16 @@
 // Select the database to use.
 use('myFirstDatabase');
 
-db.carts.updateMany({
-}, {
-  $set: {
-    "status": 0
+// db.carts.updateMany({
+// }, {
+//   $set: {
+//     "status": 0
+//   }
+// });
+
+db.carts.find({
+  userId: ObjectId('627fbfa1d464ffbeb80b985b'),
+  status: {
+    $lt: 3
   }
-});
+})

@@ -99,10 +99,14 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
           child: FutureBuilder(
               future: cartController.getCurrUserCart(),
               builder: (context, snapshot) {
-                if (!snapshot.hasData || snapshot.data == null) {
+                if (!snapshot.hasData) {
                   return Center(child: CircularProgressIndicator());
                 }
                 Cart cart = snapshot.data as Cart;
+                // hack.
+                if (cart.id == "") {
+                  return Center(child: Text('No order placed yet.'));
+                }
                 orderStatus = cart.status;
 
                 setDurationField(cart.duration);

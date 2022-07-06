@@ -116,10 +116,10 @@ class CartService {
     }
   }
 
-  Future<Cart?> currUserCart() async {
+  Future<Cart> currUserCart() async {
     http.Response response = await PersistentHtpp.get('cart/user/incomplete');
     if (response.statusCode > 299) {
-      return null;
+      return predefinedFalsyCartModel;
     }
     Cart cart = cartFromJson(response.body);
     return cart;
