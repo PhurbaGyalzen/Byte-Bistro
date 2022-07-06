@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express'
 
 import { Cart, CartStatus } from '@models/Cart'
 import { errorMonitor } from 'events'
+import { IOType } from 'child_process'
 
 export const getCart = async (
 	req: Request,
@@ -118,6 +119,12 @@ export const updateCart = async (
 	}
 }
 
+type IOpType = {
+	$inc: IOpType
+} | {
+	duration: number
+}
+
 /* increment, decrement, or direct change duration */
 export const changeDuration = async(
 	req: Request,
@@ -125,13 +132,14 @@ export const changeDuration = async(
 	next: NextFunction
 ) => {
 	const {opType, value} = req.body
-	const fieldUpdateQuery = {
+	let fieldUpdateQuery: IOpType = {
 		duration: value
 	}
+	
 	if (opType === 'inc') {
-		$inc:  fieldUpdateQuery
+		fieldUpdateQuery = {$inc: fieldUpdateQuery}
 	} else if (opType === 'dec') {
-		$dec:  fieldUpdateQuery
+		fieldUpdateQuery = {$inc: {...fieldUpdateQuery, duration: -value}}
 	}
 	try {
 		const cart = await Cart.findByIdAndUpdate(req.params.cartId, fieldUpdateQuery)
