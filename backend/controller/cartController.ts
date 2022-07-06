@@ -54,7 +54,7 @@ export const mostRecentUserCart = async (
 			select: 'fullname',
 		})
 		if (cart.length > 0) {
-			res.status(200).json(cart)
+			res.status(200).json(cart[0])
 		}
 		else {
 			res.status(400).json({success: false, message: 'No order found for this user.'})

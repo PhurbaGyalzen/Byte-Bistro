@@ -107,6 +107,7 @@ class CartController extends GetxController {
 
   Future<Cart> getCurrUserCart() async {
     var curr = await cartService.currUserCart();
+    print(curr);
     return curr;
   }
 
