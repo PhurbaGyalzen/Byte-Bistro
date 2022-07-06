@@ -54,7 +54,7 @@ export const userIncompleteCart = async (
 		}).populate({
 			path: 'userId',
 			select: 'fullname',
-		}).limit(1).sort( {createdAt: -1})
+		}).limit(1).sort({createdAt: -1})
 		res.status(200).json(cart[0])
 	} catch (err) {
 		res.status(400).json({ message: err })
@@ -75,7 +75,7 @@ export const viewCart = async (
 		}).populate({
 			path: 'items.foodId',
 			select: 'name price image isAvailable',
-		})
+		}).sort({createdAt: -1})
 		res.status(200).json(carts)
 	} catch (err) {
 		res.status(400).send(err)
