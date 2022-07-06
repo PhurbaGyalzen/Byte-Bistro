@@ -54,7 +54,7 @@ class PaymentSummary extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         title: Text(
-          'Conform Cart',
+          'Confirm Cart',
           style: TextStyle(fontSize: 20, letterSpacing: 1, height: 1.5),
         ),
         leading: IconButton(
@@ -277,7 +277,7 @@ class PaymentSummary extends StatelessWidget {
                             height: 1.5,
                           ),
                         ),
-                        Text(total.toString()),
+                        Text("Rs "+ total.toString()),
                       ],
                     ),
                     SizedBox(
@@ -294,7 +294,7 @@ class PaymentSummary extends StatelessWidget {
                             height: 1.5,
                           ),
                         ),
-                        Text(grandTotal.toString()),
+                        Text("Rs "+ grandTotal.toString()),
                       ],
                     ),
                     SizedBox(
