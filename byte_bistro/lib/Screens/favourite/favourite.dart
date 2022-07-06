@@ -102,10 +102,13 @@ class _FavouritePageState extends State<FavouritePage> {
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 4.0),
                                 alignment: Alignment.center,
-                                child: CircleAvatar(
-                                  radius: 200.0,
+                                child: ClipRRect(
+
+                                  borderRadius: BorderRadius.circular(8),
                                   child: CachedNetworkImage(
                                 fit: BoxFit.cover,
+                                height: 50,
+                                width: 50,
                                 imageUrl: PersistentHtpp.baseUrl +
                                               favouriteController
                                                   .favouriteList[index]
