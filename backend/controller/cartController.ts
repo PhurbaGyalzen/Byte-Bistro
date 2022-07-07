@@ -96,6 +96,7 @@ export const createCart = async (
 			userId: req.body.userId,
 			items: req.body.items,
 			tableId: req.body.tableId,
+			paymentMethod: req.body.paymentMethod,
 		})
 		await cart.save()
 		res.status(200).json(cart)
