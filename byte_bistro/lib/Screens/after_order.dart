@@ -36,26 +36,19 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
     WebSocketService.authenticate();
     socket.on('connect', (_) {
       print('connected to websocket');
-      socket.on('order_status_change', (message) {
-        print(message['updatedAt']);
-        print(message['updatedAt'].runtimeType);
+    });
+    socket.on('order_status_change', (message) {
         if (mounted) {
           setState(() {
-            orderStatus = message['orderStatus'];
-            print('recvd $message');
+          orderStatus = message['orderStatus'];
             if (message['orderDurationMin'] != null) {
               print('new duration received, updating controller.');
               setDurationField(message['orderDurationMin']!);
               setTimer(message['orderStatus'], message['updatedAtTs']);
             }
           });
-        }
-        // outside mounted check, cuz this could be called @ home
-        if (message['orderStatus'] == CartStatus.Ready.index) {
-          notify('Order Notification',
-              'Your order is ready, please pick it up from the counter.');
-        }
-      });
+         
+      }
     });
     socket.on('disconnect', (_) {
       print('socket disconnected...');
@@ -64,7 +57,7 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
 
   @override
   void dispose() {
-    socket.disconnect();
+    // socket.disconnect();
     orderDurationTimeController.dispose();
     super.dispose();
   }
