@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:byte_bistro/Services/auth_service.dart';
 import 'package:byte_bistro/Services/http_service.dart';
 import 'package:byte_bistro/models/loged_user_info.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:byte_bistro/controller/logged_user_info_controller.dart';
@@ -51,7 +52,7 @@ class _AdminProfileUpdateFormState extends State<AdminProfileUpdateForm> {
       if (photo == null) return;
       final tempImage = File(photo.path);
       var res = await AuthService.updateProfile(tempImage);
-      setState((){
+      setState(() {
         pickedImage = tempImage;
         imageName = tempImage.path.split("/").last;
       });
@@ -61,7 +62,6 @@ class _AdminProfileUpdateFormState extends State<AdminProfileUpdateForm> {
     }
   }
 
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,7 +80,7 @@ class _AdminProfileUpdateFormState extends State<AdminProfileUpdateForm> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.only(left: 26, top: 50, right: 26),
+          padding: EdgeInsets.only(left: 26, top: 40, right: 26),
           child: Form(
               key: formkey,
               child: Column(
@@ -88,134 +88,150 @@ class _AdminProfileUpdateFormState extends State<AdminProfileUpdateForm> {
                 children: [
                   Center(
                     child: FutureBuilder(
-                    future: userController.getLoggedUserInfo(),
-                    builder: (context, snapshot) {
-                      LoggedUserInfo? data = snapshot.data as LoggedUserInfo?;
-                      if (snapshot.hasData) {
-                        return Stack(
-                          children: [
-                            CircleAvatar(
-                              backgroundImage:
-                                  NetworkImage( PersistentHtpp.baseUrl
-                      + data!.profile,
-                    ),
-                              radius: 70,
-                            ),
-                            Positioned(
-                              bottom: 0,
-                              right: 0,
-                              child: Container(
-                                height: 50,
-                                width: 50,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  border: Border.all(
-                                    width: 4,
-                                    color: Theme.of(context)
-                                        .scaffoldBackgroundColor,
-                                  ),
-                                  color: Color(0xFFFFC61F),
+                      future: userController.getLoggedUserInfo(),
+                      builder: (context, snapshot) {
+                        LoggedUserInfo? data = snapshot.data as LoggedUserInfo?;
+                        if (snapshot.hasData) {
+                          return Stack(
+                            children: [
+                              ClipRRect(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(150)),
+                                child: CachedNetworkImage(
+                                  fit: BoxFit.cover,
+                                  height: 150,
+                                  width: 150,
+                                  imageUrl:
+                                      PersistentHtpp.baseUrl + data!.profile,
+                                  placeholder: (context, url) => Image(
+                                      fit: BoxFit.cover,
+                                      image: AssetImage(
+                                        'assets/images/loading.gif',
+                                      )),
+                                  errorWidget: (context, url, error) =>
+                                      Icon(Icons.error),
                                 ),
-                                child: IconButton(
-                                  icon: Icon(Icons.edit, color: Colors.white),
-                                  onPressed: () {
-                                    Get.bottomSheet(
-                                      SingleChildScrollView(
-                                        child: ClipRRect(
-                                          borderRadius: const BorderRadius.only(
-                                            topLeft: Radius.circular(10.0),
-                                            topRight: Radius.circular(10.0),
-                                          ),
-                                          child: Container(
-                                            color: Colors.black,
-                                            height: 250,
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.stretch,
-                                                children: [
-                                                  const Text(
-                                                    "Upload Profile Image from:",
-                                                    style: TextStyle(
-                                                        fontSize: 18,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: Colors.white),
-                                                    textAlign: TextAlign.center,
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  ElevatedButton.icon(
-                                                    style: ElevatedButton
-                                                        .styleFrom(
-                                                      primary:
-                                                          kPrimary, // Background color
+                              ),
+                              Positioned(
+                                bottom: 0,
+                                right: 0,
+                                child: Container(
+                                  height: 50,
+                                  width: 50,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                      width: 4,
+                                      color: Theme.of(context)
+                                          .scaffoldBackgroundColor,
+                                    ),
+                                    color: Color(0xFFFFC61F),
+                                  ),
+                                  child: IconButton(
+                                    icon: Icon(Icons.edit, color: Colors.white),
+                                    onPressed: () {
+                                      Get.bottomSheet(
+                                        SingleChildScrollView(
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                const BorderRadius.only(
+                                              topLeft: Radius.circular(10.0),
+                                              topRight: Radius.circular(10.0),
+                                            ),
+                                            child: Container(
+                                              color: Colors.black,
+                                              height: 250,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment
+                                                          .stretch,
+                                                  children: [
+                                                    const Text(
+                                                      "Upload Profile Image from:",
+                                                      style: TextStyle(
+                                                          fontSize: 18,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Colors.white),
+                                                      textAlign:
+                                                          TextAlign.center,
                                                     ),
-                                                    onPressed: () {
-                                                      pickImage(
-                                                          ImageSource.camera);
-                                                    },
-                                                    icon: const Icon(
-                                                        Icons.camera),
-                                                    label: const Text("CAMERA"),
-                                                  ),
-                                                  ElevatedButton.icon(
-                                                    style: ElevatedButton
-                                                        .styleFrom(
-                                                      primary:
-                                                          kPrimary, // Background color
+                                                    const SizedBox(
+                                                      height: 10,
                                                     ),
-                                                    onPressed: () {
-                                                      pickImage(
-                                                          ImageSource.gallery);
-                                                    },
-                                                    icon:
-                                                        const Icon(Icons.image),
-                                                    label:
-                                                        const Text("GALLERY"),
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  ElevatedButton.icon(
-                                                    style: ElevatedButton
-                                                        .styleFrom(
-                                                      primary:
-                                                          kPrimary, // Background color
+                                                    ElevatedButton.icon(
+                                                      style: ElevatedButton
+                                                          .styleFrom(
+                                                        primary:
+                                                            kPrimary, // Background color
+                                                      ),
+                                                      onPressed: () {
+                                                        pickImage(
+                                                            ImageSource.camera);
+                                                      },
+                                                      icon: const Icon(
+                                                          Icons.camera),
+                                                      label:
+                                                          const Text("CAMERA"),
                                                     ),
-                                                    onPressed: () {
-                                                      Get.back();
-                                                    },
-                                                    icon:
-                                                        const Icon(Icons.close),
-                                                    label: const Text("CANCEL"),
-                                                  ),
-                                                ],
+                                                    ElevatedButton.icon(
+                                                      style: ElevatedButton
+                                                          .styleFrom(
+                                                        primary:
+                                                            kPrimary, // Background color
+                                                      ),
+                                                      onPressed: () {
+                                                        pickImage(ImageSource
+                                                            .gallery);
+                                                      },
+                                                      icon: const Icon(
+                                                          Icons.image),
+                                                      label:
+                                                          const Text("GALLERY"),
+                                                    ),
+                                                    const SizedBox(
+                                                      height: 10,
+                                                    ),
+                                                    ElevatedButton.icon(
+                                                      style: ElevatedButton
+                                                          .styleFrom(
+                                                        primary:
+                                                            kPrimary, // Background color
+                                                      ),
+                                                      onPressed: () {
+                                                        Get.back();
+                                                      },
+                                                      icon: const Icon(
+                                                          Icons.close),
+                                                      label:
+                                                          const Text("CANCEL"),
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                    );
-                                  },
+                                      );
+                                    },
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
-                        );
-                      } else {
-                        return CircleAvatar(
-                          radius: 50,
-                        );
-                      }
-                    },
-                  ),
+                            ],
+                          );
+                        } else {
+                          return CircleAvatar(
+                            radius: 50,
+                          );
+                        }
+                      },
+                    ),
                   ),
                   SizedBox(
-                    height: 60,
+                    height: 40,
                   ),
                   TextFormField(
                     validator: RequiredValidator(errorText: '*required'),

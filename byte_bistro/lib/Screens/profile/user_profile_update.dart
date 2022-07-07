@@ -80,7 +80,7 @@ class _UserProfileUpdateFormState extends State<UserProfileUpdateForm> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.only(left: 26, top: 50, right: 26),
+          padding: EdgeInsets.only(left: 26, top: 40, right: 26),
           child: Form(
             key: formkey,
             child: Column(

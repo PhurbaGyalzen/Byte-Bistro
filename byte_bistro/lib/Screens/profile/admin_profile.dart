@@ -4,6 +4,7 @@ import 'package:byte_bistro/Screens/profile/admin_profile_update.dart';
 import 'package:byte_bistro/Services/http_service.dart';
 import 'package:byte_bistro/controller/logged_user_info_controller.dart';
 import 'package:byte_bistro/models/loged_user_info.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -55,11 +56,22 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                     if (snapshot.hasData) {
                       return Stack(
                         children: [
-                          CircleAvatar(
-                            backgroundImage: NetworkImage(
-                              PersistentHtpp.baseUrl + data!.profile,
+                          ClipRRect(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(150)),
+                            child: CachedNetworkImage(
+                              fit: BoxFit.cover,
+                              height: 150,
+                              width: 150,
+                              imageUrl: PersistentHtpp.baseUrl + data!.profile,
+                              placeholder: (context, url) => Image(
+                                  fit: BoxFit.cover,
+                                  image: AssetImage(
+                                    'assets/images/loading.gif',
+                                  )),
+                              errorWidget: (context, url, error) =>
+                                  Icon(Icons.error),
                             ),
-                            radius: 60,
                           ),
                           Positioned(
                             bottom: 0,
