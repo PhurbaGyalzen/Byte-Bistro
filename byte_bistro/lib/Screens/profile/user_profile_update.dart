@@ -304,62 +304,47 @@ class _UserProfileUpdateFormState extends State<UserProfileUpdateForm> {
                 Row(
                   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    ElevatedButton(
-                      onPressed: () async {
-                        if (formkey.currentState!.validate()) {
-                          Map<String, dynamic> data = {
-                            "fullname": fullnameController.text,
-                            "email": emailController.text,
-                            // "phones":
-                            //     [phoneController
-                            //         .text],
-                            "bio": bioController.text,
-                            "address": addressController.text,
-                          };
-                          String response =
-                              await LoggedUserInfoController.updateProfileInfo(
-                                  data);
+                    Container(
+                      margin: EdgeInsets.only(bottom: 8),
+                      child: ElevatedButton(
+                      
+                        onPressed: () async {
+                          if (formkey.currentState!.validate()) {
+                            Map<String, dynamic> data = {
+                              "fullname": fullnameController.text,
+                              "email": emailController.text,
+                              // "phones":
+                              //     [phoneController
+                              //         .text],
+                              "bio": bioController.text,
+                              "address": addressController.text,
+                            };
+                            String response =
+                                await LoggedUserInfoController.updateProfileInfo(
+                                    data);
 
-                          // if (response ==
-                          //     'success') {
-                          //   Get.back();
-                          //   Get.snackbar(
-                          //       'Sucess',
-                          //       'Profile Updated Successfully');
-                          // }
+                            
 
-                          // final snackbarSucess = SnackBar(
-                          //     content: Text('Profile updated sucessfully'));
-                          // final snackbarFail = SnackBar(
-                          //     content: Text('Profile updation failed'));
+                            if (response == "success") {
+                              Get.toNamed("/adminProfile");
 
-                          if (response == "success") {
-                            Get.toNamed("/adminProfile");
-
-                            // snackbarSucess;
-                            // ScaffoldMessenger.of(context)
-                            //     .showSnackBar(snackbarSucess);
-                            // foodController
-                            //     .getAllFood();
+                             
+                            }
+                            
                           }
-                          //  else {
-                          //   snackbarFail;
-                          //   ScaffoldMessenger.of(context)
-                          //       .showSnackBar(snackbarSucess);
-                          // }
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                        // primary: Colors.orange,
-                        primary: Color(0xFFFFC61F),
-                        shape: const StadiumBorder(),
-                      ),
-                      child: Text(
-                        "Update",
-                        style: TextStyle(
-                            fontSize: 14,
-                            letterSpacing: 2.2,
-                            color: Colors.black),
+                        },
+                        style: ElevatedButton.styleFrom(
+                          // primary: Colors.orange,
+                          primary: Color(0xFFFFC61F),
+                          shape: const StadiumBorder(),
+                        ),
+                        child: Text(
+                          "Update",
+                          style: TextStyle(
+                              fontSize: 14,
+                              letterSpacing: 2.2,
+                              color: Colors.black),
+                        ),
                       ),
                     ),
                   ],

@@ -55,16 +55,16 @@ class _MOMOState extends State<MOMO> {
                       return ListView.builder(
                         itemCount: data.length,
                         itemBuilder: (context, index1) {
-                          int catLength = data[index1].categories.length;
-                          print("cat length $catLength");
-                          print("index1 $index1");
+                          // int catLength = data[index1].categories.length;
+                          // print("cat length $catLength");
+                          // print("index1 $index1");
 
                           return ListView.builder(
                             shrinkWrap: true,
                             primary: false,
                             itemCount: data[index1].categories.length,
                             itemBuilder: (context, index) {
-                              print("index $index");
+                              // print("index $index");
 
                               if (data[index1].categories[index].name ==
                                   widget.catName) {
