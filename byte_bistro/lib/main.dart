@@ -8,6 +8,7 @@ import 'package:byte_bistro/Screens/admin/widgets/add_notification.dart';
 import 'package:byte_bistro/Screens/admin/widgets/admin_food_detail.dart';
 import 'package:byte_bistro/Screens/admin/widgets/admin_order_detail.dart';
 import 'package:byte_bistro/Screens/admin/widgets/admin_orders.dart';
+import 'package:byte_bistro/Screens/admin/widgets/empty_tab_item.dart';
 import 'package:byte_bistro/Screens/admin/widgets/update_food.dart';
 import 'package:byte_bistro/Screens/admin/widgets/view_food.dart';
 import 'package:byte_bistro/Screens/contact_us.dart';
@@ -172,10 +173,8 @@ class ByteBistro extends StatelessWidget {
         GetPage(name: '/reset_password', page: () => ForgetPasswordScreen()),
         GetPage(
             name: '/verify_reset_password', page: () => VerifyResetPassword()),
-
         GetPage(name: '/user_invoice_list', page: () => UserInvoiceList()),
         GetPage(name: '/profile_screen', page: () => ProfileScreen()),
-
         GetPage(
             name: '/admin_order_history_list',
             page: () => AdminOrderHistoryList()),
@@ -188,7 +187,6 @@ class ByteBistro extends StatelessWidget {
         GetPage(name: '/adminOrders', page: () => AdminOrders()),
         GetPage(name: '/adminFoodDetail', page: () => AdminFoodDetail()),
         GetPage(name: '/adminOrderDetail', page: () => AdminOrderDetail()),
-
         GetPage(name: '/detail_page_dish', page: () => IndividualItemScreen()),
         GetPage(name: '/home', page: () => HomePage()),
         GetPage(name: '/set_new_password', page: () => SetNewPassword()),
@@ -220,6 +218,7 @@ class ByteBistro extends StatelessWidget {
         GetPage(name: '/contactUs', page: () => ContactUs()),
         GetPage(name: '/paymentSummary', page: () => PaymentSummary()),
         GetPage(name: '/pendingOrder', page: () => PaymentSummary()),
+        GetPage(name: '/emptyTabItem', page: () => EmptyTabItem()),
       ],
     );
   }
