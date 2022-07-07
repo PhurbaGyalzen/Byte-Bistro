@@ -470,6 +470,8 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
                     // physics: NeverScrollableScrollPhysics(),
                     itemCount: widget.data.items.length,
                     itemBuilder: (context, index) {
+                       print("widget.data.items[index].foodId.name");
+                      print(widget.data.items[index].foodId.name);
                       return Container(
                         margin: EdgeInsets.only(top: 10),
                         padding:

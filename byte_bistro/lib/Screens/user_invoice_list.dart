@@ -51,11 +51,10 @@ class _UserInvoiceListState extends State<UserInvoiceList> {
                 String date1 = data[index].createdAt.toString();
                 date1 = date1.split(" ")[0];
 
-                // print("data[index] ${data[index]}");
 
                 for (int i = 0; i < indexTotaL; i++) {
                   totalPrice += (data[index].items[i].qty *
-                      data[index].items[i].foodId.price);
+                      data[index].items[i].foodId.price.toInt());
                 }
                 late num totalPrice2 = totalPrice + totalPrice * 13 ~/ 100;
 
