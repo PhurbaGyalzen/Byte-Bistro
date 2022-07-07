@@ -1,12 +1,15 @@
 import 'dart:ffi';
 
+import 'package:byte_bistro/Services/http_service.dart';
 import 'package:byte_bistro/Services/ws_service.dart';
 import 'package:byte_bistro/controller/cart_controller.dart';
 import 'package:byte_bistro/models/cart.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:duration_picker/duration_picker.dart';
+
 
 import '../../constants/colors.dart';
 
@@ -44,7 +47,8 @@ class _NotificationDetailState extends State<NotificationDetail> {
     // int vat = totalCartPrice*(13/100).toInt();
     // if ()
 
-    double grandtotalCartPrice = totalCartPrice.toDouble() + (totalCartPrice.toDouble() * 0.13);
+    double grandtotalCartPrice =
+        totalCartPrice.toDouble() + (totalCartPrice.toDouble() * 0.13);
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -151,7 +155,6 @@ class _NotificationDetailState extends State<NotificationDetail> {
                               style: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.normal,
-                               
                                 letterSpacing: 0.2,
                                 height: 1.5,
                               ),
@@ -182,8 +185,8 @@ class _NotificationDetailState extends State<NotificationDetail> {
                           ),
                         ],
                       ),
-                      height: 200,
                       child: ListView.builder(
+                        shrinkWrap: true,
                         itemCount: widget.order.items.length,
                         itemBuilder: (context, index) {
                           totalCartPrice +=
@@ -192,9 +195,26 @@ class _NotificationDetailState extends State<NotificationDetail> {
 
                           return Container(
                             decoration: BoxDecoration(
-                              color: kTextLightColor.withOpacity(0.2),
+                              color: Colors.white,
                             ),
                             child: ListTile(
+                              leading: ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: CachedNetworkImage(
+                                  fit: BoxFit.cover,
+                                  height: 50,
+                                  width: 50,
+                                  imageUrl: PersistentHtpp.baseUrl +
+                                      widget.order.items[index].foodId.image,
+                                  placeholder: (context, url) => Image(
+                                      fit: BoxFit.cover,
+                                      image: AssetImage(
+                                        'assets/images/loading.gif',
+                                      )),
+                                  errorWidget: (context, url, error) =>
+                                      Icon(Icons.error),
+                                ),
+                              ),
                               style: ListTileStyle.list,
                               title: Text(
                                 widget.order.items[index].foodId.name,
@@ -202,13 +222,33 @@ class _NotificationDetailState extends State<NotificationDetail> {
                               ),
                               subtitle: Text(
                                 'Rs ${widget.order.items[index].foodId.price} x ${widget.order.items[index].qty}= Rs ${widget.order.items[index].foodId.price * widget.order.items[index].qty}',
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.black),
                               ),
                             ),
                           );
                         },
                       ),
                     ),
-                    ElevatedButton(
+                    // ElevatedButton.icon(
+                    //   // <-- ElevatedButton
+                    //   onPressed: () {},
+                    //   icon: Icon(
+                    //     Icons.download,
+                    //     size: 24.0,
+                    //   ),
+                    //   label: Text('Download'),
+                    // ),
+                    ElevatedButton.icon(
+                      icon: Icon(
+                        
+                        Icons.timelapse_outlined,
+                        size: 24.0,
+
+                      ),
+                      label: Text('Set Duration', style: TextStyle(color:Colors.black),),
                       style: ElevatedButton.styleFrom(
                           primary: Theme.of(context).primaryColor),
                       onPressed: () async {
@@ -243,10 +283,7 @@ class _NotificationDetailState extends State<NotificationDetail> {
                           _duration = resultingDuration;
                         });
                       },
-                      child: Text(
-                        'Set Food Prep Duration',
-                        style: Theme.of(context).textTheme.headline1,
-                      ),
+                      
                     ),
                   ],
                 ),

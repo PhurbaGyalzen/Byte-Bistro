@@ -1,5 +1,7 @@
 import 'package:byte_bistro/Screens/notification/notification_detail.dart';
+import 'package:byte_bistro/Services/http_service.dart';
 import 'package:byte_bistro/models/cart.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:byte_bistro/utils/utils.dart' as utils;
 import 'package:byte_bistro/constants/colors.dart';
@@ -57,13 +59,18 @@ class _PendingOrdersState extends State<PendingOrders> {
                     margin: EdgeInsets.only(top: 10, bottom: 10),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(50),
-                      child: Image(
-                        image: utils.RelativeNetworkImage(
-                          widget.cart.items[0].foodId.image,
-                        ),
-                        width: 50,
-                        height: 50,
+                      child: CachedNetworkImage(
                         fit: BoxFit.cover,
+                        height: 50,
+                        width: 50,
+                        imageUrl: PersistentHtpp.baseUrl +
+                            widget.cart.items[0].foodId.image,
+                        placeholder: (context, url) => Image(
+                            fit: BoxFit.cover,
+                            image: AssetImage(
+                              'assets/images/loading.gif',
+                            )),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
                       ),
                     ),
                   ),
