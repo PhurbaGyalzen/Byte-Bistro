@@ -107,33 +107,9 @@ class ViewFood extends StatelessWidget {
                                 var response =
                                     foodController.setFoodUnavailable(
                                         foodController.foodList[index].id);
-                                Get.snackbar(
-                                  "Food",
-                                  "Food Set to Unavailable ",
-                                  icon:
-                                      Icon(Icons.no_meals, color: Colors.white),
-                                  duration: Duration(seconds: 3),
-                                  backgroundColor: Colors.red,
-                                  colorText: Colors.white,
-                                  animationDuration: Duration(seconds: 1),
-                                  dismissDirection: DismissDirection.horizontal,
-                                  snackPosition: SnackPosition.TOP,
-                                );
                               } else {
                                 foodController.setFoodAvailable(
                                     foodController.foodList[index].id);
-                                Get.snackbar(
-                                  "Food",
-                                  "Food Set to available ",
-                                  icon:
-                                      Icon(Icons.no_meals, color: Colors.white),
-                                  duration: Duration(seconds: 3),
-                                  backgroundColor: Colors.green,
-                                  colorText: Colors.white,
-                                  animationDuration: Duration(seconds: 1),
-                                  dismissDirection: DismissDirection.horizontal,
-                                  snackPosition: SnackPosition.TOP,
-                                );
                               }
                             },
                           ),
