@@ -37,11 +37,13 @@ class _AdminDashboardState extends State<AdminDashboard> {
               badgeColor: Colors.black,
               elevation: 0,
               position: BadgePosition.topEnd(top: 8, end: -2),
-              badgeContent: Text(
-                cartController.cartList.length.toString(),
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 14,
+              badgeContent: Obx(
+                () => Text(
+                  cartController.cartList.length.toString(),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 14,
+                  ),
                 ),
               ),
             ),

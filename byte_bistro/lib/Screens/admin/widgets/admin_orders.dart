@@ -19,7 +19,7 @@ class AdminOrders extends StatefulWidget {
 class _AdminOrdersState extends State<AdminOrders> {
   var socket = WebSocketService.socket;
   // final int randomRoom = new Random().nextInt(999999999) + 600000;
-  CartController cartController = Get.put(CartController());
+  CartController cartController = Get.find();
 
   @override
   void initState() {

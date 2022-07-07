@@ -13,6 +13,12 @@ class CartController extends GetxController {
   var noOfCartItems = 0.obs;
   var tableNumber = 0.obs;
 
+  @override
+  void onInit() {
+    getPendingOrders();
+    super.onInit();
+  }
+
 // add food count
   addFoodCount(int index) {
     cartList[index]['foodCount'] += noOfItems.value;
