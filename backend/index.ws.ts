@@ -123,6 +123,10 @@ const initWebSocket = (app: Express) => {
 				const cart = await Cart.findByIdAndUpdate(data.orderId, {
 					$set: {
 						'status': data.orderStatus,
+						// mongoose doesn't automagically update timestamps field
+						// we use this field in conjuection with duration field
+						// to figure out the time remaining.
+						// we do not use this field
 						'updatedAt': new Date()
 					}
 				})

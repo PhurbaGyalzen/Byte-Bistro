@@ -10,7 +10,6 @@ import 'package:byte_bistro/Screens/admin/widgets/admin_order_detail.dart';
 import 'package:byte_bistro/Screens/admin/widgets/admin_orders.dart';
 import 'package:byte_bistro/Screens/admin/widgets/update_food.dart';
 import 'package:byte_bistro/Screens/admin/widgets/view_food.dart';
-import 'package:byte_bistro/Screens/admin_order_history_detail.dart';
 import 'package:byte_bistro/Screens/contact_us.dart';
 import 'package:byte_bistro/Screens/faq.dart';
 import 'package:byte_bistro/Screens/license_section.dart';
@@ -55,13 +54,10 @@ import 'package:byte_bistro/utils/str_decoder.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-// import 'globals.dart' as globals;
 import 'Screens/admin/widgets/user_food_detail.dart';
 import 'Screens/login_screen.dart';
-// import 'package:byte_bistro/Screens/Category_momo.dart';
 import 'package:flutter/services.dart';
 
-// import 'Screens/user_invoice_detail.dart';
 import 'constants/colors.dart';
 
 Map<String, dynamic> tokenDecoded = {};
@@ -70,7 +66,8 @@ int tableNo = 0;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  AwesomeNotifications().initialize('resource://drawable/res_app_icon', // icon for your app notification
+  AwesomeNotifications().initialize(
+      'resource://drawable/res_app_icon', // icon for your app notification
       [
         NotificationChannel(
             channelKey: 'key1',
@@ -164,7 +161,6 @@ class ByteBistro extends StatelessWidget {
           ),
         ),
       ),
-      // initialRoute: '/addNotification',
       initialRoute: dotenv.env['INITIAL_ROUTE'] ?? initialRoute,
       // initialRoute: '/adminScreen',
 
@@ -172,23 +168,18 @@ class ByteBistro extends StatelessWidget {
       title: 'Byte Bistro',
       getPages: [
         GetPage(name: '/login', page: () => LoginScreen()),
-        // GetPage(name: '/tesing', page: () => TestingExpanded()),
-      
-     
-
-        GetPage(name: '/user_invoice_list', page: () => UserInvoiceList()),
-        GetPage(name: '/admin_order_history_list', page: () => AdminOrderHistoryList()),
-         
-
-        // GetPage(name: '/CategoryMoMo', page: () => MOMO()),
         GetPage(name: '/signup', page: () => SignUpScreen()),
-        GetPage(name: '/profile_screen', page: () => ProfileScreen()),
-
         GetPage(name: '/reset_password', page: () => ForgetPasswordScreen()),
         GetPage(
             name: '/verify_reset_password', page: () => VerifyResetPassword()),
+
+        GetPage(name: '/user_invoice_list', page: () => UserInvoiceList()),
+        GetPage(name: '/profile_screen', page: () => ProfileScreen()),
+
+        GetPage(
+            name: '/admin_order_history_list',
+            page: () => AdminOrderHistoryList()),
         GetPage(name: '/adminScreen', page: () => AdminDashboard()),
-        
         GetPage(
             name: '/adminProfileUpdateForm',
             page: () => AdminProfileUpdateForm()),
@@ -198,14 +189,10 @@ class ByteBistro extends StatelessWidget {
         GetPage(name: '/adminFoodDetail', page: () => AdminFoodDetail()),
         GetPage(name: '/adminOrderDetail', page: () => AdminOrderDetail()),
 
-        
-
-        // GetPage(name: '/CategoryMoMo', page: () => MOMO()),
         GetPage(name: '/detail_page_dish', page: () => IndividualItemScreen()),
         GetPage(name: '/home', page: () => HomePage()),
         GetPage(name: '/set_new_password', page: () => SetNewPassword()),
         GetPage(name: '/changePassword', page: () => ChangePassword()),
-        // GetPage(name: '/individual', page: () => IndividualItem()),
         GetPage(name: '/qrscan', page: () => QrScannerScreen()),
         GetPage(name: '/after-order', page: () => AfterOrderScreen()),
         GetPage(name: '/orderSucess', page: () => OrderSucess()),

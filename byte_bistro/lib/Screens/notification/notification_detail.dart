@@ -19,11 +19,19 @@ class NotificationDetail extends StatefulWidget {
 class _NotificationDetailState extends State<NotificationDetail> {
   final CartController cartController = Get.find();
   late Duration _duration;
+  var socket = WebSocketService.socket;
 
   @override
   void initState() {
-    super.initState();
+    WebSocketService.authenticate();
     _duration = Duration(hours: 0, minutes: widget.order.duration);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // disconnect websocket?
+    super.dispose();
   }
 
   @override
@@ -177,7 +185,7 @@ class _NotificationDetailState extends State<NotificationDetail> {
                               totalCartPrice +=
                                   widget.order.items[index].foodId.price *
                                       widget.order.items[index].qty;
-                                
+
                               return Container(
                                 decoration: BoxDecoration(
                                   color: kTextLightColor.withOpacity(0.2),
@@ -210,6 +218,24 @@ class _NotificationDetailState extends State<NotificationDetail> {
                             }
                             cartController.updateDuration(
                                 widget.order.id, resultingDuration.inMinutes);
+                            socket.emitWithAck('order_status_change', [
+                              {
+                                'room': widget.order.id,
+                                'orderId': widget.order.id,
+                                'orderStatus': CartStatus.Preping.index,
+                              }
+                            ], ack: (data) {
+                              String title = 'Status Changed Successfully';
+                              if (data['success']) {
+                                // setState(() {
+                                //   widget.orderStatusId =
+                                //       CartStatus.Preping.index;
+                                // });
+                              } else {
+                                title = 'Failed to change status';
+                              }
+                              Get.snackbar(title, data['message']);
+                            });
                             setState(() {
                               _duration = resultingDuration;
                             });

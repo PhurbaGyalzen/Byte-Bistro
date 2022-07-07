@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express'
 
 import { Cart, CartStatus } from '@models/Cart'
 import { errorMonitor } from 'events'
+import { IOType } from 'child_process'
 
 export const getCart = async (
 	req: Request,
@@ -40,22 +41,25 @@ export const userCart = async (
 	}
 }
 
-export const userIncompleteCart = async (
+export const mostRecentUserCart = async (
 	req: Request,
 	res: Response,
 	next: NextFunction
 ) => {
 	try {
-		const cart = await Cart.find({ userId: req.user?.id, $lt: {
-			status: CartStatus.Completed
-		}}).populate({
+		const cart = await Cart.find({ userId: req.user!.id}).sort({createdAt: -1}).limit(1).populate({
 			path: 'items.foodId',
 			select: 'name price image isAvailable',
 		}).populate({
 			path: 'userId',
 			select: 'fullname',
-		}).limit(1).sort( {createdAt: -1})
-		res.status(200).json(cart[0])
+		})
+		if (cart.length > 0) {
+			res.status(200).json(cart[0])
+		}
+		else {
+			res.status(400).json({success: false, message: 'No order found for this user.'})
+		}
 	} catch (err) {
 		res.status(400).json({ message: err })
 	}
@@ -75,7 +79,7 @@ export const viewCart = async (
 		}).populate({
 			path: 'items.foodId',
 			select: 'name price image isAvailable',
-		})
+		}).sort({createdAt: -1})
 		res.status(200).json(carts)
 	} catch (err) {
 		res.status(400).send(err)
@@ -112,6 +116,36 @@ export const updateCart = async (
 		res.status(200).json(cart)
 	} catch (err) {
 		res.status(400).json({ message: err })
+	}
+}
+
+type IOpType = {
+	$inc: IOpType
+} | {
+	duration: number
+}
+
+/* increment, decrement, or direct change duration */
+export const changeDuration = async(
+	req: Request,
+	res: Response,
+	next: NextFunction
+) => {
+	const {opType, value} = req.body
+	let fieldUpdateQuery: IOpType = {
+		duration: value
+	}
+	
+	if (opType === 'inc') {
+		fieldUpdateQuery = {$inc: fieldUpdateQuery}
+	} else if (opType === 'dec') {
+		fieldUpdateQuery = {$inc: {...fieldUpdateQuery, duration: -value}}
+	}
+	try {
+		const cart = await Cart.findByIdAndUpdate(req.params.cartId, fieldUpdateQuery)
+		res.status(200).json(cart)
+	} catch (err) {
+		res.status(400).json({success: false, message: err})
 	}
 }
 
