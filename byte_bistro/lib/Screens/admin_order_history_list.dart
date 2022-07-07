@@ -2,6 +2,7 @@ import 'package:byte_bistro/Screens/admin_order_history_detail.dart';
 import 'package:byte_bistro/constants/colors.dart';
 import 'package:byte_bistro/controller/admin_order_history_controller.dart';
 import 'package:byte_bistro/models/admin_order_history.dart';
+import 'package:byte_bistro/models/cart.dart';
 
 import 'package:flutter/material.dart';
 
@@ -51,8 +52,7 @@ class _AdminOrderHistoryListState extends State<AdminOrderHistoryList> {
                 int indexTotaL = data[index].items.length;
                 late AdminOrderHistory dataIndex = data[index];
                 late num totalPrice = 0;
-                String date1 = data[index].createdAt.toString();
-                date1 = date1.split(" ")[0];
+                String date1 = data[index].createdAt.toString().substring(0,10);
 
                 // print("data[index] ${data[index]}");
 
@@ -62,7 +62,6 @@ class _AdminOrderHistoryListState extends State<AdminOrderHistoryList> {
                 }
                 late num totalPrice2 = totalPrice + totalPrice * 13 ~/ 100;
 
-                
                 return GestureDetector(
                   onTap: () {
                     setState(() {
@@ -88,7 +87,6 @@ class _AdminOrderHistoryListState extends State<AdminOrderHistoryList> {
                           children: [
                             Expanded(
                               flex: 3,
-                              
                               child: Padding(
                                 padding: EdgeInsets.only(left: 20),
                                 child: Text(
@@ -101,18 +99,13 @@ class _AdminOrderHistoryListState extends State<AdminOrderHistoryList> {
                               flex: 11,
                               child: Text(
                                 data[index].userId.fullname,
-                                
                               ),
                             ),
-                            
                           ],
                         ),
-                      
-
                         SizedBox(
                           height: 10,
                         ),
-
                         Row(
                           children: [
                             Expanded(
@@ -226,7 +219,8 @@ class _AdminOrderHistoryListState extends State<AdminOrderHistoryList> {
                                       right: 20,
                                     ),
                                     child: Text(
-                                      "Complete",
+                                      CartStatus
+                                          .values[data[index].status].name,
                                       style: TextStyle(
                                         color: Colors.green,
                                       ),

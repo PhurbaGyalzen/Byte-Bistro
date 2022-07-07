@@ -31,7 +31,7 @@ export const userCart = async (
 	next: NextFunction
 ) => {
 	try {
-		const cart = await Cart.find({ userId: req.user?.id}).populate({
+		const cart = await Cart.find({ userId: req.user?.id,status:{$eq:3}}).sort({createdAt: -1}).populate({
 			path: 'items.foodId',
 			select: 'name price image isAvailable',
 		})
@@ -96,6 +96,7 @@ export const createCart = async (
 			userId: req.body.userId,
 			items: req.body.items,
 			tableId: req.body.tableId,
+			paymentMethod: req.body.paymentMethod,
 		})
 		await cart.save()
 		res.status(200).json(cart)

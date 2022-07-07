@@ -11,6 +11,7 @@ import morgan from 'morgan'
 import enableCors from 'middlewares/enable-cors'
 import helmet from 'helmet'
 import foodRoutes from 'routes/foodRoutes'
+import menuRoutes from 'routes/menuRoutes'
 import initWebSocket from 'index.ws'
 import categoryRoutes from 'routes/categoryRoutes'
 import { verifyUser } from 'middlewares/jwt-auth'
@@ -26,6 +27,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(passport.initialize({ userProperty: 'currentUser' }))
 app.use('/food', foodRoutes)
+app.use('/menu', menuRoutes)
 app.use('/category', categoryRoutes)
 app.use('/cart', cartRoutes)
 app.use('/favourite', favouriteRoutes)

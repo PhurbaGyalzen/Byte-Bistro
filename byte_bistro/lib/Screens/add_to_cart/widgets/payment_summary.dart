@@ -315,6 +315,7 @@ class PaymentSummary extends StatelessWidget {
                             "userId": userController.userInfo[0].id.toString(),
                             "items": items,
                             "tableId": cartController.tableNumber.toInt(),
+                            "paymentMethod": "CASH",
                           });
                           cartController.cartList.value = [];
                           Get.snackbar(
@@ -454,6 +455,7 @@ class PaymentSummary extends StatelessWidget {
             "userId": userController.userInfo[0].id.toString(),
             "items": items,
             "tableId": cartController.tableNumber.toInt(),
+            "paymentMethod": "ESEWA",
           });
           cartController.cartList.value = [];
           Get.snackbar(
