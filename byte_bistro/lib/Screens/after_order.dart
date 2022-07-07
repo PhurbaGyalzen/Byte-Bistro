@@ -64,7 +64,6 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
 
   @override
   void dispose() {
-    // disconnecting socket may not display order ready notification
     socket.disconnect();
     orderDurationTimeController.dispose();
     super.dispose();
@@ -131,7 +130,9 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
                   roomJoined = true;
                 }
 
-                String orderedTime = Jiffy(cart.createdAt).Hms;
+                String orderedTime =
+                    Jiffy(cart.createdAt.add(Duration(hours: 5, minutes: 45)))
+                        .Hms;
                 int itemCount = cart.items.length;
                 int totalPrice =
                     cart.items.fold(0, (t, e) => t + (e.foodId.price * e.qty));
