@@ -47,7 +47,7 @@ class _TabItemDetailState extends State<TabItemDetail> {
     return SizedBox(
       height: 290.0,
       child: FutureBuilder(
-        future: foodController.getAllFood(),
+        future: foodController.getFoodMenu(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             List<Food> data = snapshot.data as List<Food>;
@@ -63,14 +63,14 @@ class _TabItemDetailState extends State<TabItemDetail> {
                       bool exists = favouriteList.contains(data[index].id);
                       return GestureDetector(
                         onTap: () => Get.toNamed('/userFoodDetail', arguments: [
-                          {"foodId": foodController.foodList[index].id},
-                          {"name": foodController.foodList[index].name},
-                          {"price": foodController.foodList[index].price},
+                          {"foodId": foodController.menuList[index].id},
+                          {"name": foodController.menuList[index].name},
+                          {"price": foodController.menuList[index].price},
                           {
                             "description":
-                                foodController.foodList[index].description
+                                foodController.menuList[index].description
                           },
-                          {"image": foodController.foodList[index].image},
+                          {"image": foodController.menuList[index].image},
                           {"index": index},
                           {"foodCount": 1},
                         ]),
@@ -115,7 +115,7 @@ class _TabItemDetailState extends State<TabItemDetail> {
                                         fit: BoxFit.cover,
                                         imageUrl: PersistentHtpp.baseUrl +
                                             foodController
-                                                .foodList[index].image,
+                                                .menuList[index].image,
                                         placeholder: (context, url) => Image(
                                             fit: BoxFit.cover,
                                             image: AssetImage(

@@ -23,6 +23,21 @@ class FoodService {
     }
   }
 
+  Future<List<Food>> getFoodMenu() async {
+    String endpoint = PersistentHtpp.baseUrl + 'menu';
+    try {
+      final response = await PersistentHtpp.client.get(Uri.parse(endpoint));
+      final stringData = response.body;
+      if (response.statusCode == 200) {
+        return foodFromJson(stringData);
+      } else {
+        return Future.error('Internal Server Error');
+      }
+    } catch (err) {
+      return Future.error(' Error fetching data $err');
+    }
+  }
+
   // get single food
   Future getSingleFood(String foodId) async {
     String endpoint = PersistentHtpp.baseUrl + 'food/$foodId';

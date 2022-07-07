@@ -52,8 +52,7 @@ class _AdminOrderHistoryListState extends State<AdminOrderHistoryList> {
                 int indexTotaL = data[index].items.length;
                 late AdminOrderHistory dataIndex = data[index];
                 late num totalPrice = 0;
-                String date1 = data[index].createdAt.toString();
-                date1 = date1.split(" ")[0];
+                String date1 = data[index].createdAt.toString().substring(0,10);
 
                 // print("data[index] ${data[index]}");
 

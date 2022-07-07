@@ -35,8 +35,8 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
 
   late int length = widget.data.items.length;
   late int tax = (widget.totalPrice * (13 / 100)).toInt();
-  late String date1 = widget.data.createdAt.toString();
-  late String date2 = date1.split(" ")[0];
+  late String date1 = widget.data.createdAt.toString().substring(0,10);
+
 
   Future getPdf() async {
     pw.Document pdf = pw.Document();
@@ -108,7 +108,7 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
                       bottom: 20,
                     ),
                     child: pw.Text(
-                      "INVOICE DATE: $date2",
+                      "INVOICE DATE: $date1",
                       style: pw.TextStyle(
                         fontSize: 14,
                         fontWeight: pw.FontWeight.normal,
@@ -337,8 +337,7 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
   @override
   Widget build(BuildContext context) {
     var tax = (widget.totalPrice * (13 / 100)).toInt();
-    String date1 = widget.data.createdAt.toString();
-    date1 = date1.split(" ")[0];
+    late String date1 = widget.data.createdAt.toString().substring(0,10);
 
     return Scaffold(
       appBar: AppBar(
