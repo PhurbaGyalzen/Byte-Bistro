@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 
 class CartController extends GetxController {
   var cartList = [].obs;
+  var adminCartList = [].obs;
   CartService cartService = Get.put(CartService());
   var foodQuantity = 1.obs;
   var foodPrice = 0.obs;
@@ -86,7 +87,7 @@ class CartController extends GetxController {
     List<Cart> response = await cartService.getAllCart();
     List<Cart> orders =
         response.where((e) => e.status < CartStatus.Completed.index).toList();
-    cartList.value = orders;
+    adminCartList.value = orders;
     return orders;
   }
 
