@@ -5,9 +5,12 @@ import 'package:byte_bistro/Screens/home/widgets/top_of_day.dart';
 import 'package:byte_bistro/Screens/license_section.dart';
 import 'package:byte_bistro/Screens/profile/profile_screen.dart';
 import 'package:byte_bistro/Screens/qr_scanner.dart';
+import 'package:byte_bistro/Services/ws_service.dart';
 import 'package:byte_bistro/constants/colors.dart';
 import 'package:byte_bistro/controller/cart_controller.dart';
 import 'package:byte_bistro/controller/food_controller.dart';
+import 'package:byte_bistro/models/cart.dart';
+import 'package:byte_bistro/utils/push_notification.dart';
 import 'package:flutter/material.dart';
 import 'package:byte_bistro/Screens/home/widgets/app_note.dart';
 import 'package:byte_bistro/Screens/home/widgets/food_tab.dart';
@@ -43,6 +46,34 @@ class _HomePageState extends State<HomePage> {
 
     // EditProfilePage(),
   ];
+
+  var socket = WebSocketService.socket;
+
+  @override
+  void initState() {
+    super.initState();
+
+    WebSocketService.authenticate();
+    socket.on('connect', (_) {
+      print('connected to websocket');
+      socket.on('order_status_change', (message) {
+        print("Home: order status changed");
+        if (message['orderStatus'] == CartStatus.Ready.index) {
+          notify('Order Notification',
+              'Your order is ready, please pick it up from the counter.');
+        } 
+      });
+    });
+    socket.on('disconnect', (_) {
+      print('socket disconnected...');
+    });
+  }
+
+  @override
+  void dispose() {
+    // socket.disconnect();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -182,7 +213,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           color: Colors.black87,
                         ),
                       ),
-                      
                       SizedBox(
                         width: 20,
                       ),
@@ -195,21 +225,22 @@ class _HomeScreenState extends State<HomeScreen> {
                           }
                         },
                         child: Badge(
-                          child: Icon(Icons.shopping_cart_outlined,
-                              size: 25, color: Colors.black87),
-                          position: cartController.cartList.length > 9 ? BadgePosition.topEnd(top: -8, end: -15): BadgePosition.topEnd(top: -8, end: -10),
-                          badgeColor: kPrimary,
-                          elevation: 0,
-                          badgeContent: Obx(
-                            () => 
-                            cartController.cartList.length > 9 ?
-                            Text(cartController.cartList.length
-                                .toString()
-                                .padLeft(2, "0"))
-                          : Text(cartController.cartList.length
-                                .toString()
-                                .padLeft(1, "0")),)
-                        ),
+                            child: Icon(Icons.shopping_cart_outlined,
+                                size: 25, color: Colors.black87),
+                            position: cartController.cartList.length > 9
+                                ? BadgePosition.topEnd(top: -8, end: -15)
+                                : BadgePosition.topEnd(top: -8, end: -10),
+                            badgeColor: kPrimary,
+                            elevation: 0,
+                            badgeContent: Obx(
+                              () => cartController.cartList.length > 9
+                                  ? Text(cartController.cartList.length
+                                      .toString()
+                                      .padLeft(2, "0"))
+                                  : Text(cartController.cartList.length
+                                      .toString()
+                                      .padLeft(1, "0")),
+                            )),
                       ),
                       SizedBox(
                         width: 5,
