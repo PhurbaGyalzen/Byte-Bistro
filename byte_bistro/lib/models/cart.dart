@@ -135,58 +135,31 @@ class UserId {
       };
 }
 
-String indCart = '''
+Cart predefinedFalsyCartModel = cartFromJson('''
 {
         "status": 0,
-        "duration": 25,
-        "_id": "62bd77e292a41fc8ce5428a4",
+        "duration": 0,
+        "_id": "",
         "userId": {
-            "_id": "627fbfa1d464ffbeb80b985b",
-            "fullname": "Sanjib Limbu Updated"
+            "_id": "",
+            "fullname": ""
         },
         "items": [
             {
                 "foodId": {
-                    "_id": "62b608c2cc64bcda1bbfc313",
-                    "name": "Chowmein",
-                    "price": 120,
-                    "image": "images/1656096958618-image_picker1125605492.jpg",
-                    "isAvailable": true
+                    "_id": "",
+                    "name": "",
+                    "price": 0,
+                    "image": "",
+                    "isAvailable": false
                 },
-                "qty": 2,
-                "_id": "62bd77e292a41fc8ce5428a5"
+                "qty": 0,
+                "_id": ""
             }
         ],
-        "tableId": 9,
+        "tableId": 0,
         "createdAt": "2022-06-30T10:16:02.200Z",
         "updatedAt": "2022-06-30T10:16:02.200Z",
         "__v": 0
     }
-''';
-String lCarts = '[' + indCart + ']';
-
-
-String ind =
-    '{"_id":"628d04284aeaa390fb4d0013","userId": {"_id":"627fbfa1d464ffbeb80b985b", "fullname": "limbu"},"items":[{"foodId":"628b791788b361630f91205f","qty":3,"_id":"628d04284aeaa390fb4d0014"}],"tableId":7,"createdAt":"2022-05-24T16:13:28.124Z","updatedAt":"2022-05-24T16:13:28.124Z","__v":0}';
-
-void main() {
-  Cart cart = cartFromJson(indCart);
-  // for (int i=0; i<)
-  // var carts = json.decode(lCarts).map((x) {
-  //   // print(x.runtimeType);
-  //   // print(json.decode(x));
-  //   print('dg');
-  //   return x;
-  // });
-  // print(json.decode(indCart));
-  // print(Cart.fromJson(json.decode(indCart)));
-  // print(json.decode(lCarts).runtimeType);
-  // print(json.decode(lCarts).map((x) {
-  //   print(x);
-  //   print(x.runtimeType);
-  //   // print(json.decode(x));
-  //   print(Cart.fromJson(x));
-  // }));
-  // print(List<Cart>.from(json.decode(lCarts).map((x) => Cart.fromJson(x))));
-  print(cart);
-}
+''');

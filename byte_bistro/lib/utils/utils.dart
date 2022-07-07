@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:byte_bistro/Services/http_service.dart';
 import 'package:flutter/material.dart';
 
@@ -27,6 +29,15 @@ class VarArgsFunction {
         },
       ),
     );
+  }
+}
+
+class OurTimer {
+  static List<Timer> timers = [];
+  static void cancel() {
+    timers.forEach((timer) {
+      timer.cancel();
+    });
   }
 }
 

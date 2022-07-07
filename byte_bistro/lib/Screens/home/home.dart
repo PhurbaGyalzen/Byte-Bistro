@@ -9,7 +9,6 @@ import 'package:byte_bistro/constants/colors.dart';
 import 'package:byte_bistro/controller/cart_controller.dart';
 import 'package:byte_bistro/controller/food_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:byte_bistro/Screens/home/widgets/app_bar.dart';
 import 'package:byte_bistro/Screens/home/widgets/app_note.dart';
 import 'package:byte_bistro/Screens/home/widgets/food_tab.dart';
 import 'package:byte_bistro/Screens/home/widgets/today_special.dart';
@@ -162,10 +161,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          Get.offNamed('/after-order');
+                          Get.toNamed('/after-order');
                         },
                         child: Icon(
-                          Icons.timelapse,
+                          Icons.timer,
                           size: 28,
                           color: Colors.black87,
                         ),

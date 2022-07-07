@@ -54,7 +54,7 @@ class PaymentSummary extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         title: Text(
-          'Conform Cart',
+          'Confirm Cart',
           style: TextStyle(fontSize: 20, letterSpacing: 1, height: 1.5),
         ),
         leading: IconButton(
@@ -277,7 +277,7 @@ class PaymentSummary extends StatelessWidget {
                             height: 1.5,
                           ),
                         ),
-                        Text(total.toString()),
+                        Text("Rs "+ total.toString()),
                       ],
                     ),
                     SizedBox(
@@ -294,7 +294,7 @@ class PaymentSummary extends StatelessWidget {
                             height: 1.5,
                           ),
                         ),
-                        Text(grandTotal.toString()),
+                        Text("Rs "+ grandTotal.toString()),
                       ],
                     ),
                     SizedBox(
@@ -315,6 +315,7 @@ class PaymentSummary extends StatelessWidget {
                             "userId": userController.userInfo[0].id.toString(),
                             "items": items,
                             "tableId": cartController.tableNumber.toInt(),
+                            "paymentMethod": "CASH",
                           });
                           cartController.cartList.value = [];
                           Get.snackbar(
@@ -454,6 +455,7 @@ class PaymentSummary extends StatelessWidget {
             "userId": userController.userInfo[0].id.toString(),
             "items": items,
             "tableId": cartController.tableNumber.toInt(),
+            "paymentMethod": "ESEWA",
           });
           cartController.cartList.value = [];
           Get.snackbar(

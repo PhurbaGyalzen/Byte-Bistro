@@ -15,6 +15,7 @@ export interface ICart {
 	}[]
 	tableId: number
   status: CartStatus
+  paymentMethod: string
   duration: number
 }
 
@@ -47,6 +48,10 @@ const CartSchemaFields: Record<keyof ICart, any> = {
   },
   tableId: {
     type: Number,
+    required: true,
+  },
+  paymentMethod : {
+    type: String,
     required: true,
   },
   status: {

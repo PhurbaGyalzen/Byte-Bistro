@@ -116,12 +116,20 @@ class CartService {
     }
   }
 
-  Future<Cart?> currUserCart() async {
+  Future<Cart> currUserCart() async {
     http.Response response = await PersistentHtpp.get('cart/user/incomplete');
     if (response.statusCode > 299) {
-      return null;
+      return predefinedFalsyCartModel;
     }
     Cart cart = cartFromJson(response.body);
     return cart;
+  }
+
+  Future<Cart> changeDuration(String cartId, int duration,
+      {String type = 'overwrite'}) async {
+    http.Response response = await PersistentHtpp.post(
+        'cart/duration/' + cartId,
+        body: json.encode({'opType': type, 'value': duration}));
+    return cartFromJson(response.body);
   }
 }

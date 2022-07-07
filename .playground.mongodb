@@ -12,3 +12,10 @@ db.carts.updateMany({
     "status": 0
   }
 });
+
+// db.carts.find({
+//   userId: ObjectId('627fbfa1d464ffbeb80b985b'),
+//   status: {
+//     $lt: 3
+//   }
+// })

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 class FoodController extends GetxController {
   var foodList = [].obs;
+  var menuList = [].obs;
   var foundFood = [].obs;
   var isAvailable = true.obs;
 
@@ -22,6 +23,15 @@ class FoodController extends GetxController {
       return data;
     }
   }
+
+  getFoodMenu() async {
+    var data = await foodService.getFoodMenu();
+    if (data != null) {
+      menuList.value = data;
+      return data;
+    }
+  }
+  
 
   // get single food
   getSingleFood(String foodId) async {
