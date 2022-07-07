@@ -31,7 +31,7 @@ export const userCart = async (
 	next: NextFunction
 ) => {
 	try {
-		const cart = await Cart.find({ userId: req.user?.id}).populate({
+		const cart = await Cart.find({ userId: req.user?.id,status:{$eq:2}}).sort({createdAt: -1}).populate({
 			path: 'items.foodId',
 			select: 'name price image isAvailable',
 		})

@@ -36,8 +36,6 @@ class _UserInvoiceListState extends State<UserInvoiceList> {
       body: FutureBuilder(
         future: userInvoiceController.getUserInvoiceControllerInfo(),
         builder: (context, snapshot) {
-    
-
           if (snapshot.hasData) {
             List<UserInvoiceModel> data =
                 snapshot.data as List<UserInvoiceModel>;
@@ -48,9 +46,9 @@ class _UserInvoiceListState extends State<UserInvoiceList> {
                 int indexTotaL = data[index].items.length;
                 late UserInvoiceModel dataIndex = data[index];
                 late num totalPrice = 0;
-                String date1 = data[index].createdAt.toString();
-                date1 = date1.split(" ")[0];
-
+                String date1 = data[index].createdAt.toString().substring(0,10);
+                // date1 = date1.split(" ")[0];
+                print(" date1 $date1");
 
                 for (int i = 0; i < indexTotaL; i++) {
                   totalPrice += (data[index].items[i].qty *
@@ -80,11 +78,9 @@ class _UserInvoiceListState extends State<UserInvoiceList> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        
                         SizedBox(
                           height: 10,
                         ),
-
                         Row(
                           children: [
                             Expanded(
