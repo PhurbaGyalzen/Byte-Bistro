@@ -31,3 +31,16 @@ export const addCategory = async (
     res.status(400).json({ message: err });
   }
 };
+
+export const deleteCategory = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const category = await Category.findByIdAndDelete(req.params.categoryId);
+    res.status(200).json(category);
+  } catch (err) {
+    res.status(400).json({ message: err });
+  }
+};
