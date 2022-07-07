@@ -38,6 +38,7 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
       print('connected to websocket');
     });
     socket.on('order_status_change', (message) {
+      print("timeline screen: order status changed");
         if (mounted) {
           setState(() {
           orderStatus = message['orderStatus'];

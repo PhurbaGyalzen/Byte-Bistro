@@ -126,7 +126,7 @@ class CartController extends GetxController {
     return true;
   }
 
-  addCart(Map<String, dynamic> data) async {
+  Future addCart(Map<String, dynamic> data) async {
     var response = await cartService.addCart(data);
     return response;
   }

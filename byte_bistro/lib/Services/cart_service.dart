@@ -2,6 +2,7 @@ import 'package:byte_bistro/models/cart.dart';
 import 'dart:convert';
 
 import 'package:byte_bistro/Services/http_service.dart';
+import 'package:byte_bistro/models/created_cart.dart';
 import "package:http/http.dart" as http;
 
 class CartService {
@@ -66,10 +67,10 @@ class CartService {
         },
       );
       if (response.statusCode == 200) {
-        return 'success';
+        return createdCartFromJson(response.body);
       }
     } catch (err) {
-      return Future.error(' err');
+      return Future.error('err ${err}');
     }
   }
 

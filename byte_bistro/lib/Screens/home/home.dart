@@ -56,14 +56,13 @@ class _HomePageState extends State<HomePage> {
     WebSocketService.authenticate();
     socket.on('connect', (_) {
       print('connected to websocket');
-    });
-    socket.on('order_status_change', (message) {
-      if (mounted) {
+      socket.on('order_status_change', (message) {
+        print("Home: order status changed");
         if (message['orderStatus'] == CartStatus.Ready.index) {
           notify('Order Notification',
               'Your order is ready, please pick it up from the counter.');
-        }
-      }
+        } 
+      });
     });
     socket.on('disconnect', (_) {
       print('socket disconnected...');
@@ -214,7 +213,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           color: Colors.black87,
                         ),
                       ),
-                      
                       SizedBox(
                         width: 20,
                       ),
@@ -227,21 +225,22 @@ class _HomeScreenState extends State<HomeScreen> {
                           }
                         },
                         child: Badge(
-                          child: Icon(Icons.shopping_cart_outlined,
-                              size: 25, color: Colors.black87),
-                          position: cartController.cartList.length > 9 ? BadgePosition.topEnd(top: -8, end: -15): BadgePosition.topEnd(top: -8, end: -10),
-                          badgeColor: kPrimary,
-                          elevation: 0,
-                          badgeContent: Obx(
-                            () => 
-                            cartController.cartList.length > 9 ?
-                            Text(cartController.cartList.length
-                                .toString()
-                                .padLeft(2, "0"))
-                          : Text(cartController.cartList.length
-                                .toString()
-                                .padLeft(1, "0")),)
-                        ),
+                            child: Icon(Icons.shopping_cart_outlined,
+                                size: 25, color: Colors.black87),
+                            position: cartController.cartList.length > 9
+                                ? BadgePosition.topEnd(top: -8, end: -15)
+                                : BadgePosition.topEnd(top: -8, end: -10),
+                            badgeColor: kPrimary,
+                            elevation: 0,
+                            badgeContent: Obx(
+                              () => cartController.cartList.length > 9
+                                  ? Text(cartController.cartList.length
+                                      .toString()
+                                      .padLeft(2, "0"))
+                                  : Text(cartController.cartList.length
+                                      .toString()
+                                      .padLeft(1, "0")),
+                            )),
                       ),
                       SizedBox(
                         width: 5,
