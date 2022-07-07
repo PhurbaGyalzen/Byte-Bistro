@@ -4,10 +4,12 @@ import 'package:byte_bistro/Services/ws_service.dart';
 import 'package:byte_bistro/constants/colors.dart';
 import 'package:byte_bistro/controller/cart_controller.dart';
 import 'package:byte_bistro/models/cart.dart';
+import 'package:byte_bistro/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:byte_bistro/utils/utils.dart' as utils;
 import 'package:get/get.dart';
 import 'package:jiffy/jiffy.dart';
+import 'package:byte_bistro/utils/push_notification.dart';
 
 class AfterOrderScreen extends StatefulWidget {
   const AfterOrderScreen({Key? key}) : super(key: key);
@@ -48,6 +50,11 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
             }
           });
         }
+        // outside mounted check, cuz this could be called @ home
+        if (message['orderStatus'] == CartStatus.Ready.index) {
+          notify('Order Notification',
+              'Your order is ready, please pick it up from the counter.');
+        }
       });
     });
     socket.on('disconnect', (_) {
@@ -57,6 +64,7 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
 
   @override
   void dispose() {
+    // disconnecting socket may not display order ready notification
     socket.disconnect();
     orderDurationTimeController.dispose();
     super.dispose();
