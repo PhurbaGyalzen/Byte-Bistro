@@ -51,7 +51,7 @@ class CartFood extends StatelessWidget {
             ],
           ),
           child: Obx(
-            ()=> ListView.builder(
+            () => ListView.builder(
                 shrinkWrap: true,
                 primary: false,
                 itemCount: cartController.cartList.length,
@@ -83,7 +83,8 @@ class CartFood extends StatelessWidget {
                           boxShadow: [
                             BoxShadow(
                               blurRadius: 5,
-                              offset: Offset(0, 3), // changes position of shadow
+                              offset:
+                                  Offset(0, 3), // changes position of shadow
                               color: Color(0xFFB0CCE1).withOpacity(0.32),
                             ),
                           ],
@@ -129,7 +130,7 @@ class CartFood extends StatelessWidget {
                                 ),
                               ],
                             ),
-          
+
                             // Add and Remove Item
                             Row(
                               children: [
@@ -170,7 +171,8 @@ class CartFood extends StatelessWidget {
                                         color: kPrimary,
                                         borderRadius: BorderRadius.circular(5)),
                                     child: Image(
-                                      image: AssetImage('assets/images/add.png'),
+                                      image:
+                                          AssetImage('assets/images/add.png'),
                                       height: 25,
                                       width: 25,
                                     ),
@@ -179,7 +181,7 @@ class CartFood extends StatelessWidget {
                               ],
                             ),
                             // specify type as Controller
-          
+
                             //       .toString(),, // value is an instance of Controller.
                           ],
                         ),

@@ -1,6 +1,8 @@
 //PaymentSummary
+import 'package:byte_bistro/Services/ws_service.dart';
 import 'package:byte_bistro/controller/cart_controller.dart';
 import 'package:byte_bistro/controller/logged_user_info_controller.dart';
+import 'package:byte_bistro/models/created_cart.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:esewa_pnp/esewa.dart';
 import 'package:esewa_pnp/esewa_pnp.dart';
@@ -17,6 +19,7 @@ class PaymentSummary extends StatelessWidget {
   var grandTotal = 0.0;
   final LoggedUserInfoController userController = Get.find();
   List items = [];
+  final socket = WebSocketService.socket;
 
   @override
   Widget build(BuildContext context) {
@@ -277,7 +280,7 @@ class PaymentSummary extends StatelessWidget {
                             height: 1.5,
                           ),
                         ),
-                        Text("Rs "+ total.toString()),
+                        Text("Rs " + total.toString()),
                       ],
                     ),
                     SizedBox(
@@ -294,7 +297,7 @@ class PaymentSummary extends StatelessWidget {
                             height: 1.5,
                           ),
                         ),
-                        Text("Rs "+ grandTotal.toString()),
+                        Text("Rs " + grandTotal.toString()),
                       ],
                     ),
                     SizedBox(
@@ -309,9 +312,9 @@ class PaymentSummary extends StatelessWidget {
                           style: Theme.of(context).textTheme.headline1,
                         )),
                     InkWell(
-                      onTap: () {
+                      onTap: () async {
                         if (cartController.tableNumber.value != 0) {
-                          cartController.addCart({
+                          CreatedCart newCart = await cartController.addCart({
                             "userId": userController.userInfo[0].id.toString(),
                             "items": items,
                             "tableId": cartController.tableNumber.toInt(),
@@ -329,6 +332,8 @@ class PaymentSummary extends StatelessWidget {
                             dismissDirection: DismissDirection.horizontal,
                             snackPosition: SnackPosition.TOP,
                           );
+                          socket.emit('create', [newCart.id]);
+
                           Get.offNamed("/home");
                         } else {
                           Get.snackbar(
@@ -451,7 +456,7 @@ class PaymentSummary extends StatelessWidget {
       if (cartController.tableNumber.value != 0) {
         final res = await _esewaPnp.initPayment(payment: _payment);
         if (res.status == "COMPLETE") {
-          cartController.addCart({
+          CreatedCart newCart = await cartController.addCart({
             "userId": userController.userInfo[0].id.toString(),
             "items": items,
             "tableId": cartController.tableNumber.toInt(),
@@ -469,6 +474,7 @@ class PaymentSummary extends StatelessWidget {
             dismissDirection: DismissDirection.horizontal,
             snackPosition: SnackPosition.TOP,
           );
+          socket.emit('create', [newCart.id]);
           Get.offNamed("/home");
         } else {
           Get.snackbar(
