@@ -71,7 +71,9 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
     if (mounted) {
       orderDurationTimeController.text = duration.toString();
     } else {
+      // means we can cancel all the timers
       print('cannot set duration. widget is not mounted');
+      OurTimer.cancel();
     }
     return true;
   }
@@ -79,6 +81,8 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
   void setTimer(int currStatus, int updatedAt) {
     // only countdown timer if food is preparing.
     if (CartStatus.Preping.index == currStatus) {
+      // first cancel previous timers
+      OurTimer.cancel();
       int secs = orderDurationMin! * 60 -
           ((DateTime.now().millisecondsSinceEpoch ~/ 1000) - updatedAt);
       int mins = secs ~/ 60;
@@ -86,6 +90,7 @@ class _AfterOrderScreenState extends State<AfterOrderScreen> {
         Timer t = Timer(Duration(minutes: i), () {
           setDurationField(mins - i);
         });
+        OurTimer.timers.add(t);
       }
     }
   }
