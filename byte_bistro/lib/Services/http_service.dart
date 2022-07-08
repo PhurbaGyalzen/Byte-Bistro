@@ -13,7 +13,7 @@ class PersistentHtpp {
 
   static String baseUrl =
       'http://' + (dotenv.env['BACKEND_HOST'] ?? baseHost) + ':$PORT/';
-  // static String baseUrl = 'http://httpbin.org/';
+  // static String baseUrl = 'https://bytebistro.herokuapp.com/';
 
   static Map<String, String> headers = {};
 
