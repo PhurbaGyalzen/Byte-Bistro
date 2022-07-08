@@ -13,7 +13,7 @@ jobs:
       fail-fast: false
       matrix:
         # parallely build apk on ubuntu, ipa on macos and windows on windows
-        os: [macOS-latest, ubuntu-latest, windows-latest]
+        os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
     defaults:
       run:
@@ -36,6 +36,9 @@ jobs:
         with:
           flutter-version: '2.x'
           channel: 'beta'
+
+      - name: Create empty .env file
+      - run: touch .env
 
       - name: Install Dependencies
         run: flutter pub get
