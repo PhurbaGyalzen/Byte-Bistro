@@ -1,6 +1,6 @@
 import { Request } from 'express'
-import { IUser } from '@mytypes/Auth'
+import { IAuthenticatedUser } from '@mytypes/Auth'
 
 export interface IRequest extends Request {
-	user: IUser
+	user: IAuthenticatedUser
 }
