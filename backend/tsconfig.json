@@ -22,7 +22,7 @@
       "node_modules/@types",
       "typings"
     ],
-    "outDir": "/dist",
+    "outDir": "dist",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true
