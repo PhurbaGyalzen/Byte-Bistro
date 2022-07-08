@@ -22,7 +22,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-
       - name: Setup stable flutter env (*nix)
         if: ${{ runner.os != 'Windows' }}
         uses: subosito/flutter-action@v1
@@ -99,6 +98,9 @@ jobs:
   release:
     runs-on: ubuntu-latest
     needs: build
+    defaults:
+      run:
+        working-directory: ./byte_bistro
     steps:
       - uses: actions/checkout@v2
 
