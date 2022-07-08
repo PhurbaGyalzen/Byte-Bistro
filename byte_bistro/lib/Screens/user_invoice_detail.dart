@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 import 'dart:io';
 
 import 'package:pdf/pdf.dart';
-import 'package:pdf/widgets.dart ' as pw;
+import 'package:pdf/widgets.dart' as pw;
 
 import 'package:path_provider/path_provider.dart';
 import 'package:open_file/open_file.dart';
@@ -35,8 +35,7 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
 
   late int length = widget.data.items.length;
   late int tax = (widget.totalPrice * (13 / 100)).toInt();
-  late String date1 = widget.data.createdAt.toString().substring(0,10);
-
+  late String date1 = widget.data.createdAt.toString().substring(0, 10);
 
   Future getPdf() async {
     pw.Document pdf = pw.Document();
@@ -337,7 +336,7 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
   @override
   Widget build(BuildContext context) {
     var tax = (widget.totalPrice * (13 / 100)).toInt();
-    late String date1 = widget.data.createdAt.toString().substring(0,10);
+    late String date1 = widget.data.createdAt.toString().substring(0, 10);
 
     return Scaffold(
       appBar: AppBar(
@@ -469,7 +468,7 @@ class _UserInvoiceDetail extends State<UserInvoiceDetail> {
                     // physics: NeverScrollableScrollPhysics(),
                     itemCount: widget.data.items.length,
                     itemBuilder: (context, index) {
-                       print("widget.data.items[index].foodId.name");
+                      print("widget.data.items[index].foodId.name");
                       print(widget.data.items[index].foodId.name);
                       return Container(
                         margin: EdgeInsets.only(top: 10),
