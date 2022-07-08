@@ -15,9 +15,13 @@ jobs:
         # parallely build apk on ubuntu, ipa on macos and windows on windows
         os: [macOS-latest, ubuntu-latest, windows-latest]
     runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        working-directory: ./byte_bistro
     if: startsWith(github.ref, 'refs/tags/v')
     steps:
       - uses: actions/checkout@v2
+
 
       - name: Setup stable flutter env (*nix)
         if: ${{ runner.os != 'Windows' }}
