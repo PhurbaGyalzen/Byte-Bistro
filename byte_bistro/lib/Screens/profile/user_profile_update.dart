@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:byte_bistro/Services/auth_service.dart';
 import 'package:byte_bistro/Services/http_service.dart';
 import 'package:byte_bistro/models/loged_user_info.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:byte_bistro/controller/logged_user_info_controller.dart';
@@ -79,7 +80,7 @@ class _UserProfileUpdateFormState extends State<UserProfileUpdateForm> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.only(left: 26, top: 50, right: 26),
+          padding: EdgeInsets.only(left: 26, top: 40, right: 26),
           child: Form(
             key: formkey,
             child: Column(
@@ -92,12 +93,23 @@ class _UserProfileUpdateFormState extends State<UserProfileUpdateForm> {
                       if (snapshot.hasData) {
                         return Stack(
                           children: [
-                            CircleAvatar(
-                              backgroundImage: NetworkImage(
-                                PersistentHtpp.baseUrl + data!.profile,
-                              ),
-                              radius: 70,
+                            ClipRRect(
+                            borderRadius: BorderRadius.all(Radius.circular(150)),
+
+                            child: CachedNetworkImage(
+                              fit: BoxFit.cover,
+                              height: 150,
+                              width: 150,
+                              imageUrl: PersistentHtpp.baseUrl + data!.profile,
+                              placeholder: (context, url) => Image(
+                                  fit: BoxFit.cover,
+                                  image: AssetImage(
+                                    'assets/images/loading.gif',
+                                  )),
+                              errorWidget: (context, url, error) =>
+                                  Icon(Icons.error),
                             ),
+                          ),
                             Positioned(
                               bottom: 0,
                               right: 0,

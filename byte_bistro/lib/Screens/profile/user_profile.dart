@@ -4,6 +4,7 @@ import 'package:byte_bistro/Screens/profile/user_profile_update.dart';
 import 'package:byte_bistro/Services/http_service.dart';
 import 'package:byte_bistro/controller/logged_user_info_controller.dart';
 import 'package:byte_bistro/models/loged_user_info.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -41,79 +42,72 @@ class _UserProfilePageState extends State<UserProfilePage> {
         foregroundColor: kTextColor,
       ),
       body: Container(
-        padding: EdgeInsets.only(left: 26, top: 15, right: 26),
+        padding: EdgeInsets.only(left: 26, right: 26),
         child: Column(
           children: [
-            SizedBox(
-              height: 40,
-            ),
-            Center(
-              child: FutureBuilder(
-                  future: userController.getLoggedUserInfo(),
-                  builder: (context, snapshot) {
-                    LoggedUserInfo? data = snapshot.data as LoggedUserInfo?;
-                    if (snapshot.hasData) {
-                      return Stack(
-                        children: [
-                          CircleAvatar(
-                            backgroundImage:
-                               NetworkImage( PersistentHtpp.baseUrl
-                      + data!.profile,
-                    ),
-                            radius: 60,
-                          ),
-                          Positioned(
-                            bottom: 0,
-                            right: 0,
-                            child: Container(
-                              height: 40,
-                              width: 40,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                  width: 4,
-                                  color:
-                                      Theme.of(context).scaffoldBackgroundColor,
-                                ),
-                                color: Theme.of(context).primaryColor,
-                              ),
-                              child: Icon(
-                                Icons.verified_user,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ],
-                      );
-                    } else {
-                      return CircularProgressIndicator();
-                    }
-                  }),
-            ),
-            SizedBox(
-              height: 30,
-            ),
+            // SizedBox(
+            //   height: 40,
+            // ),
             Expanded(
               child: FutureBuilder(
                 future: userController.getLoggedUserInfo(),
                 builder: (context, snapshot) {
-                  print("snapshot");
-                  print(snapshot);
-                  print("snapshot.hasData ${snapshot.hasData}");
-                  print("snapshot.data ${snapshot.data}");
                   if (snapshot.hasData) {
                     LoggedUserInfo data = snapshot.data as LoggedUserInfo;
-                    print(" fav ${data.favoriteFoods}");
 
                     return ListView.builder(
                       itemCount: 1,
                       itemBuilder: (context, index) {
                         return Column(
                           children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                            SizedBox(height: 30,),
+                            Stack(
                               children: [
-                                SizedBox(
+                                ClipRRect(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(150)),
+                                  child: CachedNetworkImage(
+                                    fit: BoxFit.cover,
+                                    height: 150,
+                                    width: 150,
+                                    imageUrl:
+                                        PersistentHtpp.baseUrl + data!.profile,
+                                    placeholder: (context, url) => Image(
+                                        fit: BoxFit.cover,
+                                        image: AssetImage(
+                                          'assets/images/loading.gif',
+                                        )),
+                                    errorWidget: (context, url, error) =>
+                                        Icon(Icons.error),
+                                  ),
+                                ),
+                                Positioned(
+                                  bottom: 0,
+                                  right: 0,
+                                  child: Container(
+                                    height: 40,
+                                    width: 40,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      border: Border.all(
+                                        width: 4,
+                                        color: Theme.of(context)
+                                            .scaffoldBackgroundColor,
+                                      ),
+                                      color: Theme.of(context).primaryColor,
+                                    ),
+                                    child: Icon(
+                                      Icons.verified_user,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top:20.0),
+                              child: Center(
+                                child: SizedBox(
                                   width: 120,
                                   child: OutlinedButton(
                                     onPressed: () {
@@ -153,10 +147,10 @@ class _UserProfilePageState extends State<UserProfilePage> {
                                     ),
                                   ),
                                 ),
-                              ],
+                              ),
                             ),
                             SizedBox(
-                              height: 50,
+                              height: 30,
                             ),
                             Row(
                               children: [
