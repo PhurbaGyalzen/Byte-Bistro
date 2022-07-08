@@ -1,1 +1,1 @@
-web: npm run dev
+web: npx ts-node --require dotenv/config --require tsconfig-paths/register --files index.ts
