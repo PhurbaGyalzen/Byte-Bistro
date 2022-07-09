@@ -35,9 +35,10 @@ class VarArgsFunction {
 class OurTimer {
   static List<Timer> timers = [];
   static void cancel() {
-    timers.forEach((timer) {
-      timer.cancel();
-    });
+    while (timers.isNotEmpty) {
+      // remove the first timer from the list and cancel it, unitl there is no more.
+      timers.removeAt(0).cancel();
+    }
   }
 }
 
