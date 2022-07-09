@@ -107,12 +107,13 @@ jobs:
     needs: build
     defaults:
       run:
-        working-directory: byte_bistro
+        working-directory: ./byte_bistro
     steps:
+      - uses: actions/checkout@v2
+      
       - name: store the CWD in an ENV variable
         run: echo "CWD=$PWD" >> $GITHUB_ENV
 
-      - uses: actions/checkout@v2
 
       - uses: actions/download-artifact@v2
         id: downID
