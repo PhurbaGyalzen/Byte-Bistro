@@ -50,3 +50,13 @@ VarArgsFunction relativeNetworkImage = VarArgsFunction((args, kwargs) {
 NetworkImage RelativeNetworkImage(String url) {
   return NetworkImage(PersistentHtpp.baseUrl + url, scale: 1.0);
 }
+
+String trimRight(String from, String pattern) {
+  if ((from).isEmpty || (pattern).isEmpty || pattern.length > from.length)
+    return from;
+
+  while (from.endsWith(pattern)) {
+    from = from.substring(0, from.length - pattern.length);
+  }
+  return from;
+}

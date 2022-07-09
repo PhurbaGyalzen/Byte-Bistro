@@ -160,8 +160,8 @@ const initWebSocket = (app: Express) => {
 			// console.log((await io.fetchSockets())[0].id)
 		})
 	})
-
-
+	
+	// io.listen(httpServer)
 	return httpServer
 }
 

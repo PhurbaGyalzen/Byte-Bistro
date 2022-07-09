@@ -122,9 +122,7 @@ jobs:
           name: bins
           path: ${{ env.CWD }}/build    # download to ./build/
 
-      - name: Echo download path
-        run: ls build/ -aFR
-
+      # needs write permissions on contents.
       - name: Push artificats to Releases
         uses: ncipollo/release-action@v1
         with:
