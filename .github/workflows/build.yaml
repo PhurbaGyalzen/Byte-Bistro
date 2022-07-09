@@ -17,9 +17,13 @@ jobs:
     runs-on: ${{ matrix.os }}
     defaults:
       run:
+        # this only sets cwd for commands in `run` label and not in `uses`. 
         working-directory: ./byte_bistro
     if: startsWith(github.ref, 'refs/tags/v')
     steps:
+      - name: store the CWD in an ENV variable
+        run: echo "CWD=$PWD" >> $GITHUB_ENV
+
       - uses: actions/checkout@v2
 
       - name: Setup stable flutter env (*nix)
@@ -78,21 +82,21 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: bins
-          path: build/app/outputs/apk/release/*.apk
+          path: ${{ env.CWD }}/build/app/outputs/apk/release/*.apk
 
       - name: Upload IPA
         if: ${{ runner.os == 'macOS' }}
         uses: actions/upload-artifact@v2
         with:
           name: bins
-          path: build/ios/iphoneos/app.ipa
+          path: ${{ env.CWD }}/build/ios/iphoneos/app.ipa
       
       - name: Upload windows executable bundle
         if: ${{ runner.os == 'Windows' }}
         uses: actions/upload-artifact@v2
         with:
           name: bins
-          path: build/windows/runner/windows_executable.zip
+          path: ${{ env.CWD }}/build/windows/runner/windows_executable.zip
                 
 
   release:
@@ -102,13 +106,16 @@ jobs:
       run:
         working-directory: ./byte_bistro
     steps:
+      - name: store the CWD in an ENV variable
+        run: echo "CWD=$PWD" >> $GITHUB_ENV
+
       - uses: actions/checkout@v2
 
       - uses: actions/download-artifact@v2
         id: downID
         with:
           name: bins
-          path: build # download to ./build/
+          path: ${{ env.CWD }}/build    # download to ./build/
 
       - name: Echo download path
         run: ls build/ -aFR
@@ -116,6 +123,6 @@ jobs:
       - name: Push artificats to Releases
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "build/*"
+          artifacts: "${{ env.CWD }}/build/*"
           token: ${{ secrets.GITHUB_TOKEN }}
 
