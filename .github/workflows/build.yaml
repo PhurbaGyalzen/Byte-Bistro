@@ -18,7 +18,7 @@ jobs:
     defaults:
       run:
         # this only sets cwd for commands in `run` label and not in `uses`. 
-        working-directory: ./byte_bistro
+        working-directory: byte_bistro
     if: startsWith(github.ref, 'refs/tags/v')
     steps:
       - name: store the CWD in an ENV variable
@@ -104,7 +104,7 @@ jobs:
     needs: build
     defaults:
       run:
-        working-directory: ./byte_bistro
+        working-directory: byte_bistro
     steps:
       - name: store the CWD in an ENV variable
         run: echo "CWD=$PWD" >> $GITHUB_ENV
