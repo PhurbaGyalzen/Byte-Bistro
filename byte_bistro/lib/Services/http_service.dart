@@ -11,9 +11,9 @@ class PersistentHtpp {
   static var client = http.Client();
   static const baseHost = "192.168.101.2";
 
-  static String baseUrl =
-      'http://' + (dotenv.env['BACKEND_HOST'] ?? baseHost) + ':$PORT/';
-  // static String baseUrl = 'https://bytebistro.herokuapp.com/';
+  // static String baseUrl =
+  //     'http://' + (dotenv.env['BACKEND_HOST'] ?? baseHost) + ':$PORT/';
+  static String baseUrl = 'https://bytebistro.herokuapp.com/';
 
   static Map<String, String> headers = {};
 
