@@ -110,7 +110,7 @@ jobs:
         working-directory: ./byte_bistro
     steps:
       - uses: actions/checkout@v2
-      
+
       - name: store the CWD in an ENV variable
         run: echo "CWD=$PWD" >> $GITHUB_ENV
 
@@ -127,6 +127,6 @@ jobs:
       - name: Push artificats to Releases
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "${{ env.CWD }}/build/*"
+          artifacts: "byte_bistroj/build/*"
           token: ${{ secrets.GITHUB_TOKEN }}
 
