@@ -87,7 +87,9 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: bins
-          path: ${{ env.CWD }}/build/app/outputs/apk/release/*.apk
+          path: |
+              ${{ env.CWD }}/build/app/outputs/apk/release/*.apk
+              ${{ env.CWD }}/build/app/outputs/flutter-apk/*.apk
 
       - name: Upload IPA
         if: ${{ runner.os == 'macOS' }}
