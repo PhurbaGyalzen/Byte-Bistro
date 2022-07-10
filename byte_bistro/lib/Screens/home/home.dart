@@ -18,6 +18,7 @@ import 'package:byte_bistro/Screens/home/widgets/today_special.dart';
 import 'package:get/get.dart';
 import 'package:hidable/hidable.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
+import 'package:shake/shake.dart';
 
 import '../favourite/favourite.dart';
 import '../profile/profile_screen.dart';
@@ -30,6 +31,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  
   var selectedIndex = 0;
   final ScrollController scrollController = ScrollController();
 
@@ -52,7 +54,15 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-
+    ShakeDetector.autoStart(
+      onPhoneShake: () {
+        Get.to(QrScannerScreen());
+      },
+      minimumShakeCount: 1,
+      shakeSlopTimeMS: 500,
+      shakeCountResetTime: 3000,
+      shakeThresholdGravity: 2.7,
+    );
     WebSocketService.authenticate();
     socket.on('connect', (_) {
       print('connected to websocket');
@@ -67,6 +77,7 @@ class _HomePageState extends State<HomePage> {
     socket.on('disconnect', (_) {
       print('socket disconnected...');
     });
+
   }
 
   @override
