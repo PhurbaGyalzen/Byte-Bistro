@@ -71,7 +71,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                                     height: 150,
                                     width: 150,
                                     imageUrl:
-                                        PersistentHtpp.baseUrl + data!.profile,
+                                        PersistentHtpp.baseUrl + data.profile,
                                     placeholder: (context, url) => Image(
                                         fit: BoxFit.cover,
                                         image: AssetImage(
