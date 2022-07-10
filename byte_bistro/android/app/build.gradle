@@ -59,6 +59,12 @@ android {
             storeFile file('upload-keystore.jks')
             storePassword 'andriod'
         }
+        release {
+            keyAlias 'upload'
+            keyPassword 'andriod'
+            storeFile file('upload-keystore.jks')
+            storePassword 'andriod'
+        }
     }
 
     buildTypes {
