@@ -44,7 +44,9 @@ jobs:
           channel: 'beta'
 
       - name: Create empty .env file
-        run: touch .env
+        run: |
+            touch .env
+            ls -aF
 
       - name: Install Dependencies
         run: flutter pub get
