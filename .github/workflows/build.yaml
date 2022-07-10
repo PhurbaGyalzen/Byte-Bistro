@@ -60,7 +60,7 @@ jobs:
 
       - name: Build apk
         if: ${{ runner.os == 'Linux' }}
-        run: flutter build apk
+        run: flutter build apk --debug
 
       - name: Build iOS App
         if: ${{ runner.os == 'macOS' }}
